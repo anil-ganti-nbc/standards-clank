@@ -30,6 +30,11 @@
     "failure_means": "Clicking 'run all' also runs an experimental/soak/non-promoted collector with no explicit override."
   },
   {
+    "standard": "STD-UI-COM-007",
+    "question": "Where manual collector controls exist, do they follow the Clank's lifecycle policy \u2014 non-production collectors identified as non-production at the control, such runs isolated from bulk actions, and no control at all where policy forbids manual runs?",
+    "failure_means": "A manual control runs an experimental/soak collector with no non-production indication at the control, such a run is reachable via or counted in a production run-all, or a control is exposed for a collector whose policy forbids manual execution."
+  },
+  {
     "standard": "STD-UI-COM-008",
     "question": "Can an operator read a source's operational health as a distinct, separately-labeled value from its coverage/output, without a legitimately quiet source misreading as unhealthy?",
     "failure_means": "Health and coverage are blended into one score/badge with no way to tell which drove the result, or a source with zero new items renders identically to a failing one."
@@ -50,6 +55,11 @@
     "failure_means": "Delivery outcomes are computed/persisted but never shown in the GUI, or collapsed into a single boolean that can't distinguish failed/suppressed from never-attempted."
   },
   {
+    "standard": "STD-UI-COM-012",
+    "question": "Does the primary workflow surface avoid presenting the Clank as healthy or operational solely from content activity when health is not actually represented there \u2014 and where health is separated, is an obvious path to current health provided when operational judgement is part of the workflow?",
+    "failure_means": "A landing/primary page presents activity, counts, or queue movement in a way that reads as health with no measured health behind it, or health is separated with no obvious path to it where the operator needs it for judgement."
+  },
+  {
     "standard": "STD-UI-NEWS-001",
     "question": "For a news-family Clank, does the QC vocabulary include DUPLICATE as its fourth terminal action, not OUT_OF_STOCK?",
     "failure_means": "A news-family Clank's QC vocabulary uses OUT_OF_STOCK, or has no way to mark a lead as not-novel/already-covered."
@@ -58,5 +68,10 @@
     "standard": "STD-UI-NEWS-002",
     "question": "For a news-family Clank, is the live intake/review queue exposed directly on the default landing surface, or reachable via one single obvious action?",
     "failure_means": "The default landing view is a stats/health page and reaching the review queue requires searching through navigation."
+  },
+  {
+    "standard": "STD-UI-SKU-001",
+    "question": "Where availability is in scope for the QC model, is an availability-negative outcome kept distinct from false-positive, duplicate, and not-useful \u2014 via any queryable encoding \u2014 rather than folded into them?",
+    "failure_means": "An availability-negative case can only be expressed as false-positive or not-useful, or availability semantics are forced onto a QC model whose Clank does not track availability."
   }
 ]

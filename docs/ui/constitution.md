@@ -15,9 +15,12 @@ MUST, MUST NOT, or MAY) is derived from, and cites inline, a RATIFIED
 `PROPOSED` is listed only in the "Pending / Not Yet Normative" section at
 the end, and is never phrased as a requirement — do not implement or
 enforce it as one. See
-[decisions/0003](../../decisions/0003-operator-ratification-decision-001.md)
-and
-[decisions/0004](../../decisions/0004-operator-ratification-decision-002.md)
+[decisions/0003](../../decisions/0003-operator-ratification-decision-001.md),
+[decisions/0004](../../decisions/0004-operator-ratification-decision-002.md),
+and the Pass 3 decisions
+[0007](../../decisions/0007-pass3-com-012-decision.md),
+[0008](../../decisions/0008-pass3-com-007-decision.md), and
+[0009](../../decisions/0009-pass3-sku-001-decision.md)
 for how each of the following was ratified.
 
 **Backend requirements are not cosmetic UI advice.** Several principles
@@ -95,6 +98,15 @@ exists at all. A Clank with no production/experimental distinction is out
 of scope for both — not in violation of either. (`STD-UI-COM-005`,
 `STD-UI-COM-006`)
 
+**D4.** Manual collector controls must follow the Clank's
+lifecycle/authority policy: a collector in EXPERIMENTAL/SOAK state does
+not become runnable merely because a GUI control exists for it. Where
+policy permits manual runs of a non-production collector, the control
+must identify it as non-production at the point of control and such runs
+must stay isolated from production bulk actions; where policy forbids
+manual runs, no individual control may be exposed for it.
+(`STD-UI-COM-007`)
+
 ## E. Health and coverage
 
 **E1.** An operator MUST be able to determine a source's operational
@@ -114,6 +126,12 @@ or even one table MAY show both health and coverage together, provided
 they remain clearly distinct, separately-labeled dimensions. Coexisting on
 one surface is not itself non-conformant; conflating them into one blended
 metric is. (`STD-UI-COM-008`)
+
+**E4.** A primary operator surface must not present the Clank as healthy,
+normal, or operational solely from successful content activity when
+health is not actually represented there; where health is intentionally
+separated, an obvious path to current health should exist when
+operational judgement is part of the workflow. (`STD-UI-COM-012`)
 
 ## F. Run observability
 
@@ -214,32 +232,29 @@ scope, not non-conformance. (`STD-UI-COM-004`, `STD-UI-COM-005`,
 extra QC action value, an additional labeled health/coverage dimension) is
 permitted as long as the rule's minimum is still met. (`STD-UI-NEWS-001`)
 
+**K1.** Where availability is in scope for a SKU/product-based Clank's QC
+model, an availability-negative outcome ("this product exists and was
+correctly identified, but is not currently available") must remain a
+distinct, queryable disposition — never folded into false-positive,
+duplicate, or not-useful. Any encoding satisfies this (a dedicated
+disposition, or an event-type-plus-reason-code pair); a literal
+OUT_OF_STOCK label is not required, and the rule never imposes
+availability tracking on a Clank that does not model it.
+(`STD-UI-SKU-001`)
+
 ---
 
 ## Pending / Not Yet Normative
 
-These are `PROPOSED`, not `RATIFIED`. They may be mentioned to an operator
-as pending guidance or a preview of likely future direction — **an
-implementation agent MUST NOT treat any of these as a requirement, MUST
-NOT enforce them in a conformance report as if they were ratified, and
-MUST NOT cite them as justification for a code change.**
+Currently empty — every rule in the `STD-UI-*` corpus is RATIFIED (15/0
+as of the Pass 3 resolution, 2026-08-31). Historical notes:
 
-- **`STD-UI-COM-007`** — "Manual collector controls must respect and
-  visibly expose collector lifecycle/authority policy." Returned for
-  revision in
-  [decisions/0003](../../decisions/0003-operator-ratification-decision-001.md);
-  the revision itself has not yet been reviewed.
-- **`STD-UI-COM-012`** — "Primary workflow must not imply unobserved
-  health." Returned for revision in
-  [decisions/0004](../../decisions/0004-operator-ratification-decision-002.md);
-  needs a targeted evidence check against chinese-tech-wire's,
-  semiconductor-intelligence's, and smartphone-clank's landing surfaces
-  before it can move to REVIEWED.
-- **`STD-UI-SKU-001`** — "SKU review systems must preserve a distinct
-  availability-negative disposition." Returned for revision in
-  [decisions/0003](../../decisions/0003-operator-ratification-decision-001.md);
-  the revision itself has not yet been reviewed.
-
-`STD-UI-SKU-002` does not exist — it was considered during GUI
-Ratification Pass 2 and explicitly not drafted; there is nothing pending
-for it.
+- `STD-UI-SKU-002` does not exist — it was considered during GUI
+  Ratification Pass 2 and explicitly not drafted; there is nothing pending
+  for it.
+- The three rules ratified by the Pass 3 resolution (COM-007, COM-012,
+  SKU-001) carry their survey dossiers under
+  [docs/pass3-proposed-standards/](../pass3-proposed-standards/) and were
+  accepted via [decisions/0007](../../decisions/0007-pass3-com-012-decision.md),
+  [decisions/0008](../../decisions/0008-pass3-com-007-decision.md), and
+  [decisions/0009](../../decisions/0009-pass3-sku-001-decision.md).

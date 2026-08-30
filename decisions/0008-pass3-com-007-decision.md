@@ -1,7 +1,7 @@
 # 0008 — Pass 3 disposition: STD-UI-COM-007
 
 Date: 2026-08-31
-Status: AWAITING OPERATOR DECISION
+Status: Accepted (operator ruling, 2026-08-31)
 Dossier: [../docs/pass3-proposed-standards/com-007-dossier.md](../docs/pass3-proposed-standards/com-007-dossier.md)
 
 An agent MUST NOT ratify, retire, or alter this standard's normative
@@ -50,3 +50,15 @@ watch-clank remediation-backlog consequence.
   policy-forbids clauses would be lost.
 - ~~Option D — Hold~~: not offered. All nine implementations were
   surveyed; there is no missing evidence source.
+
+## Operator ruling — ACCEPTED, Option A (2026-08-31)
+
+The operator ratified STD-UI-COM-007 as written. Recorded reasoning: the
+fleet split is legitimate, and the v2 wording handles it — permit,
+forbid, structural exclusion, and N/A are all valid implementations so
+long as the authority/lifecycle distinction is explicit where manual
+controls exist. The operator explicitly accepted the consequence that
+watch-clank's unlabeled RUN NOW maturity context becomes remediation
+backlog, preferring that over weakening the rule to preserve current
+conformance. STD-UI-COM-007 is therefore RATIFIED at v2, text unchanged;
+traceability recorded in the standard's notes.

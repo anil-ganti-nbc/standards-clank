@@ -360,10 +360,13 @@ def test_smartphone_com009_remediation_preserves_interpretation_history():
     assert kinds["STD-UI-COM-009"] == "conformance"
 
 
-def test_smartphone_audit_structured_block_covers_every_ratified_standard():
-    ratified_ids = _ratified_ids()
+def test_smartphone_audit_structured_block_covers_every_then_ratified_standard():
+    """The smartphone audit was written when 12 standards were RATIFIED
+    (COM-007/012/SKU-001 were ratified later, in the Pass 3 resolution) —
+    the block must cover exactly that 12."""
+    expected = _ratified_ids() - {"STD-UI-COM-007", "STD-UI-COM-012", "STD-UI-SKU-001"}
     kinds = _smartphone_audit_kinds()
-    assert set(kinds) == ratified_ids
+    assert set(kinds) == expected
 
 
 def test_known_evidence_index_is_not_referenced_by_ratified_index_or_checklist():
@@ -460,9 +463,11 @@ def test_agent_workflow_requires_na_verdicts_to_cite_the_trigger_clause():
 
 # -- the interpretation pass must not have moved ratification state --
 
-def test_rule_counts_unchanged_after_interpretation_pass():
-    assert len(_ratified_ids()) == 12
-    assert _proposed_ids() == {"STD-UI-COM-007", "STD-UI-COM-012", "STD-UI-SKU-001"}
+def test_rule_counts_after_ratification_closure():
+    """15 RATIFIED / 0 PROPOSED since the Pass 3 ratification closure
+    (decisions/0007-0009, 2026-08-31)."""
+    assert len(_ratified_ids()) == 15
+    assert not _proposed_ids()
 
 
 def test_com009_v3_encodes_the_accepted_applicability_boundary():

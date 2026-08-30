@@ -3,11 +3,11 @@
   "title": "Manual collector controls must respect and visibly expose collector lifecycle/authority policy",
   "domain": "ui",
   "level": "MUST",
-  "status": "PROPOSED",
+  "status": "RATIFIED",
   "version": 2,
   "applies_to": [],
-  "requirement": "A collector in EXPERIMENTAL or SOAK state MUST NOT become runnable merely because an individual-run control exists for it in the GUI. Where a Clank's authority/lifecycle policy explicitly permits manual execution of a non-production collector, the UI MUST identify that collector as non-production at the point of the control (not just elsewhere in the page), and the resulting run MUST remain isolated from production bulk actions (it MUST NOT be reachable via, or counted as part of, a 'run all' — see STD-UI-COM-006). Where a Clank's policy does not permit manual execution of a non-production collector, no individual-run control MAY be exposed for it at all.",
-  "rationale": "Returned for revision from the original Pass 1 draft (which proposed a SHOULD-level 'individual control may target experimental collectors') by Operator Ratification Decision 001: the fleet's actual split — watch-clank, korean-tech-wire, tablet-clank, and feature-phone-clank allow individually running an experimental collector from the GUI, while smartwatch-clank explicitly forbids it and oem-radar doesn't wire experimental collectors into the GUI catalog at all — was correctly evidence of a governance question, not an implementation disagreement to average over. This wording converts it into a policy-visibility invariant that accommodates every observed posture (permissive or prohibitive) without declaring any of them wrong, while still ruling out the one thing none of them do: letting an experimental collector look and behave like a production one at the point of the control.",
+  "requirement": "A collector in EXPERIMENTAL or SOAK state MUST NOT become runnable merely because an individual-run control exists for it in the GUI. Where a Clank's authority/lifecycle policy explicitly permits manual execution of a non-production collector, the UI MUST identify that collector as non-production at the point of the control (not just elsewhere in the page), and the resulting run MUST remain isolated from production bulk actions (it MUST NOT be reachable via, or counted as part of, a 'run all' \u2014 see STD-UI-COM-006). Where a Clank's policy does not permit manual execution of a non-production collector, no individual-run control MAY be exposed for it at all.",
+  "rationale": "Returned for revision from the original Pass 1 draft (which proposed a SHOULD-level 'individual control may target experimental collectors') by Operator Ratification Decision 001: the fleet's actual split \u2014 watch-clank, korean-tech-wire, tablet-clank, and feature-phone-clank allow individually running an experimental collector from the GUI, while smartwatch-clank explicitly forbids it and oem-radar doesn't wire experimental collectors into the GUI catalog at all \u2014 was correctly evidence of a governance question, not an implementation disagreement to average over. This wording converts it into a policy-visibility invariant that accommodates every observed posture (permissive or prohibitive) without declaring any of them wrong, while still ruling out the one thing none of them do: letting an experimental collector look and behave like a production one at the point of the control.",
   "forbidden": [
     "An individual-run control for a non-production collector that is visually/semantically indistinguishable from a production collector's control",
     "A non-production collector's manual run being included in, or triggerable via, a bulk 'run all' action",
@@ -16,17 +16,33 @@
   "acceptance": [
     "Every manual collector run control's maturity/eligibility (production vs. experimental/soak) is visible at the point of that control, not only in a separate legend or a different page",
     "No non-production collector run is reachable from, or counted in, a bulk production action",
-    "A Clank whose policy prohibits manual execution of non-production collectors exposes no run control for them (smartwatch-clank's posture); a Clank whose policy permits it exposes the control with a clear non-production label (watch-clank's, korean-tech-wire's, tablet-clank's, and feature-phone-clank's posture) — both conform"
+    "A Clank whose policy prohibits manual execution of non-production collectors exposes no run control for them (smartwatch-clank's posture); a Clank whose policy permits it exposes the control with a clear non-production label (watch-clank's, korean-tech-wire's, tablet-clank's, and feature-phone-clank's posture) \u2014 both conform"
   ],
   "exceptions_allowed": true,
   "evidence": [
-    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "watch-clank/app/services/collector_registry.py:141-151; korean-tech-wire/dashboard.py:77-80; tablet-clank/dash_render.py:664; feature-phone-clank/dashboard.py:165-169", "summary": "Four Clanks permit individually targeting an experimental collector from the GUI, all with a visible maturity/layer badge at the control." },
-    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "smartwatch-clank/dashboard.py:117-119", "summary": "Explicit counter-pattern: experimental sources are never selectable in the GUI at all; promotion via config is the only path to making one runnable. Conforms to the revised rule by exposing no control at all, consistent with its policy." },
-    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "oem-radar/dashboard/__init__.py:426-432; experimental/*.py; scripts/asus_regional_sitemap_soak.py:1-13", "summary": "Genuinely-experimental collectors are not wired into the GUI catalog at all; only reachable via separate standalone CLI soak scripts against an isolated database — also conforms, by the same logic as smartwatch-clank." },
-    { "class": "OPERATOR_REQUIREMENT", "source": "operator ratification review, 2026-08-30 (decisions/0003-operator-ratification-decision-001.md)", "summary": "Operator identified the original SHOULD-level draft as framed at the wrong level and proposed the policy-visibility reformulation used here." }
+    {
+      "class": "CROSS_CLANK_BEST_PRACTICE",
+      "source": "watch-clank/app/services/collector_registry.py:141-151; korean-tech-wire/dashboard.py:77-80; tablet-clank/dash_render.py:664; feature-phone-clank/dashboard.py:165-169",
+      "summary": "Four Clanks permit individually targeting an experimental collector from the GUI, all with a visible maturity/layer badge at the control."
+    },
+    {
+      "class": "CROSS_CLANK_BEST_PRACTICE",
+      "source": "smartwatch-clank/dashboard.py:117-119",
+      "summary": "Explicit counter-pattern: experimental sources are never selectable in the GUI at all; promotion via config is the only path to making one runnable. Conforms to the revised rule by exposing no control at all, consistent with its policy."
+    },
+    {
+      "class": "CROSS_CLANK_BEST_PRACTICE",
+      "source": "oem-radar/dashboard/__init__.py:426-432; experimental/*.py; scripts/asus_regional_sitemap_soak.py:1-13",
+      "summary": "Genuinely-experimental collectors are not wired into the GUI catalog at all; only reachable via separate standalone CLI soak scripts against an isolated database \u2014 also conforms, by the same logic as smartwatch-clank."
+    },
+    {
+      "class": "OPERATOR_REQUIREMENT",
+      "source": "operator ratification review, 2026-08-30 (decisions/0003-operator-ratification-decision-001.md)",
+      "summary": "Operator identified the original SHOULD-level draft as framed at the wrong level and proposed the policy-visibility reformulation used here."
+    }
   ],
   "origin": "OPERATOR_REQUIREMENT",
   "introduced": "2026-08-30",
   "supersedes": null,
-  "notes": "Version 2, still PROPOSED — returned for revision, not ratified, by Operator Ratification Decision 001. This revision has not itself been reviewed/ratified; it needs its own review pass before moving to REVIEWED/RATIFIED. Version 1 (the original 'SHOULD allow individual experimental runs' draft) is preserved in git history at commit 07d87b0."
+  "notes": "RATIFIED 2026-08-31 by operator acceptance of decisions/0008-pass3-com-007-decision.md (Pass 3: nine-Clank survey; every policy-forbidding, policy-permitting-with-labelling, and no-concept implementation conforms). Operator accepted the consequence that watch-clank's RUN NOW control lacks a maturity badge \u2014 recorded as ratification-created remediation backlog, not yet an evidence-index violation. Version 2 text unchanged; v1 preserved in git history at commit 07d87b0."
 }

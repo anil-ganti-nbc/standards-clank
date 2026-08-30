@@ -64,6 +64,9 @@ SUMMARIES: dict[str, str] = {
     "STD-UI-COM-011": "Where a delivery mechanism records its own outcome, that outcome must be independently inspectable from discovery/review state; no dedicated delivery page is required, but collapsing distinct outcomes into one ambiguous boolean is not sufficient.",
     "STD-UI-NEWS-001": "A news-family Clank's QC vocabulary must use DUPLICATE as its fourth terminal action (not OUT_OF_STOCK); additional Clank-specific values beyond the fleet-standard four are allowed.",
     "STD-UI-NEWS-002": "A news-family Clank's live editorial intake/review queue must be reachable directly from the default landing surface, or via one obvious action — not buried in navigation.",
+    "STD-UI-COM-007": "Manual collector controls must follow the Clank's lifecycle/authority policy: a collector in EXPERIMENTAL/SOAK state does not become runnable merely because a GUI control exists; if policy permits manual runs, the control must identify the collector as non-production and keep such runs out of production bulk actions; if policy forbids it, no individual control may be exposed.",
+    "STD-UI-COM-012": "A primary operator surface must not present the Clank as healthy, normal, or operational solely from successful content activity when health is not actually represented there; where health is intentionally separated, an obvious path to current health should exist when operational judgement is part of the workflow.",
+    "STD-UI-SKU-001": "Where availability is in scope for a SKU/product Clank's QC model, an availability-negative disposition ('exists, correctly identified, not currently available') must stay distinct from false-positive, duplicate, and not-useful — any queryable encoding satisfies this; a literal OUT_OF_STOCK label is not required.",
 }
 
 # id -> (question, failure_means). One entry per RATIFIED standard.
@@ -115,6 +118,18 @@ CHECKLIST_ITEMS: dict[str, dict[str, str]] = {
     "STD-UI-NEWS-002": {
         "question": "For a news-family Clank, is the live intake/review queue exposed directly on the default landing surface, or reachable via one single obvious action?",
         "failure_means": "The default landing view is a stats/health page and reaching the review queue requires searching through navigation.",
+    },
+    "STD-UI-COM-007": {
+        "question": "Where manual collector controls exist, do they follow the Clank's lifecycle policy — non-production collectors identified as non-production at the control, such runs isolated from bulk actions, and no control at all where policy forbids manual runs?",
+        "failure_means": "A manual control runs an experimental/soak collector with no non-production indication at the control, such a run is reachable via or counted in a production run-all, or a control is exposed for a collector whose policy forbids manual execution.",
+    },
+    "STD-UI-COM-012": {
+        "question": "Does the primary workflow surface avoid presenting the Clank as healthy or operational solely from content activity when health is not actually represented there — and where health is separated, is an obvious path to current health provided when operational judgement is part of the workflow?",
+        "failure_means": "A landing/primary page presents activity, counts, or queue movement in a way that reads as health with no measured health behind it, or health is separated with no obvious path to it where the operator needs it for judgement.",
+    },
+    "STD-UI-SKU-001": {
+        "question": "Where availability is in scope for the QC model, is an availability-negative outcome kept distinct from false-positive, duplicate, and not-useful — via any queryable encoding — rather than folded into them?",
+        "failure_means": "An availability-negative case can only be expressed as false-positive or not-useful, or availability semantics are forced onto a QC model whose Clank does not track availability.",
     },
 }
 

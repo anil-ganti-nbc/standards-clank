@@ -1,7 +1,7 @@
 # 0009 — Pass 3 disposition: STD-UI-SKU-001
 
 Date: 2026-08-31
-Status: AWAITING OPERATOR DECISION
+Status: Accepted (operator ruling, 2026-08-31)
 Dossier: [../docs/pass3-proposed-standards/sku-001-dossier.md](../docs/pass3-proposed-standards/sku-001-dossier.md)
 
 An agent MUST NOT ratify, retire, or alter this standard's normative
@@ -49,3 +49,15 @@ change.
   evidence source exists, all current evidence already points one way,
   and the cost of ratifying is zero changes anywhere. Offered for
   completeness because the dossier's "no incident found" caveat is real.
+
+## Operator ruling — ACCEPTED, Option A (2026-08-31)
+
+The operator ratified STD-UI-SKU-001 as written. Recorded reasoning: the
+independent OEM Radar encoding (availability change-type + reason code,
+never folded into the verdict axis) shows the invariant is not merely a
+copied OUT_OF_STOCK enum tradition; where availability is in scope,
+availability-negative and false-positive/not-useful are different semantic
+axes and must remain distinguishable, and the current trigger avoids
+imposing availability tracking on Clanks that do not model it.
+STD-UI-SKU-001 is therefore RATIFIED at v2, text unchanged; traceability
+recorded in the standard's notes.

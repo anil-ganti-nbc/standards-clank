@@ -1,7 +1,7 @@
 # 0007 — Pass 3 disposition: STD-UI-COM-012
 
 Date: 2026-08-31
-Status: AWAITING OPERATOR DECISION
+Status: Accepted (operator ruling, 2026-08-31)
 Dossier: [../docs/pass3-proposed-standards/com-012-dossier.md](../docs/pass3-proposed-standards/com-012-dossier.md)
 
 An agent MUST NOT ratify, retire, or alter this standard's normative
@@ -42,3 +42,14 @@ RATIFY AS WRITTEN (agent recommendation — operator decides).
   unregulated.
 - ~~Option D — Hold~~: not offered. The evidence is complete; no concrete
   missing source exists.
+
+## Operator ruling — ACCEPTED, Option A (2026-08-31)
+
+The operator ratified STD-UI-COM-012 as written. Recorded reasoning: the
+multi-lineage evidence shows the fleet already treats "absence of visible
+failure" and "measured health" as different concepts. COM-012 is not
+redundant with COM-008 — COM-008 governs the semantics of health vs
+coverage when health is shown; COM-012 governs what the primary workflow
+may imply when health is not actually observed. STD-UI-COM-012 is
+therefore RATIFIED at v2, text unchanged; traceability recorded in the
+standard's notes.

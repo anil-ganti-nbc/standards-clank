@@ -3,11 +3,11 @@
   "title": "Primary workflow must not imply unobserved health",
   "domain": "ui",
   "level": "MUST",
-  "status": "PROPOSED",
+  "status": "RATIFIED",
   "version": 2,
   "applies_to": [],
   "requirement": "A primary operator surface MUST NOT present the Clank as healthy, normal, or operational solely from successful content activity (items appearing, a queue moving, counts increasing) when system/source health is not actually represented there. Where health is intentionally separated from the primary surface, that surface SHOULD provide an obvious path to current health state when operational judgement is part of the workflow.",
-  "rationale": "Returned for revision from the original Pass 2 draft ('Overview must include a visible health signal') by Operator Ratification Decision 002: the counter-evidence (chinese-tech-wire, semiconductor-intelligence, and smartphone-clank all keep health off their landing surface) is architectural, not accidental, so a blanket 'Overview must show health' MUST was the wrong level. This reformulation targets the actual risk — a primary surface implying health it hasn't measured — while leaving the separation-of-concerns design those three Clanks made intact, provided the health page remains reachable when it matters. Left PROPOSED rather than ratified immediately because, per the operator, this is a more nuanced rule than the original and deserves its own evidence check against those three specific opt-outs before ratification: does chinese-tech-wire's Newsroom, semiconductor-intelligence's Editorial Inbox, or smartphone-clank's Home actually imply health via content activity (e.g. a rising item count reading as 'things are fine'), or do they stay neutral/silent on health entirely? That distinction was not directly asked in Pass 2's original six questions and needs a targeted look before this can move to REVIEWED.",
+  "rationale": "Returned for revision from the original Pass 2 draft ('Overview must include a visible health signal') by Operator Ratification Decision 002: the counter-evidence (chinese-tech-wire, semiconductor-intelligence, and smartphone-clank all keep health off their landing surface) is architectural, not accidental, so a blanket 'Overview must show health' MUST was the wrong level. This reformulation targets the actual risk \u2014 a primary surface implying health it hasn't measured \u2014 while leaving the separation-of-concerns design those three Clanks made intact, provided the health page remains reachable when it matters. Left PROPOSED rather than ratified immediately because, per the operator, this is a more nuanced rule than the original and deserves its own evidence check against those three specific opt-outs before ratification: does chinese-tech-wire's Newsroom, semiconductor-intelligence's Editorial Inbox, or smartphone-clank's Home actually imply health via content activity (e.g. a rising item count reading as 'things are fine'), or do they stay neutral/silent on health entirely? That distinction was not directly asked in Pass 2's original six questions and needs a targeted look before this can move to REVIEWED.",
   "forbidden": [
     "A landing/primary surface whose only signal of operational status is derived from content volume or recency (e.g. 'items keep appearing, so we must be fine')",
     "Separating health from the primary surface with no reachable path to it at all"
@@ -18,11 +18,19 @@
   ],
   "exceptions_allowed": true,
   "evidence": [
-    { "class": "OPERATOR_REQUIREMENT", "source": "operator ratification review, 2026-08-30 (decisions/0004-operator-ratification-decision-002.md)", "summary": "Operator identified the v1 draft's counter-evidence as architectural (deliberate separation-of-concerns), not accidental, and proposed this reformulation targeting implied-health-via-content-activity instead." },
-    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "chinese-tech-wire/web/app.py:154-240; semiconductor-intelligence/semi_intel/web/static/index.html:528-584; smartphone-clank/dashboard/templates/home.html:4-45", "summary": "The three Pass 2 counter-examples, carried forward as the specific cases this revision needs to be checked against before ratification — do their content-activity displays ever read as an implicit health claim?" }
+    {
+      "class": "OPERATOR_REQUIREMENT",
+      "source": "operator ratification review, 2026-08-30 (decisions/0004-operator-ratification-decision-002.md)",
+      "summary": "Operator identified the v1 draft's counter-evidence as architectural (deliberate separation-of-concerns), not accidental, and proposed this reformulation targeting implied-health-via-content-activity instead."
+    },
+    {
+      "class": "CROSS_CLANK_BEST_PRACTICE",
+      "source": "chinese-tech-wire/web/app.py:154-240; semiconductor-intelligence/semi_intel/web/static/index.html:528-584; smartphone-clank/dashboard/templates/home.html:4-45",
+      "summary": "The three Pass 2 counter-examples, carried forward as the specific cases this revision needs to be checked against before ratification \u2014 do their content-activity displays ever read as an implicit health claim?"
+    }
   ],
   "origin": "OPERATOR_REQUIREMENT",
   "introduced": "2026-08-30",
   "supersedes": null,
-  "notes": "Version 2, still PROPOSED — returned for revision by Operator Ratification Decision 002, not ratified. Needs a targeted evidence check against chinese-tech-wire, semiconductor-intelligence, and smartphone-clank's landing surfaces specifically for implied-health-via-content-activity before it can move to REVIEWED/RATIFIED. Version 1 (the original 'Overview must show a health signal' draft) is preserved in git history at commit 5113049."
+  "notes": "RATIFIED 2026-08-31 by operator acceptance of decisions/0007-pass3-com-012-decision.md (Pass 3: nine-Clank survey at current HEADs; zero implementations imply unmeasured health, three independent per-repo artifacts defend against it; distinct from COM-008, which governs health that IS shown). Version 2 text unchanged from the Pass 2 reformulation; v1 preserved in git history at commit 5113049."
 }

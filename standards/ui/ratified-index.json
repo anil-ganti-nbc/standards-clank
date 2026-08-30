@@ -60,6 +60,16 @@
     "ratification_decision": "decisions/0003-operator-ratification-decision-001.md"
   },
   {
+    "id": "STD-UI-COM-007",
+    "title": "Manual collector controls must respect and visibly expose collector lifecycle/authority policy",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 2,
+    "requirement_summary": "Manual collector controls must follow the Clank's lifecycle/authority policy: a collector in EXPERIMENTAL/SOAK state does not become runnable merely because a GUI control exists; if policy permits manual runs, the control must identify the collector as non-production and keep such runs out of production bulk actions; if policy forbids it, no individual control may be exposed.",
+    "source_file": "standards/ui/STD-UI-COM-007.json",
+    "ratification_decision": "decisions/0008-pass3-com-007-decision.md"
+  },
+  {
     "id": "STD-UI-COM-008",
     "title": "Source operational health must be independently expressible from coverage/output",
     "level": "MUST",
@@ -100,6 +110,16 @@
     "ratification_decision": "decisions/0004-operator-ratification-decision-002.md"
   },
   {
+    "id": "STD-UI-COM-012",
+    "title": "Primary workflow must not imply unobserved health",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 2,
+    "requirement_summary": "A primary operator surface must not present the Clank as healthy, normal, or operational solely from successful content activity when health is not actually represented there; where health is intentionally separated, an obvious path to current health should exist when operational judgement is part of the workflow.",
+    "source_file": "standards/ui/STD-UI-COM-012.json",
+    "ratification_decision": "decisions/0007-pass3-com-012-decision.md"
+  },
+  {
     "id": "STD-UI-NEWS-001",
     "title": "News/lead-based Clanks: the QC vocabulary's fourth terminal action marks the item no longer distinct/novel",
     "level": "MUST",
@@ -122,5 +142,17 @@
     "requirement_summary": "A news-family Clank's live editorial intake/review queue must be reachable directly from the default landing surface, or via one obvious action \u2014 not buried in navigation.",
     "source_file": "standards/ui/STD-UI-NEWS-002.json",
     "ratification_decision": "decisions/0004-operator-ratification-decision-002.md"
+  },
+  {
+    "id": "STD-UI-SKU-001",
+    "title": "SKU review systems must preserve a distinct availability-negative disposition",
+    "level": "MUST",
+    "applies_to": [
+      "sku-based"
+    ],
+    "version": 2,
+    "requirement_summary": "Where availability is in scope for a SKU/product Clank's QC model, an availability-negative disposition ('exists, correctly identified, not currently available') must stay distinct from false-positive, duplicate, and not-useful \u2014 any queryable encoding satisfies this; a literal OUT_OF_STOCK label is not required.",
+    "source_file": "standards/ui/STD-UI-SKU-001.json",
+    "ratification_decision": "decisions/0009-pass3-sku-001-decision.md"
   }
 ]

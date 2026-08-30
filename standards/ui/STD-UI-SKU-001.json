@@ -3,11 +3,13 @@
   "title": "SKU review systems must preserve a distinct availability-negative disposition",
   "domain": "ui",
   "level": "MUST",
-  "status": "PROPOSED",
+  "status": "RATIFIED",
   "version": 2,
-  "applies_to": ["sku-based"],
-  "requirement": "Where availability is in scope for a SKU/product-based Clank's QC model, that model MUST preserve a QC disposition meaning 'this product exists and was correctly identified, but is not currently available' — distinct from a product-invalid disposition (false positive), a not-novel disposition (duplicate), and a general not-useful disposition. A Clank MUST NOT fold an availability-negative case into false-positive or not-useful. Canonical presentation SHOULD use 'Out of Stock' as the operator-facing label where that phrase accurately describes the underlying source state, but this standard does not require a literal fourth enum value named OUT_OF_STOCK — any encoding that keeps the disposition distinctly queryable (a dedicated status, or an event-type-plus-reason-code pair) satisfies it.",
-  "rationale": "Returned for revision from the original Pass 1 draft (which centered the fourth enum value OUT_OF_STOCK itself) by Operator Ratification Decision 001: the operator's point was that the load-bearing invariant is ontological — availability-negative must not be misclassified as invalid/not-useful — not that a specific button label must exist. This wording protects the ontology directly, which lets oem-radar's AVAILABILITY_CHANGED + TEMPORARY_STOCK_CHANGE reason-code encoding conform naturally instead of being treated as a partial miss of a literal-string requirement.",
+  "applies_to": [
+    "sku-based"
+  ],
+  "requirement": "Where availability is in scope for a SKU/product-based Clank's QC model, that model MUST preserve a QC disposition meaning 'this product exists and was correctly identified, but is not currently available' \u2014 distinct from a product-invalid disposition (false positive), a not-novel disposition (duplicate), and a general not-useful disposition. A Clank MUST NOT fold an availability-negative case into false-positive or not-useful. Canonical presentation SHOULD use 'Out of Stock' as the operator-facing label where that phrase accurately describes the underlying source state, but this standard does not require a literal fourth enum value named OUT_OF_STOCK \u2014 any encoding that keeps the disposition distinctly queryable (a dedicated status, or an event-type-plus-reason-code pair) satisfies it.",
+  "rationale": "Returned for revision from the original Pass 1 draft (which centered the fourth enum value OUT_OF_STOCK itself) by Operator Ratification Decision 001: the operator's point was that the load-bearing invariant is ontological \u2014 availability-negative must not be misclassified as invalid/not-useful \u2014 not that a specific button label must exist. This wording protects the ontology directly, which lets oem-radar's AVAILABILITY_CHANGED + TEMPORARY_STOCK_CHANGE reason-code encoding conform naturally instead of being treated as a partial miss of a literal-string requirement.",
   "forbidden": [
     "Recording an availability-negative item as FALSE_POSITIVE or NOT_USEFUL because there is no dedicated disposition for it",
     "Merging availability-negative and duplicate/not-novel into one disposition for a SKU-based Clank"
@@ -18,13 +20,29 @@
   ],
   "exceptions_allowed": true,
   "evidence": [
-    { "class": "ARCHITECTURAL_INVARIANT", "source": "watch-clank/app/models/review.py:60", "summary": "EventReview.disposition includes OUT_OF_STOCK as a distinct value alongside USEFUL/NOT_USEFUL/DUPLICATE/FALSE_POSITIVE." },
-    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "feature-phone-clank/providers/qc_store.py:49; tablet-clank/tablet_clank/storage/qc_archive.py:44; smartwatch-clank/qc_archive.py:43", "summary": "Exact same four-value vocabulary including a distinct OUT_OF_STOCK value." },
-    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "oem-radar/src/oem_radar/core/qc_archive.py:40-45", "summary": "Different encoding, same ontology: HIT/INTERESTING/NOISE/BUG plus a distinct AVAILABILITY_CHANGED change_type with a TEMPORARY_STOCK_CHANGE reason code — availability-negative remains distinctly queryable, just not as a fifth top-level enum value." },
-    { "class": "OPERATOR_REQUIREMENT", "source": "operator ratification review, 2026-08-30 (decisions/0003-operator-ratification-decision-001.md)", "summary": "Operator identified the original literal-OUT_OF_STOCK framing as protecting a button label rather than the underlying ontology, and proposed this reformulation." }
+    {
+      "class": "ARCHITECTURAL_INVARIANT",
+      "source": "watch-clank/app/models/review.py:60",
+      "summary": "EventReview.disposition includes OUT_OF_STOCK as a distinct value alongside USEFUL/NOT_USEFUL/DUPLICATE/FALSE_POSITIVE."
+    },
+    {
+      "class": "CROSS_CLANK_BEST_PRACTICE",
+      "source": "feature-phone-clank/providers/qc_store.py:49; tablet-clank/tablet_clank/storage/qc_archive.py:44; smartwatch-clank/qc_archive.py:43",
+      "summary": "Exact same four-value vocabulary including a distinct OUT_OF_STOCK value."
+    },
+    {
+      "class": "CROSS_CLANK_BEST_PRACTICE",
+      "source": "oem-radar/src/oem_radar/core/qc_archive.py:40-45",
+      "summary": "Different encoding, same ontology: HIT/INTERESTING/NOISE/BUG plus a distinct AVAILABILITY_CHANGED change_type with a TEMPORARY_STOCK_CHANGE reason code \u2014 availability-negative remains distinctly queryable, just not as a fifth top-level enum value."
+    },
+    {
+      "class": "OPERATOR_REQUIREMENT",
+      "source": "operator ratification review, 2026-08-30 (decisions/0003-operator-ratification-decision-001.md)",
+      "summary": "Operator identified the original literal-OUT_OF_STOCK framing as protecting a button label rather than the underlying ontology, and proposed this reformulation."
+    }
   ],
   "origin": "OPERATOR_REQUIREMENT",
   "introduced": "2026-08-30",
   "supersedes": null,
-  "notes": "Version 2, still PROPOSED — returned for revision, not ratified, by Operator Ratification Decision 001. This revision has not itself been reviewed/ratified; it needs its own review pass before moving to REVIEWED/RATIFIED. Version 1 (the original literal-OUT_OF_STOCK-value draft) is preserved in git history at commit 07d87b0."
+  "notes": "RATIFIED 2026-08-31 by operator acceptance of decisions/0009-pass3-sku-001-decision.md (Pass 3: nine-Clank survey; the invariant holds in every availability-in-scope implementation via three encodings, including oem-radar's independent change-type-plus-reason-code design; cleanly out of scope where availability is not tracked). Version 2 text unchanged; v1 preserved in git history at commit 07d87b0."
 }
