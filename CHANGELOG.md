@@ -7,6 +7,33 @@ as normative vs. editorial.
 
 ## Unreleased
 
+- Persisted the first fresh-agent validation audit as
+  `audits/watch-clank-2026-08-30.md`: independently reproduced the known
+  STD-UI-COM-009 gap, confirmed and expanded the STD-UI-COM-011 gap with a
+  previously-uncited `SpecialistLead.notified_at` instance, expanded
+  STD-UI-COM-010 with two further concrete timestamp violations, and
+  surfaced a genuine STD-UI-NEWS-002 applicability question for hybrid
+  Clanks (left unresolved pending a future profile/applicability rule, not
+  decided ad hoc). Retrofitted `audits/smartphone-clank-2026-08-30.md`
+  with the same structured findings block for consistency.
+- Added `standards/ui/known-evidence-index.json`, mechanically generated
+  from every `audits/*.md` file's structured findings block by
+  `tools/ui_agent_layer.py`'s `build_known_evidence_index()`. Deliberately
+  kept structurally separate from `ratified-index.json`/
+  `agent-checklist.json` so a blind conformance audit isn't told in
+  advance what to find; loaded only for informed remediation.
+- Added a "Two modes: blind audit vs. informed remediation" section and a
+  re-verification rule to `docs/ui/agent-implementation-workflow.md`:
+  prior audit findings and standard `notes` are hypotheses, not
+  current-state truth, and MUST be re-verified against the target's
+  current implementation before being reported as a present
+  non-conformance.
+- Added tests guarding the separation: `ratified-index.json` and
+  `agent-checklist.json` entries have no extra fields (no path for
+  known-evidence content to leak in), every known-evidence entry traces to
+  a real audit file and a real ratified standard, and the workflow doc
+  documents both modes and the re-verification rule.
+
 - Added the agent-facing UI constitution: `docs/ui/constitution.md` (~29
   principles across sections A-J, each citing a RATIFIED `STD-UI-*` rule
   inline; PROPOSED rules listed separately as pending, never as

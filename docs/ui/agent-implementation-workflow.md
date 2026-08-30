@@ -10,6 +10,57 @@ This workflow only ever authorizes conformance work against **RATIFIED**
 standards. `PROPOSED` standards are identified and set aside at step 7 —
 never implemented, never treated as a requirement.
 
+## Two modes: blind audit vs. informed remediation
+
+There are two ways to run this workflow, and the choice of which one
+matters:
+
+```
+BLIND AUDIT                        INFORMED REMEDIATION
+constitution                       constitution
++ ratified-index                   + ratified-index
++ checklist                        + checklist
+                                    + known-evidence-index.json
+                                      (see below)
+```
+
+**Blind audit** — the default. Load only
+[`constitution.md`](constitution.md),
+[`ratified-index.json`](../../standards/ui/ratified-index.json), and
+[`agent-checklist.json`](../../standards/ui/agent-checklist.json). Do
+**not** load
+[`known-evidence-index.json`](../../standards/ui/known-evidence-index.json)
+or read `audits/*.md` before forming your own conclusions. This is how a
+fresh conformance audit (e.g. a task explicitly asking you to validate a
+Clank against the standards) should run: it independently reproduces
+findings rather than being told in advance what to expect, which is the
+only way a validation audit's result actually means anything. Standards
+Clank's first blind audit (watch-clank, 2026-08-30 —
+[`audits/watch-clank-2026-08-30.md`](../../audits/watch-clank-2026-08-30.md))
+worked exactly this way.
+
+**Informed remediation** — once a task has explicitly moved past auditing
+into planning or implementing a fix, you MAY additionally load
+`known-evidence-index.json` to save time re-discovering already-known
+gaps. If you do, the following rule applies without exception:
+
+> **Prior audit findings and standard `notes` are hypotheses, not
+> current-state truth. When used, they MUST be re-verified against the
+> target's current implementation before being reported as a present
+> non-conformance.** Code changes since the prior finding, a since-applied
+> partial fix, or a plain error in the earlier finding can all make a
+> stale "known" violation wrong. Never cite `known-evidence-index.json` or
+> a standard's `notes` field as evidence in a conformance report on its
+> own — cite the current file:line you verified it against.
+
+`known-evidence-index.json` is generated (see
+`tools/ui_agent_layer.py`'s `build_known_evidence_index()`) from the
+structured findings block at the top of every `audits/*.md` file. It is
+deliberately kept as a separate file, not merged into
+`ratified-index.json` or `agent-checklist.json` — see that file's own
+note for why contaminating the normative layer with per-Clank history
+would defeat the point of a blind audit.
+
 ## The sequence
 
 1. **Identify Clank family.** Determine whether the target Clank is
@@ -27,7 +78,9 @@ never implemented, never treated as a requirement.
    `requirement_summary` is for orientation, not for citing as the
    authoritative text. Fleet-wide standards (`applies_to: []`) apply to
    every Clank; family-scoped standards (`applies_to: ["news-based"]`,
-   etc.) apply only to that family.
+   etc.) apply only to that family. If, and only if, this is an informed
+   remediation task (see "Two modes" above), you may also load
+   `known-evidence-index.json` here — a blind audit does not.
 
 3. **Inventory current UI and backend semantics relevant to those
    standards.** For each applicable standard, find and read the actual
@@ -51,7 +104,10 @@ never implemented, never treated as a requirement.
 6. **Identify existing violations.** Cross-reference the inventory (step
    3) against each applicable ratified standard's `acceptance` criteria.
    Be specific: cite the file/line that fails, and which standard it
-   fails.
+   fails. If a violation traces back to `known-evidence-index.json` or a
+   standard's own `notes` field (informed remediation only — see "Two
+   modes" above), it must still be re-verified against the current code
+   before being reported; cite what you verified, not the prior finding.
 
 7. **Identify PROPOSED standards separately from RATIFIED standards.**
    List anything relevant that is still `PROPOSED` (see the constitution's

@@ -1,0 +1,50 @@
+[
+  {
+    "standard": "STD-UI-COM-002",
+    "subject": "smartphone-clank",
+    "kind": "known_nonconformance",
+    "source": "audit",
+    "summary": "qc-action writes a plain INSERT into the live analyst_actions table: no separate append-only decision record, no uniqueness constraint, no documented race handling.",
+    "source_reference": "audits/smartphone-clank-2026-08-30.md"
+  },
+  {
+    "standard": "STD-UI-COM-003",
+    "subject": "smartphone-clank",
+    "kind": "known_nonconformance",
+    "source": "audit",
+    "summary": "No dashboard QC queue exists at all, so there is no read-side exclusion mechanism to evaluate; same root cause as the STD-UI-COM-002 gap.",
+    "source_reference": "audits/smartphone-clank-2026-08-30.md"
+  },
+  {
+    "standard": "STD-UI-COM-004",
+    "subject": "smartphone-clank",
+    "kind": "known_nonconformance",
+    "source": "audit",
+    "summary": "No 'recently QC'd' view exists, consistent with having no QC queue or archive to source it from.",
+    "source_reference": "audits/smartphone-clank-2026-08-30.md"
+  },
+  {
+    "standard": "STD-UI-COM-009",
+    "subject": "watch-clank",
+    "kind": "known_nonconformance",
+    "source": "audit",
+    "summary": "PipelineLedger tracks real stage data with an explicit stage_order, but the primary Runs page shows only a terminal status badge with no link or indication that stage/correlation detail exists; even the per-watch drill-down doesn't hyperlink the correlation id.",
+    "source_reference": "audits/watch-clank-2026-08-30.md"
+  },
+  {
+    "standard": "STD-UI-COM-010",
+    "subject": "watch-clank",
+    "kind": "known_nonconformance",
+    "source": "audit",
+    "summary": "The SpecialistLead table's 'Published / observed' column collapses two distinct timestamp semantics into one with no per-row indication of which is shown; two further timestamps (watch_detail.html, correlation.html) render raw, skipping the app's own documented always-labeled-with-zone convention.",
+    "source_reference": "audits/watch-clank-2026-08-30.md"
+  },
+  {
+    "standard": "STD-UI-COM-011",
+    "subject": "watch-clank",
+    "kind": "known_nonconformance",
+    "source": "audit",
+    "summary": "Event.extra['alerted'] and SpecialistLead.notified_at are both computed and persisted delivery outcomes that no template ever reads; only aggregate/global Discord config state is shown, never a per-item outcome.",
+    "source_reference": "audits/watch-clank-2026-08-30.md"
+  }
+]

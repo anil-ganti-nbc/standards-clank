@@ -23,8 +23,10 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).parent.parent
 STANDARDS_UI_DIR = REPO_ROOT / "standards" / "ui"
 DECISIONS_DIR = REPO_ROOT / "decisions"
+AUDITS_DIR = REPO_ROOT / "audits"
 
 DECISION_REF_RE = re.compile(r"decisions/(\d{4}-[a-z0-9-]+\.md)")
+AUDIT_JSON_BLOCK_RE = re.compile(r"```json\s*\n(.*?)\n```", re.DOTALL)
 
 
 def load_ui_standards() -> list[dict]:
@@ -135,6 +137,69 @@ def build_ratified_index() -> list[dict]:
                 "ratification_decision": extract_ratification_decision(standard),
             }
         )
+    return index
+
+
+def load_audit_findings() -> list[tuple[Path, dict]]:
+    """Parse the leading fenced ```json block out of every audits/*.md
+    file. Returns (path, parsed_block) pairs. Fails closed (raises) if an
+    audit file has no such block, or the block is malformed — a silent
+    skip would mean a real finding quietly never reaches the index."""
+    results = []
+    for path in sorted(AUDITS_DIR.glob("*.md")):
+        if path.name == "README.md":
+            continue
+        text = path.read_text()
+        match = AUDIT_JSON_BLOCK_RE.search(text)
+        if not match:
+            raise ValueError(f"{path}: no leading ```json findings block found")
+        block = json.loads(match.group(1))
+        for key in ("clank", "date", "findings"):
+            if key not in block:
+                raise ValueError(f"{path}: findings block missing required key {key!r}")
+        results.append((path, block))
+    return results
+
+
+def build_known_evidence_index() -> list[dict]:
+    """Prior findings (from audits/*.md) about specific Clanks, kept
+    entirely separate from build_ratified_index()/build_agent_checklist().
+
+    This is deliberate, not an oversight: a BLIND conformance audit should
+    load only the constitution + ratified-index + checklist, so it
+    reproduces findings independently rather than being told in advance
+    what it's expected to find. An INFORMED remediation task may
+    additionally load this file. See
+    docs/ui/agent-implementation-workflow.md's re-verification clause —
+    every entry here is a hypothesis from a prior pass, not current-state
+    truth, and MUST be re-verified against the target's current
+    implementation before being reported as a present non-conformance.
+
+    Only `kind: "violation"` findings are included — conformances and
+    unresolved questions aren't "evidence of a gap" and don't belong in a
+    prior-nonconformance index.
+    """
+    ratified_ids = {s["id"] for s in load_ratified_ui_standards()}
+    index = []
+    for path, block in load_audit_findings():
+        for finding in block["findings"]:
+            if finding.get("kind") != "violation":
+                continue
+            std_id = finding["standard"]
+            if std_id not in ratified_ids:
+                raise ValueError(
+                    f"{path}: finding cites {std_id!r}, which is not a RATIFIED standard id"
+                )
+            index.append(
+                {
+                    "standard": std_id,
+                    "subject": block["clank"],
+                    "kind": "known_nonconformance",
+                    "source": "audit",
+                    "summary": finding["summary"],
+                    "source_reference": f"audits/{path.name}",
+                }
+            )
     return index
 
 

@@ -9,7 +9,12 @@ one at a time. [`ratified-index.json`](ratified-index.json) and
 [`agent-checklist.json`](agent-checklist.json) are generated from the
 files below by `tools/ui_agent_layer.py` — see
 `scripts/generate_ui_agent_layer.py` to regenerate them after any RATIFIED
-standard changes.
+standard changes. A third generated file,
+[`known-evidence-index.json`](known-evidence-index.json), holds prior
+per-Clank findings mechanically pulled from `audits/*.md` — it is
+deliberately **not** part of the normative layer above and is loaded only
+for informed remediation, never for a blind audit. See
+[docs/ui/agent-implementation-workflow.md](../../docs/ui/agent-implementation-workflow.md#two-modes-blind-audit-vs-informed-remediation).
 
 12 `RATIFIED`, 3 `PROPOSED` (2 revised Pass 1 candidates, 1 revised Pass 2
 candidate — all awaiting re-review), as of Operator Ratification Decision

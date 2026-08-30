@@ -15,6 +15,7 @@ from tools.ui_agent_layer import (
     REPO_ROOT,
     STANDARDS_UI_DIR,
     build_agent_checklist,
+    build_known_evidence_index,
     build_ratified_index,
     load_ratified_ui_standards,
     load_ui_standards,
@@ -72,6 +73,26 @@ def test_index_entries_have_required_fields():
     for entry in _load_index():
         assert required <= entry.keys(), f"{entry['id']} missing fields: {required - entry.keys()}"
         assert entry["level"] == "MUST", f"{entry['id']}: expected MUST for a ratified standard"
+
+
+def test_index_entries_have_no_extra_fields():
+    """Guards specifically against known-evidence-index.json content (or
+    anything else) ever getting merged into the normative ratified-index —
+    a blind audit's promise depends on this file staying free of per-Clank
+    history. See docs/ui/agent-implementation-workflow.md's 'Two modes'
+    section."""
+    required = {
+        "id", "title", "level", "applies_to", "version",
+        "requirement_summary", "source_file", "ratification_decision",
+    }
+    for entry in _load_index():
+        assert entry.keys() == required, f"{entry['id']}: unexpected extra fields {entry.keys() - required}"
+
+
+def test_checklist_entries_have_no_extra_fields():
+    required = {"standard", "question", "failure_means"}
+    for item in _load_checklist():
+        assert item.keys() == required, f"{item['standard']}: unexpected extra fields {item.keys() - required}"
 
 
 # -- agent-checklist.json coverage --
@@ -203,6 +224,60 @@ def test_constitution_principle_count_is_in_range():
 
 
 # -- workflow doc exists and mentions the required sequence/report fields --
+
+# -- known-evidence-index.json: mechanically generated from audits/*.md, structurally separate --
+
+def _load_known_evidence():
+    return json.loads((STANDARDS_UI_DIR / "known-evidence-index.json").read_text())
+
+
+def test_known_evidence_index_matches_generator_output():
+    assert _load_known_evidence() == build_known_evidence_index()
+
+
+def test_known_evidence_entries_reference_ratified_standards():
+    ratified_ids = _ratified_ids()
+    for entry in _load_known_evidence():
+        assert entry["standard"] in ratified_ids, (
+            f"known-evidence-index.json cites non-ratified id {entry['standard']!r}"
+        )
+
+
+def test_known_evidence_entries_reference_existing_audit_files():
+    for entry in _load_known_evidence():
+        path = REPO_ROOT / entry["source_reference"]
+        assert path.is_file(), f"known-evidence-index.json entry points at missing file {entry['source_reference']!r}"
+
+
+def test_known_evidence_index_has_at_least_one_entry_per_persisted_audit():
+    """Sanity check that the audits/*.md -> known-evidence-index.json
+    pipeline is actually wired, not silently producing an empty file."""
+    audit_files = {p.name for p in (REPO_ROOT / "audits").glob("*.md") if p.name != "README.md"}
+    referenced_files = {entry["source_reference"].split("/", 1)[1] for entry in _load_known_evidence()}
+    assert referenced_files == audit_files, (
+        f"audits present: {audit_files}, but known-evidence-index.json only references: {referenced_files}"
+    )
+
+
+def test_known_evidence_index_is_not_referenced_by_ratified_index_or_checklist():
+    """The whole point of this file is that it stays out of the normative
+    layer. Guard against a future edit accidentally wiring it in."""
+    index_text = (STANDARDS_UI_DIR / "ratified-index.json").read_text()
+    checklist_text = (STANDARDS_UI_DIR / "agent-checklist.json").read_text()
+    assert "known-evidence" not in index_text
+    assert "known-evidence" not in checklist_text
+    assert "prior_evidence" not in index_text
+    assert "prior_evidence" not in checklist_text
+
+
+def test_agent_workflow_doc_documents_the_two_modes_and_reverification_rule():
+    path = REPO_ROOT / "docs" / "ui" / "agent-implementation-workflow.md"
+    text = path.read_text()
+    assert "BLIND AUDIT" in text
+    assert "INFORMED REMEDIATION" in text
+    assert "hypotheses, not" in text
+    assert "known-evidence-index.json" in text
+
 
 def test_agent_workflow_doc_exists_and_has_required_report_fields():
     path = REPO_ROOT / "docs" / "ui" / "agent-implementation-workflow.md"

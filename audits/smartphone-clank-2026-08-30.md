@@ -1,5 +1,22 @@
 # smartphone-clank — conformance note, 2026-08-30
 
+```json
+{
+  "clank": "smartphone-clank",
+  "date": "2026-08-30",
+  "findings": [
+    { "standard": "STD-UI-COM-002", "kind": "violation", "summary": "qc-action writes a plain INSERT into the live analyst_actions table: no separate append-only decision record, no uniqueness constraint, no documented race handling." },
+    { "standard": "STD-UI-COM-003", "kind": "violation", "summary": "No dashboard QC queue exists at all, so there is no read-side exclusion mechanism to evaluate; same root cause as the STD-UI-COM-002 gap." },
+    { "standard": "STD-UI-COM-004", "kind": "violation", "summary": "No 'recently QC'd' view exists, consistent with having no QC queue or archive to source it from." }
+  ]
+}
+```
+
+This block is machine-read by `tools/ui_agent_layer.py` to build
+[`standards/ui/known-evidence-index.json`](../standards/ui/known-evidence-index.json) —
+see that file's own note on why prior findings are kept structurally
+separate from the normative ratified-index/checklist.
+
 Checked against: `STD-UI-COM-002`, `STD-UI-COM-003`, `STD-UI-COM-004`
 (all `RATIFIED` as of
 [decisions/0003-operator-ratification-decision-001.md](../decisions/0003-operator-ratification-decision-001.md))

@@ -49,7 +49,15 @@ against it — that is separate, not-yet-commissioned work.
 `standards/ui/*.json` files — read
 [docs/ui/constitution.md](docs/ui/constitution.md) (the compact,
 agent-facing summary of every RATIFIED UI rule, with inline citations) and
-follow [docs/ui/agent-implementation-workflow.md](docs/ui/agent-implementation-workflow.md).
+follow [docs/ui/agent-implementation-workflow.md](docs/ui/agent-implementation-workflow.md),
+which distinguishes a **blind audit** (constitution + index + checklist
+only) from **informed remediation** (which may additionally load
+`standards/ui/known-evidence-index.json`, prior findings pulled from
+`audits/*.md`, always re-verified against current code before being
+reported). The first blind audit
+([`audits/watch-clank-2026-08-30.md`](audits/watch-clank-2026-08-30.md))
+independently reproduced known gaps and found new ones — see that file for
+what a real one looks like.
 
 ## How is a standard created?
 
