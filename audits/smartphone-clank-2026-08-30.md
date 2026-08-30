@@ -6,14 +6,14 @@
   "date": "2026-08-30",
   "findings": [
     { "standard": "STD-UI-COM-001", "kind": "conformance", "summary": "All GET routes are pure reads; the only run-triggering POST hard-returns 403 read-only (dashboard/app.py:127-132) without invoking the controller; collection is driven by systemd timers outside the GUI process; the field-test launcher scrubs inherited webhook credentials." },
-    { "standard": "STD-UI-COM-002", "kind": "violation", "summary": "The only operator QC decision path is the CLI qc-action command (main.py:1227-1268), which writes a raw INSERT into analyst_actions (main.py:1251-1259) with no uniqueness constraint on (target_type, target_id) and no concurrent-decision handling (alembic/versions/0004_v032.py:15-29); provenance columns exist but before_state/after_state/related_evidence are written as NULL, so 'on what evidence' is not reconstructable. GUI-invisible, but the underlying decision contract governs the write itself (decisions/0005)." },
+    { "standard": "STD-UI-COM-002", "kind": "conformance", "summary": "REMEDIATED (smartphone-clank 5684cf2) and verified PASS 2026-08-31. Original violation: the CLI qc-action command wrote a raw INSERT into analyst_actions with no uniqueness constraint on (target_type, target_id), no concurrent-decision handling, and NULL provenance snapshot columns. Fix (operator Option A): partial unique index uq_analyst_action_terminal (ORM for fresh databases, migration 0008 for existing) enforcing one authoritative terminal decision per target with 'note' exempt as a non-terminal append-only channel; fail-closed explicit vocabulary; collisions resolved as explicit rejection with distinct CLI message and non-zero exit; provenance snapshot populated in the same transaction." },
     { "standard": "STD-UI-COM-003", "kind": "not_applicable", "summary": "No active operator QC/review queue surface exists for a decided item to leave; the page titled 'Device queue' (dashboard/templates/devices.html:4) is a canonical catalogue — its query (dashboard/app.py:135-163) selects all devices by recency with no decision-state semantics. Refined from the pass-1 'violation' classification per decisions/0005; the root write-path gap remains recorded under STD-UI-COM-002." },
     { "standard": "STD-UI-COM-004", "kind": "not_applicable", "summary": "The standard's explicit 'if, and only if, a Clank's GUI exposes an operator QC queue' trigger is unmet: the GUI exposes no QC queue (the QC surface is CLI). Refined from the pass-1 'violation' classification per decisions/0005." },
     { "standard": "STD-UI-COM-005", "kind": "conformance", "summary": "Production membership is a compile-time fail-closed frozenset (alerts/source_maturity.py:31-50); promotion requires an explicit reviewed code edit ('never a config-only flip', alerts/source_maturity.py:11-13); no GUI route mutates it and no runtime metric can (single reference in the codebase)." },
     { "standard": "STD-UI-COM-006", "kind": "not_applicable", "summary": "The GUI exposes no bulk 'run all' control at all — the only mutation route hard-returns 403 (dashboard/app.py:127-132) and LocalCollectionController.start() (dashboard/local_collection.py:52-65) is GUI-unreachable at HEAD; bulk execution lives in systemd timers outside the GUI. (Note: native/windows/launcher.py:5-9 docstring still claims per-source triggering — stale vs app.py, recorded as a maintainer note, not a standards failure.)" },
     { "standard": "STD-UI-COM-008", "kind": "conformance", "summary": "Health is a 0-100 score whose every deduction is a named, rendered factor (observability/metrics.py:293-401; factor cards dashboard/templates/metrics.html:73-89); output volume lives in separate labeled columns (metrics.html:24-39). Sustained zero-output-vs-baseline is a health signal by explicit design (zero_discovery_with_healthy_fetch threshold, unexpected_zero status, labeled candidate_count_low factor) — the standard's stated carve-out, satisfied as a distinctly labeled dimension, not a silent blend." },
-    { "standard": "STD-UI-COM-009", "kind": "violation", "summary": "CollectorRunRecord (observability/metrics.py:34-68) qualifies as an 'equivalent structured record' under the operator-accepted decisions/0006 boundary: immutable per-run rows with phase-attributable counters (http_failures = fetch, parser_failures = parse), a per-run status enum, and per-run regression notes — a flat record preserving fetch-vs-parse-vs-overall distinctions for a specific run carries the same pipeline truth as an ordered ledger. The primary run surface (/metrics) indicates that per-run detail exists (the subtitle advertises 'regression notes in run records', metrics.html:5) but no route exposes any run record, so acceptance criterion 1's direct, discoverable path is unmet. Aggregate fetch-vs-parse columns alone (metrics.html:33-34,60-61) do not satisfy the per-run obligation. Verdict history: PARTIAL/unresolved while decisions/0006 was an open proposal; operator accepted the interpretation 2026-08-30, resolving the trigger question — the reachability gap stands on its own." },
-    { "standard": "STD-UI-COM-010", "kind": "violation", "summary": "Naive-UTC datetimes (database/models.py:46-47,127,368-370) are rendered raw with no zone marker and no stated page-level convention on four of five content surfaces: devices.html:12,20; dossier.html:18-19,79,96,99; metrics.html:28,55; discord.html:11,16-17,32. The only zoned value in the GUI is home.html:45 ('Generated ... UTC'). dossier.html:79 'When' sits on occurred_at while the backend also tracks recorded_at (database/models.py:212-213) and shows neither label nor the other value, so observed-vs-recorded is not determinable." },
+    { "standard": "STD-UI-COM-009", "kind": "conformance", "summary": "REMEDIATED (smartphone-clank 5684cf2) and verified PASS 2026-08-31, under the operator-accepted decisions/0006 boundary (CollectorRunRecord is a per-run, phase-attributable 'equivalent structured record'). Original violation: /metrics indicated that per-run detail existed (the subtitle advertised 'regression notes in run records') but no route exposed any run record. Fix: new /metrics/runs/{run_id} detail surface (status, phase-attributable counters, regression notes, run_reason) plus a Recent runs table linking every run; aggregate metrics unchanged." },
+    { "standard": "STD-UI-COM-010", "kind": "conformance", "summary": "REMEDIATED (smartphone-clank 5684cf2) and verified PASS 2026-08-31. Original violation: naive-UTC datetimes rendered raw with no zone marker and no stated page-level convention across devices/dossier/metrics/discord, and a dossier Timeline 'When' column ambiguous between occurred_at and recorded_at. Fix: one stated 'All times UTC' convention in the shared base layout (explicitly sufficient under the ratified wording), covering every surface; the ambiguous column relabeled to 'Observed'." },
     { "standard": "STD-UI-COM-011", "kind": "conformance", "summary": "Per-channel delivery accounting with five distinct outcomes (eligible/attempted/delivered/suppressed/failed) plus a failures table with reason/HTTP status/error (dashboard/app.py:243-292; dashboard/templates/discord.html:11-38; alerts/delivery.py:181-201), backed by a delivery record that persists suppressed sends with evidence (alerts/source_maturity.py:15-18). Failed and suppressed are visibly distinct from never-eligible." },
     { "standard": "STD-UI-NEWS-001", "kind": "not_applicable", "summary": "smartphone-clank is sku-based (devices/SKUs/evidence/snapshots from OEM support pages and sitemaps; no story/lead entities; no review vocabulary anywhere) — the standard is scoped to applies_to: [news-based]. The 'Newsroom' branding (dashboard/app.py:2, home.html:4, the 'newsroom' Discord channel) is naming for a device-discovery intelligence channel, not an editorial-lead workflow." },
     { "standard": "STD-UI-NEWS-002", "kind": "not_applicable", "summary": "sku-based family (see STD-UI-NEWS-001 entry); no live editorial intake/review queue concept exists to expose. No review vocabularies of any kind were found, so the Clank is not a watch-clank-style hybrid." }
@@ -34,6 +34,37 @@ wording by
 [decisions/0005-qc-applicability-refinement.md](../decisions/0005-qc-applicability-refinement.md).
 The pass-1 file's factual observations stand; only its classification
 changed.
+
+## Post-remediation verification (2026-08-31) — REMEDIATION_VERIFIED
+
+The three violations found below were remediated in smartphone-clank
+commit `5684cf2` under an informed remediation plan (operator-approved,
+including the Option A terminal-decision uniqueness ruling), then
+independently re-verified against that HEAD (not against the remediation
+report). The original violation findings and the remediation/interpretation
+history above are preserved unmodified; the structured block now carries
+the current assessment.
+
+| Standard | Initial (2026-08-30/31) | After 5684cf2 (verified 2026-08-31) |
+|---|---|---|
+| STD-UI-COM-002 | FAIL | REMEDIATED — PASS |
+| STD-UI-COM-009 | FAIL | REMEDIATED — PASS |
+| STD-UI-COM-010 | FAIL | REMEDIATED — PASS |
+
+Full suite at verification time: 252 passed, 1 skipped. No new
+ratified-standard regressions; read-only dashboard posture, COM-003/004
+N/A standing, and all specialist surfaces preserved.
+
+Operational/deploy note (not a standards violation): existing production
+databases receive the COM-002 integrity contract via migration 0008 at
+the next normal `alembic upgrade head`; until then an unmigrated database
+enforces no uniqueness. Optional hardening/backlog (explicitly not a
+blocker to this closure): the qc-action CLI could fail closed on a stale
+schema, mirroring the dashboard's schema_guard refusal.
+
+The QC GUI absence remains non-normative product/remediation backlog only;
+`STD-UI-COM-003`/`STD-UI-COM-004` remain N/A per their ratified triggers
+(decisions/0005). COM-003/004 were not reclassified by this closure.
 
 ## Context
 

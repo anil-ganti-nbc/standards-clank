@@ -250,24 +250,32 @@ def test_known_evidence_entries_reference_existing_audit_files():
         assert path.is_file(), f"known-evidence-index.json entry points at missing file {entry['source_reference']!r}"
 
 
-def test_known_evidence_index_references_only_active_audits_and_pipeline_is_wired():
-    """Sanity check that the audits/*.md -> known-evidence-index.json
-    pipeline is actually wired, not silently producing an empty file.
-    Superseded audits are excluded by design (their successor contributes
-    the Clank's current entries instead), and an audit whose findings are
-    all fully remediated legitimately contributes zero entries — the
-    pipeline guarantee is that the index never references an audit that
-    does not exist, and that it is not empty overall."""
+def test_known_evidence_index_exactly_matches_active_violation_findings():
+    """Mechanical wiring invariant that holds in ANY state: the index is
+    exactly the set of kind:violation findings from active (non-superseded)
+    audits — nothing more, nothing less. A fully-remediated fleet therefore
+    legitimately yields an empty index (all known findings verified fixed);
+    the committed-file-vs-generator drift test still proves the pipeline
+    itself is wired."""
     audit_files = {p.name for p in (REPO_ROOT / "audits").glob("*.md") if p.name != "README.md"}
     superseded_files = {
         p.name for p, block in load_audit_findings() if block.get("superseded_by")
     }
-    referenced_files = {entry["source_reference"].split("/", 1)[1] for entry in _load_known_evidence()}
-    assert referenced_files <= (audit_files - superseded_files), (
-        f"known-evidence-index.json references unknown/superseded audits: "
-        f"{referenced_files - (audit_files - superseded_files)}"
-    )
-    assert referenced_files, "known-evidence-index.json is empty — pipeline unwired?"
+    expected = []
+    for path, block in load_audit_findings():
+        if block.get("superseded_by"):
+            continue
+        for finding in block["findings"]:
+            if finding.get("kind") == "violation":
+                expected.append((finding["standard"], block["clank"], path.name))
+
+    actual = [
+        (entry["standard"], entry["subject"], entry["source_reference"].split("/", 1)[1])
+        for entry in _load_known_evidence()
+    ]
+    assert sorted(actual) == sorted(expected)
+    referenced_files = {name for _, _, name in actual}
+    assert referenced_files <= (audit_files - superseded_files)
 
 
 def test_superseded_audit_is_excluded_from_known_evidence_index():
@@ -314,23 +322,42 @@ def test_smartphone_audit_classifies_com003_com004_as_not_applicable():
     assert kinds["STD-UI-COM-004"] == "not_applicable"
 
 
-def test_smartphone_audit_keeps_com002_and_com010_as_violations():
+def test_smartphone_violations_are_remediated_and_verified():
+    """The smartphone-clank remediation (5684cf2) was independently
+    verified 2026-08-31: COM-002/009/010 are remediated with the original
+    findings preserved in the summaries, and the audit records
+    REMEDIATION_VERIFIED."""
     kinds = _smartphone_audit_kinds()
-    assert kinds["STD-UI-COM-002"] == "violation"
-    assert kinds["STD-UI-COM-010"] == "violation"
-
-
-def test_smartphone_audit_com009_is_fail_under_accepted_interpretation():
-    """The COM-009 'equivalent structured record' interpretation was
-    accepted by the operator (decisions/0006, 2026-08-30); the audit
-    verdict is FAIL and must stay a violation until the underlying gap is
-    actually remediated in smartphone-clank."""
-    kinds = _smartphone_audit_kinds()
-    assert kinds["STD-UI-COM-009"] == "violation"
-    proposal = (REPO_ROOT / "decisions" / "0006-com009-equivalent-structured-record.md").read_text()
-    assert "Status: Accepted" in proposal, "decisions/0006 acceptance must be recorded before a FAIL verdict is valid"
+    for sid in ("STD-UI-COM-002", "STD-UI-COM-009", "STD-UI-COM-010"):
+        assert kinds[sid] == "conformance", sid
+    summaries = {
+        f["standard"]: f["summary"]
+        for f in dict(load_audit_findings())[
+            REPO_ROOT / "audits" / "smartphone-clank-2026-08-30.md"
+        ]["findings"]
+    }
+    for sid in ("STD-UI-COM-002", "STD-UI-COM-009", "STD-UI-COM-010"):
+        assert summaries[sid].startswith("REMEDIATED"), sid
+        assert "5684cf2" in summaries[sid], sid
     audit_text = (REPO_ROOT / "audits" / "smartphone-clank-2026-08-30.md").read_text()
-    assert "PARTIAL" in audit_text, "audit must preserve the prior PARTIAL/unresolved verdict state in its history"
+    assert "REMEDIATION_VERIFIED" in audit_text
+    assert "Product/remediation backlog (non-normative)" in audit_text
+
+
+def test_smartphone_com009_remediation_preserves_interpretation_history():
+    """COM-009's path: interpretation accepted (decisions/0006) -> FAIL ->
+    remediated (smartphone-clank 5684cf2) -> REMEDIATION_VERIFIED. The
+    audit must keep the full verdict history visible, and the accepted
+    interpretation decision must stay on record."""
+    proposal = (REPO_ROOT / "decisions" / "0006-com009-equivalent-structured-record.md").read_text()
+    assert "Status: Accepted" in proposal
+    audit_text = (REPO_ROOT / "audits" / "smartphone-clank-2026-08-30.md").read_text()
+    assert "PARTIAL" in audit_text and "FAIL" in audit_text, (
+        "audit must preserve the prior PARTIAL/unresolved and FAIL verdict states in its history"
+    )
+    assert "REMEDIATION_VERIFIED" in audit_text
+    kinds = _smartphone_audit_kinds()
+    assert kinds["STD-UI-COM-009"] == "conformance"
 
 
 def test_smartphone_audit_structured_block_covers_every_ratified_standard():
