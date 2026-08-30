@@ -22,13 +22,5 @@
     "source": "audit",
     "summary": "Naive-UTC datetimes (database/models.py:46-47,127,368-370) are rendered raw with no zone marker and no stated page-level convention on four of five content surfaces: devices.html:12,20; dossier.html:18-19,79,96,99; metrics.html:28,55; discord.html:11,16-17,32. The only zoned value in the GUI is home.html:45 ('Generated ... UTC'). dossier.html:79 'When' sits on occurred_at while the backend also tracks recorded_at (database/models.py:212-213) and shows neither label nor the other value, so observed-vs-recorded is not determinable.",
     "source_reference": "audits/smartphone-clank-2026-08-30.md"
-  },
-  {
-    "standard": "STD-UI-COM-011",
-    "subject": "watch-clank",
-    "kind": "known_nonconformance",
-    "source": "audit",
-    "summary": "PARTIALLY REMEDIATED (watch-clank 13f842a, verified 2026-08-31): the primary notification paths now record and surface per-item sent/failed/gated/ineligible outcomes (events extra['delivery']; leads delivery_state + migration 012; Delivery column on Recent Intelligence, server and JS rows). REMAINING GAPS: (1) notify_correlation \u2014 the CONFIRMED/FAMILY_MATCH follow-up send \u2014 records no delivery outcome, so a correlation-alerted lead can read as 'not delivered'; (2) _record_watch_event with notify=False records nothing, where the control flow could state gated/notify_disabled. Original violation: Event.extra['alerted'] and SpecialistLead.notified_at were persisted delivery outcomes no template ever read; only aggregate Discord config state was shown.",
-    "source_reference": "audits/watch-clank-2026-08-30.md"
   }
 ]

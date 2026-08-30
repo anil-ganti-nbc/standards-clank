@@ -14,7 +14,7 @@
     { "standard": "STD-UI-COM-008", "kind": "conformance", "summary": "SourceHealth.acquisition_state and .yield_state are distinct fields, rendered as separately-labeled columns. Cited as this standard's own reference implementation." },
     { "standard": "STD-UI-COM-009", "kind": "conformance", "summary": "REMEDIATED (watch-clank 13f842a) and verified PASS 2026-08-31. Original violation: PipelineLedger tracks real stage data with an explicit stage_order, but the primary Runs page shows only a terminal status badge with no link or indication that stage/correlation detail exists; even the per-watch drill-down doesn't hyperlink the correlation id. Fix: /runs/{run_id} run-detail surface linked from every run row, stage-ordered ledger grouped per correlation id with links into /correlation/{id}; hyperlinked drill-down short-ids." },
     { "standard": "STD-UI-COM-010", "kind": "conformance", "summary": "REMEDIATED (watch-clank 13f842a) and verified PASS 2026-08-31. Original violation: the SpecialistLead table's 'Published / observed' column collapses two distinct timestamp semantics into one with no per-row indication of which is shown; watch_detail.html and correlation.html render raw timestamps skipping the app's documented always-labeled-with-zone convention. Fix: all four surfaces via humantime; neutral 'Timing' header with explicit per-cell published/discovered role labels on both render paths. Separate low-severity observation (not a reopened failure): scheduler.html renders windows schtasks next_run/last_run strings without zone labels." },
-    { "standard": "STD-UI-COM-011", "kind": "violation", "summary": "PARTIALLY REMEDIATED (watch-clank 13f842a, verified 2026-08-31): the primary notification paths now record and surface per-item sent/failed/gated/ineligible outcomes (events extra['delivery']; leads delivery_state + migration 012; Delivery column on Recent Intelligence, server and JS rows). REMAINING GAPS: (1) notify_correlation — the CONFIRMED/FAMILY_MATCH follow-up send — records no delivery outcome, so a correlation-alerted lead can read as 'not delivered'; (2) _record_watch_event with notify=False records nothing, where the control flow could state gated/notify_disabled. Original violation: Event.extra['alerted'] and SpecialistLead.notified_at were persisted delivery outcomes no template ever read; only aggregate Discord config state was shown." },
+    { "standard": "STD-UI-COM-011", "kind": "conformance", "summary": "REMEDIATED (watch-clank 13f842a + fbf228f) and verified PASS 2026-08-31. Original violation: Event.extra['alerted'] and SpecialistLead.notified_at were persisted delivery outcomes no template ever read; only aggregate Discord config state was shown. Fix: all four item-delivery send paths (early-warning, correlation follow-up, and both event creation paths) record distinct sent/failed/gated/ineligible outcomes with reasons, surfaced per item on Recent Intelligence on both render paths; notified_at keeps its early-warning dedup-guard semantics untouched." },
     { "standard": "STD-UI-NEWS-001", "kind": "conformance", "summary": "SpecialistLeadReview vocabulary uses DUPLICATE, not OUT_OF_STOCK, confirming the two-vocabulary hybrid design." },
     { "standard": "STD-UI-NEWS-002", "kind": "unresolved", "summary": "The intelligence/review queue is one click from the stats-first landing page via a low-visual-weight link; whether that satisfies 'reachable directly or via one obvious action' for a hybrid Clank is a genuine applicability question the rule's news-only evidence base doesn't resolve." }
   ]
@@ -29,7 +29,7 @@ find. See that file's own note, and
 [`docs/ui/agent-implementation-workflow.md`](../docs/ui/agent-implementation-workflow.md)'s
 re-verification clause.
 
-## Post-remediation verification (2026-08-31) — REMEDIATION_PARTIAL
+## Post-remediation verification (2026-08-31) — REMEDIATION_VERIFIED
 
 The three violations found below were remediated in watch-clank commit
 `13f842a` under an informed remediation plan, then independently
@@ -42,19 +42,18 @@ carries the current assessment.
 |---|---|---|
 | STD-UI-COM-009 | FAIL | REMEDIATED — PASS |
 | STD-UI-COM-010 | FAIL | REMEDIATED — PASS |
-| STD-UI-COM-011 | FAIL | PARTIALLY REMEDIATED |
+| STD-UI-COM-011 | FAIL | PARTIALLY REMEDIATED → REMEDIATED (gap closure `fbf228f`, verified same day) |
 
-Full suite at verification time: 485 passed, 2 skipped. No new
-ratified-standard regressions; all specialist-surface regression checks
-clean. Remaining COM-011 scope (both are delivery write paths the
-remediation did not instrument, exactly the class acceptance criterion 2
-targets):
+Full suite at verification time: 485 passed, 2 skipped (490 after the gap
+closure). No new ratified-standard regressions; all specialist-surface
+regression checks clean.
 
-1. `notify_correlation` — the CONFIRMED/FAMILY_MATCH follow-up send —
-   records no delivery outcome, so a correlation-alerted lead can read as
-   "not delivered".
-2. `_record_watch_event` with `notify=False` records nothing, where the
-   control flow could state `gated/notify_disabled`.
+The two COM-011 gaps found at first verification — `notify_correlation`
+recording no delivery outcome, and `_record_watch_event notify=False`
+recording nothing — were closed by watch-clank commit `fbf228f` and
+re-verified the same day: every `send_editorial_alert` call site (all
+four) now records a distinct per-item outcome, giving
+**REMEDIATION_VERIFIED** for the first full remediation loop.
 
 Separate non-remediation note: `scheduler.html` renders Windows
 `schtasks` `next_run`/`last_run` strings without zone labels — a new,
