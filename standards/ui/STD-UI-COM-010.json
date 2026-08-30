@@ -3,10 +3,10 @@
   "title": "Every ambiguous timestamp must identify both its semantic role and its timezone",
   "domain": "ui",
   "level": "MUST",
-  "status": "PROPOSED",
-  "version": 1,
+  "status": "RATIFIED",
+  "version": 2,
   "applies_to": [],
-  "requirement": "Where a timestamp's meaning could be ambiguous to an operator (e.g. it could plausibly mean 'when this was published,' 'when we discovered it,' 'when it was decided,' 'when a run started/finished'), the UI MUST label which of those it is. Where a timestamp's displayed value could plausibly be read in more than one timezone (server time, UTC, browser-local time), the UI MUST make the timezone explicit at the point of display — an abbreviation or offset suffix is sufficient; a consistent, stated convention (e.g. 'this page always shows UTC,' stated once and applied consistently) also satisfies this. Converting to the viewer's local browser time with no indication that this happened does not satisfy this requirement.",
+  "requirement": "Where a timestamp's meaning could be ambiguous to an operator (e.g. it could plausibly mean 'when this was published,' 'when we discovered it,' 'when it was decided,' 'when a run started/finished'), the UI MUST label which of those it is. Where a timestamp's displayed value could plausibly be read in more than one timezone (server time, UTC, browser-local time), the timezone MUST be unambiguous to the operator — this does NOT require repeating a zone marker on every value/cell. A single surface-level convention stated once and applied consistently (e.g. a table caption or page header reading 'All times UTC' or 'All times IST') fully satisfies this, provided the semantic role of each individual timestamp remains clear. The invariant is unambiguous time semantics, not visual repetition. Silently converting to the viewer's browser-local time with no stated convention and no per-value indication does not satisfy this requirement.",
   "rationale": "Semantic-role labeling is, encouragingly, mostly already fleet practice: feature-phone-clank, tablet-clank, korean-tech-wire, and smartphone-clank's dossier view all give distinct, correctly-labeled column headers per timestamp type. Timezone labeling is the opposite story and is the real gap: watch-clank is the sole Clank in the fleet with a documented, enforced rule that no timestamp may render without an explicit zone label (_humantime() renders e.g. '12 Aug 2026, 07:12 UTC (12:42 IST)', paired with a relative-time helper that is documented as 'never shown alone'). Every other surveyed Clank either silently converts to browser-local time with no marker (oem-radar's when(), semiconductor-intelligence's fmtDate()) or renders a raw/stripped string with no offset at all (tablet-clank's _fmt_time(), feature-phone-clank, smartwatch-clank, chinese-tech-wire's _fmt(), korean-tech-wire, smartphone-clank outside its one home-page footer). This is exactly the case the operator asked to weigh correctly: a pattern present in only one Clank, evidently solving a real and recurring ambiguity problem (watch-clank's own SpecialistLead table still has to fall back to an admittedly-ambiguous 'Published / observed' combined column where it hasn't fully applied its own rule), rather than something to discount for lacking fleet-wide precedent.",
   "forbidden": [
     "Rendering a timestamp via browser-local-time conversion with no indication that a conversion happened",
@@ -14,7 +14,7 @@
   ],
   "acceptance": [
     "Every displayed timestamp's semantic role is determinable from the UI (a label, a column header, or unambiguous context)",
-    "Every displayed timestamp's timezone is determinable from the UI (an explicit marker per value, or one clearly stated page-wide convention)"
+    "Every displayed timestamp's timezone is determinable from the UI — either an explicit marker per value, or one clearly stated surface-level convention (a caption/header naming the zone) that an operator would actually see before reading the values"
   ],
   "exceptions_allowed": true,
   "evidence": [
@@ -25,5 +25,5 @@
   "origin": "CROSS_CLANK_BEST_PRACTICE",
   "introduced": "2026-08-30",
   "supersedes": null,
-  "notes": "Pass 2 candidate. Ratifying this as-is would create a large fleet-wide remediation backlog (8 of 9 Clanks, in varying degrees) — flagged explicitly so the operator ratifies with that consequence in view, not by surprise. The fix is comparatively low-cost per Clank (a formatting-helper change, not a data-model change), unlike STD-UI-COM-009's stage-tracking gap."
+  "notes": "RATIFIED 2026-08-30 by Operator Ratification Decision 002 (decisions/0004-operator-ratification-decision-002.md) despite the 8/9 remediation footprint — the operator's explicit position is that this footprint is evidence of technical debt, not evidence against the principle, and leaving it unratified would institutionalise ambiguity around first-seen/published/observed/run-started timestamps. Version 2: clarified that a stated page-level timezone convention satisfies the requirement — per-cell repetition was never required, and this wording removes any reading that implied it."
 }

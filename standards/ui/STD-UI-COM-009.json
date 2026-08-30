@@ -3,18 +3,20 @@
   "title": "A run's status must not collapse pipeline stages the backend already distinguishes",
   "domain": "ui",
   "level": "MUST",
-  "status": "PROPOSED",
-  "version": 1,
+  "status": "RATIFIED",
+  "version": 2,
   "applies_to": [],
-  "requirement": "Where a Clank's backend already models a run as passing through distinct pipeline stages (a stage field, a stage-ordered ledger, or an equivalent structured record of what point execution reached), that stage information MUST be reachable by an operator investigating a specific run — a drill-down/detail page satisfies this, it does not need to be on the primary run-list view. The primary run list MUST NOT present a single terminal status (e.g. FAILED) in a way that erases a distinction the backend itself already tracks (e.g. failed during initial fetch vs. failed after successfully classifying and partially storing results), when that distinction would materially change what an operator should do next.",
+  "requirement": "Where a Clank's backend already models a run as passing through distinct pipeline stages (a stage field, a stage-ordered ledger, or an equivalent structured record of what point execution reached), the primary run surface MUST NOT present a single terminal status (e.g. FAILED) in a way that erases a distinction the backend itself already tracks, when that distinction would materially change what an operator should do next. The primary run surface does not need to render every stage inline, but it MUST visibly indicate that deeper stage information exists and provide a direct, discoverable path to it — inline stage columns, an expandable row, a linked detail drawer, or a linked run-detail page all satisfy this. A page that technically contains the stage data but is not linked from, or indicated on, the primary run surface (an operator would have to already know the URL or guess) does NOT satisfy this — it is technically present but operationally absent.",
   "rationale": "Near-universal pattern across the fleet: almost every surveyed Clank records one terminal status per run (RUNNING/SUCCESS/FAILED or similar) with aggregate counters, and none except watch-clank model true pipeline-stage data at all. Where stage data does exist — watch-clank's PipelineLedger, with an explicit stage_order (discovery -> fetch -> snapshot_storage -> parsing -> normalization -> identity_resolution -> observation_creation -> family_candidate_assignment) — it is reachable only via non-nav-linked per-item drill-down pages (/watches/{id}, /correlation/{id}), not from the primary Runs page, which shows only one status badge plus funnel counts. This rule is scoped narrowly (only where stage data already exists) specifically because most Clanks have no stage model to expose, and manufacturing one would be a backend change, not a UI standard.",
   "forbidden": [
     "Inventing or requiring new backend stage-tracking where none currently exists (out of scope for this UI standard)",
-    "A primary run list that shows one undifferentiated FAILED for runs that failed at materially different points, when the backend can already tell the difference"
+    "A primary run list that shows one undifferentiated FAILED for runs that failed at materially different points, when the backend can already tell the difference",
+    "Stage-level data existing on some page in the codebase with no link, indicator, or discoverable path to it from the primary run surface"
   ],
   "acceptance": [
-    "If stage-level data exists in the backend for a run, an operator can reach it for any given run (a detail/drill-down page is sufficient)",
-    "The primary run list is not the only place stage information could have been shown when it existed and mattered"
+    "If stage-level data exists in the backend for a run, the primary run surface visibly indicates it exists (not silently omits it) and provides a direct, clickable path to it",
+    "Acceptable forms: inline stage columns, an expandable row, a linked detail drawer, or a linked run-detail page — an unlinked/undiscoverable route does not count",
+    "The primary run list does not present one undifferentiated terminal status where the backend already distinguishes materially different failure points"
   ],
   "exceptions_allowed": true,
   "evidence": [
@@ -25,5 +27,5 @@
   "origin": "ARCHITECTURAL_INVARIANT",
   "introduced": "2026-08-30",
   "supersedes": null,
-  "notes": "Pass 2 candidate. Open question flagged for the operator, not resolved here: does 'reachable via an unlinked drill-down page' actually satisfy this standard, or does the primary Runs list itself need to surface stage information for a failed run? watch-clank's current implementation is a live test case either way — it narrowly conforms under the permissive reading, and would not under a stricter one."
+  "notes": "RATIFIED 2026-08-30 by Operator Ratification Decision 002 (decisions/0004-operator-ratification-decision-002.md), resolving the open strictness question against the permissive reading. Version 2: requirement/acceptance rewritten to require the primary run surface to visibly indicate that deeper stage data exists and provide a direct path to it — an unlinked/undiscoverable page does not satisfy this. Under this stricter reading, watch-clank's current implementation (stage data reachable only via /watches/{id} and /correlation/{id}, not linked from or indicated on the primary Runs page) does NOT conform and is a live remediation-relevant example, not an exception."
 }

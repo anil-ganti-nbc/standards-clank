@@ -1,7 +1,17 @@
 # GUI Ratification Pass 2 — information architecture and observability
 
-Status: **evidence-gathering and drafting only. Nothing here is REVIEWED or
-RATIFIED.** Same discipline as
+Status: **superseded by ratification.** On 2026-08-30 the operator issued
+[Operator Ratification Decision 002](../decisions/0004-operator-ratification-decision-002.md):
+5 of the 6 candidates below are now `RATIFIED` (all five with wording
+clarifications — see the decision record and each standard's own `notes`
+field); `STD-UI-COM-012` was returned for revision and rewritten (version
+2, still `PROPOSED`) as "primary workflow must not imply unobserved
+health." This page is kept as the historical evidence record, not edited
+to match the outcome — read the JSON files under
+[`standards/ui/`](../standards/ui/) for current wording.
+
+This document originally captured Pass 2's evidence-gathering and drafting
+only, using the same discipline as
 [GUI Ratification Pass 1](gui-ratification-pass-1.md): five parallel
 read-only survey agents, same repo pairings, file:line citations required
 for every claim. Built on top of
@@ -102,6 +112,18 @@ before drafting this.
    an assumption this pass is making unilaterally.
 4. **STD-UI-SKU-002 deferred**, see above — needs a targeted follow-up,
    not force-fit now.
+
+## Resolution (added after Operator Ratification Decision 002)
+
+Both open items in section 1-2 above were resolved:
+unlinked drill-downs do not satisfy STD-UI-COM-009 ("technically present
+but operationally absent"), and STD-UI-COM-010 was ratified despite its
+remediation footprint on the operator's explicit reasoning that the
+footprint is evidence of debt, not evidence against the principle. Item 3
+(STD-UI-COM-012's weaker evidence base) was resolved by not ratifying it —
+see [decisions/0004](../decisions/0004-operator-ratification-decision-002.md)
+for the rewritten version. Item 4 (STD-UI-SKU-002) stands as decided:
+no rule was created.
 
 ## What this pass did not do
 

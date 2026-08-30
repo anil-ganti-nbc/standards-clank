@@ -1,12 +1,13 @@
 # ui
 
-7 `RATIFIED` (Pass 1 + Operator Ratification Decision 001), 8 `PROPOSED`
-(2 revised Pass 1 candidates awaiting re-review, 6 new Pass 2 candidates
-awaiting first review). See
+12 `RATIFIED`, 3 `PROPOSED` (2 revised Pass 1 candidates, 1 revised Pass 2
+candidate — all awaiting re-review), as of Operator Ratification Decision
+002 (2026-08-30). See
 [../../docs/gui-ratification-pass-1.md](../../docs/gui-ratification-pass-1.md),
 [../../docs/gui-ratification-pass-2.md](../../docs/gui-ratification-pass-2.md),
+[../../decisions/0003-operator-ratification-decision-001.md](../../decisions/0003-operator-ratification-decision-001.md),
 and
-[../../decisions/0003-operator-ratification-decision-001.md](../../decisions/0003-operator-ratification-decision-001.md).
+[../../decisions/0004-operator-ratification-decision-002.md](../../decisions/0004-operator-ratification-decision-002.md).
 
 ## Pass 1 (operator/action/QC semantics)
 
@@ -26,14 +27,15 @@ and
 
 | id | title | family | status |
 |---|---|---|---|
-| [STD-UI-COM-008](STD-UI-COM-008.json) | Health independently expressible from coverage | Both | PROPOSED |
-| [STD-UI-COM-009](STD-UI-COM-009.json) | Don't collapse pipeline stages the backend already tracks | Both | PROPOSED |
-| [STD-UI-COM-010](STD-UI-COM-010.json) | Timestamp semantic role + timezone must both be explicit | Both | PROPOSED |
-| [STD-UI-COM-011](STD-UI-COM-011.json) | Delivery state inspectable independently from discovery/review | Both | PROPOSED |
-| [STD-UI-COM-012](STD-UI-COM-012.json) | Overview must not omit a visible health signal | Both | PROPOSED |
-| [STD-UI-NEWS-002](STD-UI-NEWS-002.json) | Live editorial intake surface must be the default landing view | News | PROPOSED |
+| [STD-UI-COM-008](STD-UI-COM-008.json) | Health independently expressible from coverage (semantic, not page, separation) | Both | RATIFIED (v2) |
+| [STD-UI-COM-009](STD-UI-COM-009.json) | Tracked pipeline stages must be discoverable, not just technically present | Both | RATIFIED (v2) |
+| [STD-UI-COM-010](STD-UI-COM-010.json) | Timestamp semantic role + timezone must both be unambiguous | Both | RATIFIED (v2) |
+| [STD-UI-COM-011](STD-UI-COM-011.json) | Delivery state independently inspectable from discovery/review | Both | RATIFIED (v2) |
+| [STD-UI-COM-012](STD-UI-COM-012.json) | Primary workflow must not imply unobserved health | Both | PROPOSED (v2, revised) |
+| [STD-UI-NEWS-002](STD-UI-NEWS-002.json) | Live intake queue reachable directly or with one obvious action | News | RATIFIED (v2) |
 
 `STD-UI-SKU-002` (a proposed SKU-family counterpart to NEWS-002) was
 considered and explicitly not drafted — see
 [../../docs/gui-ratification-pass-2.md](../../docs/gui-ratification-pass-2.md#explicitly-not-proposed-std-ui-sku-002)
-for why the evidence didn't support it.
+for why the evidence didn't support it. No rule was ever created for it,
+so there is nothing to ratify or revise.

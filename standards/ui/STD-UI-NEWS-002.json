@@ -3,17 +3,18 @@
   "title": "News-family Clanks: a live editorial intake/review surface must be the default landing view",
   "domain": "ui",
   "level": "MUST",
-  "status": "PROPOSED",
-  "version": 1,
+  "status": "RATIFIED",
+  "version": 2,
   "applies_to": ["news-based"],
-  "requirement": "A news/lead-based Clank MUST expose a primary editorial intake/review surface (a queue or feed of current, actionable leads/stories awaiting a decision), and that surface MUST be the default view an operator lands on — reachable without navigating away from the entry point, whether that is a dedicated route or the single page a Clank happens to have.",
+  "requirement": "For a news-family Clank whose primary operator task is live editorial triage, the default operational landing surface MUST expose the live intake/review queue directly, or reach it with one obvious action (a single clearly-primary link/button, not a search through navigation).",
   "rationale": "Independently present in all three surveyed news-family Clanks, and in each case it is specifically the default/landing view, not merely present somewhere: chinese-tech-wire's Newsroom is served at both '/' and '/newsroom' (the same handler); korean-tech-wire's single page opens with 'Latest Leads' as its first section; semiconductor-intelligence's default-active tab (of 12) is explicitly 'stories'/'Editorial Inbox'. This adds something Pass 1's QC-queue standards did not establish: not just that a queue exists, but that it is the thing an operator sees first.",
   "forbidden": [
-    "A news-family Clank whose default landing view is a stats page, a source-health page, or anything other than the live intake/review surface"
+    "A news-family Clank whose default landing view is a stats page, a source-health page, or anything else, with the live intake/review queue reachable only via a multi-step navigation search"
   ],
   "acceptance": [
-    "The default route/view (whatever an operator reaches with no navigation) is, or immediately contains, the current actionable leads/stories awaiting review",
-    "This can be satisfied by a dedicated route being the default, or by a single-page app placing it as the first/primary section"
+    "The default operational landing surface is, or contains, the current actionable leads/stories awaiting review",
+    "Or: the landing surface has one single, clearly-primary link/button to it — not a generic nav item indistinguishable from others",
+    "Satisfied by a dedicated route being the default, a single-page app placing it as the first/primary section, or a landing page with one obvious call-to-action into it"
   ],
   "exceptions_allowed": true,
   "evidence": [
@@ -24,5 +25,5 @@
   "origin": "CROSS_CLANK_BEST_PRACTICE",
   "introduced": "2026-08-30",
   "supersedes": null,
-  "notes": "Pass 2 candidate. 3/3 of surveyed news-family Clanks independently satisfy this, which is the full news-family sample from this pass."
+  "notes": "RATIFIED 2026-08-30 by Operator Ratification Decision 002 (decisions/0004-operator-ratification-decision-002.md). Version 2: softened from 'MUST be the default view' to the semantic requirement (direct exposure or one obvious action), so this doesn't force a literal permanent homepage-is-the-queue design — it protects CTW's, korean-tech-wire's, and semiconductor-intelligence's actual behavior without over-constraining future navigation choices. 3/3 of surveyed news-family Clanks independently satisfy this, which is the full news-family sample from this pass."
 }

@@ -1,27 +1,28 @@
 {
   "id": "STD-UI-COM-012",
-  "title": "A landing/Overview surface must not omit a visible health signal",
+  "title": "Primary workflow must not imply unobserved health",
   "domain": "ui",
   "level": "MUST",
   "status": "PROPOSED",
-  "version": 1,
+  "version": 2,
   "applies_to": [],
-  "requirement": "Where a Clank has both a landing/Overview page and one or more dedicated health/status pages elsewhere, the landing page MUST include at least some visible indicator of source/collector health (a count of degraded/failed sources, a status strip, or equivalent) — an operator MUST NOT be able to land on the Overview and reasonably believe the Clank is fine while a dedicated status page elsewhere shows an active failure.",
-  "rationale": "Not part of the operator's original example set for this pass — surfaced independently while comparing Overview semantics across the fleet. 6 of 9 surveyed Clanks already do this (watch-clank's healthy/degraded/never-run buckets, oem-radar's crawl-status bar, tablet-clank's sources-healthy/total card, feature-phone-clank's Overall Health tile, smartwatch-clank's health strip, korean-tech-wire's single-page design which necessarily includes it). 3 do not: chinese-tech-wire's Newsroom, semiconductor-intelligence's Editorial Inbox landing tab, and smartphone-clank's Home page all explicitly show no health signal, deferring entirely to a separate /health or /metrics page. This is weaker evidence than the other Pass 2 candidates — the 3 gap cases are all multi-page apps that made a deliberate separation-of-concerns choice, which is a defensible design, not obviously a bug the way COM-008's or COM-011's counter-evidence is. Recommendation reflects that: this is a real, evidenced pattern, but with a meaningfully weaker case than COM-008/009/010/011, and 3 current non-conformers who chose this on purpose rather than by omission.",
+  "requirement": "A primary operator surface MUST NOT present the Clank as healthy, normal, or operational solely from successful content activity (items appearing, a queue moving, counts increasing) when system/source health is not actually represented there. Where health is intentionally separated from the primary surface, that surface SHOULD provide an obvious path to current health state when operational judgement is part of the workflow.",
+  "rationale": "Returned for revision from the original Pass 2 draft ('Overview must include a visible health signal') by Operator Ratification Decision 002: the counter-evidence (chinese-tech-wire, semiconductor-intelligence, and smartphone-clank all keep health off their landing surface) is architectural, not accidental, so a blanket 'Overview must show health' MUST was the wrong level. This reformulation targets the actual risk — a primary surface implying health it hasn't measured — while leaving the separation-of-concerns design those three Clanks made intact, provided the health page remains reachable when it matters. Left PROPOSED rather than ratified immediately because, per the operator, this is a more nuanced rule than the original and deserves its own evidence check against those three specific opt-outs before ratification: does chinese-tech-wire's Newsroom, semiconductor-intelligence's Editorial Inbox, or smartphone-clank's Home actually imply health via content activity (e.g. a rising item count reading as 'things are fine'), or do they stay neutral/silent on health entirely? That distinction was not directly asked in Pass 2's original six questions and needs a targeted look before this can move to REVIEWED.",
   "forbidden": [
-    "An Overview/landing page with zero health signal when a dedicated health page elsewhere shows an active degradation or failure"
+    "A landing/primary surface whose only signal of operational status is derived from content volume or recency (e.g. 'items keep appearing, so we must be fine')",
+    "Separating health from the primary surface with no reachable path to it at all"
   ],
   "acceptance": [
-    "The landing page shows at least one health-derived value (a count, a badge, a status strip) sourced from the same data a dedicated health page would show",
-    "It does not need to duplicate the full health table — a summary signal is sufficient"
+    "The primary surface does not present a health claim (explicit or implied) that isn't backed by an actual health check",
+    "If health lives elsewhere, the primary surface has some path to it (a nav item is sufficient; it does not need to be a signal ON the primary surface itself, unlike the superseded v1 draft)"
   ],
   "exceptions_allowed": true,
   "evidence": [
-    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "watch-clank/app/main.py:265-341; oem-radar/src/oem_radar/dashboard/render.py:353-421; tablet-clank/native/macos/dash_render.py:165-183; feature-phone-clank/src/feature_phone_clank/dashboard.py:180; smartwatch-clank/src/smartwatch_clank/dashboard.py:163; korean-tech-wire/dashboard.py:307-347", "summary": "Six Clanks surface a health signal on the landing page." },
-    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "chinese-tech-wire/web/app.py:154-240; semiconductor-intelligence/semi_intel/web/static/index.html:528-584; smartphone-clank/dashboard/templates/home.html:4-45", "summary": "Three Clanks deliberately keep the landing page lean and put health only on a separate page — a defensible design choice, not clearly a defect, which is why this rule's recommendation is weaker than the others in this pass." }
+    { "class": "OPERATOR_REQUIREMENT", "source": "operator ratification review, 2026-08-30 (decisions/0004-operator-ratification-decision-002.md)", "summary": "Operator identified the v1 draft's counter-evidence as architectural (deliberate separation-of-concerns), not accidental, and proposed this reformulation targeting implied-health-via-content-activity instead." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "chinese-tech-wire/web/app.py:154-240; semiconductor-intelligence/semi_intel/web/static/index.html:528-584; smartphone-clank/dashboard/templates/home.html:4-45", "summary": "The three Pass 2 counter-examples, carried forward as the specific cases this revision needs to be checked against before ratification — do their content-activity displays ever read as an implicit health claim?" }
   ],
-  "origin": "CROSS_CLANK_BEST_PRACTICE",
+  "origin": "OPERATOR_REQUIREMENT",
   "introduced": "2026-08-30",
   "supersedes": null,
-  "notes": "Pass 2 candidate, recommendation QUALIFIED (see docs/gui-ratification-pass-2.md) — weaker evidence base than COM-008/009/010/011, and the 3 non-conforming Clanks appear to have chosen this deliberately as a separation-of-concerns design, not by oversight."
+  "notes": "Version 2, still PROPOSED — returned for revision by Operator Ratification Decision 002, not ratified. Needs a targeted evidence check against chinese-tech-wire, semiconductor-intelligence, and smartphone-clank's landing surfaces specifically for implied-health-via-content-activity before it can move to REVIEWED/RATIFIED. Version 1 (the original 'Overview must show a health signal' draft) is preserved in git history at commit 5113049."
 }

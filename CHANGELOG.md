@@ -7,6 +7,24 @@ as normative vs. editorial.
 
 ## Unreleased
 
+- Operator Ratification Decision 002 (2026-08-30): ratified 5 of the 6 GUI
+  Ratification Pass 2 candidates — STD-UI-COM-008/009/010/011 and
+  STD-UI-NEWS-002, each ratified with a wording clarification (v2):
+  COM-008 requires semantic separation not separate pages; COM-009
+  requires stage detail to be discoverable, not merely technically
+  present (an unlinked drill-down does not satisfy it); COM-010 allows a
+  stated page-level timezone convention instead of per-cell repetition,
+  and was ratified despite an 8/9 remediation footprint on the explicit
+  reasoning that the footprint is evidence of debt, not evidence against
+  the principle; COM-011 no longer requires a dedicated Delivery page;
+  NEWS-002 softened from "must be the default view" to reachable directly
+  or via one obvious action. Returned STD-UI-COM-012 for revision
+  (rewritten as "primary workflow must not imply unobserved health", v2,
+  still PROPOSED) rather than ratifying the weaker original. Confirmed no
+  rule is created for STD-UI-SKU-002. See
+  [decisions/0004-operator-ratification-decision-002.md](decisions/0004-operator-ratification-decision-002.md).
+  Ratification does not itself authorize any remediation work.
+
 - GUI Ratification Pass 2 (2026-08-30): added 6 `PROPOSED` candidate
   standards (STD-UI-COM-008..012, STD-UI-NEWS-002) covering navigation,
   Overview semantics, source health vs. coverage, run-stage observability,
