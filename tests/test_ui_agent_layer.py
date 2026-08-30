@@ -17,6 +17,7 @@ from tools.ui_agent_layer import (
     build_agent_checklist,
     build_known_evidence_index,
     build_ratified_index,
+    load_audit_findings,
     load_ratified_ui_standards,
     load_ui_standards,
 )
@@ -251,12 +252,84 @@ def test_known_evidence_entries_reference_existing_audit_files():
 
 def test_known_evidence_index_has_at_least_one_entry_per_persisted_audit():
     """Sanity check that the audits/*.md -> known-evidence-index.json
-    pipeline is actually wired, not silently producing an empty file."""
+    pipeline is actually wired, not silently producing an empty file.
+    Superseded audits are excluded by design (their successor contributes
+    the Clank's current entries instead)."""
     audit_files = {p.name for p in (REPO_ROOT / "audits").glob("*.md") if p.name != "README.md"}
+    superseded_files = {
+        p.name for p, block in load_audit_findings() if block.get("superseded_by")
+    }
     referenced_files = {entry["source_reference"].split("/", 1)[1] for entry in _load_known_evidence()}
-    assert referenced_files == audit_files, (
-        f"audits present: {audit_files}, but known-evidence-index.json only references: {referenced_files}"
+    assert referenced_files == audit_files - superseded_files, (
+        f"audits present: {audit_files}, superseded: {superseded_files}, "
+        f"but known-evidence-index.json only references: {referenced_files}"
     )
+
+
+def test_superseded_audit_is_excluded_from_known_evidence_index():
+    """The pass-1 smartphone audit still contains COM-003/004 'violation'
+    findings in its (preserved) structured block, but it was superseded by
+    the second blind validation, whose refined assessment classifies them
+    N/A. The stale violations must never reach the index."""
+    pass1 = REPO_ROOT / "audits" / "smartphone-clank-2026-08-30-pass1.md"
+    assert pass1.is_file(), "superseded pass-1 audit must be preserved, not deleted"
+    pass1_block = dict(load_audit_findings())[pass1]
+    assert pass1_block.get("superseded_by") == "audits/smartphone-clank-2026-08-30.md"
+    kinds = {f["standard"]: f["kind"] for f in pass1_block["findings"]}
+    assert kinds["STD-UI-COM-003"] == "violation", "precondition: pass-1 block still holds the stale classification"
+    referenced = {entry["source_reference"] for entry in _load_known_evidence()}
+    assert "audits/smartphone-clank-2026-08-30-pass1.md" not in referenced
+
+
+def test_superseded_by_references_resolve_to_active_audits():
+    for path, block in load_audit_findings():
+        ref = block.get("superseded_by")
+        if not ref:
+            continue
+        target = REPO_ROOT / ref
+        assert target.is_file(), f"{path.name}: superseded_by target {ref!r} missing"
+        assert f"audits/{path.name}" != ref, f"{path.name}: superseded_by points at itself"
+
+
+def test_known_evidence_index_generation_is_deterministic():
+    assert build_known_evidence_index() == build_known_evidence_index()
+
+
+# -- smartphone-clank second validation (current assessment) --
+
+def _smartphone_audit_kinds() -> dict[str, str]:
+    path = REPO_ROOT / "audits" / "smartphone-clank-2026-08-30.md"
+    block = dict(load_audit_findings())[path]
+    assert not block.get("superseded_by")
+    return {f["standard"]: f["kind"] for f in block["findings"]}
+
+
+def test_smartphone_audit_classifies_com003_com004_as_not_applicable():
+    kinds = _smartphone_audit_kinds()
+    assert kinds["STD-UI-COM-003"] == "not_applicable"
+    assert kinds["STD-UI-COM-004"] == "not_applicable"
+
+
+def test_smartphone_audit_keeps_com002_and_com010_as_violations():
+    kinds = _smartphone_audit_kinds()
+    assert kinds["STD-UI-COM-002"] == "violation"
+    assert kinds["STD-UI-COM-010"] == "violation"
+
+
+def test_smartphone_audit_keeps_com009_unresolved():
+    """The COM-009 'equivalent structured record' interpretation is an open
+    proposal (decisions/0006); the audit must not quietly resolve it into
+    PASS/FAIL/N/A on an agent's own authority."""
+    kinds = _smartphone_audit_kinds()
+    assert kinds["STD-UI-COM-009"] == "unresolved"
+    proposal = (REPO_ROOT / "decisions" / "0006-com009-equivalent-structured-record.md").read_text()
+    assert "Status: Proposed" in proposal, "decisions/0006 must stay unratified until the operator reviews it"
+
+
+def test_smartphone_audit_structured_block_covers_every_ratified_standard():
+    ratified_ids = _ratified_ids()
+    kinds = _smartphone_audit_kinds()
+    assert set(kinds) == ratified_ids
 
 
 def test_known_evidence_index_is_not_referenced_by_ratified_index_or_checklist():
@@ -297,3 +370,75 @@ def test_agent_workflow_doc_exists_and_has_required_report_fields():
     for field in required_fields:
         assert field in text, f"agent-implementation-workflow.md missing required report field: {field!r}"
     assert "Never self-approve exceptions" in text
+
+
+# -- workflow audit methodology (decisions/0005 interpretation pass) --
+
+WORKFLOW_PATH = REPO_ROOT / "docs" / "ui" / "agent-implementation-workflow.md"
+
+
+def _workflow_text() -> str:
+    return WORKFLOW_PATH.read_text()
+
+
+def test_agent_workflow_requires_inventory_of_nongui_mutation_paths():
+    """A GUI-first inventory missed smartphone-clank's CLI-only qc-action
+    write path (second validation, 2026-08-30). The workflow must now
+    require sweeping operator-relevant backend mutation paths even when
+    the GUI does not expose them."""
+    text = _workflow_text()
+    assert "operator-relevant backend mutation paths" in text
+    assert "CLI QC/operator commands" in text
+    assert "native launcher actions" in text
+    assert "append-only" in text and "operator action stores" in text
+    assert "schema migrations" in text
+
+
+def test_agent_workflow_states_applicability_is_semantic_not_label_based():
+    text = _workflow_text()
+    assert "semantics and behaviour, not labels" in text
+    assert "query/filter semantics" in text
+    assert "write paths" in text
+    assert "entity lifecycle" in text
+    assert "intended operator workflow" in text
+    # The catalogue-vs-queue trap must be named.
+    assert "catalogue" in text
+
+
+def test_agent_workflow_distinguishes_action_contract_from_queue_surface_applicability():
+    """Underlying action contracts (e.g. COM-002) apply wherever the
+    operator action exists, GUI or not; queue-surface standards (COM-003/
+    004) apply only where a real queue semantic exists. Both statements,
+    and the boundary between them, must stay explicit."""
+    text = _workflow_text()
+    assert "Underlying action contracts" in text
+    assert "does NOT automatically make them N/A" in text
+    assert "Queue-surface standards" in text
+    assert "No queue semantics" in text
+    assert "broaden them beyond it" in text
+
+
+def test_agent_workflow_requires_na_verdicts_to_cite_the_trigger_clause():
+    text = _workflow_text()
+    assert "trigger" in text
+    assert "constitution section J2" in text
+
+
+# -- the interpretation pass must not have moved ratification state --
+
+def test_rule_counts_unchanged_after_interpretation_pass():
+    assert len(_ratified_ids()) == 12
+    assert _proposed_ids() == {"STD-UI-COM-007", "STD-UI-COM-012", "STD-UI-SKU-001"}
+
+
+def test_com009_interpretation_remains_unratified():
+    """decisions/0006 is a PROPOSAL: the standard file must be untouched by
+    it (same version, no reference to the proposal in its notes), proving
+    no agent self-ratification occurred through the interpretation pass."""
+    com009 = json.loads((STANDARDS_UI_DIR / "STD-UI-COM-009.json").read_text())
+    assert com009["status"] == "RATIFIED"
+    assert com009["version"] == 2
+    assert "0006" not in com009.get("notes", "")
+    proposal = (REPO_ROOT / "decisions" / "0006-com009-equivalent-structured-record.md").read_text()
+    assert "Status: Proposed" in proposal
+    assert "NOT ratified" in proposal

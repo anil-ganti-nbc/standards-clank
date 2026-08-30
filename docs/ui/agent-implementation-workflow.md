@@ -61,6 +61,55 @@ deliberately kept as a separate file, not merged into
 note for why contaminating the normative layer with per-Clank history
 would defeat the point of a blind audit.
 
+## Applicability: semantics and behaviour, not labels
+
+Determine whether a standard applies from what a surface and its code
+actually *do*, never from what a route, page, tab, or command is *named*
+or from whether a GUI page exists at all.
+
+- A page named "Device queue" may actually be a canonical
+  catalogue/history — a browsable list of every known entity, decided or
+  not. A catalogue is not an operator QC/review queue: it neither
+  satisfies nor triggers queue-specific standards whose ratified text is
+  conditional on a QC/review queue actually existing.
+- Conversely, an operator decision path with no GUI page at all — a CLI
+  command, a native launcher action, a local service/RPC method, a
+  mutation endpoint, an append-only analyst/operator action store — can
+  still trigger an underlying action-contract standard. The ratified
+  decision contract governs how the decision is *written*, not which
+  surface hosts the control.
+
+Before classifying any standard PASS/FAIL/N/A, inspect at minimum:
+
+- the **query/filter semantics** of the surface (what the list actually selects),
+- the **write paths** (what actually mutates state, from every entry point),
+- the **entity lifecycle** (what states an item moves through, and what records those transitions),
+- the **intended operator workflow** (what the operator is supposed to do with this surface).
+
+Every N/A verdict MUST be justified against the standard's own trigger
+clause (constitution section J2). "The GUI doesn't show it" is not, by
+itself, a trigger analysis.
+
+### Underlying action contracts vs queue-surface standards
+
+Two different applicability rules are in play, and collapsing them is how
+a GUI-first audit goes wrong:
+
+- **Underlying action contracts** (`STD-UI-COM-002`, and any future
+  standard of the same shape) constrain the truthfulness and safety of
+  the underlying write. They apply wherever the operator action exists —
+  including CLI-only, API-only, or otherwise GUI-invisible paths. GUI
+  surface absence does NOT automatically make them N/A.
+- **Queue-surface standards** (`STD-UI-COM-003`, `STD-UI-COM-004`) apply
+  only where the actual queue/review surface their trigger clauses name
+  exists. No queue semantics → N/A, per their ratified wording — do not
+  broaden them beyond it.
+
+Absence of a QC *GUI* can still be a product limitation, a backlog item,
+or a future design opportunity — record it as such. That is a different
+statement from a standards violation. See
+[decisions/0005](../../decisions/0005-qc-applicability-refinement.md).
+
 ## The sequence
 
 1. **Identify Clank family.** Determine whether the target Clank is
@@ -90,6 +139,18 @@ would defeat the point of a blind audit.
    conformance from a page's visual appearance — read the underlying query
    and write logic, per the constitution's warning against treating
    backend requirements as cosmetic.
+
+   **Inventory operator-relevant backend mutation paths even when the GUI
+   does not expose them.** This inventory is not GUI-first. At minimum
+   sweep for: CLI QC/operator commands, native launcher actions, local
+   RPC/service methods, mutation endpoints, append-only
+   analyst/operator action stores, delivery/outbox writes, and background
+   helper APIs invoked by GUI controls — because underlying action
+   contracts apply to the write itself, wherever it lives. Sweep CLI
+   entry points and schema migrations too: a real audit missed a
+   CLI-only QC decision path because the table it writes is created by a
+   raw-SQL migration rather than the models module, and nothing in the
+   GUI, models, or templates hinted it existed.
 
 4. **Produce a pre-code conformance report.** See the required structure
    below. This is a deliverable, not a mental note — write it down before
@@ -184,13 +245,21 @@ omitting it):
 
 ## Worked example of the family/N/A distinction
 
-smartphone-clank is `sku-based` but has no QC-queue UI at all — per
-[`audits/smartphone-clank-2026-08-30.md`](../../audits/smartphone-clank-2026-08-30.md),
-this is a recorded **violation** of `STD-UI-COM-002`/`003`/`004` (a
-remediation-backlog item, not an exception), not an N/A case — the concept
-(a QC decision needing to be atomic and queue-excluding) plainly applies
-to a Clank that reviews leaks; it's simply not implemented yet. Contrast
-this with chinese-tech-wire, which has no experimental/production
-maturity-tier concept at all — `STD-UI-COM-005`/`006` are genuinely N/A
-there, per constitution J2, because the concept those standards govern
-doesn't exist in that Clank's architecture.
+chinese-tech-wire has no experimental/production maturity-tier concept at
+all — `STD-UI-COM-005`/`006` are genuinely N/A there, per constitution J2,
+because the concept those standards govern doesn't exist in that Clank's
+architecture.
+
+smartphone-clank (second validation, 2026-08-30) shows both applicability
+rules pulling in opposite directions on one Clank. Its only operator QC
+decision path is a CLI command writing an `analyst_actions` table, so
+`STD-UI-COM-002` applies — the underlying action contract governs the
+write even though no GUI page exposes it — and is failed by that path.
+`STD-UI-COM-003`/`004`, by contrast, are N/A: their ratified triggers are
+conditional on an actual QC queue surface, and none exists (the page
+titled "Device queue" is a canonical catalogue, not a QC queue). The
+earlier pass-1 audit's "violation" classification of those two was
+refined to N/A — a classification refinement under the unchanged
+ratified wording, not an evidence change (see
+[decisions/0005](../../decisions/0005-qc-applicability-refinement.md) and
+[audits/smartphone-clank-2026-08-30.md](../../audits/smartphone-clank-2026-08-30.md)).

@@ -4,23 +4,15 @@
     "subject": "smartphone-clank",
     "kind": "known_nonconformance",
     "source": "audit",
-    "summary": "qc-action writes a plain INSERT into the live analyst_actions table: no separate append-only decision record, no uniqueness constraint, no documented race handling.",
+    "summary": "The only operator QC decision path is the CLI qc-action command (main.py:1227-1268), which writes a raw INSERT into analyst_actions (main.py:1251-1259) with no uniqueness constraint on (target_type, target_id) and no concurrent-decision handling (alembic/versions/0004_v032.py:15-29); provenance columns exist but before_state/after_state/related_evidence are written as NULL, so 'on what evidence' is not reconstructable. GUI-invisible, but the underlying decision contract governs the write itself (decisions/0005).",
     "source_reference": "audits/smartphone-clank-2026-08-30.md"
   },
   {
-    "standard": "STD-UI-COM-003",
+    "standard": "STD-UI-COM-010",
     "subject": "smartphone-clank",
     "kind": "known_nonconformance",
     "source": "audit",
-    "summary": "No dashboard QC queue exists at all, so there is no read-side exclusion mechanism to evaluate; same root cause as the STD-UI-COM-002 gap.",
-    "source_reference": "audits/smartphone-clank-2026-08-30.md"
-  },
-  {
-    "standard": "STD-UI-COM-004",
-    "subject": "smartphone-clank",
-    "kind": "known_nonconformance",
-    "source": "audit",
-    "summary": "No 'recently QC'd' view exists, consistent with having no QC queue or archive to source it from.",
+    "summary": "Naive-UTC datetimes (database/models.py:46-47,127,368-370) are rendered raw with no zone marker and no stated page-level convention on four of five content surfaces: devices.html:12,20; dossier.html:18-19,79,96,99; metrics.html:28,55; discord.html:11,16-17,32. The only zoned value in the GUI is home.html:45 ('Generated ... UTC'). dossier.html:79 'When' sits on occurred_at while the backend also tracks recorded_at (database/models.py:212-213) and shows neither label nor the other value, so observed-vs-recorded is not determinable.",
     "source_reference": "audits/smartphone-clank-2026-08-30.md"
   },
   {

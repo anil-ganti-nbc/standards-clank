@@ -53,7 +53,7 @@ def extract_ratification_decision(standard: dict) -> str:
 # backend requirements into cosmetic UI advice.
 SUMMARIES: dict[str, str] = {
     "STD-UI-COM-001": "Loading or launching the GUI must never itself start a collector run; collection requires an explicit operator action, or a mechanism entirely outside the GUI process.",
-    "STD-UI-COM-002": "A QC decision must be an atomic, provenance-bearing, append-only record, race-guarded against concurrent double-decisions, and the UI must not present it as committed unless the underlying write actually satisfies that contract.",
+    "STD-UI-COM-002": "A QC decision must be an atomic, provenance-bearing, append-only record, race-guarded against concurrent double-decisions, and the UI must not present it as committed unless the underlying write actually satisfies that contract. The decision contract applies to the operator decision path wherever it lives — GUI, CLI, or other operator tooling — not only where a GUI control exists (decisions/0005).",
     "STD-UI-COM-003": "A decided item must be excluded from the active queue on the very next render, via a read-side filter against the decision record — never by deleting or mutating the live row.",
     "STD-UI-COM-004": "If a GUI exposes a QC queue, it must also expose an operator-visible resolved/QC-history view sourced from the QC archive; a dedicated route or an inline section both satisfy this.",
     "STD-UI-COM-005": "Where a production/experimental maturity tier exists, promotion to production must be an explicit out-of-band config change — never a GUI button, never automatic from runtime metrics.",
@@ -73,8 +73,8 @@ CHECKLIST_ITEMS: dict[str, dict[str, str]] = {
         "failure_means": "A GET route, app-startup hook, or lifespan event triggers collection with no explicit operator action.",
     },
     "STD-UI-COM-002": {
-        "question": "Is every QC decision written as an atomic, provenance-bearing, race-guarded record, and does the UI only show it as committed once that write is confirmed?",
-        "failure_means": "A QC action can appear successful (toast, checkmark, queue removal) before or without a confirmed atomic/race-safe write, or a concurrent double-decision can silently duplicate, crash, or lose data.",
+        "question": "Is every operator QC decision — whether recorded through the GUI, a CLI command, or other operator tooling — written as an atomic, provenance-bearing, race-guarded record, with any success indicator driven by confirmation of that write?",
+        "failure_means": "A QC action can appear successful (toast, checkmark, queue removal, a CLI 'recorded' message) before or without a confirmed atomic/race-safe write; a concurrent double-decision can silently duplicate, crash, or lose data; or a GUI-less decision path (CLI command, service method, action store) was never inventoried and so never checked.",
     },
     "STD-UI-COM-003": {
         "question": "Does a just-decided item disappear from the active queue on the very next render, via a read-side filter rather than deleting or mutating the live row?",
@@ -144,7 +144,14 @@ def load_audit_findings() -> list[tuple[Path, dict]]:
     """Parse the leading fenced ```json block out of every audits/*.md
     file. Returns (path, parsed_block) pairs. Fails closed (raises) if an
     audit file has no such block, or the block is malformed — a silent
-    skip would mean a real finding quietly never reaches the index."""
+    skip would mean a real finding quietly never reaches the index.
+
+    A block may carry "superseded_by": "<audits/… path>" when a later
+    audit for the same Clank replaces its assessment (see
+    audits/smartphone-clank-2026-08-30-pass1.md). The file and its
+    findings stay in the repository as historical evidence, but
+    build_known_evidence_index() excludes superseded blocks so the index
+    reflects the current assessment only."""
     results = []
     for path in sorted(AUDITS_DIR.glob("*.md")):
         if path.name == "README.md":
@@ -161,6 +168,29 @@ def load_audit_findings() -> list[tuple[Path, dict]]:
     return results
 
 
+def _active_audit_findings() -> list[tuple[Path, dict]]:
+    """load_audit_findings() with superseded blocks removed and every
+    superseded_by reference validated (must point at an existing,
+    non-superseded audit file) — a supersession marker pointing at a
+    missing or itself-superseded file must fail closed, not drift."""
+    all_blocks = load_audit_findings()
+    superseded = {path for path, block in all_blocks if block.get("superseded_by")}
+    active = []
+    for path, block in all_blocks:
+        ref = block.get("superseded_by")
+        if not ref:
+            active.append((path, block))
+            continue
+        if f"audits/{path.name}" == ref:
+            raise ValueError(f"{path}: superseded_by points at itself")
+        target = REPO_ROOT / ref
+        if not target.is_file():
+            raise ValueError(f"{path}: superseded_by target {ref!r} does not exist")
+        if target in superseded:
+            raise ValueError(f"{path}: superseded_by target {ref!r} is itself superseded")
+    return active
+
+
 def build_known_evidence_index() -> list[dict]:
     """Prior findings (from audits/*.md) about specific Clanks, kept
     entirely separate from build_ratified_index()/build_agent_checklist().
@@ -175,13 +205,15 @@ def build_known_evidence_index() -> list[dict]:
     truth, and MUST be re-verified against the target's current
     implementation before being reported as a present non-conformance.
 
-    Only `kind: "violation"` findings are included — conformances and
-    unresolved questions aren't "evidence of a gap" and don't belong in a
-    prior-nonconformance index.
+    Only `kind: "violation"` findings are included — conformances,
+    not-applicable classifications, and unresolved questions aren't
+    "evidence of a gap" and don't belong in a prior-nonconformance index.
+    Superseded audit blocks (see `_active_audit_findings`) are excluded so
+    the index always reflects the current assessment of a Clank.
     """
     ratified_ids = {s["id"] for s in load_ratified_ui_standards()}
     index = []
-    for path, block in load_audit_findings():
+    for path, block in _active_audit_findings():
         for finding in block["findings"]:
             if finding.get("kind") != "violation":
                 continue

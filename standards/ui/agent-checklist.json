@@ -6,8 +6,8 @@
   },
   {
     "standard": "STD-UI-COM-002",
-    "question": "Is every QC decision written as an atomic, provenance-bearing, race-guarded record, and does the UI only show it as committed once that write is confirmed?",
-    "failure_means": "A QC action can appear successful (toast, checkmark, queue removal) before or without a confirmed atomic/race-safe write, or a concurrent double-decision can silently duplicate, crash, or lose data."
+    "question": "Is every operator QC decision \u2014 whether recorded through the GUI, a CLI command, or other operator tooling \u2014 written as an atomic, provenance-bearing, race-guarded record, with any success indicator driven by confirmation of that write?",
+    "failure_means": "A QC action can appear successful (toast, checkmark, queue removal, a CLI 'recorded' message) before or without a confirmed atomic/race-safe write; a concurrent double-decision can silently duplicate, crash, or lose data; or a GUI-less decision path (CLI command, service method, action store) was never inventoried and so never checked."
   },
   {
     "standard": "STD-UI-COM-003",

@@ -15,7 +15,7 @@
     "level": "MUST",
     "applies_to": [],
     "version": 2,
-    "requirement_summary": "A QC decision must be an atomic, provenance-bearing, append-only record, race-guarded against concurrent double-decisions, and the UI must not present it as committed unless the underlying write actually satisfies that contract.",
+    "requirement_summary": "A QC decision must be an atomic, provenance-bearing, append-only record, race-guarded against concurrent double-decisions, and the UI must not present it as committed unless the underlying write actually satisfies that contract. The decision contract applies to the operator decision path wherever it lives \u2014 GUI, CLI, or other operator tooling \u2014 not only where a GUI control exists (decisions/0005).",
     "source_file": "standards/ui/STD-UI-COM-002.json",
     "ratification_decision": "decisions/0003-operator-ratification-decision-001.md"
   },
