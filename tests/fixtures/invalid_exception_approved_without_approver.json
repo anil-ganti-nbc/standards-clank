@@ -1,0 +1,9 @@
+{
+  "standard_id": "STD-EVT-001",
+  "clank": "smartphone-clank",
+  "reason": "Invalid: approved but no approved_by, used deliberately for testing.",
+  "proposed_by": "agent:standards-clank-bootstrap",
+  "status": "APPROVED",
+  "approved_by": null,
+  "introduced": "2026-08-30"
+}

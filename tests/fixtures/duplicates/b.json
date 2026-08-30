@@ -1,0 +1,9 @@
+{
+  "id": "STD-COL-999",
+  "title": "Duplicate id fixture B",
+  "domain": "collectors",
+  "level": "SHOULD",
+  "status": "PROPOSED",
+  "version": 1,
+  "requirement": "Same id as fixture A, deliberately, to test duplicate-id detection."
+}

@@ -1,0 +1,21 @@
+{
+  "id": "STD-COL-001",
+  "title": "Collectors must not run on an automatic schedule",
+  "domain": "collectors",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "requirement": "A collector must only run when explicitly triggered by an operator via the GUI or an equivalent manual control.",
+  "rationale": "Automatic scheduling has previously caused false-novelty and duplicate-QC incidents across the fleet.",
+  "forbidden": ["Windows Task Scheduler entries that run collection", "autorun on GUI launch"],
+  "acceptance": ["No enabled scheduled task triggers collection", "GUI requires an explicit user action to start a collector"],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "OPERATOR_REQUIREMENT", "source": "clank-fleet-safety-rules", "summary": "Operator has repeatedly required manual-only collection." }
+  ],
+  "origin": "OPERATOR_REQUIREMENT",
+  "introduced": "2026-08-30",
+  "supersedes": null,
+  "notes": ""
+}

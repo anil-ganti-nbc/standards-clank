@@ -1,0 +1,13 @@
+{
+  "standard_id": "STD-EVT-001",
+  "clank": "smartphone-clank",
+  "scope": "all",
+  "reason": "smartphone-clank has no QC-queue UI; the FIRST_SEEN/novelty distinction is enforced upstream in Motherclank instead.",
+  "proposed_by": "agent:standards-clank-bootstrap",
+  "status": "PROPOSED",
+  "approved_by": null,
+  "introduced": "2026-08-30",
+  "review_after": "2026-12-01",
+  "expires": null,
+  "notes": ""
+}

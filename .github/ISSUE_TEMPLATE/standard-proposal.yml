@@ -1,0 +1,51 @@
+name: Standard proposal
+description: Propose a new standard or a change to an existing one.
+title: "[STD-PROPOSAL] "
+labels: ["standard-proposal"]
+body:
+  - type: input
+    id: domain
+    attributes:
+      label: Domain
+      description: One of ui, collectors, sources, classification, events, evidence, health, delivery, soak, security, operator-workflow
+    validations:
+      required: true
+  - type: textarea
+    id: requirement
+    attributes:
+      label: Proposed requirement
+      description: The normative statement itself. Use MUST/SHOULD/MAY language.
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+    validations:
+      required: true
+  - type: dropdown
+    id: origin
+    attributes:
+      label: Origin
+      options:
+        - OPERATOR_REQUIREMENT
+        - DIAGNOSTIC_INCIDENT
+        - CROSS_CLANK_BEST_PRACTICE
+        - ARCHITECTURAL_INVARIANT
+        - REGRESSION
+        - EXPERIMENTAL_FINDING
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence reference(s)
+      description: Link or point to the source (Diagnostic Clank incident, operator conversation, etc).
+    validations:
+      required: true
+  - type: textarea
+    id: affected
+    attributes:
+      label: Affected Clanks/profiles (if known)
+    validations:
+      required: false

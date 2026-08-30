@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/anil-ganti-nbc/standards-clank/schemas/evidence-reference.schema.json",
+  "title": "Evidence Reference",
+  "description": "A pointer to why a standard exists. Stores a reference, not duplicated history.",
+  "type": "object",
+  "properties": {
+    "class": {
+      "type": "string",
+      "enum": [
+        "OPERATOR_REQUIREMENT",
+        "DIAGNOSTIC_INCIDENT",
+        "CROSS_CLANK_BEST_PRACTICE",
+        "ARCHITECTURAL_INVARIANT",
+        "REGRESSION",
+        "EXPERIMENTAL_FINDING"
+      ]
+    },
+    "source": {
+      "type": "string",
+      "description": "Where to find it: a URL, a repo path (e.g. diagnostic-clank#123), or a short human-readable pointer."
+    },
+    "summary": {
+      "type": "string",
+      "description": "One or two sentences, not a copy of the source record."
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": ["class", "source"],
+  "additionalProperties": false
+}

@@ -1,0 +1,21 @@
+{
+  "id": "STD-EVT-001",
+  "title": "FIRST_SEEN is not editorial novelty",
+  "domain": "events",
+  "level": "MUST",
+  "status": "RATIFIED",
+  "version": 1,
+  "applies_to": [],
+  "requirement": "A Clank must not present a FIRST_SEEN database timestamp to operators as evidence of editorial novelty without independently verifying the item was not previously known.",
+  "rationale": "Refreshing collectors or re-running collection can produce a new FIRST_SEEN row for an item that already existed, which has misled operators in the past.",
+  "forbidden": ["Treating FIRST_SEEN alone as proof of novelty in QC UI"],
+  "acceptance": ["QC UI does not label an item 'new' from FIRST_SEEN alone", "A documented novelty check exists separate from FIRST_SEEN"],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "DIAGNOSTIC_INCIDENT", "source": "diagnostic-clank#example", "summary": "Prior false-novelty incident traced to collector refresh." }
+  ],
+  "origin": "DIAGNOSTIC_INCIDENT",
+  "introduced": "2026-08-30",
+  "supersedes": null,
+  "notes": "Ratified as an example fixture; not an actual ratification."
+}

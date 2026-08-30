@@ -1,0 +1,9 @@
+{
+  "id": "STD-COL-004",
+  "title": "Ratified without enough normative fields",
+  "domain": "collectors",
+  "level": "MUST",
+  "status": "RATIFIED",
+  "version": 1,
+  "requirement": "This is RATIFIED but is missing rationale, acceptance, origin, and introduced."
+}

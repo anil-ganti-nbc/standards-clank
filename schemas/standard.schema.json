@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/anil-ganti-nbc/standards-clank/schemas/standard.schema.json",
+  "title": "Standard",
+  "description": "A single normative Clank design/operation standard.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable identifier, e.g. STD-UI-COM-001. Never reused. Never a CVC identifier.",
+      "pattern": "^STD-[A-Z0-9]+(-[A-Z0-9]+)*-[0-9]{3}$"
+    },
+    "title": {
+      "type": "string",
+      "description": "Short human-readable name."
+    },
+    "domain": {
+      "type": "string",
+      "description": "Which standards/ subdirectory this belongs to.",
+      "enum": [
+        "ui",
+        "collectors",
+        "sources",
+        "classification",
+        "events",
+        "evidence",
+        "health",
+        "delivery",
+        "soak",
+        "security",
+        "operator-workflow"
+      ]
+    },
+    "level": {
+      "type": "string",
+      "description": "RFC-2119-style requirement strength.",
+      "enum": ["MUST", "SHOULD", "MAY"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["PROPOSED", "REVIEWED", "RATIFIED", "SUPERSEDED", "RETIRED"]
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Incremented on every normative change. Editorial corrections do not increment it."
+    },
+    "applies_to": {
+      "type": "array",
+      "description": "Profile ids or explicit Clank names this standard applies to. Empty/omitted means fleet-wide.",
+      "items": { "type": "string" }
+    },
+    "requirement": {
+      "type": "string",
+      "description": "The normative statement itself: what must/should/may be true."
+    },
+    "rationale": {
+      "type": "string",
+      "description": "Why this requirement exists."
+    },
+    "forbidden": {
+      "type": "array",
+      "description": "Explicit anti-patterns this standard rules out.",
+      "items": { "type": "string" }
+    },
+    "acceptance": {
+      "type": "array",
+      "description": "Observable, checkable criteria for conformance.",
+      "items": { "type": "string" }
+    },
+    "exceptions_allowed": {
+      "type": "boolean",
+      "description": "Whether a Clank may hold a recorded exception against this standard.",
+      "default": true
+    },
+    "evidence": {
+      "type": "array",
+      "description": "References into evidence/ supporting this standard's existence.",
+      "items": { "$ref": "evidence-reference.schema.json" }
+    },
+    "origin": {
+      "type": "string",
+      "enum": [
+        "OPERATOR_REQUIREMENT",
+        "DIAGNOSTIC_INCIDENT",
+        "CROSS_CLANK_BEST_PRACTICE",
+        "ARCHITECTURAL_INVARIANT",
+        "REGRESSION",
+        "EXPERIMENTAL_FINDING"
+      ]
+    },
+    "introduced": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 date this standard was first proposed."
+    },
+    "supersedes": {
+      "type": ["string", "null"],
+      "description": "id of the standard this one replaces, if any."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": ["id", "title", "domain", "level", "status", "version", "requirement"],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "RATIFIED" } } },
+      "then": {
+        "required": ["id", "title", "domain", "level", "status", "version", "requirement", "rationale", "acceptance", "origin", "introduced"]
+      }
+    }
+  ]
+}

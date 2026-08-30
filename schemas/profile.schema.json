@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/anil-ganti-nbc/standards-clank/schemas/profile.schema.json",
+  "title": "Profile",
+  "description": "A named class of Clank that determines which standards apply.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Short kebab-case identifier, e.g. news-based, sku-based.",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "inherits": {
+      "type": "array",
+      "description": "Other profile ids this one inherits standards from. Keep shallow: one level is expected.",
+      "items": { "type": "string" }
+    },
+    "standards": {
+      "type": "array",
+      "description": "Standard ids that apply to this profile, in addition to any inherited ones.",
+      "items": {
+        "type": "string",
+        "pattern": "^STD-[A-Z0-9]+(-[A-Z0-9]+)*-[0-9]{3}$"
+      }
+    },
+    "members": {
+      "type": "array",
+      "description": "Optional: known Clanks currently classified under this profile.",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["id", "title"],
+  "additionalProperties": false
+}

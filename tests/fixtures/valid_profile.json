@@ -1,0 +1,8 @@
+{
+  "id": "news-based",
+  "title": "News-based Clank",
+  "description": "Clanks whose primary source material is editorial news content rather than SKU/catalogue data.",
+  "inherits": [],
+  "standards": ["STD-EVT-001"],
+  "members": ["chinese-tech-wire", "korean-tech-wire", "semiconductor-intelligence"]
+}

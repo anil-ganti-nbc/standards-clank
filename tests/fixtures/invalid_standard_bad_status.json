@@ -1,0 +1,9 @@
+{
+  "id": "STD-COL-003",
+  "title": "Bad status value",
+  "domain": "collectors",
+  "level": "MUST",
+  "status": "APPROVED",
+  "version": 1,
+  "requirement": "Invalid status enum value used deliberately for testing."
+}

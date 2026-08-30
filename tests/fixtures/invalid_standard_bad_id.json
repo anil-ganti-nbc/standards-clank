@@ -1,0 +1,9 @@
+{
+  "id": "CVC-COL-001",
+  "title": "Bad id format",
+  "domain": "collectors",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "requirement": "Invalid id used deliberately for testing (CVC prefix, not STD)."
+}

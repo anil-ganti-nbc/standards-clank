@@ -1,0 +1,25 @@
+name: Standards bug
+description: Report an error, ambiguity, or internal conflict in an existing standard, schema, or doc.
+title: "[STD-BUG] "
+labels: ["bug"]
+body:
+  - type: input
+    id: affected
+    attributes:
+      label: Affected id(s) or file(s)
+      description: e.g. STD-UI-COM-001, schemas/standard.schema.json
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: Does this cause incorrect conformance results, a conflict between two standards, or just confusing wording?
+    validations:
+      required: false

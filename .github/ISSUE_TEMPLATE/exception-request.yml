@@ -1,0 +1,36 @@
+name: Exception request
+description: Request a recorded exception to a ratified standard for a specific Clank.
+title: "[EXCEPTION] "
+labels: ["exception-request"]
+body:
+  - type: input
+    id: standard_id
+    attributes:
+      label: Standard id
+      description: e.g. STD-UI-COM-001
+    validations:
+      required: true
+  - type: input
+    id: clank
+    attributes:
+      label: Clank
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason for the exception
+    validations:
+      required: true
+  - type: input
+    id: review_after
+    attributes:
+      label: Review after (date, if applicable)
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: |
+        Note: an agent may file this request, but per docs/governance.md
+        and exceptions/README.md, only a human operator may set status to
+        APPROVED.
