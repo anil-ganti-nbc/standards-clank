@@ -1,0 +1,28 @@
+{
+  "id": "STD-UI-NEWS-002",
+  "title": "News-family Clanks: a live editorial intake/review surface must be the default landing view",
+  "domain": "ui",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": ["news-based"],
+  "requirement": "A news/lead-based Clank MUST expose a primary editorial intake/review surface (a queue or feed of current, actionable leads/stories awaiting a decision), and that surface MUST be the default view an operator lands on — reachable without navigating away from the entry point, whether that is a dedicated route or the single page a Clank happens to have.",
+  "rationale": "Independently present in all three surveyed news-family Clanks, and in each case it is specifically the default/landing view, not merely present somewhere: chinese-tech-wire's Newsroom is served at both '/' and '/newsroom' (the same handler); korean-tech-wire's single page opens with 'Latest Leads' as its first section; semiconductor-intelligence's default-active tab (of 12) is explicitly 'stories'/'Editorial Inbox'. This adds something Pass 1's QC-queue standards did not establish: not just that a queue exists, but that it is the thing an operator sees first.",
+  "forbidden": [
+    "A news-family Clank whose default landing view is a stats page, a source-health page, or anything other than the live intake/review surface"
+  ],
+  "acceptance": [
+    "The default route/view (whatever an operator reaches with no navigation) is, or immediately contains, the current actionable leads/stories awaiting review",
+    "This can be satisfied by a dedicated route being the default, or by a single-page app placing it as the first/primary section"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "chinese-tech-wire/web/app.py:154-156", "summary": "'/' and '/newsroom' map to the same handler — the lead review queue is the default landing view." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "korean-tech-wire/dashboard.py:307-347", "summary": "'Latest Leads' is the first section of the single page served at '/'." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "semiconductor-intelligence/semi_intel/web/static/index.html:528-584", "summary": "The 'stories' ('Editorial Inbox') tab is explicitly the default-active tab among 12." }
+  ],
+  "origin": "CROSS_CLANK_BEST_PRACTICE",
+  "introduced": "2026-08-30",
+  "supersedes": null,
+  "notes": "Pass 2 candidate. 3/3 of surveyed news-family Clanks independently satisfy this, which is the full news-family sample from this pass."
+}

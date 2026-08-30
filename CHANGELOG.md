@@ -7,6 +7,15 @@ as normative vs. editorial.
 
 ## Unreleased
 
+- GUI Ratification Pass 2 (2026-08-30): added 6 `PROPOSED` candidate
+  standards (STD-UI-COM-008..012, STD-UI-NEWS-002) covering navigation,
+  Overview semantics, source health vs. coverage, run-stage observability,
+  timestamps/timezones, and delivery visibility. Explicitly declined to
+  draft a `STD-UI-SKU-002` counterpart — evidence didn't support it. See
+  [docs/gui-ratification-pass-2.md](docs/gui-ratification-pass-2.md). No
+  status was set to REVIEWED or RATIFIED; none of these have been reviewed
+  by the operator yet.
+
 - Operator Ratification Decision 001 (2026-08-30): ratified 7 of the 9 GUI
   Ratification Pass 1 candidates — STD-UI-COM-001, STD-UI-COM-002 (v2,
   normative addition), STD-UI-COM-003 (editorial), STD-UI-COM-004

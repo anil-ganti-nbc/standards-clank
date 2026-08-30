@@ -1,0 +1,29 @@
+{
+  "id": "STD-UI-COM-010",
+  "title": "Every ambiguous timestamp must identify both its semantic role and its timezone",
+  "domain": "ui",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "requirement": "Where a timestamp's meaning could be ambiguous to an operator (e.g. it could plausibly mean 'when this was published,' 'when we discovered it,' 'when it was decided,' 'when a run started/finished'), the UI MUST label which of those it is. Where a timestamp's displayed value could plausibly be read in more than one timezone (server time, UTC, browser-local time), the UI MUST make the timezone explicit at the point of display — an abbreviation or offset suffix is sufficient; a consistent, stated convention (e.g. 'this page always shows UTC,' stated once and applied consistently) also satisfies this. Converting to the viewer's local browser time with no indication that this happened does not satisfy this requirement.",
+  "rationale": "Semantic-role labeling is, encouragingly, mostly already fleet practice: feature-phone-clank, tablet-clank, korean-tech-wire, and smartphone-clank's dossier view all give distinct, correctly-labeled column headers per timestamp type. Timezone labeling is the opposite story and is the real gap: watch-clank is the sole Clank in the fleet with a documented, enforced rule that no timestamp may render without an explicit zone label (_humantime() renders e.g. '12 Aug 2026, 07:12 UTC (12:42 IST)', paired with a relative-time helper that is documented as 'never shown alone'). Every other surveyed Clank either silently converts to browser-local time with no marker (oem-radar's when(), semiconductor-intelligence's fmtDate()) or renders a raw/stripped string with no offset at all (tablet-clank's _fmt_time(), feature-phone-clank, smartwatch-clank, chinese-tech-wire's _fmt(), korean-tech-wire, smartphone-clank outside its one home-page footer). This is exactly the case the operator asked to weigh correctly: a pattern present in only one Clank, evidently solving a real and recurring ambiguity problem (watch-clank's own SpecialistLead table still has to fall back to an admittedly-ambiguous 'Published / observed' combined column where it hasn't fully applied its own rule), rather than something to discount for lacking fleet-wide precedent.",
+  "forbidden": [
+    "Rendering a timestamp via browser-local-time conversion with no indication that a conversion happened",
+    "A column or field whose timestamp semantic (published vs. discovered vs. decided vs. started) cannot be determined without reading source code"
+  ],
+  "acceptance": [
+    "Every displayed timestamp's semantic role is determinable from the UI (a label, a column header, or unambiguous context)",
+    "Every displayed timestamp's timezone is determinable from the UI (an explicit marker per value, or one clearly stated page-wide convention)"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "watch-clank/app/main.py:105-149", "summary": "_humantime()/_relative_time() are documented as never allowed to render a timestamp without an explicit zone label, paired together." },
+    { "class": "REGRESSION", "source": "watch-clank/app/templates/intelligence.html:198", "summary": "Even the reference implementation still has one column labeled the ambiguous 'Published / observed' where when_human collapses published_at-or-discovered_at into one value — a live example of the exact ambiguity this rule targets, in the Clank that otherwise does this best." },
+    { "class": "REGRESSION", "source": "oem-radar/src/oem_radar/dashboard/render.py:264,920; semiconductor-intelligence/semi_intel/web/static/index.html:1469-1470 (fmtDate); tablet-clank/native/macos/dash_render.py:56-57; feature-phone-clank/src/feature_phone_clank/dashboard.py (no UTC label anywhere); smartwatch-clank/src/smartwatch_clank/dashboard.py; chinese-tech-wire/web/app.py:112-115; korean-tech-wire/dashboard.py:368; smartphone-clank/dashboard/templates (only home.html:45 labels UTC)", "summary": "Eight of nine surveyed Clanks render at least some, usually most, timestamps with no timezone indication at all." }
+  ],
+  "origin": "CROSS_CLANK_BEST_PRACTICE",
+  "introduced": "2026-08-30",
+  "supersedes": null,
+  "notes": "Pass 2 candidate. Ratifying this as-is would create a large fleet-wide remediation backlog (8 of 9 Clanks, in varying degrees) — flagged explicitly so the operator ratifies with that consequence in view, not by surprise. The fix is comparatively low-cost per Clank (a formatting-helper change, not a data-model change), unlike STD-UI-COM-009's stage-tracking gap."
+}

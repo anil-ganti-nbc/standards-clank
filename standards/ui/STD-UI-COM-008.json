@@ -1,0 +1,31 @@
+{
+  "id": "STD-UI-COM-008",
+  "title": "Source operational health must be independently expressible from coverage/output",
+  "domain": "ui",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "requirement": "An operator MUST be able to determine a source's operational health (is it reachable, erroring, blocked, stale) without that determination being silently affected by its coverage/output volume, and vice versa. A source producing zero new items in a period MUST NOT automatically read as 'unhealthy' purely because output is low, unless the Clank's own health model explicitly and visibly treats sustained zero-output as a health-relevant signal — in which case that must be a distinctly labeled dimension, not folded into one ambiguous score. Presenting health and coverage as adjacent fields, columns, or cards on the same view is sufficient; they do not need separate pages.",
+  "rationale": "Directly evidenced by an incident in the fleet's own reference implementation: watch-clank's SourceHealth model was deliberately repaired on 2026-08-24 specifically because 'two dimensions a single state used to conflate' — it now carries acquisition_state (reachability) and yield_state (output quality) as separate fields on the same object. clank-architecture's own golden incident corpus (read-only reference) independently names this exact ambiguity as GIC-02, 'legitimate-zero source' — a source can correctly report zero items without being unhealthy, and the fleet has already had to learn this the hard way. Counter-evidence exists and is called out explicitly: korean-tech-wire's Source Health table literally mixes a health badge with a coverage count (latest_accepted) in the same table row with no distinct labeling, and smartphone-clank's /metrics page computes one combined health-score-and-coverage table with no separation at all.",
+  "forbidden": [
+    "A single 'health score' or badge that is computed from a blend of reachability and output volume with no way to see which drove the result",
+    "Treating a legitimately-quiet source (nothing new to find) as equivalent to a broken source in the same status field"
+  ],
+  "acceptance": [
+    "Operational health (reachability/error state) and coverage/output can each be read as their own distinct, labeled value for a given source",
+    "A source with zero new items and no errors does not present identically to a source that is actually failing",
+    "If zero-output is itself treated as a health signal by design, that is stated, not merged silently into a generic status"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "DIAGNOSTIC_INCIDENT", "source": "watch-clank/app/services/health.py:105-120", "summary": "SourceHealth explicitly split into acquisition_state and yield_state, docstring states this repairs a prior conflation, dated 2026-08-24." },
+    { "class": "ARCHITECTURAL_INVARIANT", "source": "clank-architecture/GOLDEN_INCIDENT_CORPUS.md (GIC-02, read-only reference)", "summary": "'Legitimate legitimate-zero source' named as its own incident class independent of this survey, corroborating the same ambiguity fleet-wide." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "tablet-clank/native/macos/dash_render.py:531; oem-radar/src/oem_radar/dashboard/data.py:230-242", "summary": "Both keep health and coverage as adjacent, separately-computed views; tablet-clank's Sources page caption states this explicitly: 'Membership... and current health are separate concepts.'" },
+    { "class": "REGRESSION", "source": "korean-tech-wire/dashboard.py:335 (Source Health table row includes latest_accepted); smartphone-clank/dashboard/templates/metrics.html:40-66", "summary": "Two current production counter-examples where health and coverage are genuinely conflated in one row/table." }
+  ],
+  "origin": "DIAGNOSTIC_INCIDENT",
+  "introduced": "2026-08-30",
+  "supersedes": null,
+  "notes": "Pass 2 candidate. Deliberately does not mandate separate pages/tabs — watch-clank and tablet-clank both satisfy this with adjacent fields on one row, which is the recommended shape. korean-tech-wire and smartphone-clank are flagged as current non-conforming examples, not exceptions."
+}

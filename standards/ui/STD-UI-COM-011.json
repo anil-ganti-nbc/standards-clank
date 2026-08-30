@@ -1,0 +1,31 @@
+{
+  "id": "STD-UI-COM-011",
+  "title": "Where delivery exists, delivery state must be inspectable independently from discovery/review state",
+  "domain": "ui",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "requirement": "If a Clank has any mechanism that delivers items to an external channel (Discord, webhook, or equivalent) and that mechanism records its own outcome (sent/failed/pending/suppressed or equivalent), the UI MUST make that delivery outcome inspectable as its own distinct state, separate from whether the item was merely discovered or QC-reviewed. Collapsing multiple distinct delivery outcomes into one ambiguous indicator (e.g. a single boolean that cannot distinguish 'sent' from 'pending' from 'suppressed' from 'failed') does not satisfy this. A Clank with no delivery mechanism at all, or one that has explicitly and honestly disabled delivery, is out of scope — not a violation.",
+  "rationale": "Genuinely cross-family, independently-evidenced pattern: chinese-tech-wire (news), semiconductor-intelligence (news/specialist), and smartphone-clank (SKU) each independently built a dedicated delivery-inspection surface with real per-outcome granularity (SENT/FAILED/DRY_RUN/SUPPRESSED/POLICY_ACTIVATED with http_status/error_text in CTW; a dedicated External Delivery card with preview/test/enable controls in semiconductor-intelligence; per-channel Configured/Last-attempted/Last-delivered plus Eligible/Attempted/Delivered/Suppressed/Failed counts and a Recent-failures table in smartphone-clank, arguably the best implementation in the fleet). Counter-evidence is equally concrete and instructive: watch-clank and feature-phone-clank both compute and persist real delivery outcomes in their backends but never read that data in any template (confirmed by grep, zero references) — the data exists and is simply not surfaced. oem-radar has genuine per-item delivery states in its database but its dashboard collapses pending and sent into a single 'notified' boolean, and failed/suppressed items render with no badge at all, making them visually indistinguishable from items that were never processed for delivery — an actively misleading gap, not just an absent feature.",
+  "forbidden": [
+    "Computing and persisting a real delivery outcome and never exposing it anywhere in the GUI",
+    "A single 'notified'/'delivered' boolean that cannot distinguish sent from pending, and renders failed/suppressed identically to never-attempted"
+  ],
+  "acceptance": [
+    "If delivery outcomes are tracked in the backend, an operator can see, per item or per channel, which distinct outcome applies (not just yes/no)",
+    "A failed or suppressed delivery is visually distinguishable from an item that was never eligible for delivery"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "chinese-tech-wire/database/models.py:595-598,607-608; web/app.py:804-837", "summary": "Dedicated Alerts nav tab, filterable by outcome, with http_status/error_text." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "smartphone-clank/dashboard/app.py:243-294; dashboard/templates/discord.html", "summary": "Per-channel and per-message delivery visibility with a Recent-failures sub-table; arguably the fleet's best implementation, on a SKU-family Clank." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "semiconductor-intelligence/semi_intel/web/static/index.html:813-823", "summary": "Dedicated External Delivery card, separate from discovery/review filters, on a news/specialist Clank." },
+    { "class": "REGRESSION", "source": "watch-clank/app/main.py:1965-1966 (alerted flag never read by any template); feature-phone-clank/providers/discord/__init__.py:114-194 (notifications table with documented 'even a suppressed event gets a row' design, never referenced by dashboard.py)", "summary": "Two Clanks compute and persist real delivery outcomes that are never surfaced in the GUI at all." },
+    { "class": "REGRESSION", "source": "oem-radar/src/oem_radar/dashboard/data.py:164,268-269; src/oem_radar/providers/discord/__init__.py:165-224", "summary": "Real pending/sent/failed/suppressed states exist in the notifications table but the dashboard collapses pending+sent into one 'notified' boolean and shows no badge at all for failed/suppressed items." }
+  ],
+  "origin": "CROSS_CLANK_BEST_PRACTICE",
+  "introduced": "2026-08-30",
+  "supersedes": null,
+  "notes": "Pass 2 candidate. Out of scope, not a violation: korean-tech-wire (no delivery mechanism exists at all) and tablet-clank (delivery architecturally stripped and explicitly labeled 'delivery disabled'). smartwatch-clank has an unwired discord module in its source tree with no clear disable statement — flagged as ambiguous rather than confidently scoped in or out."
+}

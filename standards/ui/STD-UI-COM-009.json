@@ -1,0 +1,29 @@
+{
+  "id": "STD-UI-COM-009",
+  "title": "A run's status must not collapse pipeline stages the backend already distinguishes",
+  "domain": "ui",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "requirement": "Where a Clank's backend already models a run as passing through distinct pipeline stages (a stage field, a stage-ordered ledger, or an equivalent structured record of what point execution reached), that stage information MUST be reachable by an operator investigating a specific run — a drill-down/detail page satisfies this, it does not need to be on the primary run-list view. The primary run list MUST NOT present a single terminal status (e.g. FAILED) in a way that erases a distinction the backend itself already tracks (e.g. failed during initial fetch vs. failed after successfully classifying and partially storing results), when that distinction would materially change what an operator should do next.",
+  "rationale": "Near-universal pattern across the fleet: almost every surveyed Clank records one terminal status per run (RUNNING/SUCCESS/FAILED or similar) with aggregate counters, and none except watch-clank model true pipeline-stage data at all. Where stage data does exist — watch-clank's PipelineLedger, with an explicit stage_order (discovery -> fetch -> snapshot_storage -> parsing -> normalization -> identity_resolution -> observation_creation -> family_candidate_assignment) — it is reachable only via non-nav-linked per-item drill-down pages (/watches/{id}, /correlation/{id}), not from the primary Runs page, which shows only one status badge plus funnel counts. This rule is scoped narrowly (only where stage data already exists) specifically because most Clanks have no stage model to expose, and manufacturing one would be a backend change, not a UI standard.",
+  "forbidden": [
+    "Inventing or requiring new backend stage-tracking where none currently exists (out of scope for this UI standard)",
+    "A primary run list that shows one undifferentiated FAILED for runs that failed at materially different points, when the backend can already tell the difference"
+  ],
+  "acceptance": [
+    "If stage-level data exists in the backend for a run, an operator can reach it for any given run (a detail/drill-down page is sufficient)",
+    "The primary run list is not the only place stage information could have been shown when it existed and mattered"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "ARCHITECTURAL_INVARIANT", "source": "watch-clank/app/models/pipeline.py:73-106; app/main.py:1237-1247", "summary": "PipelineLedger with an explicit stage_order list — real stage data exists in the fleet's reference implementation." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "watch-clank/app/templates/runs.html:31-51 vs app/main.py:1197-1224,1227-1265 (watch_detail.html, correlation.html)", "summary": "Primary Runs page shows only a single status badge and funnel counts; stage detail is reachable only via drill-down pages not linked from primary nav." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "oem-radar/src/oem_radar/dashboard/data.py:212-228; tablet-clank/pipeline/__init__.py:11,48-56; feature-phone-clank (collector_runs schema); chinese-tech-wire/database/models.py:559-573; korean-tech-wire/dashboard.py:59-90; smartwatch-clank (runs table, healthy-only column); smartphone-clank/database/models.py:145-160; semiconductor-intelligence/semi_intel/pipeline/service.py:131,271", "summary": "Every other surveyed Clank has no true stage model — one terminal status plus aggregate counters is the norm, sometimes with a failure-type breakdown (parse vs. request error counts) but not a stage sequence." }
+  ],
+  "origin": "ARCHITECTURAL_INVARIANT",
+  "introduced": "2026-08-30",
+  "supersedes": null,
+  "notes": "Pass 2 candidate. Open question flagged for the operator, not resolved here: does 'reachable via an unlinked drill-down page' actually satisfy this standard, or does the primary Runs list itself need to surface stage information for a failed run? watch-clank's current implementation is a live test case either way — it narrowly conforms under the permissive reading, and would not under a stricter one."
+}

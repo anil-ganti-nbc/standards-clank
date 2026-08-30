@@ -34,14 +34,14 @@ controller, deployment system, or a replacement for Diagnostic Clank or
 Motherclank. See [docs/charter.md](docs/charter.md) section C.
 
 As of Operator Ratification Decision 001 (2026-08-30), 7 standards under
-[standards/ui/](standards/ui/README.md) are `RATIFIED`; 2 more were
-returned for revision and remain `PROPOSED`. See
-[docs/gui-ratification-pass-1.md](docs/gui-ratification-pass-1.md) for the
-original evidence and
+[standards/ui/](standards/ui/README.md) are `RATIFIED`; 8 more are
+`PROPOSED` (2 revised Pass 1 candidates, 6 new Pass 2 candidates). See
+[docs/gui-ratification-pass-1.md](docs/gui-ratification-pass-1.md),
+[docs/gui-ratification-pass-2.md](docs/gui-ratification-pass-2.md), and
 [decisions/0003-operator-ratification-decision-001.md](decisions/0003-operator-ratification-decision-001.md)
-for the ratification decision. Ratification of a standard does not by
-itself authorize remediating any existing Clank against it — that is
-separate, not-yet-commissioned work.
+for evidence and the one ratification decision made so far. Ratification of
+a standard does not by itself authorize remediating any existing Clank
+against it — that is separate, not-yet-commissioned work.
 
 ## How is a standard created?
 
