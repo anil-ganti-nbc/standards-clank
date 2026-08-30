@@ -316,14 +316,17 @@ def test_smartphone_audit_keeps_com002_and_com010_as_violations():
     assert kinds["STD-UI-COM-010"] == "violation"
 
 
-def test_smartphone_audit_keeps_com009_unresolved():
-    """The COM-009 'equivalent structured record' interpretation is an open
-    proposal (decisions/0006); the audit must not quietly resolve it into
-    PASS/FAIL/N/A on an agent's own authority."""
+def test_smartphone_audit_com009_is_fail_under_accepted_interpretation():
+    """The COM-009 'equivalent structured record' interpretation was
+    accepted by the operator (decisions/0006, 2026-08-30); the audit
+    verdict is FAIL and must stay a violation until the underlying gap is
+    actually remediated in smartphone-clank."""
     kinds = _smartphone_audit_kinds()
-    assert kinds["STD-UI-COM-009"] == "unresolved"
+    assert kinds["STD-UI-COM-009"] == "violation"
     proposal = (REPO_ROOT / "decisions" / "0006-com009-equivalent-structured-record.md").read_text()
-    assert "Status: Proposed" in proposal, "decisions/0006 must stay unratified until the operator reviews it"
+    assert "Status: Accepted" in proposal, "decisions/0006 acceptance must be recorded before a FAIL verdict is valid"
+    audit_text = (REPO_ROOT / "audits" / "smartphone-clank-2026-08-30.md").read_text()
+    assert "PARTIAL" in audit_text, "audit must preserve the prior PARTIAL/unresolved verdict state in its history"
 
 
 def test_smartphone_audit_structured_block_covers_every_ratified_standard():
@@ -431,14 +434,64 @@ def test_rule_counts_unchanged_after_interpretation_pass():
     assert _proposed_ids() == {"STD-UI-COM-007", "STD-UI-COM-012", "STD-UI-SKU-001"}
 
 
-def test_com009_interpretation_remains_unratified():
-    """decisions/0006 is a PROPOSAL: the standard file must be untouched by
-    it (same version, no reference to the proposal in its notes), proving
-    no agent self-ratification occurred through the interpretation pass."""
+def test_com009_v3_encodes_the_accepted_applicability_boundary():
+    """The v3 revision (operator acceptance of decisions/0006) must encode
+    the boundary in the standard itself: per-run, phase-attributable
+    structured outcomes qualify regardless of record shape; aggregate or
+    windowed metrics alone do not trigger the rule. This is what stops a
+    future agent from reading any aggregate metric as stage data — or
+    from dismissing a flat per-run record as 'not a stage ledger'."""
     com009 = json.loads((STANDARDS_UI_DIR / "STD-UI-COM-009.json").read_text())
     assert com009["status"] == "RATIFIED"
-    assert com009["version"] == 2
-    assert "0006" not in com009.get("notes", "")
-    proposal = (REPO_ROOT / "decisions" / "0006-com009-equivalent-structured-record.md").read_text()
-    assert "Status: Proposed" in proposal
-    assert "NOT ratified" in proposal
+    assert com009["version"] == 3
+    # Traceability: original ratification decision first (feeds the
+    # generated index), v3 revision decision also cited.
+    notes = com009["notes"]
+    assert notes.index("decisions/0004-") < notes.index("decisions/0006-")
+    # Requirement: the trigger clause carries both sides of the boundary.
+    requirement = com009["requirement"]
+    assert "per-run, phase-attributable" in requirement
+    assert "NOT required" in requirement  # ordered ledger sufficient, not required
+    assert "aggregate or windowed counters alone do not" in requirement
+    # Acceptance: an explicit boundary criterion exists.
+    acceptance_text = " ".join(com009["acceptance"])
+    assert "per-run, phase-attributable" in acceptance_text
+    assert "aggregate or windowed metrics alone do not trigger it" in acceptance_text
+    # Forbidden: treating aggregates as stage data is named as forbidden.
+    forbidden_text = " ".join(com009["forbidden"])
+    assert "aggregate or windowed health metrics alone" in forbidden_text
+
+
+def test_com009_boundary_is_encoded_in_the_generated_agent_layer():
+    """A constitution/checklist-only auditor must hit the same boundary:
+    the generated summary and checklist question carry both sides (flat
+    per-run records qualify; window aggregates alone do not)."""
+    summary = next(e for e in _load_index() if e["id"] == "STD-UI-COM-009")["requirement_summary"]
+    assert "per-run, phase-attributable" in summary
+    assert "aggregate or windowed metrics alone do not trigger this" in summary
+    checklist_item = next(i for i in _load_checklist() if i["standard"] == "STD-UI-COM-009")
+    assert "not just window aggregates" in checklist_item["question"]
+    assert "aggregate/window health metrics alone" in checklist_item["failure_means"]
+
+
+def test_constitution_f1_carries_the_com009_boundary():
+    body, _ = _constitution_body_and_pending(_constitution_text())
+    f1_section = body.split("**F2.**")[0]
+    assert "per-run, phase-attributable outcome fields" in f1_section
+    assert "aggregate or windowed metrics alone do not trigger this" in f1_section
+
+
+def test_qc_gui_absence_is_backlog_not_violation():
+    """The operator ruled (2026-08-30, decisions/0006 review) that
+    smartphone-clank's absent QC GUI is product/remediation backlog, and
+    that COM-003/004 remain N/A. The evidence index must not carry any
+    smartphone COM-003/004 entry, and the audit must state the backlog
+    classification explicitly."""
+    index_subjects = {
+        (e["standard"], e["subject"]) for e in _load_known_evidence()
+    }
+    assert ("STD-UI-COM-003", "smartphone-clank") not in index_subjects
+    assert ("STD-UI-COM-004", "smartphone-clank") not in index_subjects
+    audit_text = (REPO_ROOT / "audits" / "smartphone-clank-2026-08-30.md").read_text()
+    assert "Product/remediation backlog (non-normative)" in audit_text
+    assert "remain N/A" in audit_text

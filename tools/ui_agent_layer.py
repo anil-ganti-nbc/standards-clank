@@ -59,7 +59,7 @@ SUMMARIES: dict[str, str] = {
     "STD-UI-COM-005": "Where a production/experimental maturity tier exists, promotion to production must be an explicit out-of-band config change — never a GUI button, never automatic from runtime metrics.",
     "STD-UI-COM-006": "A bulk 'run all collectors' control must exclude experimental/soak/non-promoted collectors by default; only the production/finalized list may run in bulk.",
     "STD-UI-COM-008": "Source operational health and coverage/output must be expressible as distinct, separately-labeled dimensions; a legitimately quiet source must not read as unhealthy purely from low output.",
-    "STD-UI-COM-009": "Where the backend already tracks distinct pipeline stages for a run, the primary run surface must not erase a materially significant stage distinction, and must visibly indicate and directly link to the deeper detail when it exists.",
+    "STD-UI-COM-009": "Where the backend preserves materially distinct pipeline-phase outcomes for an individual run — a stage field, an ordered ledger, or per-run, phase-attributable outcome fields (fetch/parse failures, validation outcomes, regression notes) — the primary run surface must not erase that distinction, and must visibly indicate and directly link to the deeper detail. An ordered ledger is sufficient but not required; aggregate or windowed metrics alone do not trigger this.",
     "STD-UI-COM-010": "Every timestamp whose meaning could be ambiguous must have its semantic role labeled, and its timezone must be unambiguous — a per-value marker or one clearly stated page-level convention both satisfy this.",
     "STD-UI-COM-011": "Where a delivery mechanism records its own outcome, that outcome must be independently inspectable from discovery/review state; no dedicated delivery page is required, but collapsing distinct outcomes into one ambiguous boolean is not sufficient.",
     "STD-UI-NEWS-001": "A news-family Clank's QC vocabulary must use DUPLICATE as its fourth terminal action (not OUT_OF_STOCK); additional Clank-specific values beyond the fleet-standard four are allowed.",
@@ -97,8 +97,8 @@ CHECKLIST_ITEMS: dict[str, dict[str, str]] = {
         "failure_means": "Health and coverage are blended into one score/badge with no way to tell which drove the result, or a source with zero new items renders identically to a failing one.",
     },
     "STD-UI-COM-009": {
-        "question": "If the backend tracks distinct pipeline stages for a run, can an operator reach that detail directly and discoverably from the primary run surface?",
-        "failure_means": "Stage-level detail exists in the backend or on some page, but the primary run surface gives no visible indication it exists and no direct link to it.",
+        "question": "If the backend preserves materially distinct pipeline-phase outcomes for an individual run — per-run, phase-attributable fields such as fetch/parse failures, validation outcomes, or regression notes, not just window aggregates — can an operator reach that run's phase detail directly and discoverably from the primary run surface?",
+        "failure_means": "Stage-level detail exists in per-run structured state or on some page, but the primary run surface gives no visible indication it exists and no direct link to it; or aggregate/window health metrics alone were mistaken for per-run stage data (without per-run, phase-attributable state this standard is not triggered).",
     },
     "STD-UI-COM-010": {
         "question": "Is every displayed timestamp's semantic role labeled, and is its timezone unambiguous (a per-value marker or one stated page-wide convention)?",

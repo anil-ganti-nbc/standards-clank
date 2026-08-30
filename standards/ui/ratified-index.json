@@ -74,8 +74,8 @@
     "title": "A run's status must not collapse pipeline stages the backend already distinguishes",
     "level": "MUST",
     "applies_to": [],
-    "version": 2,
-    "requirement_summary": "Where the backend already tracks distinct pipeline stages for a run, the primary run surface must not erase a materially significant stage distinction, and must visibly indicate and directly link to the deeper detail when it exists.",
+    "version": 3,
+    "requirement_summary": "Where the backend preserves materially distinct pipeline-phase outcomes for an individual run \u2014 a stage field, an ordered ledger, or per-run, phase-attributable outcome fields (fetch/parse failures, validation outcomes, regression notes) \u2014 the primary run surface must not erase that distinction, and must visibly indicate and directly link to the deeper detail. An ordered ledger is sufficient but not required; aggregate or windowed metrics alone do not trigger this.",
     "source_file": "standards/ui/STD-UI-COM-009.json",
     "ratification_decision": "decisions/0004-operator-ratification-decision-002.md"
   },

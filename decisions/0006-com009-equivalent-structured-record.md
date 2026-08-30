@@ -1,10 +1,11 @@
-# 0006 — STD-UI-COM-009 "equivalent structured record" interpretation (PROPOSAL)
+# 0006 — STD-UI-COM-009 "equivalent structured record" interpretation
 
 Date: 2026-08-30
-Status: Proposed — awaiting operator review. NOT ratified. No normative
-text has been changed; `standards/ui/STD-UI-COM-009.json` is untouched.
-An agent MUST NOT ratify this proposal (see
-[0002-no-agent-self-ratification.md](0002-no-agent-self-ratification.md)).
+Status: Accepted (operator review, 2026-08-30)
+An agent MUST NOT ratify standards unassisted (see
+[0002-no-agent-self-ratification.md](0002-no-agent-self-ratification.md));
+the interpretation below was accepted by the operator in the review
+recorded at the end of this document.
 
 ## Question
 
@@ -67,3 +68,39 @@ Until the operator decides, the smartphone-clank audit records
 - If the operator accepts the interpretation as-is, the smartphone-clank
   audit's COM-009 verdict should be updated from PARTIAL/unresolved to
   FAIL in the *audit* (evidence layer), not silently in the standard.
+
+## Operator review — ACCEPTED (2026-08-30)
+
+The operator reviewed this proposal and accepted the interpretation,
+stating the boundary precisely:
+
+- **STD-UI-COM-009 applies when the system preserves materially distinct
+  pipeline-phase outcomes at the level of an individual run.** A formal
+  ordered stage ledger is sufficient but not required. Per-run
+  phase-attributable fields — fetch failures, parse failures, validation
+  outcomes, regression notes, or equivalent structured state — qualify.
+  Aggregate/windowed health counters by themselves do not.
+- **smartphone-clank's `CollectorRunRecord` qualifies.** That the record
+  is flat rather than an ordered ledger does not matter if it preserves
+  fetch-vs-parse-vs-overall-run distinctions for a specific run. The
+  verdict is therefore **FAIL** — not N/A, not PARTIAL: the information
+  exists in structured per-run state, but the operator cannot reach the
+  corresponding run detail from the Runs/metrics surface.
+- **Recorded operator principle:** applicability should follow the
+  granularity of preserved evidence, not the shape of the schema. A flat
+  per-run record can carry just as much pipeline truth as a formal stage
+  ledger.
+- **Second ruling in the same review:** the absent smartphone-clank QC
+  GUI is tracked as **product/remediation backlog**, explicitly NOT a
+  `STD-UI-COM-003`/`STD-UI-COM-004` violation. "Standards-compliant"
+  does not mean "feature-complete", and conditional standards must not
+  be distorted to express a desired operator workflow. COM-003/004
+  remain N/A per [0005](0005-qc-applicability-refinement.md); the
+  non-normative backlog record lives in the smartphone audit.
+
+Actions executed under this acceptance: `STD-UI-COM-009` revised to v3
+(requirement/acceptance/forbidden encode the boundary, nothing more);
+smartphone audit COM-009 updated to FAIL with the prior
+PARTIAL/unresolved state preserved in its history; agent-facing layer and
+known-evidence index regenerated from the generator. No remediation of
+any Clank was performed or authorized.

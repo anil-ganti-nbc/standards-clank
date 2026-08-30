@@ -12,7 +12,7 @@
     { "standard": "STD-UI-COM-005", "kind": "conformance", "summary": "Production membership is a compile-time fail-closed frozenset (alerts/source_maturity.py:31-50); promotion requires an explicit reviewed code edit ('never a config-only flip', alerts/source_maturity.py:11-13); no GUI route mutates it and no runtime metric can (single reference in the codebase)." },
     { "standard": "STD-UI-COM-006", "kind": "not_applicable", "summary": "The GUI exposes no bulk 'run all' control at all — the only mutation route hard-returns 403 (dashboard/app.py:127-132) and LocalCollectionController.start() (dashboard/local_collection.py:52-65) is GUI-unreachable at HEAD; bulk execution lives in systemd timers outside the GUI. (Note: native/windows/launcher.py:5-9 docstring still claims per-source triggering — stale vs app.py, recorded as a maintainer note, not a standards failure.)" },
     { "standard": "STD-UI-COM-008", "kind": "conformance", "summary": "Health is a 0-100 score whose every deduction is a named, rendered factor (observability/metrics.py:293-401; factor cards dashboard/templates/metrics.html:73-89); output volume lives in separate labeled columns (metrics.html:24-39). Sustained zero-output-vs-baseline is a health signal by explicit design (zero_discovery_with_healthy_fetch threshold, unexpected_zero status, labeled candidate_count_low factor) — the standard's stated carve-out, satisfied as a distinctly labeled dimension, not a silent blend." },
-    { "standard": "STD-UI-COM-009", "kind": "unresolved", "summary": "Aggregate fetch-vs-parse distinction is visible inline (parser-fail and HTTP-fail columns, metrics.html:33-34,60-61; last-run status granularity flows into named health factors), but there is no per-run surface: individual run records — including the regression notes the metrics subtitle (metrics.html:5) advertises — are reachable from no route. CollectorRunRecord (observability/metrics.py:34-68) is a flat per-run record with phase-attributable counters and a status enum but no stage field/ledger. Whether that is an 'equivalent structured record' under COM-009 is an open interpretation: PARTIAL pending decisions/0006; under the proposed reading it would be FAIL (indicated but unreachable), under a strict reading N/A (trigger unmet). Do not resolve without the operator." },
+    { "standard": "STD-UI-COM-009", "kind": "violation", "summary": "CollectorRunRecord (observability/metrics.py:34-68) qualifies as an 'equivalent structured record' under the operator-accepted decisions/0006 boundary: immutable per-run rows with phase-attributable counters (http_failures = fetch, parser_failures = parse), a per-run status enum, and per-run regression notes — a flat record preserving fetch-vs-parse-vs-overall distinctions for a specific run carries the same pipeline truth as an ordered ledger. The primary run surface (/metrics) indicates that per-run detail exists (the subtitle advertises 'regression notes in run records', metrics.html:5) but no route exposes any run record, so acceptance criterion 1's direct, discoverable path is unmet. Aggregate fetch-vs-parse columns alone (metrics.html:33-34,60-61) do not satisfy the per-run obligation. Verdict history: PARTIAL/unresolved while decisions/0006 was an open proposal; operator accepted the interpretation 2026-08-30, resolving the trigger question — the reachability gap stands on its own." },
     { "standard": "STD-UI-COM-010", "kind": "violation", "summary": "Naive-UTC datetimes (database/models.py:46-47,127,368-370) are rendered raw with no zone marker and no stated page-level convention on four of five content surfaces: devices.html:12,20; dossier.html:18-19,79,96,99; metrics.html:28,55; discord.html:11,16-17,32. The only zoned value in the GUI is home.html:45 ('Generated ... UTC'). dossier.html:79 'When' sits on occurred_at while the backend also tracks recorded_at (database/models.py:212-213) and shows neither label nor the other value, so observed-vs-recorded is not determinable." },
     { "standard": "STD-UI-COM-011", "kind": "conformance", "summary": "Per-channel delivery accounting with five distinct outcomes (eligible/attempted/delivered/suppressed/failed) plus a failures table with reason/HTTP status/error (dashboard/app.py:243-292; dashboard/templates/discord.html:11-38; alerts/delivery.py:181-201), backed by a delivery record that persists suppressed sends with evidence (alerts/source_maturity.py:15-18). Failed and suppressed are visibly distinct from never-eligible." },
     { "standard": "STD-UI-NEWS-001", "kind": "not_applicable", "summary": "smartphone-clank is sku-based (devices/SKUs/evidence/snapshots from OEM support pages and sitemaps; no story/lead entities; no review vocabulary anywhere) — the standard is scoped to applies_to: [news-based]. The 'Newsroom' branding (dashboard/app.py:2, home.html:4, the 'newsroom' Discord channel) is naming for a device-discovery intelligence channel, not an editorial-lead workflow." },
@@ -73,7 +73,7 @@ family fact.
 | STD-UI-COM-005 | PASS |
 | STD-UI-COM-006 | N/A |
 | STD-UI-COM-008 | PASS |
-| STD-UI-COM-009 | PARTIAL — unresolved, pending decisions/0006 |
+| STD-UI-COM-009 | FAIL (under the operator-accepted decisions/0006 boundary; previously PARTIAL/unresolved) |
 | STD-UI-COM-010 | FAIL |
 | STD-UI-COM-011 | PASS |
 | STD-UI-NEWS-001 | N/A (family) |
@@ -122,22 +122,45 @@ label nor the other value. Operator experience: bare values like
 one "All times UTC" caption per surface (or in `base.html`); relabel
 "When".
 
-### STD-UI-COM-009 — PARTIAL / unresolved
+### STD-UI-COM-009 — FAIL
 
-See the structured finding above. The aggregate surface does not collapse
-the fetch-vs-parse distinction the backend tracks (separate labeled
-24h-failure columns, `metrics.html:33-34,60-61`; last-run status
-granularity surfaces as named, delta-labeled health factors,
-`observability/metrics.py:327-341` + `metrics.html:73-89`). But no route
-exposes per-run records at all — including the regression notes that
-`metrics.html:5` explicitly advertises — so acceptance criterion 1's
-"direct, discoverable path" is unmet *if* the trigger applies. Whether a
-flat per-run record with phase-attributable counters and a status enum is
-an "equivalent structured record of what point execution reached" is the
-open question in
-[decisions/0006-com009-equivalent-structured-record.md](../decisions/0006-com009-equivalent-structured-record.md):
-under the proposed reading the verdict would become FAIL; under a strict
-reading, N/A. Left unresolved for the operator.
+`CollectorRunRecord` (`observability/metrics.py:34-68`) preserves
+materially distinct pipeline-phase outcomes at the level of an individual
+run: immutable per-run rows with phase-attributable counters
+(`http_failures` = fetch stage, `parser_failures` = parse stage), a
+per-run status enum (success / partial / degraded / unexpected_zero /
+failed / blocked), and per-run regression notes. Under the operator-accepted
+interpretation ([decisions/0006](../decisions/0006-com009-equivalent-structured-record.md),
+accepted 2026-08-30), this is an "equivalent structured record": a flat
+record that preserves fetch-vs-parse-vs-overall distinctions for a
+specific run carries the same pipeline truth as a formal ordered stage
+ledger: applicability follows the granularity of preserved evidence, not
+the shape of the schema.
+
+Against that trigger, the surface obligations bite, and the current GUI
+does not meet them. The primary run surface (`/metrics`) indicates that
+per-run detail exists — its subtitle explicitly advertises "regression
+notes in run records" (`metrics.html:5`) — but **no route exposes any run
+record**: individual run statuses, per-run failure counters, and the
+advertised regression notes are reachable only by querying the database
+directly. That is acceptance criterion 1 failed on its second half:
+indicated, but with no direct, discoverable path. The aggregate
+fetch-vs-parse columns (`metrics.html:33-34,60-61`) and factor-labeled
+health scores show the backend's distinctions at window granularity,
+which has real operational value but does not substitute for per-run
+reachability — a single run's `partial` status and its specific failure
+phase are exactly what the operator cannot get to.
+
+Operator experience: `/metrics` says deeper per-run information exists,
+and then offers no way to see any of it.
+
+Verdict history: recorded as **PARTIAL/unresolved** in the original
+blind validation while the trigger question was open
+(decisions/0006 was then a proposal); the operator accepted the
+interpretation on 2026-08-30, which resolved the applicability question
+in favor of the trigger applying. The reachability gap was never in
+dispute — only whether the standard was triggered — so the FAIL rests on
+the same evidence, under settled semantics.
 
 ## Specialist surfaces to preserve
 
@@ -170,9 +193,11 @@ normalize any of these into generic CRUD.
   applicability analysis (the "Device queue" catalogue). See
   decisions/0005 for the methodology corrections.
 - Checklist/constitution ambiguities fed back: COM-009's "equivalent
-  structured record" trigger needs the interpretation proposal in
-  decisions/0006; the workflow's pass-1 worked example required updating
-  to the refined classification.
+  structured record" trigger question was resolved by operator acceptance
+  of decisions/0006, with the boundary folded into the standard as v3
+  (per-run, phase-attributable structured outcomes qualify; window
+  aggregates alone do not); the workflow's pass-1 worked example was
+  updated to the refined classification.
 
 ## Proposed exceptions
 
@@ -180,9 +205,32 @@ None. The COM-002 gap is a pre-existing implementation debt against
 ratified semantics, not a case where compliance is genuinely
 inappropriate.
 
-## Unresolved questions for the operator
+## Product/remediation backlog (non-normative)
 
-1. COM-009 "equivalent structured record" interpretation (decisions/0006).
-2. Whether the absence of any operator QC *GUI* in smartphone-clank
-   should be tracked as product backlog (the COM-002 write-contract
-   failure stands either way).
+Per the operator ruling of 2026-08-30 (recorded in
+[decisions/0006](../decisions/0006-com009-equivalent-structured-record.md)):
+
+- **The absent operator QC GUI is tracked as product/remediation
+  backlog.** This is an explicit classification, not a softening of a
+  violation: `STD-UI-COM-003` and `STD-UI-COM-004` **remain N/A** under
+  their ratified conditional triggers (decisions/0005), because no QC
+  queue surface exists for them to govern. "Standards-compliant" does
+  not mean "feature-complete" — Standards Clank must not distort
+  conditional standards to express that a better operator workflow would
+  be welcome. The backlog item says: a future operator QC/review surface
+  for smartphone-clank would be valuable, and when one is built it must
+  satisfy COM-002's decision contract from day one.
+- The COM-009 reachability gap (no per-run detail surface) is a
+  standards **violation** (FAIL above), distinct from the backlog item
+  above: the per-run evidence already exists, so this is current
+  non-conformance, not a missing feature.
+- Neither item authorizes remediation work; no exception has been filed
+  or proposed for either.
+
+## Operator decisions log
+
+1. ~~COM-009 "equivalent structured record" interpretation~~ — resolved
+   2026-08-30: accepted (decisions/0006); verdict FAIL as recorded above.
+2. ~~Whether the absent QC GUI is backlog or violation~~ — resolved
+   2026-08-30: backlog, explicitly not a COM-003/004 violation (see
+   Product/remediation backlog above).

@@ -36,8 +36,8 @@
   },
   {
     "standard": "STD-UI-COM-009",
-    "question": "If the backend tracks distinct pipeline stages for a run, can an operator reach that detail directly and discoverably from the primary run surface?",
-    "failure_means": "Stage-level detail exists in the backend or on some page, but the primary run surface gives no visible indication it exists and no direct link to it."
+    "question": "If the backend preserves materially distinct pipeline-phase outcomes for an individual run \u2014 per-run, phase-attributable fields such as fetch/parse failures, validation outcomes, or regression notes, not just window aggregates \u2014 can an operator reach that run's phase detail directly and discoverably from the primary run surface?",
+    "failure_means": "Stage-level detail exists in per-run structured state or on some page, but the primary run surface gives no visible indication it exists and no direct link to it; or aggregate/window health metrics alone were mistaken for per-run stage data (without per-run, phase-attributable state this standard is not triggered)."
   },
   {
     "standard": "STD-UI-COM-010",

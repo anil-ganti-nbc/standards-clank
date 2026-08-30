@@ -117,11 +117,15 @@ metric is. (`STD-UI-COM-008`)
 
 ## F. Run observability
 
-**F1.** Where a Clank's backend already models a run as passing through
-distinct pipeline stages, the primary run surface MUST NOT present a
-single terminal status (e.g. FAILED) in a way that erases a distinction
-the backend itself already tracks, when that distinction would materially
-change what an operator should do next. (`STD-UI-COM-009`)
+**F1.** Where a Clank's backend already preserves materially distinct
+pipeline-phase outcomes for an individual run — a formal stage ledger is
+sufficient but not required: per-run, phase-attributable outcome fields
+(fetch failures, parse failures, validation outcomes, regression notes)
+qualify; aggregate or windowed metrics alone do not trigger this — the
+primary run surface MUST NOT present a single terminal status (e.g.
+FAILED) in a way that erases a distinction the backend itself already
+tracks, when that distinction would materially change what an operator
+should do next. (`STD-UI-COM-009`)
 
 **F2.** The primary run surface does not need to render every stage
 inline, but it MUST visibly indicate that deeper stage information exists

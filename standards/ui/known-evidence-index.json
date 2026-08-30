@@ -8,6 +8,14 @@
     "source_reference": "audits/smartphone-clank-2026-08-30.md"
   },
   {
+    "standard": "STD-UI-COM-009",
+    "subject": "smartphone-clank",
+    "kind": "known_nonconformance",
+    "source": "audit",
+    "summary": "CollectorRunRecord (observability/metrics.py:34-68) qualifies as an 'equivalent structured record' under the operator-accepted decisions/0006 boundary: immutable per-run rows with phase-attributable counters (http_failures = fetch, parser_failures = parse), a per-run status enum, and per-run regression notes \u2014 a flat record preserving fetch-vs-parse-vs-overall distinctions for a specific run carries the same pipeline truth as an ordered ledger. The primary run surface (/metrics) indicates that per-run detail exists (the subtitle advertises 'regression notes in run records', metrics.html:5) but no route exposes any run record, so acceptance criterion 1's direct, discoverable path is unmet. Aggregate fetch-vs-parse columns alone (metrics.html:33-34,60-61) do not satisfy the per-run obligation. Verdict history: PARTIAL/unresolved while decisions/0006 was an open proposal; operator accepted the interpretation 2026-08-30, resolving the trigger question \u2014 the reachability gap stands on its own.",
+    "source_reference": "audits/smartphone-clank-2026-08-30.md"
+  },
+  {
     "standard": "STD-UI-COM-010",
     "subject": "smartphone-clank",
     "kind": "known_nonconformance",
