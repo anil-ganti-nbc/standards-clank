@@ -1,0 +1,33 @@
+{
+  "id": "STD-UI-COM-002",
+  "title": "QC decisions must be atomic, provenance-bearing, append-only, and race-guarded",
+  "domain": "ui",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "requirement": "A QC/review decision on a queue item MUST be recorded as an atomic, append-only record carrying a full provenance snapshot (what was decided, on what evidence, by whom/when), kept distinguishable from mutation of the item's own live operational record. Two concurrent decisions on the same item MUST NOT both succeed as independent writes: the collision MUST be caught (e.g. by a uniqueness constraint) and resolved as a rejection, a no-op, or an explicit correction — never a silent duplicate, a crash, or lost data.",
+  "rationale": "This is not one copied pattern but two independently-originated lineages converging on the same contract. Watch-clank (the fleet's original reference) implements it as a separate TABLE (event_reviews) in the same database with a unique constraint and documented IntegrityError-as-correction handling, explicitly grounded in a named incident: 'Built 2026-08-18 in response to the Citizen stale/out-of-stock flood autopsy.' Chinese-tech-wire, independently, implements it as a separate SQLite FILE (qc_archive.db) with its own unique constraint and its own stated rationale (archive durability against pipeline rebuilds). Every other surveyed Clank with a QC screen (korean-tech-wire, oem-radar, semiconductor-intelligence, smartwatch-clank, feature-phone-clank, tablet-clank) implements the same underlying contract, in one or the other physical shape. The physical shape (table vs. file) differs and is deliberately NOT part of this requirement, per decisions/0001-standardise-contracts-not-implementation.md.",
+  "forbidden": [
+    "Writing a QC decision as a plain UPDATE/INSERT into the item's own live record with no separate decision record",
+    "A QC write path with no uniqueness constraint or equivalent collision guard",
+    "Treating a race as an unhandled exception surfaced to the operator as a crash"
+  ],
+  "acceptance": [
+    "A decision record exists that is distinct from the item's live/operational row, with enough fields to reconstruct what was decided and why",
+    "A DB-level or equivalent uniqueness constraint exists on (item id) for the decision record",
+    "A concurrent second decision attempt is demonstrably handled (test or code path) as a rejection/no-op/correction, not a crash or silent duplicate"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "DIAGNOSTIC_INCIDENT", "source": "watch-clank/ai/handoff/HUMAN_QC_FEEDBACK_CONTRACT.md:3-4", "summary": "Built 2026-08-18 in direct response to a named incident: 'the Citizen stale/out-of-stock flood autopsy.'" },
+    { "class": "ARCHITECTURAL_INVARIANT", "source": "watch-clank/app/models/review.py:60-105; app/services/qc.py:324-337", "summary": "event_reviews table, unique constraint uq_event_review_event_id, documented IntegrityError-as-correction handling." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "chinese-tech-wire/pipeline/qc.py:22-47; database/qc_archive.py:1-16,56-84", "summary": "Independently-originated separate-file archive with its own stated rationale and explicit SQLite-serialization argument for why the race is closed." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "korean-tech-wire/storage/qc_archive.py:19-31,102-121; oem-radar/src/oem_radar/core/qc_archive.py:1-56,134-171; smartwatch-clank/qc_archive.py:20-24,103-126; feature-phone-clank/providers/qc_store.py:25-31,130-204; tablet-clank/tablet_clank/storage/qc_archive.py:9-21,110-135; semiconductor-intelligence/semi_intel/signals/candidate_qc.py:1-35,145-212", "summary": "Same contract re-implemented (mostly via a copied/derived lineage) in every other surveyed Clank with a QC screen; semiconductor-intelligence's version explicitly mirrors watch-clank's contract, not the file-based lineage." },
+    { "class": "REGRESSION", "source": "smartphone-clank/main.py:1227-1262", "summary": "Counter-evidence / negative case: the one Clank whose QC action (CLI qc-action) is a raw INSERT into the live analyst_actions table, with no separate archive, no uniqueness constraint, and no documented race handling — exactly the anti-pattern this standard forbids." }
+  ],
+  "origin": "DIAGNOSTIC_INCIDENT",
+  "introduced": "2026-08-30",
+  "supersedes": null,
+  "notes": "Pass 1 candidate. smartphone-clank's current qc-action implementation would not conform if this is ratified as-is; that is flagged as an open remediation/exception question in docs/gui-ratification-pass-1.md, not resolved here."
+}

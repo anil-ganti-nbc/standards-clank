@@ -1,0 +1,29 @@
+{
+  "id": "STD-UI-NEWS-001",
+  "title": "News/lead-based Clanks: the QC vocabulary's fourth terminal action marks the item no longer distinct/novel",
+  "domain": "ui",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": ["news-based"],
+  "requirement": "For a news/editorial or lead-based Clank, the QC decision vocabulary MUST support Useful, Not-useful, and False-positive, plus a fourth terminal decision named DUPLICATE, meaning 'this story/lead is not novel — it is already covered or is a restatement of something already known,' used in the vocabulary slot a SKU-based Clank fills with OUT_OF_STOCK. Additional Clank-specific decision values beyond these four MAY be added (e.g. a fifth value for editorial workflow state) without violating this standard.",
+  "rationale": "This is the strongest-evidenced rule in this pass, because it is corroborated by two independently-originated lineages rather than one copied pattern. Chinese-tech-wire's LeadOutcome vocabulary and watch-clank's own separate SpecialistLeadReview vocabulary (distinct from its product-facing EventReview) both independently arrived at DUPLICATE for this slot — two different repos, two different authors' reasoning, the same conclusion, before any cross-copying occurred. korean-tech-wire (derived from CTW) and semiconductor-intelligence (which explicitly cites watch-clank's SpecialistLead as its precedent, not CTW/KTW) both propagate it, giving three separate lineages converging on the fleet's own gold-standard repo already containing this exact split internally.",
+  "forbidden": [
+    "Using OUT_OF_STOCK as a literal decision value for a news/lead-based Clank (no e-commerce availability concept applies)"
+  ],
+  "acceptance": [
+    "USEFUL, NOT_USEFUL, FALSE_POSITIVE, and DUPLICATE are all distinct, queryable QC outcomes",
+    "No OUT_OF_STOCK value is present in a news/lead-based Clank's decision vocabulary"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "ARCHITECTURAL_INVARIANT", "source": "watch-clank/app/templates/intelligence.html:211-214 (SpecialistLeadReview: U/NU/DUP/FP)", "summary": "The fleet's own gold-standard reference implements this exact split internally: OUT_OF_STOCK for product events, DUPLICATE for specialist leads — independent of any other Clank." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "chinese-tech-wire/pipeline/qc.py:1-20; web/templates/lead_detail.html:30", "summary": "Independently-originated LeadOutcome vocabulary: USEFUL/NOT_USEFUL/WRITTEN/DUPLICATE/FALSE_POSITIVE, explicitly documenting 'Out of stock -> DUPLICATE' as the news-domain mapping." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "korean-tech-wire/storage/qc_archive.py:40-46", "summary": "QC_DECISIONS = (USEFUL, NOT_USEFUL, FALSE_POSITIVE, DUPLICATE), explicit rationale: 'there is no e-commerce out-of-stock concept for a news lead.'" },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "semiconductor-intelligence/semi_intel/signals/candidate_qc.py:4-5,24-34", "summary": "Third, separately-cited lineage: explicitly references watch-clank's SpecialistLead using DUPLICATE in OUT_OF_STOCK's place as its own rationale, not CTW/KTW." }
+  ],
+  "origin": "ARCHITECTURAL_INVARIANT",
+  "introduced": "2026-08-30",
+  "supersedes": null,
+  "notes": "Pass 1 candidate. chinese-tech-wire's extra WRITTEN value is an allowed CTW-specific superset addition, not a violation — see acceptance criteria."
+}

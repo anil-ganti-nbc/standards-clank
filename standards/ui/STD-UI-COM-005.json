@@ -1,0 +1,31 @@
+{
+  "id": "STD-UI-COM-005",
+  "title": "Where a production/experimental maturity tier exists, promotion must be an explicit config change, not a GUI action or an automatic decision",
+  "domain": "ui",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "requirement": "For a Clank whose collector/source registry distinguishes production (finalized) from experimental/soak maturity, moving a collector/source from experimental to production MUST be an explicit, out-of-band configuration change (e.g. editing an allowlist file and committing/deploying it) — not a button click in the GUI, and not an automatic promotion triggered purely by runtime metrics (soak duration, success count, etc.). This requirement only applies where such a maturity concept exists at all; a Clank with no experimental/production distinction is not in scope.",
+  "rationale": "Independently articulated, not merely copied, in both a SKU-family and a news-family Clank: watch-clank's collector_registry.py documents an explicit 2026-08-27 'operator closeout decision' to gate promotion this way, calling it 'a second, independent gate at the eligibility layer' and warning not to rely on delivery-gating alone. korean-tech-wire has its own promotion-policy.md with its own reasoning ('not a reward for a small number of successful smoke runs'). tablet-clank, feature-phone-clank, and smartwatch-clank all implement the same allowlist-file mechanism. Keeping promotion out of the GUI and out of automatic logic keeps a human accountable for the decision, consistent with docs/governance.md's ratification-is-explicit principle applied at the collector level.",
+  "forbidden": [
+    "A 'Promote to production' button in the GUI",
+    "Automatic promotion after N successful soak runs with no human action",
+    "Promotion criteria that live only in code comments, not in a reviewable config file"
+  ],
+  "acceptance": [
+    "Production membership is determined by a config file (allowlist or equivalent) under version control",
+    "No GUI route mutates that config file",
+    "No code path promotes a collector automatically based purely on runtime metrics"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "OPERATOR_REQUIREMENT", "source": "watch-clank/app/services/collector_registry.py:129-166", "summary": "Documented 2026-08-27 operator closeout decision; SAFE_COLLECTOR_IDS = KNOWN minus EXPERIMENTAL, described as an independent eligibility gate." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "korean-tech-wire/docs/promotion-policy.md:1-18", "summary": "Independent written promotion policy for a news-family Clank: promotion is explicit and reversible, not a reward for smoke-run success." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "tablet-clank/dash_render.py:672-676 (PRODUCTION_ALLOWLIST); feature-phone-clank/config/scope.yaml (production_collectors); smartwatch-clank/config/config.yaml:8-13 (production_allowlist)", "summary": "Same allowlist-file mechanism in three further SKU-family Clanks." }
+  ],
+  "origin": "OPERATOR_REQUIREMENT",
+  "introduced": "2026-08-30",
+  "supersedes": null,
+  "notes": "Pass 1 candidate. Family: Both, but conditionally scoped — chinese-tech-wire, semiconductor-intelligence, and smartphone-clank have no maturity-tier concept at all and are simply out of scope for this rule, not in violation of it."
+}

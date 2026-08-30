@@ -1,0 +1,29 @@
+{
+  "id": "STD-UI-COM-004",
+  "title": "A GUI with a QC queue must expose a 'recently QC'd' view backed by the QC archive",
+  "domain": "ui",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "requirement": "If a Clank's GUI exposes a QC queue, it MUST also expose an operator-visible view of recently-made QC decisions (a dedicated route or an inline section on the same page is both acceptable), sourced from the QC decision archive, not reconstructed from the live operational table.",
+  "rationale": "Present in 8 of 9 surveyed Clanks in some form (dedicated route, inline section, or API endpoint), and its absence is meaningfully correlated with the one Clank that also lacks a QC archive entirely (smartphone-clank) — reinforcing that this is a load-bearing part of the archival contract (STD-UI-COM-002), not decoration. It gives operators a way to audit/undo-check recent decisions without needing DB access, and lets the operator verify STD-UI-COM-003 is actually working.",
+  "forbidden": [
+    "A QC queue GUI with no way to see recently-decided items short of querying the database directly"
+  ],
+  "acceptance": [
+    "A route, tab, or section exists that lists recent QC decisions",
+    "It reads from the QC archive/decision record, not by inferring 'recent' from the live table"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "watch-clank/app/templates/base.html:92; app/main.py:689 (/qc/history)", "summary": "Dedicated QC History tab, excludes corrected rows by default." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "chinese-tech-wire/web/templates/base.html:15; web/app.py:439-452 (/qc/recent)", "summary": "Dedicated nav item and route, own template, reads only from the archive DB." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "korean-tech-wire/dashboard.py:341-347; oem-radar/dashboard/__init__.py:298-315; semiconductor-intelligence/semi_intel/web/static/index.html:623-637; smartwatch-clank/dashboard.py:95,141-146,165,207-208; feature-phone-clank/dashboard.py:180; tablet-clank/native/macos/webapp.py:98-100", "summary": "Inline section or dedicated route in every other surveyed Clank that has a QC queue at all." },
+    { "class": "REGRESSION", "source": "smartphone-clank/main.py, dashboard/templates/*.html", "summary": "No 'recently QC'd' view of any kind — consistent with having no QC archive to source it from (see STD-UI-COM-002 counter-evidence)." }
+  ],
+  "origin": "CROSS_CLANK_BEST_PRACTICE",
+  "introduced": "2026-08-30",
+  "supersedes": null,
+  "notes": "Pass 1 candidate. Deliberately does not mandate a dedicated route vs. an inline section — that is presentation, not contract."
+}

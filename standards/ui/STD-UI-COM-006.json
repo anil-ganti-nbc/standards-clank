@@ -1,0 +1,30 @@
+{
+  "id": "STD-UI-COM-006",
+  "title": "A bulk 'run all' collector control must exclude non-production collectors by default",
+  "domain": "ui",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "requirement": "Where a GUI exposes a bulk 'run all collectors' control, it MUST NOT include experimental/soak/non-promoted collectors by default. Only collectors on the production/finalized list (see STD-UI-COM-005) may run as part of a bulk action.",
+  "rationale": "Consistent across every surveyed Clank that has both a bulk control and a maturity concept: watch-clank's run-all-safe route, korean-tech-wire's production_only=True default, feature-phone-clank's and tablet-clank's and smartwatch-clank's allowlist-scoped run-all. oem-radar's bulk sweep excludes 'heavy' collectors by runtime cost rather than by maturity tier specifically, which is a related but distinct axis — noted as a partial-fit rather than full corroboration.",
+  "forbidden": [
+    "A 'run all' control that iterates every registered collector regardless of maturity",
+    "Requiring an env var or config override to exclude experimental collectors from bulk runs (the exclusion must be the default, not opt-in)"
+  ],
+  "acceptance": [
+    "The bulk-run code path filters to the production/finalized allowlist before iterating",
+    "An experimental collector is not run as a side effect of a bulk action without an explicit override"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "watch-clank/app/services/collector_registry.py:160-166 (SAFE_COLLECTOR_IDS)", "summary": "Bulk run excludes EXPERIMENTAL_MATURITY_COLLECTORS by default, re-enable only via explicit env var." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "korean-tech-wire/dashboard.py:77-82; discovery/runner.py:37", "summary": "production_only=(source_id is None) — bulk run is production-only by construction; individual targeting is the only way to reach an EXPERIMENTAL source." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "tablet-clank/dash_render.py:672-676; feature-phone-clank/local_collection.py:15-24; smartwatch-clank/dashboard.py:117-119", "summary": "Same allowlist-scoped bulk run in three further SKU-family Clanks." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "oem-radar/dashboard/__init__.py:426-432", "summary": "Partial fit: bulk sweep excludes collectors by runtime cost ('heavy', >5min), a different axis than production/experimental maturity, though genuinely-experimental collectors are separately kept off the GUI catalog entirely." }
+  ],
+  "origin": "CROSS_CLANK_BEST_PRACTICE",
+  "introduced": "2026-08-30",
+  "supersedes": null,
+  "notes": "Pass 1 candidate. chinese-tech-wire has no maturity concept (out of scope, not counter-evidence); semiconductor-intelligence's 'collect all enabled' is opt-in per source rather than maturity-gated and does not clearly corroborate or contradict this rule."
+}

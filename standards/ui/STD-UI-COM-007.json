@@ -1,0 +1,26 @@
+{
+  "id": "STD-UI-COM-007",
+  "title": "An individual collector control may target an experimental collector explicitly, bypassing the bulk-run exclusion",
+  "domain": "ui",
+  "level": "SHOULD",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "requirement": "Where a per-collector (as opposed to bulk) run control exists, it SHOULD be able to target an experimental/non-production collector explicitly, even though such a collector is excluded from the bulk 'run all' (STD-UI-COM-006).",
+  "rationale": "This is a genuinely split pattern across the fleet, not a settled one — flagged deliberately as SHOULD/QUALIFIED rather than MUST. Watch-clank, korean-tech-wire, tablet-clank, and feature-phone-clank all let an operator run an experimental collector individually from the GUI. smartwatch-clank explicitly does the opposite: experimental sources have no run control at all in the GUI and can only be promoted via an out-of-band config edit before they become runnable. oem-radar splits the difference again: 'heavy' collectors are individually runnable, but genuinely-EXPERIMENTAL collectors are not wired into the GUI catalog at all, only reachable via separate CLI/soak scripts. Both postures have a real rationale (operator convenience for ad-hoc testing vs. a stricter promotion-gates-everything posture) — this needs an explicit operator judgment call, not a default toward the majority.",
+  "forbidden": [],
+  "acceptance": [
+    "If adopted as MUST later: an individual run control exists and is reachable for experimental collectors",
+    "If rejected in favor of smartwatch-clank's posture: individual run controls for experimental collectors must be absent, and the GUI must clearly state how to promote one"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "watch-clank/app/services/collector_registry.py:141-151; korean-tech-wire/dashboard.py:77-80; tablet-clank/dash_render.py:664; feature-phone-clank/dashboard.py:165-169", "summary": "Four Clanks allow individually targeting an experimental collector from the GUI." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "smartwatch-clank/dashboard.py:117-119", "summary": "Explicit counter-pattern: experimental sources are never selectable in the GUI at all; promotion via config is the only path to making one runnable." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "oem-radar/dashboard/__init__.py:426-432; experimental/*.py; scripts/asus_regional_sitemap_soak.py:1-13", "summary": "Genuinely-experimental collectors are not wired into the GUI catalog at all; only reachable via separate standalone CLI soak scripts against an isolated database." }
+  ],
+  "origin": "CROSS_CLANK_BEST_PRACTICE",
+  "introduced": "2026-08-30",
+  "supersedes": null,
+  "notes": "Pass 1 candidate, deliberately unresolved. Recommendation in docs/gui-ratification-pass-1.md is QUALIFIED — needs an explicit operator decision between the two postures before this can move to REVIEWED, not just more evidence-gathering."
+}

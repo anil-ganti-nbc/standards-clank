@@ -122,10 +122,61 @@ def test_detect_duplicate_ids_helper_flags_the_duplicates_fixture():
     assert detect_duplicate_ids(objs) == ["STD-COL-999"]
 
 
-def test_standards_directory_has_no_populated_standards_yet():
-    """standards/ must stay empty of actual standard files in this phase —
-    only the domain READMEs should exist. Guards against accidentally
-    shipping a ratified (or any) standard during repository groundwork."""
+def _all_standard_files():
     standards_dir = Path(__file__).parent.parent / "standards"
-    json_files = list(standards_dir.rglob("*.json"))
-    assert json_files == [], f"unexpected standard files found: {json_files}"
+    return sorted(standards_dir.rglob("*.json"))
+
+
+def test_no_standard_in_this_repository_is_ratified_yet():
+    """Candidate standards may exist (as PROPOSED) once evidence-gathering
+    passes like GUI Ratification Pass 1 have run, but nothing in this repo
+    may be RATIFIED or REVIEWED without an explicit operator act recorded
+    outside of test/CI automation — see docs/governance.md."""
+    for path in _all_standard_files():
+        obj = json.loads(path.read_text())
+        assert obj["status"] not in {"RATIFIED", "REVIEWED"}, (
+            f"{path} has status {obj['status']!r} — ratification/review must be an "
+            "explicit recorded operator act, not something that ships via a test pass"
+        )
+
+
+def test_every_standard_file_is_schema_valid():
+    for path in _all_standard_files():
+        obj = json.loads(path.read_text())
+        validate_standard(obj)
+
+
+def test_no_duplicate_standard_ids_in_standards_directory():
+    objs = [json.loads(p.read_text()) for p in _all_standard_files()]
+    ids = [o["id"] for o in objs]
+    assert len(ids) == len(set(ids)), f"duplicate standard ids in standards/: {ids}"
+
+
+def test_every_standard_filename_matches_its_id():
+    for path in _all_standard_files():
+        obj = json.loads(path.read_text())
+        assert path.stem == obj["id"], f"{path} filename does not match id {obj['id']!r}"
+
+
+def _all_profile_files():
+    profiles_dir = Path(__file__).parent.parent / "profiles"
+    return sorted(profiles_dir.glob("*.json"))
+
+
+def test_every_profile_file_is_schema_valid():
+    for path in _all_profile_files():
+        validate_profile(json.loads(path.read_text()))
+
+
+def test_every_profile_filename_matches_its_id():
+    for path in _all_profile_files():
+        obj = json.loads(path.read_text())
+        assert path.stem == obj["id"], f"{path} filename does not match id {obj['id']!r}"
+
+
+def test_standard_applies_to_references_a_real_profile():
+    profile_ids = {json.loads(p.read_text())["id"] for p in _all_profile_files()}
+    for path in _all_standard_files():
+        obj = json.loads(path.read_text())
+        for ref in obj.get("applies_to", []):
+            assert ref in profile_ids, f"{path} applies_to references unknown profile {ref!r}"

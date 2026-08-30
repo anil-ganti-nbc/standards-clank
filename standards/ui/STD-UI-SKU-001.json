@@ -1,0 +1,28 @@
+{
+  "id": "STD-UI-SKU-001",
+  "title": "SKU/product-based Clanks: the QC vocabulary's fourth terminal action marks the item no longer available",
+  "domain": "ui",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": ["sku-based"],
+  "requirement": "For a SKU/product-based Clank, the QC decision vocabulary MUST support Useful, Not-useful, and False-positive, plus a fourth terminal decision meaning 'this item is no longer available/in stock as the thing being tracked.' The canonical fleet name for that fourth action is OUT_OF_STOCK; an equivalent semantic encoding (e.g. an availability-change event type plus a reason code) MAY be used instead of a literal fourth enum value, provided it is queryable as a distinct terminal QC outcome.",
+  "rationale": "Directly evidenced in watch-clank's own EventReview vocabulary (the fleet's gold-standard reference) and matched literally in feature-phone-clank, tablet-clank, and smartwatch-clank. oem-radar implements the same semantics but folds it into change_type=AVAILABILITY_CHANGED plus a TEMPORARY_STOCK_CHANGE reason code rather than a literal fourth top-level action — this is a real, working divergence in encoding, not a gap, which is why the acceptance criteria allow either form rather than mandating one literal string.",
+  "forbidden": [
+    "A SKU-based Clank with no way at all to mark an item terminally unavailable distinct from Not-useful or False-positive"
+  ],
+  "acceptance": [
+    "USEFUL, NOT_USEFUL, FALSE_POSITIVE, and an availability/out-of-stock terminal outcome are all distinct, queryable QC outcomes",
+    "The recently-QC'd view (STD-UI-COM-004) can show which items were marked out-of-stock/unavailable, whichever encoding is used"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "ARCHITECTURAL_INVARIANT", "source": "watch-clank/app/models/review.py:60", "summary": "EventReview.disposition includes OUT_OF_STOCK alongside USEFUL/NOT_USEFUL/DUPLICATE/FALSE_POSITIVE." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "feature-phone-clank/providers/qc_store.py:49; tablet-clank/tablet_clank/storage/qc_archive.py:44; smartwatch-clank/qc_archive.py:43", "summary": "Exact same four-value vocabulary including OUT_OF_STOCK, literally matching watch-clank." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "oem-radar/src/oem_radar/core/qc_archive.py:40-45", "summary": "Divergent encoding: HIT/INTERESTING/NOISE/BUG plus AVAILABILITY_CHANGED+TEMPORARY_STOCK_CHANGE reason code, explicitly commented as the mapping to the fleet's Useful/Not-useful/False-positive/Out-of-stock vocabulary." }
+  ],
+  "origin": "ARCHITECTURAL_INVARIANT",
+  "introduced": "2026-08-30",
+  "supersedes": null,
+  "notes": "Pass 1 candidate. Recommendation QUALIFIED, not STRONG — the acceptance criteria were deliberately written to accommodate oem-radar's alternate-but-equivalent encoding rather than forcing a rewrite; operator should confirm this framing is acceptable before REVIEWED."
+}

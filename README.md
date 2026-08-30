@@ -33,11 +33,13 @@ reinterpret old standards. It is not a collector, scheduler, fleet
 controller, deployment system, or a replacement for Diagnostic Clank or
 Motherclank. See [docs/charter.md](docs/charter.md) section C.
 
-**No standard in this repository is ratified yet.** This initial commit is
-repository and governance groundwork only — schemas, structure, lifecycle,
-and process — not a first batch of rules. In particular, GUI/UI standards
-are explicitly deferred: see
-[standards/ui/README.md](standards/ui/README.md).
+**No standard in this repository is ratified yet.** The initial commit was
+repository and governance groundwork only. GUI Ratification Pass 1
+(2026-08-30) has since added 9 evidence-backed `PROPOSED` candidates under
+[standards/ui/](standards/ui/README.md) — see
+[docs/gui-ratification-pass-1.md](docs/gui-ratification-pass-1.md) for the
+ratification table. They are proposals, not ratified rules, until the
+operator moves them through review and ratification.
 
 ## How is a standard created?
 

@@ -1,0 +1,32 @@
+{
+  "id": "STD-UI-COM-001",
+  "title": "A GUI must never trigger collection merely by being loaded or launched",
+  "domain": "ui",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "requirement": "Opening, loading, or launching a Clank's GUI/dashboard MUST NOT, by itself, start a collector run. Collection MUST require an explicit operator action (a button click or equivalent) taken after the GUI is already up, or be driven by a mechanism entirely outside the GUI process (an OS scheduler, a separate daemon) that the GUI does not implicitly trigger.",
+  "rationale": "Every surveyed Clank with a GUI keeps page-load/launch side-effect-free with respect to collection, and where a violation of this nearly happened it was treated as a production incident, not a style choice: oem-radar's own launcher docstring cites a real 2026-08-27 fleet audit finding where a differently-built kwargs path made the auto_crawl guard raise on every launch, and oem-radar's DashboardConfig.auto_crawl_on_start defaults False specifically to avoid the dashboard becoming an unaccountable production actor, citing clank-architecture's Fleet Law 5 (single scheduling/notification authority per lane). This is independently reasoned, not merely copied text.",
+  "forbidden": [
+    "A GUI process that starts a crawl/collection cycle in its startup/lifespan handler",
+    "A GUI whose 'read' routes (GET) have collection side effects",
+    "Relying on a config flag defaulting to on for auto-collection-on-launch"
+  ],
+  "acceptance": [
+    "No GET route or process-startup/lifespan hook initiates a collector run",
+    "Every code path that starts a collector run is reachable only from an explicit POST/action triggered after the GUI has already rendered",
+    "If a config flag exists to allow launch-time collection, its default is off/false"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "DIAGNOSTIC_INCIDENT", "source": "oem-radar/launch_dashboard.py:9-26", "summary": "2026-08-27 fleet audit: a launcher-built kwargs path made the auto-crawl guard raise on every launch; fixed by routing through shared build_dashboard_crawl_kwargs and hardcoding the .exe launcher to never auto-crawl." },
+    { "class": "ARCHITECTURAL_INVARIANT", "source": "clank-architecture/FLEET_LAWS.md (Law 5, lines 41-47, read-only reference)", "summary": "Fleet Law 5: exactly one enabled scheduling mechanism per Clank-lane; a dashboard that becomes an implicit production actor is an authority leak. Cited directly by oem-radar/src/oem_radar/core/config.py:183-189." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "watch-clank/app/main.py:183-188 (lifespan); chinese-tech-wire/web/app.py (module docstring); korean-tech-wire/src/korean_tech_wire/dashboard.py:249; smartwatch-clank/src/smartwatch_clank/dashboard.py:9; feature-phone-clank/src/feature_phone_clank/local_collection.py:10-13; tablet-clank/native/macos/webapp.py:9-10", "summary": "Every surveyed GUI states or structurally shows that launch/page-load never starts a collector; several state this explicitly in a module docstring." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "smartphone-clank/runtime/daemon.py:150-253", "summary": "Counter-context, not a violation: smartphone-clank's actual scheduled collection runs in a separate daemon process (APScheduler), architecturally outside the read-only Phase-0 dashboard — consistent with 'not triggered by the GUI', but shows automatic collection does exist elsewhere in the fleet outside a GUI's control." }
+  ],
+  "origin": "DIAGNOSTIC_INCIDENT",
+  "introduced": "2026-08-30",
+  "supersedes": null,
+  "notes": "Pass 1 candidate. Scope is deliberately narrow: it governs the GUI process's own behavior, not whether automatic collection may exist elsewhere (a daemon, an OS scheduler) — that is out of scope for a UI standard. See docs/gui-ratification-pass-1.md for the full evidence table."
+}

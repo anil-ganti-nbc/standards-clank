@@ -1,0 +1,8 @@
+{
+  "id": "news-based",
+  "title": "News/lead-based Clank",
+  "description": "A Clank whose primary tracked unit is an article, story, or editorial lead rather than a product/SKU. Populated from GUI Ratification Pass 1 evidence (2026-08-30); see docs/gui-ratification-pass-1.md. watch-clank appears in both profiles: its EventReview (product events) and SpecialistLeadReview (specialist leads) vocabularies are genuinely hybrid, not a misclassification.",
+  "inherits": [],
+  "standards": [],
+  "members": ["chinese-tech-wire", "korean-tech-wire", "semiconductor-intelligence", "watch-clank"]
+}

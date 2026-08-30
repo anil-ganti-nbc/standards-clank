@@ -1,0 +1,8 @@
+{
+  "id": "sku-based",
+  "title": "SKU/product-based Clank",
+  "description": "A Clank whose primary tracked unit is a product/SKU (a model, a stock listing, a regulatory filing tied to a specific device) rather than an article. Populated from GUI Ratification Pass 1 evidence (2026-08-30); see docs/gui-ratification-pass-1.md.",
+  "inherits": [],
+  "standards": [],
+  "members": ["oem-radar", "feature-phone-clank", "tablet-clank", "smartwatch-clank", "smartphone-clank", "watch-clank"]
+}
