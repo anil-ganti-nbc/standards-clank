@@ -15,3 +15,6 @@ substance.
 - [0004-operator-ratification-decision-002.md](0004-operator-ratification-decision-002.md)
 - [0005-qc-applicability-refinement.md](0005-qc-applicability-refinement.md)
 - [0006-com009-equivalent-structured-record.md](0006-com009-equivalent-structured-record.md)
+- [0007-pass3-com-012-decision.md](0007-pass3-com-012-decision.md) (awaiting operator decision)
+- [0008-pass3-com-007-decision.md](0008-pass3-com-007-decision.md) (awaiting operator decision)
+- [0009-pass3-sku-001-decision.md](0009-pass3-sku-001-decision.md) (awaiting operator decision)
