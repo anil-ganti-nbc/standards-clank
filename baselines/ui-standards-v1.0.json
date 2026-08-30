@@ -1,0 +1,153 @@
+{
+  "baseline_id": "ui-standards-v1.0",
+  "corpus": "ui",
+  "status": "FROZEN",
+  "freeze_date": "2026-08-31",
+  "freeze_commit": "5eb0d770b540d6edf13c4183f199eedc86ddcfc3",
+  "standards": [
+    {
+      "id": "STD-UI-COM-001",
+      "version": 1,
+      "status": "RATIFIED",
+      "title": "A GUI must never trigger collection merely by being loaded or launched"
+    },
+    {
+      "id": "STD-UI-COM-002",
+      "version": 2,
+      "status": "RATIFIED",
+      "title": "QC decisions must be atomic, provenance-bearing, append-only, and race-guarded"
+    },
+    {
+      "id": "STD-UI-COM-003",
+      "version": 1,
+      "status": "RATIFIED",
+      "title": "A resolved QC decision must leave the active queue immediately, via read-side filtering"
+    },
+    {
+      "id": "STD-UI-COM-004",
+      "version": 1,
+      "status": "RATIFIED",
+      "title": "A GUI with a QC queue must expose a 'recently QC'd' view backed by the QC archive"
+    },
+    {
+      "id": "STD-UI-COM-005",
+      "version": 1,
+      "status": "RATIFIED",
+      "title": "Where a production/experimental maturity tier exists, promotion must be an explicit config change, not a GUI action or an automatic decision"
+    },
+    {
+      "id": "STD-UI-COM-006",
+      "version": 1,
+      "status": "RATIFIED",
+      "title": "A bulk 'run all' collector control must exclude non-production collectors by default"
+    },
+    {
+      "id": "STD-UI-COM-007",
+      "version": 2,
+      "status": "RATIFIED",
+      "title": "Manual collector controls must respect and visibly expose collector lifecycle/authority policy"
+    },
+    {
+      "id": "STD-UI-COM-008",
+      "version": 2,
+      "status": "RATIFIED",
+      "title": "Source operational health must be independently expressible from coverage/output"
+    },
+    {
+      "id": "STD-UI-COM-009",
+      "version": 3,
+      "status": "RATIFIED",
+      "title": "A run's status must not collapse pipeline stages the backend already distinguishes"
+    },
+    {
+      "id": "STD-UI-COM-010",
+      "version": 2,
+      "status": "RATIFIED",
+      "title": "Every ambiguous timestamp must identify both its semantic role and its timezone"
+    },
+    {
+      "id": "STD-UI-COM-011",
+      "version": 2,
+      "status": "RATIFIED",
+      "title": "Where delivery exists, delivery state must be inspectable independently from discovery/review state"
+    },
+    {
+      "id": "STD-UI-COM-012",
+      "version": 2,
+      "status": "RATIFIED",
+      "title": "Primary workflow must not imply unobserved health"
+    },
+    {
+      "id": "STD-UI-NEWS-001",
+      "version": 1,
+      "status": "RATIFIED",
+      "title": "News/lead-based Clanks: the QC vocabulary's fourth terminal action marks the item no longer distinct/novel"
+    },
+    {
+      "id": "STD-UI-NEWS-002",
+      "version": 2,
+      "status": "RATIFIED",
+      "title": "News-family Clanks: a live editorial intake/review surface must be reachable directly or via one obvious action"
+    },
+    {
+      "id": "STD-UI-SKU-001",
+      "version": 2,
+      "status": "RATIFIED",
+      "title": "SKU review systems must preserve a distinct availability-negative disposition"
+    }
+  ],
+  "proposed": [],
+  "artifacts": {
+    "ratified_index": {
+      "path": "standards/ui/ratified-index.json",
+      "sha256": "c0023ed40f260c44de81fae5187a9bd170cc9c50f494878ad5864f7eb3eba69f"
+    },
+    "agent_checklist": {
+      "path": "standards/ui/agent-checklist.json",
+      "sha256": "93febde7a8357068f9464bc5f909d085f4f0e0e1b082a4a254b379ca92fc307a"
+    },
+    "known_evidence_index": {
+      "path": "standards/ui/known-evidence-index.json",
+      "sha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f"
+    },
+    "constitution": {
+      "path": "docs/ui/constitution.md"
+    },
+    "final_gap_audit": {
+      "path": "docs/ui-corpus-gap-audit.md",
+      "conclusion": "NO ESSENTIAL UI CONTRACT MISSING"
+    },
+    "generator": {
+      "path": "tools/ui_agent_layer.py"
+    }
+  },
+  "remediation_verifications": [
+    {
+      "clank": "watch-clank",
+      "audit": "audits/watch-clank-2026-08-30.md",
+      "status": "REMEDIATION_VERIFIED",
+      "remediation_commit": "13f842a",
+      "gap_closure_commit": "fbf228f"
+    },
+    {
+      "clank": "smartphone-clank",
+      "audit": "audits/smartphone-clank-2026-08-30.md",
+      "status": "REMEDIATION_VERIFIED",
+      "remediation_commit": "5684cf2"
+    }
+  ],
+  "ratification_chain": [
+    "decisions/0003-operator-ratification-decision-001.md",
+    "decisions/0004-operator-ratification-decision-002.md",
+    "decisions/0007-pass3-com-012-decision.md",
+    "decisions/0008-pass3-com-007-decision.md",
+    "decisions/0009-pass3-sku-001-decision.md"
+  ],
+  "interpretation_and_governance_chain": [
+    "decisions/0001-standardise-contracts-not-implementation.md",
+    "decisions/0002-no-agent-self-ratification.md",
+    "decisions/0005-qc-applicability-refinement.md",
+    "decisions/0006-com009-equivalent-structured-record.md"
+  ],
+  "change_policy": "Post-freeze normative UI changes go through normal governance and result in a new standard, a versioned revision, a supersession, or a retirement. This manifest and the ui-standards-v1.0 tag are immutable historical records and must never be rewritten; future corpus state may legitimately diverge from v1.0."
+}
