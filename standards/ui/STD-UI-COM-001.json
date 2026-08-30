@@ -3,7 +3,7 @@
   "title": "A GUI must never trigger collection merely by being loaded or launched",
   "domain": "ui",
   "level": "MUST",
-  "status": "PROPOSED",
+  "status": "RATIFIED",
   "version": 1,
   "applies_to": [],
   "requirement": "Opening, loading, or launching a Clank's GUI/dashboard MUST NOT, by itself, start a collector run. Collection MUST require an explicit operator action (a button click or equivalent) taken after the GUI is already up, or be driven by a mechanism entirely outside the GUI process (an OS scheduler, a separate daemon) that the GUI does not implicitly trigger.",
@@ -28,5 +28,5 @@
   "origin": "DIAGNOSTIC_INCIDENT",
   "introduced": "2026-08-30",
   "supersedes": null,
-  "notes": "Pass 1 candidate. Scope is deliberately narrow: it governs the GUI process's own behavior, not whether automatic collection may exist elsewhere (a daemon, an OS scheduler) — that is out of scope for a UI standard. See docs/gui-ratification-pass-1.md for the full evidence table."
+  "notes": "RATIFIED 2026-08-30 by Operator Ratification Decision 001 (decisions/0003-operator-ratification-decision-001.md), unchanged from the Pass 1 proposal. Scope is deliberately narrow: it governs the GUI process's own behavior, not whether automatic collection may exist elsewhere (a daemon, an OS scheduler) — that is out of scope for a UI standard. See docs/gui-ratification-pass-1.md for the full evidence table."
 }

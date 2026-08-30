@@ -3,7 +3,7 @@
   "title": "News/lead-based Clanks: the QC vocabulary's fourth terminal action marks the item no longer distinct/novel",
   "domain": "ui",
   "level": "MUST",
-  "status": "PROPOSED",
+  "status": "RATIFIED",
   "version": 1,
   "applies_to": ["news-based"],
   "requirement": "For a news/editorial or lead-based Clank, the QC decision vocabulary MUST support Useful, Not-useful, and False-positive, plus a fourth terminal decision named DUPLICATE, meaning 'this story/lead is not novel — it is already covered or is a restatement of something already known,' used in the vocabulary slot a SKU-based Clank fills with OUT_OF_STOCK. Additional Clank-specific decision values beyond these four MAY be added (e.g. a fifth value for editorial workflow state) without violating this standard.",
@@ -25,5 +25,5 @@
   "origin": "ARCHITECTURAL_INVARIANT",
   "introduced": "2026-08-30",
   "supersedes": null,
-  "notes": "Pass 1 candidate. chinese-tech-wire's extra WRITTEN value is an allowed CTW-specific superset addition, not a violation — see acceptance criteria."
+  "notes": "RATIFIED 2026-08-30 by Operator Ratification Decision 001 (decisions/0003-operator-ratification-decision-001.md), unchanged from the Pass 1 proposal — the operator's assessment was that this was the best-evidenced rule in the pass. chinese-tech-wire's extra WRITTEN value is an allowed CTW-specific superset addition, not a violation — see acceptance criteria."
 }

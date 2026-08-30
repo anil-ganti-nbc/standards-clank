@@ -3,7 +3,7 @@
   "title": "Where a production/experimental maturity tier exists, promotion must be an explicit config change, not a GUI action or an automatic decision",
   "domain": "ui",
   "level": "MUST",
-  "status": "PROPOSED",
+  "status": "RATIFIED",
   "version": 1,
   "applies_to": [],
   "requirement": "For a Clank whose collector/source registry distinguishes production (finalized) from experimental/soak maturity, moving a collector/source from experimental to production MUST be an explicit, out-of-band configuration change (e.g. editing an allowlist file and committing/deploying it) — not a button click in the GUI, and not an automatic promotion triggered purely by runtime metrics (soak duration, success count, etc.). This requirement only applies where such a maturity concept exists at all; a Clank with no experimental/production distinction is not in scope.",
@@ -27,5 +27,5 @@
   "origin": "OPERATOR_REQUIREMENT",
   "introduced": "2026-08-30",
   "supersedes": null,
-  "notes": "Pass 1 candidate. Family: Both, but conditionally scoped — chinese-tech-wire, semiconductor-intelligence, and smartphone-clank have no maturity-tier concept at all and are simply out of scope for this rule, not in violation of it."
+  "notes": "RATIFIED 2026-08-30 by Operator Ratification Decision 001 (decisions/0003-operator-ratification-decision-001.md), unchanged from the Pass 1 proposal. Family: Both, but conditionally scoped — chinese-tech-wire, semiconductor-intelligence, and smartphone-clank have no maturity-tier concept at all and are simply out of scope for this rule, not in violation of it."
 }

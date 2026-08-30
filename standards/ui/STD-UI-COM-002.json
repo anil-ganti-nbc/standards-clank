@@ -3,20 +3,22 @@
   "title": "QC decisions must be atomic, provenance-bearing, append-only, and race-guarded",
   "domain": "ui",
   "level": "MUST",
-  "status": "PROPOSED",
-  "version": 1,
+  "status": "RATIFIED",
+  "version": 2,
   "applies_to": [],
-  "requirement": "A QC/review decision on a queue item MUST be recorded as an atomic, append-only record carrying a full provenance snapshot (what was decided, on what evidence, by whom/when), kept distinguishable from mutation of the item's own live operational record. Two concurrent decisions on the same item MUST NOT both succeed as independent writes: the collision MUST be caught (e.g. by a uniqueness constraint) and resolved as a rejection, a no-op, or an explicit correction — never a silent duplicate, a crash, or lost data.",
+  "requirement": "A QC/review decision on a queue item MUST be recorded as an atomic, append-only record carrying a full provenance snapshot (what was decided, on what evidence, by whom/when), kept distinguishable from mutation of the item's own live operational record. Two concurrent decisions on the same item MUST NOT both succeed as independent writes: the collision MUST be caught (e.g. by a uniqueness constraint) and resolved as a rejection, a no-op, or an explicit correction — never a silent duplicate, a crash, or lost data. The UI MUST NOT present an operation as safely committed unless the underlying operation actually satisfies this decision contract — a confirmation toast or a queue-removal animation is not itself conformance; the write it represents must be. UI conformance to this standard may therefore depend on backend semantics where those semantics are necessary to make the operator-facing interaction truthful.",
   "rationale": "This is not one copied pattern but two independently-originated lineages converging on the same contract. Watch-clank (the fleet's original reference) implements it as a separate TABLE (event_reviews) in the same database with a unique constraint and documented IntegrityError-as-correction handling, explicitly grounded in a named incident: 'Built 2026-08-18 in response to the Citizen stale/out-of-stock flood autopsy.' Chinese-tech-wire, independently, implements it as a separate SQLite FILE (qc_archive.db) with its own unique constraint and its own stated rationale (archive durability against pipeline rebuilds). Every other surveyed Clank with a QC screen (korean-tech-wire, oem-radar, semiconductor-intelligence, smartwatch-clank, feature-phone-clank, tablet-clank) implements the same underlying contract, in one or the other physical shape. The physical shape (table vs. file) differs and is deliberately NOT part of this requirement, per decisions/0001-standardise-contracts-not-implementation.md.",
   "forbidden": [
     "Writing a QC decision as a plain UPDATE/INSERT into the item's own live record with no separate decision record",
     "A QC write path with no uniqueness constraint or equivalent collision guard",
-    "Treating a race as an unhandled exception surfaced to the operator as a crash"
+    "Treating a race as an unhandled exception surfaced to the operator as a crash",
+    "A UI element (toast, checkmark, queue-removal animation) that signals a decision succeeded when the underlying write has not actually satisfied this contract (e.g. a fire-and-forget client-side update with no confirmed server-side atomic write)"
   ],
   "acceptance": [
     "A decision record exists that is distinct from the item's live/operational row, with enough fields to reconstruct what was decided and why",
     "A DB-level or equivalent uniqueness constraint exists on (item id) for the decision record",
-    "A concurrent second decision attempt is demonstrably handled (test or code path) as a rejection/no-op/correction, not a crash or silent duplicate"
+    "A concurrent second decision attempt is demonstrably handled (test or code path) as a rejection/no-op/correction, not a crash or silent duplicate",
+    "Any success indicator shown to the operator (toast, redirect, queue update) is driven by a confirmed response from the atomic/provenance-bearing write, not issued optimistically before that write is confirmed"
   ],
   "exceptions_allowed": true,
   "evidence": [
@@ -29,5 +31,5 @@
   "origin": "DIAGNOSTIC_INCIDENT",
   "introduced": "2026-08-30",
   "supersedes": null,
-  "notes": "Pass 1 candidate. smartphone-clank's current qc-action implementation would not conform if this is ratified as-is; that is flagged as an open remediation/exception question in docs/gui-ratification-pass-1.md, not resolved here."
+  "notes": "RATIFIED 2026-08-30 by Operator Ratification Decision 001 (decisions/0003-operator-ratification-decision-001.md). Version 2: added the 'UI must not present an operation as safely committed unless the underlying write satisfies this contract' clause per operator instruction, so a future reader cannot satisfy this standard with a confirmation toast alone. smartphone-clank's current qc-action implementation does not conform; per the operator's explicit decision this is a remediation-backlog target, not an exception — see audits/smartphone-clank-2026-08-30.md. Ratification does not itself authorize remediation work."
 }

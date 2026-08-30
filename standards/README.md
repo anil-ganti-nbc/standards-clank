@@ -6,7 +6,7 @@ after its `id` (e.g. `STD-UI-COM-001.json`).
 
 | Domain | Directory | Status |
 |---|---|---|
-| GUI/UI | [ui/](ui/) | 9 candidate standards, all `PROPOSED` — see below |
+| GUI/UI | [ui/](ui/) | 7 `RATIFIED`, 2 `PROPOSED` (returned for revision) — see below |
 | Collector behaviour | [collectors/](collectors/) | empty |
 | Specialist source scoping / authority | [sources/](sources/) | empty |
 | Classification | [classification/](classification/) | empty |
@@ -18,10 +18,12 @@ after its `id` (e.g. `STD-UI-COM-001.json`).
 | Security / secrets | [security/](security/) | empty |
 | Operator workflow / feedback / QC | [operator-workflow/](operator-workflow/) | empty |
 
-No standard in this repository is `RATIFIED` (or even `REVIEWED`) yet. The
-`ui/` directory holds 9 evidence-backed `PROPOSED` candidates from GUI
-Ratification Pass 1 (2026-08-30) — see
-[../docs/gui-ratification-pass-1.md](../docs/gui-ratification-pass-1.md) for
-the full ratification table and evidence. They remain proposals until the
-operator explicitly moves them through review and ratification per
-[../docs/governance.md](../docs/governance.md).
+As of Operator Ratification Decision 001 (2026-08-30), 7 standards under
+`ui/` are `RATIFIED`; 2 more were returned for revision and remain
+`PROPOSED`. See
+[../docs/gui-ratification-pass-1.md](../docs/gui-ratification-pass-1.md)
+for the original evidence table and
+[../decisions/0003-operator-ratification-decision-001.md](../decisions/0003-operator-ratification-decision-001.md)
+for the ratification decision itself. Ratification does not authorize
+remediation of any existing Clank against these rules — that is separate,
+not-yet-commissioned work.

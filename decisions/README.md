@@ -11,3 +11,4 @@ substance.
 
 - [0001-standardise-contracts-not-implementation.md](0001-standardise-contracts-not-implementation.md)
 - [0002-no-agent-self-ratification.md](0002-no-agent-self-ratification.md)
+- [0003-operator-ratification-decision-001.md](0003-operator-ratification-decision-001.md)

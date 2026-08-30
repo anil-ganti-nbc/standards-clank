@@ -3,10 +3,10 @@
   "title": "A GUI with a QC queue must expose a 'recently QC'd' view backed by the QC archive",
   "domain": "ui",
   "level": "MUST",
-  "status": "PROPOSED",
+  "status": "RATIFIED",
   "version": 1,
   "applies_to": [],
-  "requirement": "If a Clank's GUI exposes a QC queue, it MUST also expose an operator-visible view of recently-made QC decisions (a dedicated route or an inline section on the same page is both acceptable), sourced from the QC decision archive, not reconstructed from the live operational table.",
+  "requirement": "If, and only if, a Clank's GUI exposes an operator QC queue, it MUST also expose an operator-visible resolved/QC-history surface covering recently-made QC decisions (a dedicated route or an inline section on the same page is both acceptable), sourced from the QC decision archive, not reconstructed from the live operational table. 'Recently QC'd' is the fleet's canonical UI language for this surface where a label is shown, but this standard does not mandate an identically-named route, nav item, or literal string — the requirement is the surface and its data source, not the label.",
   "rationale": "Present in 8 of 9 surveyed Clanks in some form (dedicated route, inline section, or API endpoint), and its absence is meaningfully correlated with the one Clank that also lacks a QC archive entirely (smartphone-clank) — reinforcing that this is a load-bearing part of the archival contract (STD-UI-COM-002), not decoration. It gives operators a way to audit/undo-check recent decisions without needing DB access, and lets the operator verify STD-UI-COM-003 is actually working.",
   "forbidden": [
     "A QC queue GUI with no way to see recently-decided items short of querying the database directly"
@@ -25,5 +25,5 @@
   "origin": "CROSS_CLANK_BEST_PRACTICE",
   "introduced": "2026-08-30",
   "supersedes": null,
-  "notes": "Pass 1 candidate. Deliberately does not mandate a dedicated route vs. an inline section — that is presentation, not contract."
+  "notes": "RATIFIED 2026-08-30 by Operator Ratification Decision 001 (decisions/0003-operator-ratification-decision-001.md). Requirement wording clarified (editorial, meaning unchanged, no version bump) to state explicitly that 'Recently QC'd' is canonical UI language, not a mandated route/label, and that the standard only applies where a QC queue exists at all. Deliberately does not mandate a dedicated route vs. an inline section — that is presentation, not contract."
 }

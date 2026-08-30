@@ -127,17 +127,22 @@ def _all_standard_files():
     return sorted(standards_dir.rglob("*.json"))
 
 
-def test_no_standard_in_this_repository_is_ratified_yet():
-    """Candidate standards may exist (as PROPOSED) once evidence-gathering
-    passes like GUI Ratification Pass 1 have run, but nothing in this repo
-    may be RATIFIED or REVIEWED without an explicit operator act recorded
-    outside of test/CI automation — see docs/governance.md."""
+def test_every_ratified_standard_traces_to_a_decision_record():
+    """A standard may only be RATIFIED/REVIEWED alongside a recorded operator
+    decision — see docs/governance.md. This doesn't prove the decision was
+    genuine, but it does guard against a status flip landing with no
+    traceable review/ratification artefact referenced at all."""
+    decisions_dir = Path(__file__).parent.parent / "decisions"
+    decision_files = {p.name for p in decisions_dir.glob("*.md")}
     for path in _all_standard_files():
         obj = json.loads(path.read_text())
-        assert obj["status"] not in {"RATIFIED", "REVIEWED"}, (
-            f"{path} has status {obj['status']!r} — ratification/review must be an "
-            "explicit recorded operator act, not something that ships via a test pass"
-        )
+        if obj["status"] in {"RATIFIED", "REVIEWED"}:
+            notes = obj.get("notes", "")
+            referenced = [d for d in decision_files if d in notes]
+            assert referenced, (
+                f"{path} has status {obj['status']!r} but its notes field does not "
+                "reference a decisions/*.md file recording the review/ratification act"
+            )
 
 
 def test_every_standard_file_is_schema_valid():

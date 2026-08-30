@@ -33,13 +33,15 @@ reinterpret old standards. It is not a collector, scheduler, fleet
 controller, deployment system, or a replacement for Diagnostic Clank or
 Motherclank. See [docs/charter.md](docs/charter.md) section C.
 
-**No standard in this repository is ratified yet.** The initial commit was
-repository and governance groundwork only. GUI Ratification Pass 1
-(2026-08-30) has since added 9 evidence-backed `PROPOSED` candidates under
-[standards/ui/](standards/ui/README.md) — see
+As of Operator Ratification Decision 001 (2026-08-30), 7 standards under
+[standards/ui/](standards/ui/README.md) are `RATIFIED`; 2 more were
+returned for revision and remain `PROPOSED`. See
 [docs/gui-ratification-pass-1.md](docs/gui-ratification-pass-1.md) for the
-ratification table. They are proposals, not ratified rules, until the
-operator moves them through review and ratification.
+original evidence and
+[decisions/0003-operator-ratification-decision-001.md](decisions/0003-operator-ratification-decision-001.md)
+for the ratification decision. Ratification of a standard does not by
+itself authorize remediating any existing Clank against it — that is
+separate, not-yet-commissioned work.
 
 ## How is a standard created?
 

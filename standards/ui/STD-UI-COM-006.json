@@ -3,7 +3,7 @@
   "title": "A bulk 'run all' collector control must exclude non-production collectors by default",
   "domain": "ui",
   "level": "MUST",
-  "status": "PROPOSED",
+  "status": "RATIFIED",
   "version": 1,
   "applies_to": [],
   "requirement": "Where a GUI exposes a bulk 'run all collectors' control, it MUST NOT include experimental/soak/non-promoted collectors by default. Only collectors on the production/finalized list (see STD-UI-COM-005) may run as part of a bulk action.",
@@ -26,5 +26,5 @@
   "origin": "CROSS_CLANK_BEST_PRACTICE",
   "introduced": "2026-08-30",
   "supersedes": null,
-  "notes": "Pass 1 candidate. chinese-tech-wire has no maturity concept (out of scope, not counter-evidence); semiconductor-intelligence's 'collect all enabled' is opt-in per source rather than maturity-gated and does not clearly corroborate or contradict this rule."
+  "notes": "RATIFIED 2026-08-30 by Operator Ratification Decision 001 (decisions/0003-operator-ratification-decision-001.md), unchanged from the Pass 1 proposal. The operative semantic is that 'Run All' must have an explicit, visible eligibility set; oem-radar's runtime-cost filtering is a separate dimension and is not counter-evidence. chinese-tech-wire has no maturity concept (out of scope, not counter-evidence); semiconductor-intelligence's 'collect all enabled' is opt-in per source rather than maturity-gated and does not clearly corroborate or contradict this rule."
 }

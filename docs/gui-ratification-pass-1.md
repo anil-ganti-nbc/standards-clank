@@ -1,10 +1,17 @@
 # GUI Ratification Pass 1 — evidence and candidate standards
 
-Status: **evidence-gathering and drafting only. Nothing here is REVIEWED or
-RATIFIED.** This document and the `PROPOSED` files under
-[`standards/ui/`](../standards/ui/) are the review artefact for the
-operator to work from; see [docs/governance.md](governance.md) for what
-REVIEWED and RATIFIED require.
+Status: **superseded by ratification.** This document captures the
+original Pass 1 evidence-gathering and drafting. On 2026-08-30 the operator
+reviewed it rule by rule and issued
+[Operator Ratification Decision 001](../decisions/0003-operator-ratification-decision-001.md):
+7 of the 9 candidates below are now `RATIFIED` (two with wording changes —
+see the decision record and each standard's own `notes` field for what
+changed and why); the other 2 (`STD-UI-COM-007`, `STD-UI-SKU-001`) were
+returned for revision and were rewritten (version 2, still `PROPOSED`) —
+their tables rows below describe the *original* Pass 1 drafts, not the
+revised text; read the JSON files under
+[`standards/ui/`](../standards/ui/) for the current wording. This page is
+kept as the historical evidence record, not edited to match the outcome.
 
 Built on top of the repository-groundwork baseline, commit `dca1e37`. No
 governance or schema decisions from that baseline were revisited — none of
@@ -110,6 +117,15 @@ explicitly reject it.
    (`native/windows/launcher.py:39-42`) — GUI mutation may be silently
    unavailable on macOS. Flagged separately as an out-of-scope task, not
    fixed here.
+
+## Resolution (added after Operator Ratification Decision 001)
+
+All four "open items" above were resolved by
+[decisions/0003-operator-ratification-decision-001.md](../decisions/0003-operator-ratification-decision-001.md):
+(1) smartphone-clank's gap → remediation backlog, no exception; (2) and (3)
+resolved by rewriting STD-UI-COM-007 and STD-UI-SKU-001 rather than
+picking a side of either split; (4) remains open as a separately-flagged,
+out-of-scope bug report, untouched by Standards Clank.
 
 ## What this pass did not do
 

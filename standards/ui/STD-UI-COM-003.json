@@ -3,7 +3,7 @@
   "title": "A resolved QC decision must leave the active queue immediately, via read-side filtering",
   "domain": "ui",
   "level": "MUST",
-  "status": "PROPOSED",
+  "status": "RATIFIED",
   "version": 1,
   "applies_to": [],
   "requirement": "Once a QC decision is recorded for an item, that item MUST NOT appear in the default/active queue view on the very next render, for any operator. This MUST be achieved by excluding already-decided ids at read time (e.g. an outer join / anti-join against the decision record, or a filtered id set), not by deleting or mutating the item's live row.",
@@ -16,7 +16,7 @@
   "acceptance": [
     "The active-queue query excludes any item with an existing decision record, computed at read time",
     "No code path deletes or QC-flags the live row as part of submitting a decision",
-    "A decision submitted in one request is absent from the very next queue render"
+    "A decision submitted in one request is logically absent from the very next queue query/render — this is a query-time guarantee, not a mandate on any particular frontend rendering technology, transition, or removal-animation timing"
   ],
   "exceptions_allowed": true,
   "evidence": [
@@ -27,5 +27,5 @@
   "origin": "CROSS_CLANK_BEST_PRACTICE",
   "introduced": "2026-08-30",
   "supersedes": null,
-  "notes": "Pass 1 candidate. N/A for smartphone-clank (no queue view exists there at all) — not counted as counter-evidence, see docs/gui-ratification-pass-1.md."
+  "notes": "RATIFIED 2026-08-30 by Operator Ratification Decision 001 (decisions/0003-operator-ratification-decision-001.md). Acceptance criterion reworded (editorial, meaning unchanged, no version bump) to make explicit this is a logical/query-level removal guarantee, not a claim about DOM timing or a particular frontend technology. N/A for smartphone-clank (no queue view exists there at all) — not counted as counter-evidence, see docs/gui-ratification-pass-1.md."
 }
