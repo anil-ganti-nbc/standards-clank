@@ -1,0 +1,126 @@
+[
+  {
+    "id": "STD-UI-COM-001",
+    "title": "A GUI must never trigger collection merely by being loaded or launched",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 1,
+    "requirement_summary": "Loading or launching the GUI must never itself start a collector run; collection requires an explicit operator action, or a mechanism entirely outside the GUI process.",
+    "source_file": "standards/ui/STD-UI-COM-001.json",
+    "ratification_decision": "decisions/0003-operator-ratification-decision-001.md"
+  },
+  {
+    "id": "STD-UI-COM-002",
+    "title": "QC decisions must be atomic, provenance-bearing, append-only, and race-guarded",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 2,
+    "requirement_summary": "A QC decision must be an atomic, provenance-bearing, append-only record, race-guarded against concurrent double-decisions, and the UI must not present it as committed unless the underlying write actually satisfies that contract.",
+    "source_file": "standards/ui/STD-UI-COM-002.json",
+    "ratification_decision": "decisions/0003-operator-ratification-decision-001.md"
+  },
+  {
+    "id": "STD-UI-COM-003",
+    "title": "A resolved QC decision must leave the active queue immediately, via read-side filtering",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 1,
+    "requirement_summary": "A decided item must be excluded from the active queue on the very next render, via a read-side filter against the decision record \u2014 never by deleting or mutating the live row.",
+    "source_file": "standards/ui/STD-UI-COM-003.json",
+    "ratification_decision": "decisions/0003-operator-ratification-decision-001.md"
+  },
+  {
+    "id": "STD-UI-COM-004",
+    "title": "A GUI with a QC queue must expose a 'recently QC'd' view backed by the QC archive",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 1,
+    "requirement_summary": "If a GUI exposes a QC queue, it must also expose an operator-visible resolved/QC-history view sourced from the QC archive; a dedicated route or an inline section both satisfy this.",
+    "source_file": "standards/ui/STD-UI-COM-004.json",
+    "ratification_decision": "decisions/0003-operator-ratification-decision-001.md"
+  },
+  {
+    "id": "STD-UI-COM-005",
+    "title": "Where a production/experimental maturity tier exists, promotion must be an explicit config change, not a GUI action or an automatic decision",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 1,
+    "requirement_summary": "Where a production/experimental maturity tier exists, promotion to production must be an explicit out-of-band config change \u2014 never a GUI button, never automatic from runtime metrics.",
+    "source_file": "standards/ui/STD-UI-COM-005.json",
+    "ratification_decision": "decisions/0003-operator-ratification-decision-001.md"
+  },
+  {
+    "id": "STD-UI-COM-006",
+    "title": "A bulk 'run all' collector control must exclude non-production collectors by default",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 1,
+    "requirement_summary": "A bulk 'run all collectors' control must exclude experimental/soak/non-promoted collectors by default; only the production/finalized list may run in bulk.",
+    "source_file": "standards/ui/STD-UI-COM-006.json",
+    "ratification_decision": "decisions/0003-operator-ratification-decision-001.md"
+  },
+  {
+    "id": "STD-UI-COM-008",
+    "title": "Source operational health must be independently expressible from coverage/output",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 2,
+    "requirement_summary": "Source operational health and coverage/output must be expressible as distinct, separately-labeled dimensions; a legitimately quiet source must not read as unhealthy purely from low output.",
+    "source_file": "standards/ui/STD-UI-COM-008.json",
+    "ratification_decision": "decisions/0004-operator-ratification-decision-002.md"
+  },
+  {
+    "id": "STD-UI-COM-009",
+    "title": "A run's status must not collapse pipeline stages the backend already distinguishes",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 2,
+    "requirement_summary": "Where the backend already tracks distinct pipeline stages for a run, the primary run surface must not erase a materially significant stage distinction, and must visibly indicate and directly link to the deeper detail when it exists.",
+    "source_file": "standards/ui/STD-UI-COM-009.json",
+    "ratification_decision": "decisions/0004-operator-ratification-decision-002.md"
+  },
+  {
+    "id": "STD-UI-COM-010",
+    "title": "Every ambiguous timestamp must identify both its semantic role and its timezone",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 2,
+    "requirement_summary": "Every timestamp whose meaning could be ambiguous must have its semantic role labeled, and its timezone must be unambiguous \u2014 a per-value marker or one clearly stated page-level convention both satisfy this.",
+    "source_file": "standards/ui/STD-UI-COM-010.json",
+    "ratification_decision": "decisions/0004-operator-ratification-decision-002.md"
+  },
+  {
+    "id": "STD-UI-COM-011",
+    "title": "Where delivery exists, delivery state must be inspectable independently from discovery/review state",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 2,
+    "requirement_summary": "Where a delivery mechanism records its own outcome, that outcome must be independently inspectable from discovery/review state; no dedicated delivery page is required, but collapsing distinct outcomes into one ambiguous boolean is not sufficient.",
+    "source_file": "standards/ui/STD-UI-COM-011.json",
+    "ratification_decision": "decisions/0004-operator-ratification-decision-002.md"
+  },
+  {
+    "id": "STD-UI-NEWS-001",
+    "title": "News/lead-based Clanks: the QC vocabulary's fourth terminal action marks the item no longer distinct/novel",
+    "level": "MUST",
+    "applies_to": [
+      "news-based"
+    ],
+    "version": 1,
+    "requirement_summary": "A news-family Clank's QC vocabulary must use DUPLICATE as its fourth terminal action (not OUT_OF_STOCK); additional Clank-specific values beyond the fleet-standard four are allowed.",
+    "source_file": "standards/ui/STD-UI-NEWS-001.json",
+    "ratification_decision": "decisions/0003-operator-ratification-decision-001.md"
+  },
+  {
+    "id": "STD-UI-NEWS-002",
+    "title": "News-family Clanks: a live editorial intake/review surface must be reachable directly or via one obvious action",
+    "level": "MUST",
+    "applies_to": [
+      "news-based"
+    ],
+    "version": 2,
+    "requirement_summary": "A news-family Clank's live editorial intake/review queue must be reachable directly from the default landing surface, or via one obvious action \u2014 not buried in navigation.",
+    "source_file": "standards/ui/STD-UI-NEWS-002.json",
+    "ratification_decision": "decisions/0004-operator-ratification-decision-002.md"
+  }
+]

@@ -1,5 +1,16 @@
 # ui
 
+**Building or auditing a Clank UI?** Start with
+[docs/ui/constitution.md](../../docs/ui/constitution.md) (the compact,
+agent-facing summary of every RATIFIED rule below) and
+[docs/ui/agent-implementation-workflow.md](../../docs/ui/agent-implementation-workflow.md)
+(the required sequence for using it), not this directory's raw JSON files
+one at a time. [`ratified-index.json`](ratified-index.json) and
+[`agent-checklist.json`](agent-checklist.json) are generated from the
+files below by `tools/ui_agent_layer.py` — see
+`scripts/generate_ui_agent_layer.py` to regenerate them after any RATIFIED
+standard changes.
+
 12 `RATIFIED`, 3 `PROPOSED` (2 revised Pass 1 candidates, 1 revised Pass 2
 candidate — all awaiting re-review), as of Operator Ratification Decision
 002 (2026-08-30). See

@@ -123,8 +123,12 @@ def test_detect_duplicate_ids_helper_flags_the_duplicates_fixture():
 
 
 def _all_standard_files():
+    """Individual STD-*.json standard files only — excludes the generated
+    aggregate files (ratified-index.json, agent-checklist.json), which are
+    JSON arrays, not standard objects, and are covered by their own tests
+    in test_ui_agent_layer.py."""
     standards_dir = Path(__file__).parent.parent / "standards"
-    return sorted(standards_dir.rglob("*.json"))
+    return sorted(standards_dir.rglob("STD-*.json"))
 
 
 def test_every_ratified_standard_traces_to_a_decision_record():

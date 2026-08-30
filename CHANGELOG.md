@@ -7,6 +7,22 @@ as normative vs. editorial.
 
 ## Unreleased
 
+- Added the agent-facing UI constitution: `docs/ui/constitution.md` (~29
+  principles across sections A-J, each citing a RATIFIED `STD-UI-*` rule
+  inline; PROPOSED rules listed separately as pending, never as
+  requirements) and `docs/ui/agent-implementation-workflow.md` (the
+  required 12-step sequence, including the pre-code conformance report
+  structure). Added `standards/ui/ratified-index.json` and
+  `standards/ui/agent-checklist.json`, generated from the authoritative
+  standard files by `tools/ui_agent_layer.py`
+  (`scripts/generate_ui_agent_layer.py` regenerates them). Added
+  `tests/test_ui_agent_layer.py` verifying the generated files match their
+  source of truth and that the constitution never cites a non-ratified id
+  as normative. Corrected `STD-UI-NEWS-002`'s title (stale since its v2
+  wording change) to match its actual ratified requirement — editorial,
+  no version bump. No new standard was created, no Clank was modified or
+  remediated.
+
 - Operator Ratification Decision 002 (2026-08-30): ratified 5 of the 6 GUI
   Ratification Pass 2 candidates — STD-UI-COM-008/009/010/011 and
   STD-UI-NEWS-002, each ratified with a wording clarification (v2):

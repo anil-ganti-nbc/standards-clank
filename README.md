@@ -45,6 +45,12 @@ for evidence and both ratification decisions made so far. Ratification of
 a standard does not by itself authorize remediating any existing Clank
 against it — that is separate, not-yet-commissioned work.
 
+**Implementing or auditing a Clank UI?** Don't start from the raw
+`standards/ui/*.json` files — read
+[docs/ui/constitution.md](docs/ui/constitution.md) (the compact,
+agent-facing summary of every RATIFIED UI rule, with inline citations) and
+follow [docs/ui/agent-implementation-workflow.md](docs/ui/agent-implementation-workflow.md).
+
 ## How is a standard created?
 
 1. Someone (operator or agent) proposes it as a JSON file conforming to
@@ -90,15 +96,17 @@ incident / requirement
 ## Repository layout
 
 ```
-docs/         charter, governance, terminology, lifecycle
-standards/    one subdirectory per domain, empty for now
+docs/         charter, governance, terminology, lifecycle, ratification passes, docs/ui/ (agent constitution + workflow)
+standards/    one subdirectory per domain; standards/ui/ also holds the generated ratified-index.json / agent-checklist.json
 schemas/      JSON Schema for standard / profile / exception / evidence-reference
 profiles/     which standards apply to which class of Clank
 exceptions/   recorded deviations from ratified standards
 audits/       conformance-check records
 decisions/    architecture/governance decisions about this repo itself
 evidence/     evidence-reference pointers (not duplicated history)
-tests/        repository-contract tests (schema/fixture validation)
+tools/        shared Python used by scripts/ and tests/ (e.g. tools/ui_agent_layer.py)
+scripts/      one-off/regeneration scripts (e.g. scripts/generate_ui_agent_layer.py)
+tests/        repository-contract tests (schema/fixture validation, generated-file drift checks)
 ```
 
 ## Tests

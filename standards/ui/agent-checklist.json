@@ -1,0 +1,62 @@
+[
+  {
+    "standard": "STD-UI-COM-001",
+    "question": "Does opening or launching the GUI avoid starting any collector run by itself?",
+    "failure_means": "A GET route, app-startup hook, or lifespan event triggers collection with no explicit operator action."
+  },
+  {
+    "standard": "STD-UI-COM-002",
+    "question": "Is every QC decision written as an atomic, provenance-bearing, race-guarded record, and does the UI only show it as committed once that write is confirmed?",
+    "failure_means": "A QC action can appear successful (toast, checkmark, queue removal) before or without a confirmed atomic/race-safe write, or a concurrent double-decision can silently duplicate, crash, or lose data."
+  },
+  {
+    "standard": "STD-UI-COM-003",
+    "question": "Does a just-decided item disappear from the active queue on the very next render, via a read-side filter rather than deleting or mutating the live row?",
+    "failure_means": "A decided item still appears in the active queue, or its removal depends on deleting/flagging the live record instead of a read-side exclusion against the decision record."
+  },
+  {
+    "standard": "STD-UI-COM-004",
+    "question": "If this Clank has a QC queue, is there a way to review recently-made QC decisions, sourced from the QC archive rather than reconstructed from the live table?",
+    "failure_means": "A QC queue exists with no way to see recently-decided items short of querying the database directly."
+  },
+  {
+    "standard": "STD-UI-COM-005",
+    "question": "If this Clank has a production/experimental maturity tier, is promotion an explicit config-file change rather than a GUI action or an automatic metric-driven promotion?",
+    "failure_means": "A 'promote to production' control exists in the GUI, or a collector auto-promotes after N successful runs with no human action."
+  },
+  {
+    "standard": "STD-UI-COM-006",
+    "question": "Does the bulk 'run all' control exclude experimental/non-production collectors by default?",
+    "failure_means": "Clicking 'run all' also runs an experimental/soak/non-promoted collector with no explicit override."
+  },
+  {
+    "standard": "STD-UI-COM-008",
+    "question": "Can an operator read a source's operational health as a distinct, separately-labeled value from its coverage/output, without a legitimately quiet source misreading as unhealthy?",
+    "failure_means": "Health and coverage are blended into one score/badge with no way to tell which drove the result, or a source with zero new items renders identically to a failing one."
+  },
+  {
+    "standard": "STD-UI-COM-009",
+    "question": "If the backend tracks distinct pipeline stages for a run, can an operator reach that detail directly and discoverably from the primary run surface?",
+    "failure_means": "Stage-level detail exists in the backend or on some page, but the primary run surface gives no visible indication it exists and no direct link to it."
+  },
+  {
+    "standard": "STD-UI-COM-010",
+    "question": "Is every displayed timestamp's semantic role labeled, and is its timezone unambiguous (a per-value marker or one stated page-wide convention)?",
+    "failure_means": "A timestamp's meaning (published vs. discovered vs. decided, etc.) can't be determined from the UI, or its timezone is silently browser-local/unstated with no convention declared."
+  },
+  {
+    "standard": "STD-UI-COM-011",
+    "question": "If this Clank delivers to an external channel, can an operator see the distinct delivery outcome (sent/failed/pending/suppressed) independently from discovery/review state?",
+    "failure_means": "Delivery outcomes are computed/persisted but never shown in the GUI, or collapsed into a single boolean that can't distinguish failed/suppressed from never-attempted."
+  },
+  {
+    "standard": "STD-UI-NEWS-001",
+    "question": "For a news-family Clank, does the QC vocabulary include DUPLICATE as its fourth terminal action, not OUT_OF_STOCK?",
+    "failure_means": "A news-family Clank's QC vocabulary uses OUT_OF_STOCK, or has no way to mark a lead as not-novel/already-covered."
+  },
+  {
+    "standard": "STD-UI-NEWS-002",
+    "question": "For a news-family Clank, is the live intake/review queue exposed directly on the default landing surface, or reachable via one single obvious action?",
+    "failure_means": "The default landing view is a stats/health page and reaching the review queue requires searching through navigation."
+  }
+]
