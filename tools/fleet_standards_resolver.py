@@ -1,6 +1,8 @@
 """Resolve frozen Standards Clank applicability; never audit a target runtime."""
 from __future__ import annotations
-import json, subprocess
+import json, subprocess, tarfile
+from functools import lru_cache
+from io import BytesIO
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
@@ -15,23 +17,29 @@ FACTS = {
 def _show(tag, path):
     return subprocess.run(["git", "show", f"{tag}:{path}"], cwd=ROOT, text=True, capture_output=True, check=True, stdin=subprocess.DEVNULL).stdout
 def _json(tag, path): return json.loads(_show(tag, path))
+def _tag_tree(tag, directory):
+    archive = subprocess.run(["git", "archive", "--format=tar", tag, directory], cwd=ROOT, capture_output=True, check=True, stdin=subprocess.DEVNULL).stdout
+    with tarfile.open(fileobj=BytesIO(archive)) as tar:
+        return {m.name: json.loads(tar.extractfile(m).read()) for m in tar.getmembers() if m.isfile() and m.name.endswith(".json")}
 def _domain_path(domain): return f"baselines/{DOMAINS[domain]}.json"
 def load_registry(): return json.loads(REGISTRY.read_text(encoding="utf-8"))
+@lru_cache(maxsize=1)
 def frozen_standards():
     rows=[]
     for domain, tag in DOMAINS.items():
         manifest=_json(tag, _domain_path(domain))
+        tree=_tag_tree(tag, f"standards/{domain}")
         # Some early tags predate generated checklist files. Normative payload
         # always comes from the tag; the repository's checked-in generated
         # agent layer supplies the question wording for those historical tags.
         checklist_path=f"standards/{domain}/agent-checklist.json"
-        try: checklist_data=_json(tag, checklist_path)
-        except subprocess.CalledProcessError: checklist_data=json.loads((ROOT / checklist_path).read_text(encoding="utf-8"))
+        try: checklist_data=tree[checklist_path]
+        except KeyError: checklist_data=json.loads((ROOT / checklist_path).read_text(encoding="utf-8"))
         checklist={x["standard"]:x for x in checklist_data}
         for entry in manifest["standards"]:
             if entry["status"] != "RATIFIED": continue
             source_file=f"standards/{domain}/{entry['id']}.json"
-            payload=_json(tag, source_file)
+            payload=tree[source_file]
             summary={"id": entry["id"], "version": entry["version"], "source_file": source_file, "requirement_summary": payload["requirement"]}
             rows.append({"domain":domain,"baseline":tag,"standard":payload,"summary":summary,"checklist":checklist[entry["id"]]})
     return rows
@@ -53,8 +61,9 @@ def resolve(clank_id):
     return {"clank_id":clank_id,"profile":clank["primary_profile"],"secondary_profiles":clank.get("secondary_profiles",[]),"baselines":registry["baselines"],"standards":out}
 def audit_plan(clank_id):
     plan=[]
+    resolved_by_id={x["id"]:x for x in resolve(clank_id)["standards"]}
     for row in frozen_standards():
-        resolved=next(x for x in resolve(clank_id)["standards"] if x["id"]==row["standard"]["id"])
+        resolved=resolved_by_id[row["standard"]["id"]]
         if resolved["applicability"] != "APPLIES": continue
         s=row["standard"]; c=row["checklist"]
         plan.append({"standard_id":s["id"],"version":s["version"],"invariant":row["summary"]["requirement_summary"],"inspect":c["question"],"would_establish_conformance":"Inspectable target evidence satisfies the stated invariant.","would_establish_nonconformance":c["failure_means"],"forbidden_inference":s.get("forbidden", ["Do not infer from absent evidence."])[0],"reference":f"docs/{row['domain']}/constitution.md; {row['summary']['source_file']}; standards/{row['domain']}/agent-checklist.json"})

@@ -35,4 +35,6 @@ def test_tags_are_present_and_plan_is_deterministic_and_blind():
     assert first == second and first["items"]
     rendered = json.dumps(first).upper()
     assert "PASS" not in rendered and '"FAIL"' not in rendered and "COMPLIANT" not in rendered
-    assert "HISTORICAL" not in rendered and "REMEDIATION" not in rendered
+    # Normative text may discuss historical records; the plan must not import
+    # historical audit files or target remediation advice.
+    assert "AUDITS/" not in rendered and "REMEDIATION BACKLOG" not in rendered
