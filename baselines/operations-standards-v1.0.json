@@ -42,11 +42,19 @@
       "path": "docs/operations/holds-disposition.md",
       "conclusion": "NO ESSENTIAL OPERATIONS CONTRACT MISSING"
     },
-    "ratified_index": null,
-    "agent_checklist": null,
-    "constitution": null
+    "ratified_index": {
+      "path": "standards/operations/ratified-index.json",
+      "sha256": "9d6bf9697af790b80343ba4c1e216770d830f0833b52629474ceceebc69116e9"
+    },
+    "agent_checklist": {
+      "path": "standards/operations/agent-checklist.json",
+      "sha256": "dcb98421b96f5b32b1197f08f566e1aac4c5c591b60fde379b29f4b99066c040"
+    },
+    "constitution": {
+      "path": "docs/operations/constitution.md"
+    }
   },
-  "artifacts_note": "Unlike ui-standards-v1.0 and data-ontology-standards-v1.0, no agent-facing layer (tools/operations_agent_layer.py, standards/operations/ratified-index.json, standards/operations/agent-checklist.json, docs/operations/constitution.md) has been built for this domain as of this freeze. The four standards exist only as raw JSON files plus standards/operations/README.md. This is a known, explicitly-flagged gap relative to the other two frozen domains, not an oversight silently omitted -- see the freeze release notes and the corresponding Standards Clank project-status assessment for the recommendation to build it as a follow-up, separately-authorized task.",
+  "artifacts_note": "Forward update (2026-08-31, post-freeze; the frozen operations-standards-v1.0 tag at commit 7100f29 predates this and correctly recorded ratified_index/agent_checklist/constitution as null at that time -- left as the immutable historical record, see change_policy). The agent-facing layer (tools/operations_agent_layer.py, standards/operations/ratified-index.json, standards/operations/agent-checklist.json, docs/operations/constitution.md) has now been built, mechanically, mirroring the ui-standards-v1.0/data-ontology-standards-v1.0 pattern exactly. No normative standard text changed as part of this. This manifest's own ratified_index/agent_checklist/constitution fields above reflect the current, post-freeze state, not the frozen tag's state.",
   "evidence_and_review_chain": [
     "docs/operations/pass0/ (Pass 0A evidence inventory + Pass 0B adversarial adjudication)",
     "docs/operations/pass1/ (Pass 1 drafting of OPS-A/B/C + the OPS-D scope-omission resolution)",

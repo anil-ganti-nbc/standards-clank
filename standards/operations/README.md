@@ -16,16 +16,26 @@ other three surfaced and closed the gap — see
 [docs/operations/pass1/README.md](../../docs/operations/pass1/README.md)'s
 "A note on scope" section for the full history.
 
-**4 `PROPOSED`, 0 `RATIFIED`, as of the 2026-08-31 Pass 2.5 drafting task.**
-Not frozen, not reviewed as a set, not ratified. Nothing here should be
-treated as binding on any Clank yet.
+**4 `RATIFIED`, 0 `PROPOSED`, as of the 2026-08-31 ratification closure.**
+**FROZEN as `operations-standards-v1.0`** (tag at commit `7100f29`), after
+a hold-resolution / final-gap pass concluded **NO ESSENTIAL OPERATIONS
+CONTRACT MISSING**. Building or auditing Operations behavior in a Clank?
+Start with
+[docs/operations/constitution.md](../../docs/operations/constitution.md)
+(the compact, agent-facing summary of all four RATIFIED rules, with
+inline citations) rather than these raw JSON files one at a time.
+[ratified-index.json](ratified-index.json) and
+[agent-checklist.json](agent-checklist.json) are generated from the files
+below by `tools/operations_agent_layer.py` — see
+`scripts/generate_operations_agent_layer.py` to regenerate them after any
+change.
 
-| id | title | version | status |
-|---|---|---|---|
-| [STD-OPS-COM-001](STD-OPS-COM-001.json) | Execution invocation and outcome must be independently recorded, never inferred from scheduler-claimed state | v1 | PROPOSED |
-| [STD-OPS-COM-002](STD-OPS-COM-002.json) | Scheduler/trigger-liveness health and outcome/yield health must remain independently representable | v1 | PROPOSED |
-| [STD-OPS-COM-003](STD-OPS-COM-003.json) | Promotion/soak qualification evidence must be structurally verifiable, reset-traceable, and gate-drift-detectable | v1 | PROPOSED |
-| [STD-OPS-COM-004](STD-OPS-COM-004.json) | Exclusivity/ownership markers must be validated by structurally observable proof | v1 | PROPOSED |
+| id | title | version | status | decision |
+|---|---|---|---|---|
+| [STD-OPS-COM-001](STD-OPS-COM-001.json) | Execution invocation and outcome must be independently recorded, never inferred from scheduler-claimed state | v1 | RATIFIED | [0014](../../decisions/0014-ops-com-001-decision.md) |
+| [STD-OPS-COM-002](STD-OPS-COM-002.json) | Scheduler/trigger-liveness health and outcome/yield health must remain independently representable | v1 | RATIFIED | [0015](../../decisions/0015-ops-com-002-decision.md) |
+| [STD-OPS-COM-003](STD-OPS-COM-003.json) | Promotion/soak qualification evidence must be structurally verifiable, reset-traceable, and gate-drift-detectable | v1 | RATIFIED | [0016](../../decisions/0016-ops-com-003-decision.md) |
+| [STD-OPS-COM-004](STD-OPS-COM-004.json) | Exclusivity/ownership markers must be validated by structurally observable proof | v1 | RATIFIED | [0017](../../decisions/0017-ops-com-004-decision.md) |
 
 Full evidence, adjudication, and drafting trail:
 [docs/operations/pass0/](../../docs/operations/pass0/) (evidence +

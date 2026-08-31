@@ -105,17 +105,26 @@ def test_manifest_referenced_standard_files_exist_and_hashes_match(manifest):
         )
 
 
-def test_manifest_honestly_records_no_agent_layer_exists_yet(manifest):
-    """Unlike ui-standards-v1.0 and data-ontology-standards-v1.0, this
-    domain has no agent-facing layer yet. The manifest must say so
-    explicitly rather than fabricate references to nonexistent files."""
-    assert manifest["artifacts"]["ratified_index"] is None
-    assert manifest["artifacts"]["agent_checklist"] is None
-    assert manifest["artifacts"]["constitution"] is None
+def test_manifest_now_records_the_built_agent_layer(manifest):
+    """At freeze time this test asserted no agent-facing layer existed
+    yet for Operations (unlike ui-standards-v1.0 and
+    data-ontology-standards-v1.0). A later, separately-authorized
+    housekeeping task legitimately built one, mirroring the UI/Data-Ontology
+    pattern. The frozen tag (commit 7100f29) still correctly records
+    'no agent layer' as true at that point in history; this test's
+    remaining live job is the forward state — confirm the manifest's
+    artifacts fields and the actual files now agree."""
+    assert manifest["artifacts"]["ratified_index"]["path"] == "standards/operations/ratified-index.json"
+    assert manifest["artifacts"]["agent_checklist"]["path"] == "standards/operations/agent-checklist.json"
+    assert manifest["artifacts"]["constitution"]["path"] == "docs/operations/constitution.md"
     assert "artifacts_note" in manifest
-    assert not (REPO / "tools" / "operations_agent_layer.py").exists()
-    assert not (REPO / "standards" / "operations" / "ratified-index.json").exists()
-    assert not (REPO / "docs" / "operations" / "constitution.md").exists()
+    assert (REPO / "tools" / "operations_agent_layer.py").is_file()
+    assert (REPO / "standards" / "operations" / "ratified-index.json").is_file()
+    assert (REPO / "docs" / "operations" / "constitution.md").is_file()
+    for artifact_key in ("ratified_index", "agent_checklist"):
+        artifact = manifest["artifacts"][artifact_key]
+        digest = hashlib.sha256((REPO / artifact["path"]).read_bytes()).hexdigest()
+        assert digest == artifact["sha256"], f"{artifact['path']} diverged from the manifest's recorded hash"
 
 
 def test_decision_chain_resolves(manifest):
@@ -172,7 +181,7 @@ def test_release_notes_state_the_freeze_terms():
         "does not prescribe a scheduler technology",
         "independent and unchanged",
         "immutable historical records",
-        "No agent-facing layer exists yet for this domain",
+        "Post-freeze forward update",
     ):
         assert term in text, f"release notes missing freeze term: {term!r}"
     for marker in HELD_MARKERS:

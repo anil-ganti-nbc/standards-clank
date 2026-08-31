@@ -200,12 +200,19 @@ distinct layers from this corpus, future domain seeds):
   field states this boundary, and `clank-architecture` itself was not
   modified at any point in this domain's evidence-mining, drafting, or
   freeze work.
-- **No agent-facing layer exists yet for this domain** (no
-  `tools/operations_agent_layer.py`, no generated `ratified-index.json`/
-  `agent-checklist.json`, no `docs/operations/constitution.md`) — unlike
-  the UI and Data/Ontology domains, which both have one. This is a known
-  gap recorded in the baseline manifest's `artifacts_note`, not silently
-  omitted; building it is a reasonable, separately-authorized follow-up.
+- **Post-freeze forward update:** at freeze time (the tagged
+  `operations-standards-v1.0` snapshot, commit `7100f29`), no agent-facing
+  layer existed for this domain — unlike the UI and Data/Ontology domains,
+  which both had one. That was a known, explicitly-flagged gap, not
+  silently omitted. It has since been built, mechanically, as a
+  separately-authorized follow-up: `tools/operations_agent_layer.py`,
+  generated `standards/operations/ratified-index.json`/`agent-checklist.json`,
+  and [docs/operations/constitution.md](../docs/operations/constitution.md)
+  now exist, mirroring the UI/Data-Ontology pattern exactly. No normative
+  standard text changed as part of building them. The tag itself is left
+  untouched, still correctly recording "no agent layer" as true at freeze
+  time; this manifest's live `artifacts` fields now reflect the current
+  state.
 - **The UI and Data/Ontology baselines are independent and unchanged** by
   this freeze.
 

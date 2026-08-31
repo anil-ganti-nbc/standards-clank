@@ -1,0 +1,42 @@
+[
+  {
+    "id": "STD-OPS-COM-001",
+    "title": "Execution invocation and outcome must be independently recorded, never inferred from scheduler-claimed state",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 1,
+    "requirement_summary": "Where a Clank fires collection from any trigger mechanism, it must record in its own store that an invocation occurred and what outcome it produced \u2014 neither inferred from scheduler-reported state ('enabled', 'next run', 'exit 0'). A legitimately empty due-gated cycle must be an explicit recorded no-work outcome, never an absence indistinguishable from a materialization failure. No scheduler technology, run-table schema, or stage vocabulary is prescribed.",
+    "source_file": "standards/operations/STD-OPS-COM-001.json",
+    "ratification_decision": "decisions/0014-ops-com-001-decision.md"
+  },
+  {
+    "id": "STD-OPS-COM-002",
+    "title": "Scheduler/trigger-liveness health and outcome/yield health must remain independently representable",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 1,
+    "requirement_summary": "Execution/trigger-liveness health and output/yield health must remain independently representable \u2014 a job exiting successfully while producing nothing useful is its own state, never silently read as ordinary healthy. Where a source's output is meaningful, zero output must be classifiable as healthy, anomalous, or unknown according to that source's own expected behavior, never silently collapsed into undifferentiated health. No field count, naming convention, or score formula is prescribed.",
+    "source_file": "standards/operations/STD-OPS-COM-002.json",
+    "ratification_decision": "decisions/0015-ops-com-002-decision.md"
+  },
+  {
+    "id": "STD-OPS-COM-003",
+    "title": "Promotion/soak qualification evidence must be structurally verifiable, reset-traceable, and gate-drift-detectable",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 1,
+    "requirement_summary": "Promotion/soak qualification evidence must be structurally verifiable from a Clank's own stored data: trigger provenance (natural/manual/deploy/recovery) where it affects qualification; material-change soak-clock resets recorded with identity and reason; incidents/host moves/manual recovery never silently resetting or silently counting as clean evidence; and multi-gate promotion divergence detectable and failing closed. Cycle counts, retention durations, and maturity-state-machine shape are explicitly per-Clank policy.",
+    "source_file": "standards/operations/STD-OPS-COM-003.json",
+    "ratification_decision": "decisions/0016-ops-com-003-decision.md"
+  },
+  {
+    "id": "STD-OPS-COM-004",
+    "title": "Exclusivity/ownership markers must be validated by structurally observable proof",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 1,
+    "requirement_summary": "An exclusivity/ownership marker's validity must be determinable from state the granting authority itself observes, never inferred from a reusable or context-ambiguous identifier (PID, hostname). Reclaiming, honoring, or acting on a marker must rest on grantor-observable proof of death/expiry \u2014 never bare-identifier inference. OS advisory locks, database session locks, leases, kernel handles, and fencing tokens all conform; only bare-identifier reclaim is forbidden.",
+    "source_file": "standards/operations/STD-OPS-COM-004.json",
+    "ratification_decision": "decisions/0017-ops-com-004-decision.md"
+  }
+]

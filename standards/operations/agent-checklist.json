@@ -1,0 +1,22 @@
+[
+  {
+    "standard": "STD-OPS-COM-001",
+    "question": "For any trigger firing, can a downstream reader determine \u2014 from this Clank's own stored data, independent of the scheduler \u2014 that an invocation occurred and what outcome it produced, with a legitimately empty due-gated cycle recorded as an explicit no-work outcome rather than left as an absence?",
+    "failure_means": "Scheduler-reported state ('enabled', 'next run', 'exit 0') is presented as proof a cycle ran or succeeded; a legitimately empty cycle is indistinguishable from a materialization failure; or a second, forgotten trigger source can fire against the same work with no independently-visible invocation record to catch it."
+  },
+  {
+    "standard": "STD-OPS-COM-002",
+    "question": "Are execution/trigger-liveness health and output/yield health kept independently representable, such that a run that executed successfully but produced nothing is distinguishable from ordinary healthy operation, and zero output is classified according to that source's own expected behavior rather than collapsed into a single undifferentiated status?",
+    "failure_means": "A successful scheduler invocation or process exit code is presented as proof of output/yield health; a source silently producing nothing reads as healthy with no distinguishing signal; or an unexpected zero-output drop is not classifiable as a health concern distinct from ordinary operation."
+  },
+  {
+    "standard": "STD-OPS-COM-003",
+    "question": "Wherever this Clank's promotion/soak decisions depend on trigger provenance, material-change resets, incident history, or multi-gate agreement, is that evidence recoverable from stored data rather than asserted in documentation or memory, with interventions distinguishable-but-not-forbidden and gate divergence detectable and failing closed?",
+    "failure_means": "A manual or deploy-verification run is indistinguishable from natural-cadence qualification evidence; a soak-clock reset happens with no recorded identity/reason; an incident or manual recovery silently resets or silently counts as clean evidence; or a source is promoted through one gate while a second, independently-maintained gate silently disagrees."
+  },
+  {
+    "standard": "STD-OPS-COM-004",
+    "question": "Where this Clank uses an exclusivity/ownership marker capable of outliving or being interpreted across process/execution-context boundaries, is its validity determined from state the granting authority itself observes, rather than inferred from a reusable identifier such as a bare PID or hostname?",
+    "failure_means": "A marker is reclaimed as stale, honored as live, or acted upon (including terminating the process it identifies) based solely on a PID, hostname, or similarly ambiguous identifier whose liveness/ownership the validating context cannot structurally prove."
+  }
+]
