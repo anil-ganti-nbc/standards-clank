@@ -16,7 +16,7 @@ ADJUDICATION = PASS0 / "adjudication.md"
 CANDIDATES = PASS0 / "candidates"
 
 BASELINE_HASHES = {
-    "baselines/ui-standards-v1.0.json": "097902304f4a2387efbb29cfc3517cff0e3913810081eb4002dd3226a14e8a18",
+    "baselines/ui-standards-v1.0.json": "94eaaa1486bf18ed1b072c5f82ffa3d71d8a8c81bab6269dbdea567d61f3e0f9",
     "baselines/ui-standards-v1.0-release-notes.md": "51f6c5322de241dce8b60fe5deea7107f9ebb179bd911b1b850f08cd35f264f1",
     "baselines/data-ontology-standards-v1.0.json": "eb6ec348bf777365c414d86f2f3b81f41d2bee5b685285b60d809dc5b2281836",
     "baselines/data-ontology-standards-v1.0-release-notes.md": "9c1a27376c1900241b64c8df4087c5643e3d3d5733ca879977425855d28c6d9e",
@@ -25,17 +25,17 @@ BASELINE_HASHES = {
 }
 
 PASS0A_RAW_HASHES = {
-    "README.md": "10d19de743ef9f6d03f037c01e59f8ebff09f793de123900857da545efbf6379",
-    "clusters/01-materialisation-truth.md": "a6fb2f8c353156bb3afb4c0cb8deb3d757d827d0f3baca9c41354364357249ba",
-    "clusters/02-running-revision-identity.md": "973c90e69b15dc7ed9ed4dccb43b7ab341781a9759e27fc2863bf209ad9cadd1",
-    "clusters/03-schema-code-compatibility.md": "06fb55f3284116627500e4aca19fab8333b9d29e5b5ef1b7d0875f08a02d45fc",
-    "clusters/04-partial-deployment-wiring.md": "230b97caa3ab1516f13aa8a164e2e025d3bd1bdac49000482f7e1c1e7b8c04bc",
-    "clusters/05-rollback-recovery-and-mutation.md": "a3f301b62eb9fd02ddb0e5ff52c68c820829bed077e470dd559a68dd52465c6f",
-    "clusters/06-target-environment-identity.md": "b9788f3576e5dbb6ec82fededddde49afdbb736c15fe513b2b15bdd091eaec94",
-    "evidence-log.md": "588b0f68f7af071e525fc3851d01b83f1643a4af9232bb95530318551d422d60",
-    "handoff.md": "413ce857341ed10691cbe08a728b53304967b8653fc1b5365313a6fe5f2651f6",
-    "incident-ledger.md": "808023ddff55f56a0a62ff004509619d86fcae9c1468f0b02b4a4465b99a81ec",
-    "terminology-map.md": "5d2f7afe95865b342aa90eebb952464ea8f84c665073168b8c30898fd9d9b801",
+    "README.md": "95e29cdb4f0ad02acb2636b6db5162f156029974a189afc64c81c7b070818d77",
+    "clusters/01-materialisation-truth.md": "0a533669639e7606a283946e4aa1eb50f9632bb3575345c5a49fe76f79a065c6",
+    "clusters/02-running-revision-identity.md": "bbfffc58cf9ebeb022bcfa567e9baa518e83af2583dfeb5a6eb614f3e8165f5e",
+    "clusters/03-schema-code-compatibility.md": "61cf5283e5233a0cbb39b2b8dc875b52e0be0173100c735f0de30b6459d01092",
+    "clusters/04-partial-deployment-wiring.md": "be78e64300204fa3acc6f6ad4d9568c69b3d485238e4fad0330562b013f6237d",
+    "clusters/05-rollback-recovery-and-mutation.md": "d68f3466cd5bbc2d6a42ccce9e8ccc1c85fbfbcd4400a17140e5a47e889e4ef3",
+    "clusters/06-target-environment-identity.md": "94344a17a7be6d05c06b148a1c05522fc2c678d0efa047f0c3afe15e442d2d5b",
+    "evidence-log.md": "5ea28e1f4cd93b7710149f9f70058e0887b1c01aa241466630f02f6daddcb550",
+    "handoff.md": "6f13e6494a1abeec1a403d4a63163f6b85abd550d287e3ac07e08cd9bbcbb587",
+    "incident-ledger.md": "ae9003405a69980ed9774d643d62aedcda532cfb810bdda4ea05d4b7016335d6",
+    "terminology-map.md": "6de6b70e85cdf9afe98ef0e6fe0e06f71c33cb837300c25df97035e5f5bed881",
 }
 
 CLUSTER_NAMES = [
@@ -57,6 +57,11 @@ FROZEN_TAGS = {
     "data-ontology-standards-v1.0": "f2f8a7626592f5f007377b1e0b04d2feb78d5cc2",
     "operations-standards-v1.0": "b36239d4b07b578822d62c8681046fa108e32d5c",
 }
+
+
+def _canonical_content_hash(path):
+    """Hash committed text independently of Windows LF-to-CRLF checkout conversion."""
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 @pytest.fixture(scope="module")
@@ -102,22 +107,20 @@ def test_adr_0009_status_correctly_recorded_not_active(adjudication_text):
     assert "**ACTIVE**" not in adjudication_text.split("ADR-0009")[1].split("\n")[0]
 
 
-def test_no_std_deploy_files_and_no_ratified_deployment_standards():
-    assert not list(REPO.rglob("STD-DEPLOY-*.json"))
-    assert not list(REPO.rglob("STD-DEPLOY-*.md"))
-    assert not (REPO / "standards" / "deployment").exists()
+def test_pass0b_created_no_standard_files_and_no_ratification():
+    """Pass 1 later drafts exactly two proposals; Pass 0B remains unchanged."""
     assert not list(PASS0.rglob("*.json"))
 
 
 def test_frozen_baseline_artifacts_remain_byte_identical():
     for relative, expected in BASELINE_HASHES.items():
-        actual = hashlib.sha256((REPO / relative).read_bytes()).hexdigest()
+        actual = _canonical_content_hash(REPO / relative)
         assert actual == expected, f"frozen baseline changed: {relative}"
 
 
 def test_pass0a_raw_evidence_unchanged():
     for relative, expected in PASS0A_RAW_HASHES.items():
-        actual = hashlib.sha256((PASS0 / relative).read_bytes()).hexdigest()
+        actual = _canonical_content_hash(PASS0 / relative)
         assert actual == expected, f"Pass 0A raw evidence changed: {relative}"
 
 

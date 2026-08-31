@@ -1,0 +1,35 @@
+{
+  "id": "STD-DEPLOY-COM-002",
+  "title": "Persistent-state compatibility must gate normal operation",
+  "domain": "deployment",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "trigger": "Applies where deployed code depends on persistent structured state whose schema or compatibility contract can evolve independently. Stateless Clanks, schema-less Clanks, and ephemeral stores with no evolving compatibility boundary are N/A.",
+  "requirement": "A Clank whose trigger is met MUST prevent normal work from being admitted while the deployed code and required persistent-state contract are known to be incompatible. It MUST determine compatibility at a barrier that occurs before normal incompatible work is accepted, fail closed on known incompatibility, and preserve evidence sufficient to identify compatibility gating as the reason normal work was refused. The barrier may be deploy preflight, startup, first normal transaction, or another trustworthy gate; deployment ordering and mechanism are not prescribed.",
+  "rationale": "Pass 0B advanced a preventive compatibility duty rather than a migration-framework rule. Reused Operations evidence shows a stale/mismanaged schema contract recurring in smartphone production and an independent watch implementation refusing mismatch. A process may start, connect, or find tables while still being incompatible; honest Operations records of the resulting failure do not prevent normal work from being admitted against known bad state.",
+  "forbidden": [
+    "Knowingly accepting normal work under an incompatible deployed-code and persistent-state contract",
+    "Treating process start, database connectivity, database existence, table existence, create_all completion, or deployment-command success as compatibility proof by itself",
+    "Silently continuing normal work when a known required migration, schema capability, or persistent-state contract is absent",
+    "Leaving normal execution exposed to known incompatibility merely because a deployment otherwise appeared successful"
+  ],
+  "acceptance": [
+    "Where the trigger is met, the running application can distinguish compatible from known incompatible required persistent state before normal incompatible work is admitted",
+    "Known incompatibility causes normal work to be refused rather than silently continued",
+    "The refusal leaves evidence identifying compatibility gating as the cause without prescribing a general observability system",
+    "A backwards-compatible staged rollout, code-first bridge, DB-first rollout, startup preflight, lazy barrier, capability check, or platform-enforced compatibility may conform when it prevents normal incompatible work",
+    "A stateless or schema-less Clank is explicitly trigger-unmet rather than non-conforming"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    {"class": "DIAGNOSTIC_INCIDENT", "source": "docs/deployment/pass0/incident-ledger.md#DEP-INC-002", "summary": "REUSED FROM OPERATIONS PASS 0: create_all as schema authority repeatedly produced an incorrect production schema state until fail-closed entrypoints were introduced."},
+    {"class": "DIAGNOSTIC_INCIDENT", "source": "docs/deployment/pass0/incident-ledger.md#DEP-INC-001", "summary": "REUSED FROM OPERATIONS PASS 0: a stale image predating migrations demonstrated code/state compatibility risk across a deployment."},
+    {"class": "CROSS_CLANK_BEST_PRACTICE", "source": "docs/deployment/pass0/clusters/03-schema-code-compatibility.md", "summary": "Watch and smartphone independently adopted fail-closed compatibility safeguards."}
+  ],
+  "origin": "DIAGNOSTIC_INCIDENT",
+  "introduced": "2026-08-31",
+  "supersedes": null,
+  "notes": "PROPOSED in Deployment Pass 1 from Pass 0B candidate DEP-D. This governs admission of normal work at the deployment/runtime compatibility boundary, not Data/Ontology meaning, identity, provenance, or record structure, and not Operations' honest recording of failures after they occur. It mandates no SQL engine, Alembic, migrations table, rollout order, downtime, or rollback implementation. GIC-14 is complementary architecture risk governance. No destructive-state obligation is created; ADR-0009 remains PROPOSED — REVIEWED DRAFT and separate."
+}

@@ -20,7 +20,7 @@ PROFILE_ID_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 STANDARD_DOMAINS = {
     "ui", "collectors", "sources", "classification", "events",
     "evidence", "health", "delivery", "soak", "security", "operator-workflow",
-    "data-ontology", "operations",
+    "data-ontology", "operations", "deployment",
 }
 STANDARD_LEVELS = {"MUST", "SHOULD", "MAY"}
 STANDARD_STATUSES = {"PROPOSED", "REVIEWED", "RATIFIED", "SUPERSEDED", "RETIRED"}

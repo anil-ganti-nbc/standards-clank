@@ -1,0 +1,38 @@
+{
+  "id": "STD-DEPLOY-COM-001",
+  "title": "Deployment completion must be verified as intended state materially running",
+  "domain": "deployment",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "trigger": "Applies where a Clank represents a transition from a declared intended deployment state into a target runtime/environment as complete. A purely local tool with no meaningful deployment transition is N/A. The trigger does not require Git, a repository checkout, a host, a container, or a particular transport.",
+  "requirement": "A Clank MUST represent a deployment as complete only when evidence appropriate to the stated target scope verifies that its declared intended deployment state is materially running. The intended state MUST identify an artifact or revision by trustworthy provenance capable of comparison with the running artifact or revision. Where correctness depends on independently variable deploy-critical configuration or required runtime wiring, that configuration or wiring MUST be included in the verification. A deploy command exit, repository state, copied files, image build, or restart command alone is not completion evidence. Where a deployment spans multiple targets or components, a non-converged subset MUST be represented as partial or in-progress rather than complete.",
+  "rationale": "Pass 0B advanced this narrow deployment-congruence invariant from reused Operations evidence without treating reused incidents as new votes. A stale image selected by a soft default, a production wrapper whose required proxy wiring diverged from its soak wrapper, and a live host trailing its repository show that operational records can be perfectly truthful about an old or miswired runtime while the intended deployment never materialised. Independent convergence on three-way and five-way identity checks supports the verification shape, while Fleet Law 6 remains the separate authority for identity-evidence mechanics.",
+  "forbidden": [
+    "Declaring deployment complete solely because a deployment command, build, file copy, restart, or service-management command returned success",
+    "Treating repository HEAD, a mutable tag, or an artifact's existence as proof that the intended artifact is materially running",
+    "Ignoring deploy-critical configuration that can vary independently and materially change the running state",
+    "Ignoring required runtime/service/scheduler wiring where it is necessary for deployment correctness",
+    "Representing a partially converged multi-target or multi-component deployment as complete",
+    "Claiming intended-to-running equality without evidence capable of comparing the two states"
+  ],
+  "acceptance": [
+    "The completion claim identifies the target environment or target scope against which it is made",
+    "The intended artifact or revision and the materially running artifact or revision are identifiable by comparable trustworthy provenance; this may be a build/package identity, digest, signed artifact identity, revision identifier, or equivalent rather than Git",
+    "Where independently variable deploy-critical configuration is required for correctness, verification establishes that the required configuration is the configuration materially in effect without requiring every configuration file to be hashed",
+    "Where required runtime wiring is necessary, verification establishes the relevant running topology or loaded state without prescribing restart, reload, scheduler, container, or transport commands",
+    "A claimed complete deployment is distinguishable from an explicit partial or in-progress state for every target/component in its declared scope"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    {"class": "DIAGNOSTIC_INCIDENT", "source": "docs/deployment/pass0/incident-ledger.md#DEP-INC-001", "summary": "REUSED FROM OPERATIONS PASS 0: an unset image tag selected a stale runtime despite a successful-looking compose start."},
+    {"class": "DIAGNOSTIC_INCIDENT", "source": "docs/deployment/pass0/incident-ledger.md#DEP-INC-004", "summary": "REUSED FROM OPERATIONS PASS 0: a production wrapper omitted required proxy wiring while a soak wrapper included it."},
+    {"class": "DIAGNOSTIC_INCIDENT", "source": "docs/deployment/pass0/incident-ledger.md#DEP-INC-009", "summary": "REUSED FROM OPERATIONS PASS 0: a host ran an earlier allowlist than the repository."},
+    {"class": "CROSS_CLANK_BEST_PRACTICE", "source": "docs/deployment/pass0/evidence-log.md", "summary": "Watch, OEM Radar, Smartwatch, CTW, and SemInt record independently convergent running-identity or explicit-unverified practices."}
+  ],
+  "origin": "DIAGNOSTIC_INCIDENT",
+  "introduced": "2026-08-31",
+  "supersedes": null,
+  "notes": "PROPOSED in Deployment Pass 1 from Pass 0B candidate DEP-A. This standard owns completion/congruence only. Fleet Law 5 remains the ACTIVE authority for scheduler exclusivity; Fleet Law 6 remains the ACTIVE authority for host-evidenced SHA/digest mechanics; deferred Law 9 remains separate. It does not duplicate OPS-COM-001: Operations asks whether the execution that ran materialised and what outcome it produced, while this asks whether the state materially running is the intended deployment state. No ratification or ADR activation occurred."
+}

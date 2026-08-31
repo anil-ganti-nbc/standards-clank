@@ -210,12 +210,12 @@ def test_manifest_generation_is_deterministic():
     assert manifest["standards"] == derived
 
 
-def test_no_deployment_or_delivery_domain_standards_in_baseline(manifest):
-    """Explicit instruction: keep Deployment/Delivery rehomes out of the
-    baseline. No STD-DEPLOYMENT-* or STD-DELIVERY-* id may appear."""
+def test_deployment_and_delivery_rehomes_remain_out_of_operations_baseline(manifest):
+    """The later-authorized Deployment Pass 1 proposals are outside this
+    frozen Operations corpus; this guard protects the historical manifest,
+    not the future absence of another domain's proposals."""
     ids = {s["id"] for s in manifest["standards"]}
     assert not any(i.startswith("STD-DEPLOYMENT-") or i.startswith("STD-DELIVERY-") for i in ids)
-    assert not list(REPO.glob("standards/deployment/STD-*.json"))
     assert not list(REPO.glob("standards/delivery/STD-*.json"))
 
 

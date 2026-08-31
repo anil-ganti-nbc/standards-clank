@@ -30,7 +30,8 @@
         "security",
         "operator-workflow",
         "data-ontology",
-        "operations"
+        "operations",
+        "deployment"
       ]
     },
     "level": {
