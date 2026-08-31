@@ -50,13 +50,15 @@ def test_standard_is_proposed_at_version_1(sid):
     assert obj["domain"] == "operations"
 
 
-def test_no_fourth_operations_standard_and_no_ops_d():
-    """The mission explicitly forbade a fourth standard; Pass 0B's
-    adjudication table marked a fourth cluster (2, pid-namespace-unsafe
-    locking) ADVANCE but never produced a full candidate card for it —
-    confirm no ops-d file exists anywhere, drafted or as a card."""
+def test_no_fourth_operations_standard_and_no_ops_d_normative_file():
+    """The mission explicitly forbade a fourth standard. Superseded in
+    part by the operator-commissioned Pass 1.5 resolution (which produced
+    an OPS-D candidate CARD + resolution doc under docs/, still no
+    normative file): no STD-OPS-COM-004 normative standard may exist
+    unless separately commissioned."""
     assert not list(REPO.rglob("STD-OPS-COM-004*"))
-    assert not list(REPO.rglob("ops-d-*"))
+    assert (REPO / "docs/operations/pass0/candidates/ops-d-exclusivity-marker-soundness.md").is_file()
+    assert (REPO / "docs/operations/pass1/ops-d-resolution.md").is_file()
 
 
 # -- no self-ratification --
@@ -198,8 +200,11 @@ def test_pass0a_clusters_directory_unchanged_since_introduction():
     assert result.returncode == 0, "docs/operations/pass0/clusters/ changed since Pass 0A introduced it"
 
 
+# adjudication.md is pinned by presence-of-verdict rather than
+# byte-identity: the operator-commissioned Pass 1.5 resolution appended
+# an additive cluster-2 note to it (original Pass 0B verdict text
+# preserved). The three candidate cards remain strict byte-pins.
 PASS0B_UNCHANGED_SINCE_53480ec = [
-    "docs/operations/pass0/adjudication.md",
     "docs/operations/pass0/candidates/ops-a-execution-materialization-truth.md",
     "docs/operations/pass0/candidates/ops-b-health-honesty-two-axis.md",
     "docs/operations/pass0/candidates/ops-c-promotion-soak-evidence-integrity.md",
@@ -207,12 +212,22 @@ PASS0B_UNCHANGED_SINCE_53480ec = [
 
 
 @pytest.mark.parametrize("path", PASS0B_UNCHANGED_SINCE_53480ec)
-def test_pass0b_adjudication_files_unchanged_since_introduction(path):
+def test_pass0b_candidate_files_unchanged_since_introduction(path):
     result = subprocess.run(
         ["git", "-C", str(REPO), "diff", "--quiet", "53480ec", "--", path],
         capture_output=True, stdin=subprocess.DEVNULL,
     )
     assert result.returncode == 0, f"{path} changed since Pass 0B introduced it"
+
+
+def test_pass0b_cluster2_verdict_preserved_after_pass15_resolution():
+    """The original Pass 0B cluster-2 verdict (ADVANCE, OPS-D) must remain
+    visible in the adjudication even after the Pass 1.5 resolution note
+    was appended — history is preserved, not rewritten."""
+    text = (REPO / "docs/operations/pass0/adjudication.md").read_text(encoding="utf-8")
+    assert "OPS-D Lock reclaim soundness" in text
+    assert "PID-namespace-unsafe stale-lock reclaim — KEEP DISTINCT, ADVANCE (OPS-D)" in text
+    assert "Pass 1.5 resolution (2026-08-31)" in text
 
 
 # -- neither frozen baseline manifest lists an OPS standard, both tags intact --
