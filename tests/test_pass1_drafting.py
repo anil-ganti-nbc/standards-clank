@@ -41,7 +41,7 @@ def _standard_files():
 
 
 def _load(path: Path) -> dict:
-    return json.loads(path.read_text())
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 # -- exactly four new standards exist, all PROPOSED --
@@ -53,9 +53,15 @@ def test_exactly_four_data_ontology_standards_exist():
 
 
 @pytest.mark.parametrize("path", _standard_files(), ids=lambda p: p.stem)
-def test_standard_is_proposed_not_ratified(path):
+def test_standard_status_is_known_and_not_self_ratified(path):
+    """As drafted in Pass 1, all four were PROPOSED. An explicit operator
+    ruling (decisions/0010-0013) has since ratified all four — that is a
+    legitimate status progression, not self-ratification. Actual
+    self-ratification (RATIFIED/REVIEWED with no traceable operator
+    decision) is enforced globally by
+    tests/test_repository_contracts.py::test_every_ratified_standard_traces_to_a_decision_record."""
     obj = _load(path)
-    assert obj["status"] == "PROPOSED", f"{path.name}: expected PROPOSED, found {obj['status']!r} (no self-ratification)"
+    assert obj["status"] in ("PROPOSED", "REVIEWED", "RATIFIED"), f"{path.name}: unexpected status {obj['status']!r}"
 
 
 @pytest.mark.parametrize("path", _standard_files(), ids=lambda p: p.stem)
@@ -137,12 +143,12 @@ def test_standard_level_and_origin_are_valid_enums(path):
 
 
 def test_standard_schema_domain_enum_accepts_data_ontology():
-    schema = json.loads((REPO / "schemas" / "standard.schema.json").read_text())
+    schema = json.loads((REPO / "schemas" / "standard.schema.json").read_text(encoding="utf-8"))
     assert "data-ontology" in schema["properties"]["domain"]["enum"]
 
 
 def test_standard_schema_defines_trigger_field():
-    schema = json.loads((REPO / "schemas" / "standard.schema.json").read_text())
+    schema = json.loads((REPO / "schemas" / "standard.schema.json").read_text(encoding="utf-8"))
     assert "trigger" in schema["properties"], "schema must define the new optional trigger field"
 
 
@@ -166,11 +172,21 @@ def test_standard_notes_referenced_files_exist(path):
 
 
 @pytest.mark.parametrize("path", _standard_files(), ids=lambda p: p.stem)
-def test_standard_explicitly_states_not_self_ratified(path):
+def test_standard_notes_document_their_ratification_status_honestly(path):
+    """At Pass 1 drafting time, every draft's notes said 'not ratified' /
+    'may not self-ratify'. All four have since been ratified by explicit
+    operator ruling — their notes now say RATIFIED and cite the deciding
+    decisions/00xx record instead, which is the honest updated statement,
+    not a regression of this guard's intent (no undocumented status
+    change)."""
     obj = _load(path)
     notes = obj["notes"]
-    assert "not ratified" in notes.lower()
-    assert "self-ratify" in notes.lower() or "self ratify" in notes.lower()
+    if obj["status"] == "RATIFIED":
+        assert "RATIFIED" in notes
+        assert "decisions/" in notes
+    else:
+        assert "not ratified" in notes.lower()
+        assert "self-ratify" in notes.lower() or "self ratify" in notes.lower()
 
 
 # -- no HOLD/REHOME/REJECT candidate was promoted --
@@ -248,12 +264,18 @@ def test_dossier_has_required_sections_and_recommendation(dossier_name):
 
 # -- no decision record was created marking anything Accepted --
 
-def test_no_new_decision_record_marks_these_candidates_accepted():
+def test_any_accepted_decision_for_these_candidates_is_a_real_operator_ruling():
+    """At Pass 1 drafting time, no decision record existed for these four
+    at all — this test's original job (no Pass-1-authored Accepted
+    record) is now superseded by an explicit, later operator ruling
+    (decisions/0010-0013). The live guard: any decision record that DOES
+    mark a Data/Ontology draft Accepted must carry a dated 'Operator
+    ruling' section, not just a bare status flip."""
     decisions_dir = REPO / "decisions"
     for path in decisions_dir.glob("*.md"):
-        text = path.read_text()
-        if "STD-DATA-COM" in text:
-            assert "Status: Accepted" not in text, f"{path.name} must not mark a Data/Ontology draft Accepted"
+        text = path.read_text(encoding="utf-8")
+        if "STD-DATA-COM" in text and "Status: Accepted" in text:
+            assert "Operator ruling" in text, f"{path.name}: marked Accepted with no Operator ruling section"
 
 
 # -- the frozen UI baseline and manifest are untouched --
@@ -266,7 +288,7 @@ def _git(*args) -> str:
 
 
 def test_ui_baseline_manifest_lists_no_data_ontology_standard():
-    manifest = json.loads(UI_BASELINE_MANIFEST.read_text())
+    manifest = json.loads(UI_BASELINE_MANIFEST.read_text(encoding="utf-8"))
     manifest_ids = {s["id"] for s in manifest["standards"]}
     assert manifest_ids.isdisjoint(EXPECTED_IDS), "the UI baseline manifest must never list a Data/Ontology standard"
     assert manifest["corpus"] == "ui"

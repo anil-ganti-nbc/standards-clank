@@ -1,0 +1,22 @@
+[
+  {
+    "standard": "STD-DATA-COM-001",
+    "question": "If this Clank derives novelty/alerting/editorial state from its own local history, is every continuity break (data loss, restore, re-baseline, collector replacement, region change) represented as an explicit, queryable fact, with baseline/bootstrap observations distinguishable from ordinary ones at read time?",
+    "failure_means": "A continuity break leaves no durable trace a downstream reader can query, or relies solely on operator memory / a manually-invoked flag with no dataset-level record \u2014 a restore or re-baseline can then silently present as ordinary current history."
+  },
+  {
+    "standard": "STD-DATA-COM-002",
+    "question": "Does every default novelty-asserting path \u2014 including secondary or derived ones \u2014 include or explicitly inherit a baseline-exclusion predicate as part of its own definition, verifiable by inspection rather than by today's output alone?",
+    "failure_means": "A default novelty/alert/new-item view (or a secondary path with the same semantics) can return baseline-tagged records because the exclusion lives only in a caller's convention, a droppable post-hoc filter external to the path, or an assumption about what got written."
+  },
+  {
+    "standard": "STD-DATA-COM-003",
+    "question": "When this Clank merges records from multiple sources into a canonical entity, does insufficient evidence leave them unresolved rather than forced together, and does every committed automatic merge record both its justifying evidence and which mechanism/decision-path performed it, with the pre-merge state reconstructable?",
+    "failure_means": "A merge is committed solely on a coarse candidate-surfacing key while a stronger, present discriminator conflicts; an automatic merge has no recorded justification or performing mechanism; or the pre-merge per-source identities are irrecoverably lost after a merge."
+  },
+  {
+    "standard": "STD-DATA-COM-004",
+    "question": "Are observation records, canonical fact/change records, and operator-decision records (where present) kept distinguishable and separately consumable, with every canonical fact traceable to its supporting observations and every inferred value distinguishable from a direct source claim?",
+    "failure_means": "A reviewer, alerting system, or operator-facing queue receives unreviewed raw observations mixed into a canonical-change or decision stream, a canonical fact has no path back to supporting evidence, or an inferred/derived value is presented as though a source stated it directly."
+  }
+]

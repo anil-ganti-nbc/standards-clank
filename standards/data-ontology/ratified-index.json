@@ -1,0 +1,42 @@
+[
+  {
+    "id": "STD-DATA-COM-001",
+    "title": "Continuity/epoch state must be explicit",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 1,
+    "requirement_summary": "Where a Clank derives novelty/alerting/editorial state from its own local history, a continuity break (data loss, restore, re-baseline, collector replacement, region change) must be an explicit, queryable fact distinct from the records themselves, and baseline/bootstrap observations must be distinguishable at read time from ordinary post-continuity ones. No storage mechanism is prescribed.",
+    "source_file": "standards/data-ontology/STD-DATA-COM-001.json",
+    "ratification_decision": "decisions/0010-data-com-001-decision.md"
+  },
+  {
+    "id": "STD-DATA-COM-002",
+    "title": "First-seen is not novelty; default novelty views must exclude baseline records by construction",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 2,
+    "requirement_summary": "Discovery/first-seen time alone never proves real-world novelty. Every default novelty-consuming path (alerts, new-item feeds, editorial queues) \u2014 including secondary or derived paths \u2014 must include or explicitly inherit a baseline-exclusion predicate as part of its own definition, verifiable by inspecting that definition; post-hoc external filtering or relying on today's clean output as proof does not conform. Editorial freshness, where modeled, stays a separate, optional, family-scoped judgement.",
+    "source_file": "standards/data-ontology/STD-DATA-COM-002.json",
+    "ratification_decision": "decisions/0011-data-com-002-decision.md"
+  },
+  {
+    "id": "STD-DATA-COM-003",
+    "title": "Entity-identity merges must be conservative, evidence-gated, auditable, and reversible",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 2,
+    "requirement_summary": "Default posture must prefer a missed merge to a false merge: insufficient evidence leaves records unresolved rather than forced together, and a candidate-surfacing key alone is never grounds for a committed merge. Any automatic merge must be evidence-gated (on a discriminator present in the records under consideration or the merged record, not world-knowledge), auditable (recording both the justifying evidence and which mechanism/decision-path performed it), and reversible or information-preserving. No identity algorithm is prescribed; cross-Clank identity is out of scope.",
+    "source_file": "standards/data-ontology/STD-DATA-COM-003.json",
+    "ratification_decision": "decisions/0012-data-com-003-decision.md"
+  },
+  {
+    "id": "STD-DATA-COM-004",
+    "title": "Observation, canonical-fact/change, and operator-decision records must stay separable and traceable",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 1,
+    "requirement_summary": "Where a Clank both ingests observations and derives canonical state, observation records, canonical fact/change records, and (where present) operator-decision records must stay distinguishable and separately consumable, never mixed. Every canonical fact/change must trace back to its supporting observations at explanatory granularity; every operator decision must trace to the state it was made against; an inferred value must never be presented as a direct source claim. No tier count, envelope shape, or retention duration is prescribed.",
+    "source_file": "standards/data-ontology/STD-DATA-COM-004.json",
+    "ratification_decision": "decisions/0013-data-com-004-decision.md"
+  }
+]

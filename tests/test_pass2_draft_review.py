@@ -52,10 +52,27 @@ def test_each_draft_reviewed_section_names_the_standard_id():
         assert f"## {sid} —" in text, f"review section header missing for {sid}"
 
 
-def test_no_data_standard_is_ratified():
+def test_review_pass_itself_did_not_ratify_anything():
+    """Live re-check of the historical claim: at the Pass 2 commit
+    (7b33a71), no Data/Ontology standard was RATIFIED. A later,
+    separately-authorized operator ruling has since ratified all four —
+    that is not this pass's doing, verified by diffing the standards
+    directory against the Pass 2 commit and confirming its own tree
+    contained no RATIFIED status."""
+    import subprocess
+
+    result = subprocess.run(
+        ["git", "-C", str(REPO), "show", "7b33a71:standards/data-ontology"],
+        capture_output=True, text=True, encoding="utf-8", stdin=subprocess.DEVNULL,
+    )
+    assert result.returncode == 0
     for path in sorted(DATA_DIR.glob("STD-DATA-*.json")):
-        d = json.loads(path.read_text())
-        assert d["status"] == "PROPOSED", f"{path.name}: review pass must not ratify"
+        blob = subprocess.run(
+            ["git", "-C", str(REPO), "show", f"7b33a71:standards/data-ontology/{path.name}"],
+            capture_output=True, text=True, encoding="utf-8", stdin=subprocess.DEVNULL,
+        )
+        assert blob.returncode == 0, f"{path.name} did not exist at the Pass 2 commit"
+        assert json.loads(blob.stdout)["status"] == "PROPOSED", f"{path.name}: Pass 2 commit itself must not have ratified anything"
 
 
 def test_exactly_four_data_standards_and_no_new_candidates():

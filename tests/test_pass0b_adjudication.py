@@ -72,19 +72,23 @@ def test_non_data_concerns_are_rehomed_or_rejected():
     assert "REHOME** (to diagnostic/testing practice" in text
 
 
-def test_std_data_files_are_only_the_four_pass1_advance_candidates_and_all_proposed():
+def test_std_data_files_are_only_the_four_pass1_advance_candidates():
     """Pass 0B itself created none of these (see
     test_ui_baseline_and_pass0_evidence_untouched for the historical
-    proof). Now that Pass 1 has legitimately drafted the four ADVANCE
-    candidates, this guard's job is narrower: only those four may exist,
-    named after the ADVANCE cards, and none may be self-ratified."""
+    proof). Only the four ADVANCE-card candidates may exist, named after
+    those cards. Status may since have progressed to RATIFIED via an
+    explicit operator ruling (decisions/0010-0013) — self-ratification
+    specifically (a RATIFIED/REVIEWED standard with no traceable operator
+    decision) is enforced globally by
+    tests/test_repository_contracts.py::test_every_ratified_standard_traces_to_a_decision_record,
+    not re-checked here."""
     std_files = sorted(REPO.glob("standards/**/STD-DATA-*.json"))
     expected_ids = {"STD-DATA-COM-001", "STD-DATA-COM-002", "STD-DATA-COM-003", "STD-DATA-COM-004"}
     found_ids = {p.stem for p in std_files}
     assert found_ids == expected_ids, f"expected exactly the four Pass 1 candidates, found {found_ids}"
     for path in std_files:
         status = json.loads(path.read_text())["status"]
-        assert status == "PROPOSED", f"{path.name}: expected PROPOSED, found {status!r} — no self-ratification"
+        assert status in ("PROPOSED", "REVIEWED", "RATIFIED"), f"{path.name}: unexpected status {status!r}"
 
 
 def test_ui_baseline_and_pass0_evidence_untouched():

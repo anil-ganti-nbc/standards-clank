@@ -1,7 +1,7 @@
 # 0013 — Data/Ontology ratification: STD-DATA-COM-004 (Provenance tier separation)
 
 Date: 2026-08-31
-Status: AWAITING OPERATOR DECISION
+Status: Accepted (operator ruling, 2026-08-31)
 Survey dossier: [../docs/data-ontology/pass3/ratification-survey.md](../docs/data-ontology/pass3/ratification-survey.md)
 Standard: [../standards/data-ontology/STD-DATA-COM-004.json](../standards/data-ontology/STD-DATA-COM-004.json) (v1, PROPOSED)
 
@@ -49,3 +49,13 @@ and the standard deliberately prescribes no shapes (ADR-0002 respected).
 - ~~Option C — Adopt diagnostic-clank's EventEnvelope shape~~: not
   offered — ADR-0002 DO_NOT_STANDARDISE forbids schema unification; the
   envelope remains a Pass 1 reference only.
+
+## Operator ruling — ACCEPTED, Option A (2026-08-31)
+
+The operator ratified STD-DATA-COM-004 as written. Recorded reasoning:
+the evidence bar has been met — the strongest independent convergence in
+the entire Pass 0 corpus (8 of 9 Clanks, zero cross-citation), verified
+against both a high-volume SKU Clank and a news/intelligence Clank from
+stored evidence, and Pass 2/Pass 3 found no remaining counterexample or
+domain problem. STD-DATA-COM-004 is therefore RATIFIED at v1, text
+unchanged; traceability recorded in the standard's notes.

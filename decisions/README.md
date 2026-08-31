@@ -18,3 +18,7 @@ substance.
 - [0007-pass3-com-012-decision.md](0007-pass3-com-012-decision.md) (Accepted 2026-08-31)
 - [0008-pass3-com-007-decision.md](0008-pass3-com-007-decision.md) (Accepted 2026-08-31)
 - [0009-pass3-sku-001-decision.md](0009-pass3-sku-001-decision.md) (Accepted 2026-08-31)
+- [0010-data-com-001-decision.md](0010-data-com-001-decision.md) (Accepted 2026-08-31)
+- [0011-data-com-002-decision.md](0011-data-com-002-decision.md) (Accepted 2026-08-31)
+- [0012-data-com-003-decision.md](0012-data-com-003-decision.md) (Accepted 2026-08-31)
+- [0013-data-com-004-decision.md](0013-data-com-004-decision.md) (Accepted 2026-08-31)

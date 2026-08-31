@@ -1,7 +1,7 @@
 # 0012 — Data/Ontology ratification: STD-DATA-COM-003 (Entity identity conservatism)
 
 Date: 2026-08-31
-Status: AWAITING OPERATOR DECISION
+Status: Accepted (operator ruling, 2026-08-31)
 Survey dossier: [../docs/data-ontology/pass3/ratification-survey.md](../docs/data-ontology/pass3/ratification-survey.md)
 Standard: [../standards/data-ontology/STD-DATA-COM-003.json](../standards/data-ontology/STD-DATA-COM-003.json) (v2, PROPOSED)
 
@@ -46,3 +46,16 @@ posture.
 - ~~Option C — Retire~~: not offered — four independent incidents with
   severity up to architectural rebuild are the opposite of insufficient
   evidence.
+
+## Operator ruling — ACCEPTED, Option A (2026-08-31)
+
+The operator ratified STD-DATA-COM-003 as written. Recorded reasoning:
+the evidence bar has been met across independent lineages, the
+adversarial Pass 2 review already forced the two materially necessary
+tightenings (v2's local-discriminator scoping and merge-mechanism audit
+requirement), and Pass 3 found no remaining counterexample or
+over-standardization risk strong enough to justify another drafting
+cycle. STD-DATA-COM-003 is therefore RATIFIED at v2, text unchanged;
+traceability recorded in the standard's notes. Cross-Clank entity
+identity (C7) remains explicitly out of scope and HOLD/DEFER, unaffected
+by this ruling.

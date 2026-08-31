@@ -1,7 +1,7 @@
 # 0011 — Data/Ontology ratification: STD-DATA-COM-002 (First-seen is not novelty)
 
 Date: 2026-08-31
-Status: AWAITING OPERATOR DECISION
+Status: Accepted (operator ruling, 2026-08-31)
 Survey dossier: [../docs/data-ontology/pass3/ratification-survey.md](../docs/data-ontology/pass3/ratification-survey.md)
 Standard: [../standards/data-ontology/STD-DATA-COM-002.json](../standards/data-ontology/STD-DATA-COM-002.json) (v2, PROPOSED)
 
@@ -41,3 +41,14 @@ strongest-evidence candidate in the corpus; v2 closed its only weakness.
   independent lineages, the v2 wording is inspectable and
   implementation-neutral, and no surveyed implementation would need to
   change. Narrowing, holding, or retiring has no evidentiary basis.
+
+## Operator ruling — ACCEPTED, Option A (2026-08-31)
+
+The operator ratified STD-DATA-COM-002 as written. Recorded reasoning:
+the evidence bar has been met — this is the strongest-evidenced candidate
+in the entire Pass 0 corpus, independently recurred across two lineages
+with zero cross-citation, and the adversarial Pass 2 review already
+forced the one materially necessary revision (the v2 acceptance
+strengthening). Pass 3 found no remaining counterexample. STD-DATA-COM-002
+is therefore RATIFIED at v2, text unchanged; traceability recorded in the
+standard's notes.

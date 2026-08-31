@@ -28,31 +28,43 @@ def _load(sid: str) -> dict:
 
 # -- untouched standards are byte-identical to their Pass 1 content --
 
-def test_untouched_standards_have_no_git_diff_from_pass1():
+def test_untouched_standards_had_no_git_diff_between_pass1_and_pass2_5():
+    """Historical guard, pinned to the Pass 1 -> Pass 2.5 window only: at
+    commit d6f4e58 (end of Pass 2.5), COM-001/004 were still byte-identical
+    to their Pass 1 (1f66cf9) content — Pass 2.5 itself touched only
+    COM-002/003. A later, separately-authorized ratification closure
+    legitimately flips all four to RATIFIED, so this test compares two
+    fixed historical commits, not the current working tree, and remains
+    true regardless of what ratification did afterward."""
     import subprocess
 
     for sid in sorted(UNTOUCHED_IDS):
         result = subprocess.run(
-            ["git", "-C", str(REPO), "diff", "--quiet", "1f66cf9", "--", f"standards/data-ontology/{sid}.json"],
+            ["git", "-C", str(REPO), "diff", "--quiet", "1f66cf9", "d6f4e58", "--", f"standards/data-ontology/{sid}.json"],
             capture_output=True, text=True, stdin=subprocess.DEVNULL,
         )
-        assert result.returncode == 0, f"{sid} changed since Pass 1 (commit 1f66cf9) — it must not be touched by Pass 2.5"
+        assert result.returncode == 0, f"{sid} changed between Pass 1 (1f66cf9) and Pass 2.5 (d6f4e58) — it should not have been touched by Pass 2.5"
 
 
 # -- revised standards: version bumped, status stays PROPOSED --
 
 @pytest.mark.parametrize("sid", sorted(REVISED_IDS))
-def test_revised_standards_are_version_2_and_still_proposed(sid):
+def test_revised_standards_are_version_2(sid):
+    """As of Pass 2.5, status was PROPOSED (verified then). A later,
+    separately-authorized operator ruling (decisions/0011, 0012) has
+    since ratified both — see test_data_ontology_ratification_closure.py
+    for the live status/traceability guard. This test's remaining live
+    job is the version number, which ratification explicitly preserved."""
     obj = _load(sid)
     assert obj["version"] == 2, f"{sid}: expected version 2 (operator-confirmed precedent: revision of a PROPOSED draft bumps version)"
-    assert obj["status"] == "PROPOSED", f"{sid}: must not be self-ratified"
+    assert obj["status"] in ("PROPOSED", "REVIEWED", "RATIFIED")
 
 
 @pytest.mark.parametrize("sid", sorted(UNTOUCHED_IDS))
 def test_untouched_standards_remain_version_1(sid):
     obj = _load(sid)
     assert obj["version"] == 1
-    assert obj["status"] == "PROPOSED"
+    assert obj["status"] in ("PROPOSED", "REVIEWED", "RATIFIED")
 
 
 # -- COM-002: acceptance covers every default novelty-asserting path, including secondary/derived; explicit inheritance allowed; post-hoc/caller-only exclusion forbidden --
@@ -182,18 +194,26 @@ def test_no_hold_rehome_reject_cluster_cited_as_evidence_source():
 
 # -- no ratification occurred anywhere in this pass --
 
-def test_no_data_standard_is_ratified():
+def test_data_standard_status_is_a_known_value():
+    """At Pass 2.5 time, none were ratified — verified true then. Status
+    has since legitimately progressed via an explicit, separately-
+    authorized operator ruling; see test_data_ontology_ratification_closure.py
+    for the live ratification/traceability guards."""
     for path in sorted(DATA_DIR.glob("STD-DATA-*.json")):
         obj = json.loads(path.read_text(encoding="utf-8"))
-        assert obj["status"] == "PROPOSED"
+        assert obj["status"] in ("PROPOSED", "REVIEWED", "RATIFIED")
 
 
-def test_no_new_decision_record_marks_data_com_002_or_003_accepted():
+def test_any_decision_record_accepting_com_002_or_003_has_an_operator_ruling_section():
+    """At Pass 2.5 time, no decision record existed for these two at all.
+    A later operator ruling (decisions/0011, 0012) legitimately marks them
+    Accepted; the live guard is that any such acceptance carries a real,
+    dated Operator ruling section, not a bare status flip."""
     decisions_dir = REPO / "decisions"
     for path in decisions_dir.glob("*.md"):
         text = path.read_text(encoding="utf-8")
-        if "STD-DATA-COM-002" in text or "STD-DATA-COM-003" in text:
-            assert "Status: Accepted" not in text
+        if ("STD-DATA-COM-002" in text or "STD-DATA-COM-003" in text) and "Status: Accepted" in text:
+            assert "Operator ruling" in text, f"{path.name}: marked Accepted with no Operator ruling section"
 
 
 # -- Pass 0 evidence and Pass 0B adjudication remain untouched --

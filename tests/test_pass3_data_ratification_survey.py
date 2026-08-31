@@ -1,11 +1,17 @@
 """Data/Ontology Pass 3 (ratification survey) process guards.
 
-The survey must leave all four DATA standards PROPOSED at their exact
-versions, persist four awaiting-operator decision records that do not
-self-ratify, and leave the frozen UI baseline, the Pass 0/1/2 evidence,
-the Pass 0B adjudication, and the HOLD/REJECT candidates untouched. No
-new DATA candidate standard may appear, and no recommendation is encoded
-as normative truth.
+At the time Pass 3 ran, its job was to leave all four DATA standards
+PROPOSED at their exact versions, persist four awaiting-operator decision
+records that did not self-ratify, and leave the frozen UI baseline, the
+Pass 0/1/2 evidence, the Pass 0B adjudication, and the HOLD/REJECT
+candidates untouched. A later, separately-authorized operator ruling
+(decisions/0010-0013) has since ratified all four standards as written —
+see tests/test_data_ontology_ratification_closure.py for the live
+ratification/traceability guards. This file's remaining live job is
+verifying Pass 3's own historical output (the survey dossier, the
+originally-worded decision records, the frozen evidence hashes) wasn't
+altered beyond the legitimate later status/notes changes ratification
+made.
 """
 
 import hashlib
@@ -17,11 +23,11 @@ DATA_DIR = REPO / "standards" / "data-ontology"
 PASS3 = REPO / "docs" / "data-ontology" / "pass3"
 DECISIONS = REPO / "decisions"
 
-EXPECTED = {
-    "STD-DATA-COM-001": ("PROPOSED", 1),
-    "STD-DATA-COM-002": ("PROPOSED", 2),
-    "STD-DATA-COM-003": ("PROPOSED", 2),
-    "STD-DATA-COM-004": ("PROPOSED", 1),
+EXPECTED_VERSIONS = {
+    "STD-DATA-COM-001": 1,
+    "STD-DATA-COM-002": 2,
+    "STD-DATA-COM-003": 2,
+    "STD-DATA-COM-004": 1,
 }
 
 DECISION_RECORDS = {
@@ -33,8 +39,8 @@ DECISION_RECORDS = {
 
 # (base commit where introduced, path, sha256 of CRLF-normalized content).
 # Hash comparison is used instead of git subprocesses (git-spawn is
-# unreliable on this host). These pin the surveyed evidence, the frozen UI
-# baseline, and the two v1 drafts that Pass 2.5 did not touch.
+# unreliable on this host). These pin the surveyed evidence and the frozen
+# UI baseline — none of which ratification touches or should touch.
 FROZEN_HASHES = {
     "d113207/baselines/ui-standards-v1.0.json":
         "94eaaa1486bf18ed1b072c5f82ffa3d71d8a8c81bab6269dbdea567d61f3e0f9",
@@ -57,28 +63,21 @@ def _normalized_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
-def test_exactly_four_data_standards_remain_proposed_at_expected_versions():
+def test_four_data_standards_ratified_at_the_surveyed_versions():
+    """Pass 3 surveyed all four at these exact versions while PROPOSED.
+    Ratification preserves version numbers exactly (operator instruction)
+    and only changes status/notes — verified here as the live check."""
     files = sorted(DATA_DIR.glob("STD-DATA-*.json"))
-    assert {p.stem for p in files} == set(EXPECTED)
+    assert {p.stem for p in files} == set(EXPECTED_VERSIONS)
     for path in files:
-        d = json.loads(path.read_text())
-        assert d["status"] == "PROPOSED", f"{d['id']}: survey must not ratify"
-        assert (d["status"], d["version"]) == EXPECTED[d["id"]], (
-            f"{d['id']}: version/status drifted from the surveyed state"
-        )
-
-
-def test_no_data_standard_is_ratified():
-    ratified = [
-        p.name for p in sorted(DATA_DIR.glob("STD-DATA-*.json"))
-        if json.loads(p.read_text())["status"] == "RATIFIED"
-    ]
-    assert not ratified, f"survey must not ratify: {ratified}"
+        d = json.loads(path.read_text(encoding="utf-8"))
+        assert d["status"] == "RATIFIED", f"{d['id']}: expected RATIFIED post-closure"
+        assert d["version"] == EXPECTED_VERSIONS[d["id"]], f"{d['id']}: version drifted from the surveyed state"
 
 
 def test_pass3_survey_dossier_exists_with_all_four_recommendations():
-    text = (PASS3 / "ratification-survey.md").read_text()
-    for sid in EXPECTED:
+    text = (PASS3 / "ratification-survey.md").read_text(encoding="utf-8")
+    for sid in EXPECTED_VERSIONS:
         assert sid in text
     rec_lines = [
         line for line in text.splitlines()
@@ -87,28 +86,26 @@ def test_pass3_survey_dossier_exists_with_all_four_recommendations():
     assert len(rec_lines) == 4, f"expected 4 recommendation rows, found {len(rec_lines)}"
 
 
-def test_decision_records_exist_awaiting_operator_decision():
+def test_decision_records_are_accepted_and_still_carry_the_survey_outcome():
+    """Pass 3 left these as 'AWAITING OPERATOR DECISION' — a later,
+    separately-authorized operator ruling flipped them to Accepted (with
+    an added Operator ruling section; see
+    tests/test_data_ontology_ratification_closure.py). This test's live
+    job: the original survey outcome/recommendation/Option-A text Pass 3
+    wrote must still be present, unedited, underneath the appended
+    ruling — the ruling must not have overwritten history."""
     for name, sid in DECISION_RECORDS.items():
-        text = (DECISIONS / name).read_text()
-        assert "Status: AWAITING OPERATOR DECISION" in text, name
+        text = (DECISIONS / name).read_text(encoding="utf-8")
+        assert "Status: Accepted" in text, name
         assert sid in text
         assert "Option A" in text
-        assert "MUST NOT" in text, f"{name}: must carry the no-self-ratification warning"
-
-
-def test_no_self_ratification_occurred():
-    for name in DECISION_RECORDS:
-        text = (DECISIONS / name).read_text()
-        assert "Status: Accepted" not in text
-        assert "Status: Ratified" not in text
-    for path in sorted(DATA_DIR.glob("STD-DATA-*.json")):
-        d = json.loads(path.read_text())
-        assert d["status"] == "PROPOSED"
+        assert "MUST NOT ratify" in text, f"{name}: must still carry the no-self-ratification warning"
+        assert "Operator ruling" in text, f"{name}: expected an appended Operator ruling section"
 
 
 def test_no_new_data_candidate_standard_appeared():
     files = sorted(DATA_DIR.glob("STD-DATA-*.json"))
-    assert {p.stem for p in files} == set(EXPECTED)
+    assert {p.stem for p in files} == set(EXPECTED_VERSIONS)
     assert len(files) == 4
 
 
