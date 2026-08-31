@@ -21,11 +21,11 @@ REQUIRED = {
 }
 BASELINE_HASHES = {
     "baselines/ui-standards-v1.0.json": "097902304f4a2387efbb29cfc3517cff0e3913810081eb4002dd3226a14e8a18",
-    "baselines/ui-standards-v1.0-release-notes.md": "621d5718db8f089b41ea97dfe49f14a31e140f55cf0c5c2fb39d93c29d1343e0",
-    "baselines/data-ontology-standards-v1.0.json": "ae0efacb48986336215c3fcbbbbd5f38b180aaa867c2da16f471505ff970a3c3",
-    "baselines/data-ontology-standards-v1.0-release-notes.md": "a82d05f57acf8b1bc839e390d6fe7975119c100f3a827af29229b9e8789c24e2",
-    "baselines/operations-standards-v1.0.json": "26860c1157520de9492c3c0bd45297173afc856444a51d6e4676ddacac74a13a",
-    "baselines/operations-standards-v1.0-release-notes.md": "c2ba541a8d0e70444027f603d50f8d0605a4ccce8194ee78b0b41e55a0413df6",
+    "baselines/ui-standards-v1.0-release-notes.md": "51f6c5322de241dce8b60fe5deea7107f9ebb179bd911b1b850f08cd35f264f1",
+    "baselines/data-ontology-standards-v1.0.json": "eb6ec348bf777365c414d86f2f3b81f41d2bee5b685285b60d809dc5b2281836",
+    "baselines/data-ontology-standards-v1.0-release-notes.md": "9c1a27376c1900241b64c8df4087c5643e3d3d5733ca879977425855d28c6d9e",
+    "baselines/operations-standards-v1.0.json": "bb244481df42d48d4b36126d4d2cf5ee6bfef5d1cc52e388f197e106b72c4c5e",
+    "baselines/operations-standards-v1.0-release-notes.md": "67bb7e90374a49cdfbcaaa8596287a2f16fb04712326ef644acde9d4df3668bf",
 }
 
 
