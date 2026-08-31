@@ -294,8 +294,15 @@ def test_ui_baseline_manifest_lists_no_data_ontology_standard():
     assert manifest["corpus"] == "ui"
 
 
-@pytest.mark.parametrize("path", ["standards/ui", "docs/ui", "baselines"])
+@pytest.mark.parametrize("path", [
+    "standards/ui", "docs/ui",
+    "baselines/ui-standards-v1.0.json", "baselines/ui-standards-v1.0-release-notes.md",
+])
 def test_ui_baseline_paths_unchanged_since_freeze(path):
+    """baselines/ is no longer a UI-only directory (it also holds the
+    data-ontology-standards-v1.0 freeze) — this checks the UI baseline's
+    own files by path, not the whole directory tree, which now
+    legitimately has a sibling."""
     tag_tree = _git("rev-parse", f"ui-standards-v1.0:{path}")
     head_tree = _git("rev-parse", f"HEAD:{path}")
     assert tag_tree == head_tree, f"{path} changed since the ui-standards-v1.0 freeze"
