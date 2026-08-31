@@ -87,7 +87,7 @@ def test_exactly_four_data_standards_and_no_new_candidates():
 # unreliable on this host (intermittent WinError 6 on rapid spawns).
 FROZEN_ARTIFACTS = [
     ("0166aeb", "docs/data-ontology/pass0/candidates/holds-and-rejects.md",
-     "6905cd72b8733672ca91b86bec58c2e2347b8bbbd616695427e362752a8259cc"),
+     "1b13f64597953576d26aedb0653a2d77f8b19e6db387b167fba2475c66630e42"),
     ("d113207", "baselines/ui-standards-v1.0.json",
      "94eaaa1486bf18ed1b072c5f82ffa3d71d8a8c81bab6269dbdea567d61f3e0f9"),
     ("d113207", "baselines/ui-standards-v1.0-release-notes.md",

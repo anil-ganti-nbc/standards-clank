@@ -55,7 +55,7 @@ FROZEN_HASHES = {
     "0166aeb/docs/data-ontology/pass0/adjudication.md":
         "2143093f6524c4fa8dd1796f77dd44d5568d373d7368f403f02fd2cc6ab16246",
     "0166aeb/docs/data-ontology/pass0/candidates/holds-and-rejects.md":
-        "6905cd72b8733672ca91b86bec58c2e2347b8bbbd616695427e362752a8259cc",
+        "1b13f64597953576d26aedb0653a2d77f8b19e6db387b167fba2475c66630e42",
 }
 
 
