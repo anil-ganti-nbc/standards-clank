@@ -1,0 +1,86 @@
+{
+  "baseline_id": "operations-standards-v1.0",
+  "corpus": "operations",
+  "status": "FROZEN",
+  "freeze_date": "2026-08-31",
+  "freeze_commit": "fe841ef25ad46897d69b61c17e71987856ebf613",
+  "standards": [
+    {
+      "id": "STD-OPS-COM-001",
+      "version": 1,
+      "status": "RATIFIED",
+      "title": "Execution invocation and outcome must be independently recorded, never inferred from scheduler-claimed state"
+    },
+    {
+      "id": "STD-OPS-COM-002",
+      "version": 1,
+      "status": "RATIFIED",
+      "title": "Scheduler/trigger-liveness health and outcome/yield health must remain independently representable"
+    },
+    {
+      "id": "STD-OPS-COM-003",
+      "version": 1,
+      "status": "RATIFIED",
+      "title": "Promotion/soak qualification evidence must be structurally verifiable, reset-traceable, and gate-drift-detectable"
+    },
+    {
+      "id": "STD-OPS-COM-004",
+      "version": 1,
+      "status": "RATIFIED",
+      "title": "Exclusivity/ownership markers must be validated by structurally observable proof"
+    }
+  ],
+  "proposed": [],
+  "artifacts": {
+    "standard_files": {
+      "STD-OPS-COM-001": {"path": "standards/operations/STD-OPS-COM-001.json", "sha256": "e0db56354bac64d925ea3b9139228acf5f3453f4af37e1bc5ea2d9a6e8814dbf"},
+      "STD-OPS-COM-002": {"path": "standards/operations/STD-OPS-COM-002.json", "sha256": "2d7777954f658fdf63649c9a51628e7bedeb9c557634f8658ace931323bb3a65"},
+      "STD-OPS-COM-003": {"path": "standards/operations/STD-OPS-COM-003.json", "sha256": "d5ee3061d355eafb415a45951f7d3c16e7e6677498427135bd330148159117ed"},
+      "STD-OPS-COM-004": {"path": "standards/operations/STD-OPS-COM-004.json", "sha256": "d670ab46ea0168cb47d749f0b19c3b9d817616afd64e437ef5e98267eddb6f8c"}
+    },
+    "hold_resolution_audit": {
+      "path": "docs/operations/holds-disposition.md",
+      "conclusion": "NO ESSENTIAL OPERATIONS CONTRACT MISSING"
+    },
+    "ratified_index": null,
+    "agent_checklist": null,
+    "constitution": null
+  },
+  "artifacts_note": "Unlike ui-standards-v1.0 and data-ontology-standards-v1.0, no agent-facing layer (tools/operations_agent_layer.py, standards/operations/ratified-index.json, standards/operations/agent-checklist.json, docs/operations/constitution.md) has been built for this domain as of this freeze. The four standards exist only as raw JSON files plus standards/operations/README.md. This is a known, explicitly-flagged gap relative to the other two frozen domains, not an oversight silently omitted -- see the freeze release notes and the corresponding Standards Clank project-status assessment for the recommendation to build it as a follow-up, separately-authorized task.",
+  "evidence_and_review_chain": [
+    "docs/operations/pass0/ (Pass 0A evidence inventory + Pass 0B adversarial adjudication)",
+    "docs/operations/pass1/ (Pass 1 drafting of OPS-A/B/C + the OPS-D scope-omission resolution)",
+    "docs/operations/pass2/ (Pass 2 adversarial review of OPS-A/B/C plus the pre-draft OPS-D candidate)",
+    "docs/operations/pass2.5/ (Pass 2.5 drafting of OPS-D as STD-OPS-COM-004)",
+    "docs/operations/pass3/ (Pass 3 ratification survey of all four standards)",
+    "docs/operations/holds-disposition.md (hold-resolution / final-gap pass)"
+  ],
+  "ratification_chain": [
+    "decisions/0014-ops-com-001-decision.md",
+    "decisions/0015-ops-com-002-decision.md",
+    "decisions/0016-ops-com-003-decision.md",
+    "decisions/0017-ops-com-004-decision.md"
+  ],
+  "ratification_closure_commit": "b345ae2",
+  "hold_resolution_chain": [
+    "docs/operations/holds-disposition.md"
+  ],
+  "held_set_excluded_from_v1": {
+    "hold": [
+      "Lifecycle-state model: BLOCKED is prose, not code (cluster 14)"
+    ],
+    "defer": [
+      "Destructive production-action authority (cluster 10) -> clank-architecture ADR-0009"
+    ],
+    "rehome_deployment_domain": [
+      "Config drift (cluster 8)",
+      "Remote-host deployment truth (cluster 9)",
+      "Schema/deploy fail-closed gating (cluster 12)"
+    ],
+    "rehome_delivery_domain": [
+      "Retry/restart notification idempotency (cluster 15)"
+    ]
+  },
+  "known_review_path_note": "STD-OPS-COM-004 followed a different review path than the other three: Pass 2 adversarially reviewed the pre-draft OPS-D candidate and issued drafting constraints, rather than reviewing the finished STD-OPS-COM-004.json text the way COM-001/002/003 were each individually reviewed after drafting. Recorded in decisions/0017-ops-com-004-decision.md and the Pass 3 ratification survey; the operator ratified COM-004 as written with this note visible, not unaware of it.",
+  "change_policy": "Post-freeze normative Operations changes go through normal governance and result in a new standard, a versioned revision, a supersession, or a retirement. This manifest and the operations-standards-v1.0 tag are immutable historical records and must never be rewritten; future corpus state may legitimately diverge from v1.0. Held/deferred/rehomed concerns (see held_set_excluded_from_v1) may return through normal governance if their reopening triggers occur -- see docs/operations/holds-disposition.md's 'What would reopen this document' section."
+}
