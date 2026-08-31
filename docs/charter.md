@@ -34,6 +34,9 @@ Standards Clank may define standards for:
 - security/secrets
 - auditability
 
+This is a list of what Standards Clank *may* standardise, not a work
+list of domains it is obligated to fill. See section F.
+
 ## C. Non-goals
 
 Standards Clank does not:
@@ -77,3 +80,20 @@ operational learning, not speculation. See
 [standards-lifecycle.md](standards-lifecycle.md) for how a standard moves
 from evidence to ratification, and [governance.md](governance.md) for who
 may do what at each step.
+
+## F. Completion
+
+Standards Clank is complete when all materially evidenced fleet-wide
+normative concerns have been either standardized, explicitly rehomed,
+held with reopening triggers, or rejected. Completion does not require
+every chartered domain to contain standards, and empty domain scaffolding
+(section B's list, or an empty `standards/<domain>/` directory) is not
+itself evidence of a standards gap.
+
+New domains are created from evidence, not from taxonomy. A domain should
+not be populated merely because it exists in the original charter.
+
+This is the same evidence-driven discipline as section E, applied to the
+project as a whole rather than to one standard: a domain that has never
+been evidence-mined is not "missing" standards any more than a Clank that
+has never logged an incident is "missing" a bug report.
