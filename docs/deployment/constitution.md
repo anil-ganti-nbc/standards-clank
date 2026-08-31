@@ -183,8 +183,11 @@ Full detail:
 [decisions/0018](../../decisions/0018-deploy-com-001-decision.md) and
 [decisions/0019](../../decisions/0019-deploy-com-002-decision.md), following
 the [Pass 3 ratification survey](pass3/ratification-survey.md)). The domain
-is NOT yet frozen/tagged: no hold-resolution/final-gap pass has been
-performed and no `deployment-standards-v1.0` baseline exists yet. No
+is **READY TO FREEZE DEPLOYMENT STANDARDS V1.0**: the
+[hold-resolution/final-gap audit](holds-disposition.md) concluded **NO ESSENTIAL
+DEPLOYMENT CONTRACT MISSING**. It is not frozen/tagged yet; no
+`deployment-standards-v1.0` baseline exists until a separate mechanical freeze
+pass. No
 Deployment conformance audit has been performed against any Clank, so no
 known-evidence-index exists (same reasoning as Operations and
 Data/Ontology at their agent-layer build time).

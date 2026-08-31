@@ -9,8 +9,10 @@ SSH, Docker, systemd, SQL, or any deployment topology.
 [decisions/0018](../../decisions/0018-deploy-com-001-decision.md) and
 [decisions/0019](../../decisions/0019-deploy-com-002-decision.md), following
 the [Pass 3 ratification survey](../../docs/deployment/pass3/ratification-survey.md)).
-The domain is **not frozen** — no hold-resolution/final-gap pass has been
-performed and no baseline/tag exists yet.
+The domain is **READY TO FREEZE DEPLOYMENT STANDARDS V1.0** following the
+[Pass 4 hold-resolution/final-gap audit](../../docs/deployment/holds-disposition.md):
+**NO ESSENTIAL DEPLOYMENT CONTRACT MISSING**. It is not frozen yet; no
+baseline or tag exists until a separate mechanical freeze pass.
 
 | id | title | version | status |
 |---|---|---:|---|

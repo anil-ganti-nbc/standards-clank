@@ -38,7 +38,10 @@ def test_zero_deployment_standards_remain_proposed():
 def test_deployment_readme_reports_closed_domain_state():
     text = (DEPLOY / "README.md").read_text(encoding="utf-8")
     assert "2 `RATIFIED`, 0 `PROPOSED`" in text
-    assert "not frozen" in text
+    # Pass 4 later concluded no essential contract is missing; the future
+    # mechanical freeze remains intentionally separate from ratification.
+    assert "READY TO FREEZE DEPLOYMENT STANDARDS V1.0" in text
+    assert "not frozen yet" in text
 
 
 def test_decisions_0018_and_0019_are_accepted_option_a():
