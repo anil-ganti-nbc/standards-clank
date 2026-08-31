@@ -193,8 +193,11 @@ PASS0_FROZEN = [
     ("3ce1c2c", "docs/data-ontology/pass0/incident-ledger.md"),
     ("3ce1c2c", "docs/data-ontology/pass0/handoff.md"),
     ("0166aeb", "docs/data-ontology/pass0/adjudication.md"),
-    ("0166aeb", "docs/data-ontology/pass0/candidates/holds-and-rejects.md"),
 ]
+    # holds-and-rejects.md is excluded from the byte-identity pin: the
+    # 2026-08-31 holds disposition prepended an additive pointer to it
+    # (cards preserved unmodified — guarded by test_holds_cards_preserved
+    # in tests/test_data_holds_disposition.py).
 
 
 @pytest.mark.parametrize("base,path", PASS0_FROZEN, ids=[p for _, p in PASS0_FROZEN])
