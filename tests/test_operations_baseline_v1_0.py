@@ -142,12 +142,23 @@ def test_held_deferred_rehomed_items_not_in_frozen_corpus(manifest):
     assert len(held["rehome_delivery_domain"]) == 1
 
 
-def test_known_review_path_note_present(manifest):
-    """The manifest must not silently equate STD-OPS-COM-004's review
-    history with the other three's — the different review path is a
-    disclosed fact, not smoothed over at freeze time."""
-    assert "known_review_path_note" in manifest
-    assert "STD-OPS-COM-004" in manifest["known_review_path_note"]
+def test_ops_com_004_provenance_note_present_and_corrected(manifest):
+    """At freeze time (tag operations-standards-v1.0, commit 7100f29),
+    this test asserted a 'known_review_path_note' claiming STD-OPS-COM-004
+    never received a dedicated post-draft adversarial review. That was
+    stale by the time of ratification closure: a dedicated closure-time
+    review of the finished text had already run and returned APPROVE FOR
+    RATIFICATION before the operator ratified. The tag is left exactly
+    where it is (the immutable historical record of what was believed at
+    freeze time); this test's remaining live job is the forward
+    correction — confirm the manifest now carries the accurate
+    provenance chain, not the stale claim."""
+    assert "ops_com_004_provenance_note" in manifest
+    note = manifest["ops_com_004_provenance_note"]
+    assert "STD-OPS-COM-004" in note
+    assert "APPROVE FOR RATIFICATION" in note
+    assert "Forward correction" in note
+    assert "known_review_path_note" not in manifest
 
 
 def test_release_notes_state_the_freeze_terms():
@@ -168,9 +179,14 @@ def test_release_notes_state_the_freeze_terms():
         assert marker in text, f"release notes must preserve held/deferred/rehomed concern name: {marker!r}"
 
 
-def test_release_notes_carry_the_ops_d_review_path_note():
+def test_release_notes_carry_the_corrected_ops_com_004_provenance():
+    """At freeze time this test checked for the (then-current, later
+    found stale) 'different review path' claim. Superseded: the release
+    notes now carry the forward-corrected provenance chain ending in a
+    dedicated closure-time review that returned APPROVE FOR RATIFICATION."""
     text = RELEASE_NOTES.read_text(encoding="utf-8")
-    assert "different review path" in text
+    assert "forward correction" in text.lower()
+    assert "APPROVE FOR RATIFICATION" in text
     assert "STD-OPS-COM-004" in text
 
 

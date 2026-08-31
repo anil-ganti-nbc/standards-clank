@@ -82,28 +82,53 @@ The evidence base, in order:
 6. **Pass 2.5 — OPS-D drafting.** STD-OPS-COM-004 drafted following
    Pass 2's constraints exactly.
 7. **Pass 3 — ratification survey.** All four standards surveyed against
-   the full evidence corpus; all four recommended RATIFY AS WRITTEN, with
-   STD-OPS-COM-004's different review path (see below) flagged rather
-   than smoothed over.
-8. **Operator ratification.** All four standards ratified as written at
+   the full evidence corpus; all four recommended RATIFY AS WRITTEN. At
+   this point, STD-OPS-COM-004 had not yet received a dedicated post-draft
+   adversarial review the way COM-001/002/003 had — Pass 3 flagged this
+   gap explicitly rather than smoothing it over.
+8. **Dedicated STD-OPS-COM-004 closure review.** Before ratifying,
+   commissioned a dedicated adversarial review of the finished
+   STD-OPS-COM-004 text specifically to close the gap Pass 3 flagged —
+   see the provenance correction below for the full chain and its
+   APPROVE FOR RATIFICATION verdict.
+9. **Operator ratification.** All four standards ratified as written at
    v1 (decisions/0014-0017, ratification closure `b345ae2`).
-9. **Hold-resolution / final-gap pass**
+10. **Hold-resolution / final-gap pass**
    ([holds-disposition.md](../docs/operations/holds-disposition.md))
    reconfirmed all four HOLD/DEFER/REHOME dispositions and checked every
    one of the 15 original survey topics, plus all 45 incident-ledger
    rows, against the ratified corpus. Conclusion: **NO ESSENTIAL OPERATIONS CONTRACT MISSING.**
 
-## A process note carried forward honestly
+## STD-OPS-COM-004's provenance (forward correction, 2026-08-31)
 
-`STD-OPS-COM-004` followed a different review path than the other three:
-Pass 2 adversarially reviewed the **pre-draft OPS-D candidate** and
-issued drafting constraints; the finished `STD-OPS-COM-004.json` text
-itself never went through its own dedicated Pass-2-style review of the
-finished wording the way `STD-OPS-COM-001/002/003` each individually
-did. This was recorded explicitly in `decisions/0017-ops-com-004-decision.md`
-and the Pass 3 ratification survey, and the operator ratified it as
-written with that note visible — not an oversight, a disclosed process
-difference the operator weighed and accepted.
+*This section corrects a claim made in the frozen `operations-standards-v1.0`
+tag's snapshot of this file (commit `7100f29`), which said
+`STD-OPS-COM-004` never received a dedicated post-draft adversarial
+review. That was true when the Pass 3 ratification survey was written,
+but no longer true by the time of ratification closure — the tag is left
+exactly where it is, as the immutable historical record of what was
+believed at freeze time; this correction applies going forward only, per
+the same precedent used for the Data/Ontology domain's post-freeze fixes.*
+
+`STD-OPS-COM-004`'s actual provenance chain: Pass 0B candidate
+adjudication (ADVANCE) → Pass 1.5 scope-omission resolution → Pass 2's
+pre-draft review of the OPS-D candidate (verdict: DRAFT AS
+`STD-OPS-COM-004`, with drafting constraints) → Pass 2.5 drafting of the
+normative text → a **dedicated post-draft adversarial review of the
+finished `STD-OPS-COM-004.json` text**, commissioned specifically to
+close the process-note gap the Pass 3 survey and `decisions/0017` had
+flagged, checking seven questions (trigger scoping; granting-authority
+language testability; acceptance criteria covering all five mechanism
+families; forbidden clauses banning sole reliance on unprovable
+identifiers without categorical exclusion; reclaim/invalidate/kill scope
+coherence; no scope creep into general operations auditing; distinctness
+from OPS-A and complementarity to Fleet Laws 5/7) and returning **APPROVE
+FOR RATIFICATION** — only then did the operator accept
+`decisions/0017-ops-com-004-decision.md` and ratify. This is the same
+shape of review `STD-OPS-COM-001/002/003` each received, delivered via a
+separately-commissioned closure-time pass rather than inline with Pass 2
+— not a process gap. See `decisions/0017-ops-com-004-decision.md`'s
+Operator ruling section for the ruling itself.
 
 ## What remains OUTSIDE v1
 
