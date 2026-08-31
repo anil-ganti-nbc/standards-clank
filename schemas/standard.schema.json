@@ -29,7 +29,8 @@
         "soak",
         "security",
         "operator-workflow",
-        "data-ontology"
+        "data-ontology",
+        "operations"
       ]
     },
     "level": {

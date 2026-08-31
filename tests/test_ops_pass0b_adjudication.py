@@ -8,6 +8,7 @@ leave the frozen baselines and Pass 0A evidence untouched.
 """
 
 import re
+import subprocess
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -97,9 +98,23 @@ def test_destructive_action_defers_to_adr0009_and_flags_agent_class():
     assert "PROPOSED — REVIEWED DRAFT" in text or "PROPOSED" in text
 
 
-def test_no_std_ops_normative_files_exist():
-    std_ops = list(REPO.rglob("STD-OPS-*"))
-    assert not std_ops, f"Pass 0B must not create normative files: {std_ops}"
+def test_pass0b_itself_created_no_normative_files():
+    """At Pass 0B's original writing, this test asserted zero STD-OPS
+    files existed anywhere, since Pass 0B is adjudication only. A later,
+    separately-authorized Pass 1 legitimately drafted exactly the three
+    ADVANCE candidates as STD-OPS-COM-001/002/003 (see
+    tests/test_ops_pass1_drafting.py for the live drafting guards). This
+    test's remaining live job: confirm the Pass 0B commit itself
+    (53480ec) introduced no STD-OPS file, i.e. that drafting happened
+    later and separately, not as part of adjudication."""
+    result = subprocess.run(
+        ["git", "-C", str(REPO), "show", "53480ec", "--diff-filter=A", "--name-only"],
+        capture_output=True, text=True, encoding="utf-8", stdin=subprocess.DEVNULL,
+    )
+    assert result.returncode == 0
+    added_files = result.stdout.splitlines()
+    std_ops_added_by_pass0b = [f for f in added_files if "STD-OPS-" in f]
+    assert std_ops_added_by_pass0b == [], f"Pass 0B's own commit must not have added normative files: {std_ops_added_by_pass0b}"
 
 
 def test_non_operations_rehomes_are_explicit():

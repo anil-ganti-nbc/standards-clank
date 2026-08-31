@@ -150,18 +150,23 @@ def test_no_std_operations_files_exist_anywhere():
     assert matches == [], f"Pass 0A must not create any STD-OPERATIONS file: {matches}"
 
 
-def test_operations_domain_not_yet_added_to_schema_enum():
-    """Pass 0A is evidence-only — adding 'operations' to the domain enum
-    is Pass 1's job (drafting), mirroring how 'data-ontology' was added
-    only at that later, separately-authorized stage. If this test starts
-    failing because 'operations' now IS in the enum, that's expected once
-    Pass 1 legitimately runs — replace this test with an agreement check
-    at that point, don't just delete it."""
+def test_operations_domain_enum_extension_is_additive_only():
+    """At Pass 0A's original writing, 'operations' was not yet in the
+    domain enum — this test asserted its absence, since adding it is
+    Pass 1's job. A later, separately-authorized Pass 1 legitimately
+    added it (see tests/test_ops_pass1_drafting.py for the live drafting
+    guards). This test's remaining live job: confirm that addition was
+    purely additive — every domain present before Pass 1 is still
+    present, nothing was removed or renamed."""
     schema = json.loads((REPO_ROOT / "schemas" / "standard.schema.json").read_text(encoding="utf-8"))
     domain_enum = set(schema["properties"]["domain"]["enum"])
-    assert "operations" not in domain_enum, (
-        "Pass 0A must not add 'operations' to the domain enum — that is Pass 1's job"
-    )
+    pre_pass1_domains = {
+        "ui", "collectors", "sources", "classification", "events",
+        "evidence", "health", "delivery", "soak", "security", "operator-workflow",
+        "data-ontology",
+    }
+    assert pre_pass1_domains <= domain_enum, f"a pre-existing domain was removed: {pre_pass1_domains - domain_enum}"
+    assert "operations" in domain_enum
 
 
 def test_pass0_directory_contains_no_json_standard_files():
