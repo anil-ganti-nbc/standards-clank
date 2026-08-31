@@ -1,0 +1,33 @@
+{
+  "id": "STD-DATA-COM-001",
+  "title": "Continuity/epoch state must be explicit",
+  "domain": "data-ontology",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "requirement": "Where a Clank derives novelty, alerting, or editorial state from comparison against its own prior local history, a discontinuity in that history (data loss, restore from an older backup, a re-baseline, a collector/source replacement that breaks continuity, a region change that invalidates prior comparisons) MUST be represented as an explicit, queryable fact about the dataset's timeline — distinct both from the records themselves and from any novelty judgement made using those records. Baseline/bootstrap observations (the first population of a source or a re-population after a continuity break) MUST be distinguishable, at read time, from ordinary ongoing observations made after continuity was established. A Clank MUST NOT allow historical or baseline-era records to silently acquire the semantics of current, continuously-observed records merely because they are present in the same table as current records.",
+  "trigger": "Applies to any Clank that derives novelty, alerting, or editorial freshness judgements from comparison against its own prior local history (i.e., a persistent Clank with a concept of 'seen before'). Does not apply to a Clank with no such comparison logic — a purely stateless collector, or one that never derives novelty from local history, has nothing for this standard to bind.",
+  "rationale": "Evidenced by four independent implementations (watch-clank's OperationalEpoch, oem-radar's documented cutover procedure, feature-phone-clank's and smartwatch-clank's continuity.py) and a near-complete, currently-PROPOSED clank-architecture draft (ADR-0006) that smartwatch-clank already builds against. A real, dated incident (watch-clank's Timex catalogue backfill burst) demonstrates the failure mode directly: baseline-era records re-alerted as fresh after a restore/backfill because continuity state was not explicit enough for the alerting logic to distinguish them. Absence of this distinction is not a hypothetical risk — it has already produced a large false-novelty burst in production. This standard adopts the substance of ADR-0006's continuity concept (an explicit continuity/epoch fact, baseline distinguishability, 'a fresh baseline is never novelty') as the Pass 1 starting contract for Standards Clank, without copying its exact schema — see notes for what was adopted vs. left open.",
+  "forbidden": [
+    "Treating a fresh bootstrap/re-baseline as ordinary novelty or current-state continuity because no explicit signal exists to say otherwise",
+    "Relying solely on operator memory, a manually-invoked CLI flag, or an undocumented convention to mark a continuity break, where that reliance leaves no durable, queryable trace in the dataset itself",
+    "A downstream novelty/alerting consumer having no way to determine whether a given record predates the current continuity epoch"
+  ],
+  "acceptance": [
+    "The dataset carries an explicit, queryable representation of continuity boundaries (an epoch marker, a gap record, a baseline flag on the affected records, or an equivalent mechanism) — the specific mechanism is not prescribed",
+    "Baseline/bootstrap observations are distinguishable from ordinary post-continuity observations by a downstream reader, without needing out-of-band knowledge",
+    "After a data-loss/restore/re-baseline/collector-replacement/region-change event that breaks continuity, the discontinuity itself is recorded as durably as the records on either side of it",
+    "A downstream consumer deriving novelty or alerting from local history can determine, for any given record, whether it falls inside a recognized continuity gap or baseline window"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "DIAGNOSTIC_INCIDENT", "source": "watch-clank/ai/handoff/INCIDENT_TIMEX_CATALOGUE_BACKFILL_BURST.md", "summary": "A never-baselined local database produced a ~1045-event burst; the addendum documents that production's own operational_epochs table is empty, with baseline protection resting entirely on a manually-passed flag." },
+    { "class": "ARCHITECTURAL_INVARIANT", "source": "clank-architecture/adr/0006-continuity-and-epoch-semantics.md (PROPOSED, read-only reference)", "summary": "A near-complete draft ContinuityEvent contract (DATA_LOSS/RESTORE_FROM_BACKUP/NEW_BASELINE/EPOCH_BOUNDARY/OBSERVATION_GAP/SCHEDULER_OUTAGE/UNKNOWN_CONTINUITY); 'a fresh baseline is never novelty'; 'absence is never zero'. smartwatch-clank explicitly builds against this ADR." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "watch-clank OperationalEpoch model; oem-radar documented Epoch-1/Epoch-2 cutover procedure; feature-phone-clank and smartwatch-clank core/continuity.py", "summary": "Four independent implementations of the same underlying concept, three with no cross-citation to each other or to ADR-0006." }
+  ],
+  "origin": "DIAGNOSTIC_INCIDENT",
+  "introduced": "2026-08-31",
+  "supersedes": null,
+  "notes": "Pass 1 draft (docs/data-ontology/pass1/dossier-c1-continuity-explicitness.md), from Pass 0B adjudication candidate C1 (docs/data-ontology/pass0/candidates/c1-continuity-explicitness.md), from Pass 0A cluster baseline-epoch-continuity (docs/data-ontology/pass0/clusters/baseline-epoch-continuity.md). Adopted from ADR-0006: the concept of an explicit, queryable continuity fact distinct from ordinary records, and the 'fresh baseline is never novelty' principle. Deliberately NOT adopted from ADR-0006: its specific ContinuityEvent type enum and any particular storage shape — this standard does not mandate an operational_epochs table, a specific event-type vocabulary, or any other implementation detail; ADR-0006 remains clank-architecture's own PROPOSED document, cited as evidence, not incorporated by reference. watch-clank's current empty-production-epoch-table exposure is NOT cited here as evidence of a standard violation (nothing is ratified yet to violate) and is instead flagged separately to the operator as a live operational risk, per Pass 0B's explicit instruction. Still PROPOSED — not reviewed, not ratified. An agent may not self-ratify this standard."
+}

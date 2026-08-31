@@ -1,0 +1,34 @@
+{
+  "id": "STD-DATA-COM-004",
+  "title": "Observation, canonical-fact/change, and operator-decision records must stay separable and traceable",
+  "domain": "data-ontology",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "requirement": "Where a Clank both ingests raw observations and derives canonical state from them, observation records, canonical fact/change records, and (where an operator-decision layer exists) operator-decision records MUST remain distinguishable and separately consumable record kinds — a consumer reading 'canonical changes' or 'operator decisions' MUST NOT receive unreviewed raw observations mixed into that stream. Every canonical fact or change MUST remain traceable back to the observation(s) that support it, at a granularity sufficient to explain why the Clank believes it. Every operator decision MUST remain traceable to the state (canonical fact, change, or evidence) it was made against. A value that is inferred or derived by the Clank itself MUST remain distinguishable from a value that was explicitly stated by a source — an inferred value MUST NOT be serialized or presented as if a source directly claimed it.",
+  "trigger": "Applies to any Clank with both ingested observations and some form of derived canonical state — confirmed present in 8 of the 9 surveyed fleet Clanks. Does not require a specific number of storage tiers (three to five were observed across the fleet, all conformant) or any particular envelope/schema shape. A Clank with no derived canonical state at all (a pure pass-through log) is out of scope by trigger.",
+  "rationale": "The strongest independent-convergence evidence in the Pass 0 corpus: 8 of 9 surveyed Clanks independently built a 3-to-5 tier observation-to-canonical-fact-to-change-to-decision stack, with zero cross-citation between implementations — chinese-tech-wire's EXPLAINABILITY_CONTRACT.md and semiconductor-intelligence's Claim/Evidence/ClaimEvent stack are mature enough to function as reference templates in their own right. The harm mode this standard exists to prevent is directly demonstrated by oem-radar's Stage 11 incident: evidence observations (official-source facts with no price/spec content) were written into the same table as canonical product-change alerts, reaching 44.6% of all 'alerts' and burying real product-change signal in 300/300 visible dashboard slots before being split back into a separate table in Stage 11.1. This is exactly the tier-collapse failure mode the standard forbids, measured in production.",
+  "forbidden": [
+    "A canonical fact or change value with no path back to the observation(s) that support it",
+    "Serializing or presenting an inferred/derived value as though a source directly and explicitly stated it",
+    "Collapsing the observation tier and the canonical tier such that a reviewer, alerting system, or operator-facing queue cannot tell an unreviewed raw observation from a confirmed canonical fact/change"
+  ],
+  "acceptance": [
+    "Observation records and canonical fact/change records are distinguishable and separately queryable, whatever the storage mechanism (separate tables, a discriminator column, or an equivalent means)",
+    "Given a canonical fact or change, the supporting observation(s) can be identified and inspected — a URL plus a content hash plus an extraction record, a source-observation ID, or an equivalent reconstructable reference all satisfy this; unlimited raw-payload retention forever is not required unless a Clank's own evidence-retention needs call for it",
+    "Given an operator decision (where an operator-decision layer exists), the state it was made against can be identified",
+    "An inferred or derived field is labeled, tagged, or otherwise distinguishable from a field taken directly from source content"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "DIAGNOSTIC_INCIDENT", "source": "oem-radar/docs/EVIDENCE_ARCHITECTURE.md:82-104", "summary": "Evidence observations written into the canonical change_events table reached 44.6% of all 'alerts,' filling 300/300 visible dashboard slots and burying real product-change signal, until split back into a separate evidence_events table (Stage 11.1)." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "chinese-tech-wire/docs/EXPLAINABILITY_CONTRACT.md", "summary": "A formal, versioned contract distinguishing fact-level (Contribution/facts), change-level (MaterialChange), and decision-level provenance, with an explicit `inferred` flag on TimelineEvent distinguishing reconstructed from directly-observed chronology. Rule 1: never invent facts not present in stored records or configuration." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "semiconductor-intelligence/semi_intel/domain/models.py:207-303", "summary": "A four-tier trust ladder (SignalItem -> Evidence -> Claim -> ClaimEvent) with an explicit ClaimEvidenceLink.stance field so a claim's truth-state synthesizes possibly-disagreeing evidence rather than overwriting a single field." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "watch-clank (SnapshotFetch/SnapshotBlob/SourceObservation/PipelineLedger/EventReview stack); oem-radar (EvidenceItem/snapshots/ChangeEvent.meta/alert_review_history)", "summary": "Two further independent implementations of the same tiered shape, with no cross-citation to each other or to chinese-tech-wire/semiconductor-intelligence." }
+  ],
+  "origin": "CROSS_CLANK_BEST_PRACTICE",
+  "introduced": "2026-08-31",
+  "supersedes": null,
+  "notes": "Pass 1 draft (docs/data-ontology/pass1/dossier-c5-provenance-tier-separation.md), from Pass 0B adjudication candidate C5 (docs/data-ontology/pass0/candidates/c5-provenance-tier-separation.md), from Pass 0A cluster evidence-provenance-granularity (docs/data-ontology/pass0/clusters/evidence-provenance-granularity.md). Does not prescribe a universal event-envelope schema: diagnostic-clank's draft EventEnvelope (clank-architecture-adjacent, PROPOSED, not ACTIVE) is cited as a useful Pass 1 reference, not adopted or incorporated by reference, out of respect for clank-architecture's own adopted ADR-0002 (DO_NOT_STANDARDISE) position against schema unification. This standard does not restate STD-UI-COM-002 (which governs the QC-decision write contract specifically, at the UI/operator-action layer) — STD-UI-COM-002's atomic/race-guarded decision record is one conforming instance of this standard's decision tier, not a duplicate of it. Does not restate STD-UI-COM-009 (run/stage observability), STD-UI-COM-010 (timestamp display semantics), or STD-UI-COM-011 (delivery-state observability), all of which govern what an operator-facing UI surfaces, not the underlying data-tier separation this standard requires. Still PROPOSED — not reviewed, not ratified. An agent may not self-ratify this standard."
+}

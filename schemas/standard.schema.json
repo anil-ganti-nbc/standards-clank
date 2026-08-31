@@ -28,7 +28,8 @@
         "delivery",
         "soak",
         "security",
-        "operator-workflow"
+        "operator-workflow",
+        "data-ontology"
       ]
     },
     "level": {
@@ -49,6 +50,10 @@
       "type": "array",
       "description": "Profile ids or explicit Clank names this standard applies to. Empty/omitted means fleet-wide.",
       "items": { "type": "string" }
+    },
+    "trigger": {
+      "type": "string",
+      "description": "Free-text applicability condition distinct from applies_to's profile/Clank scoping: describes what architectural feature or behavior a Clank must have for this standard to bind it at all (e.g. 'derives novelty from local history'), so a Clank that genuinely lacks the concept is out of scope, not in violation."
     },
     "requirement": {
       "type": "string",

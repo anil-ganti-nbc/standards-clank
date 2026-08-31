@@ -1,0 +1,35 @@
+{
+  "id": "STD-DATA-COM-002",
+  "title": "First-seen is not novelty; default novelty views must exclude baseline records by construction",
+  "domain": "data-ontology",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "requirement": "A record's first appearance in a Clank's own database (its discovery/observation time) MUST NOT, by itself, be treated as evidence that the thing it represents is new in the real world. Any default or active view that a Clank uses to surface novelty — a new-item feed, a default alerting query, an editorial 'what's new' queue — MUST exclude baseline/continuity-tagged records (see STD-DATA-COM-001) by construction, i.e. via a read-side predicate evaluated at query time, not by relying on the record never having been written, on a caller remembering to filter, or on an upstream process having already removed them. Where a Clank models editorial freshness (is this item current enough to present as news) as a concept distinct from discovery-novelty, editorial freshness MUST remain a separate, further judgement — never implied by, or conflated with, either local discovery time or novelty status.",
+  "trigger": "Applies to any Clank whose default/active views consume a novelty judgement (alerting, new-item feeds, editorial intake queues) derived from local history. A catalogue or full-history view that legitimately displays baseline records alongside current ones is not itself in scope — the exclusion binds novelty-consuming views specifically, not every view of the data. A Clank with no baseline/continuity concept at all (STD-DATA-COM-001's trigger unmet) has nothing to exclude and is out of scope by construction, not in violation. The editorial-freshness clause applies only where a Clank has modeled editorial freshness as a concept at all (typically news/lead-oriented Clanks) — a pure catalogue/SKU Clank is not required to build editorial freshness to conform to this standard.",
+  "rationale": "This is the best-evidenced candidate in the entire Pass 0 corpus. The semantic distinction alone (first-seen != novelty) is necessary but proven insufficient: watch-clank and oem-radar independently suffered the identical failure — a baseline flag correctly written at discovery time, never consulted by the display/aggregation query that fed alerts — with zero cross-citation between the two repos. A representation-only standard would have been satisfied by both repos while the underlying bug persisted in both, because the flag existed; nothing required the read path to use it. The standardizable core is therefore the read-side contract, not just the write-side tagging, mirroring the same structural shape already ratified fleet-wide for QC queues (STD-UI-COM-003: a decided item must be excluded from the active queue via a read-side filter, not by deleting the record). Editorial freshness is folded in as a corollary because chinese-tech-wire's own architecture explicitly separates it from novelty scoring as a distinct question, and korean-tech-wire independently names the same gap in its own docs as unbuilt future work — but no SKU/catalogue Clank in the surveyed fleet has or needs an editorial-freshness concept, so it is not made a universal requirement.",
+  "forbidden": [
+    "A default novelty/new-item/alerting view expressed as, in effect, 'ORDER BY first_seen DESC' with no baseline/continuity exclusion — presenting recency-of-observation as if it were novelty",
+    "A bootstrap or re-baseline flood becoming eligible for the 'new/novel' category merely because ingestion happened today",
+    "Depending on a caller, a cron job, or an operator to remember to filter baseline records out of a novelty view, where the query itself would otherwise return them",
+    "Conflating editorial freshness with discovery-novelty where a Clank has built editorial freshness as a concept at all"
+  ],
+  "acceptance": [
+    "The query or logic backing any default novelty/alerting/new-item view excludes baseline/continuity-tagged records as part of its own definition, not as an assumption about what got written",
+    "A baseline-era record does not appear in a default novelty view even if it is the most recently observed row in the underlying table",
+    "An explicit override or review workflow (e.g. an operator deliberately inspecting baseline-era records) MAY surface them, provided doing so does not relabel them as novel in the process",
+    "Where editorial freshness is modeled, it is computed and stored/exposed separately from both discovery time and novelty status"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    { "class": "ARCHITECTURAL_INVARIANT", "source": "watch-clank/app/services/editorial.py:70-92", "summary": "'A reference that is merely absent from this database until today is not, by itself, evidence the manufacturer launched it today.' Alerts visibly mark such events 'novelty UNCONFIRMED'." },
+    { "class": "DIAGNOSTIC_INCIDENT", "source": "watch-clank/ai/handoff/INCIDENT_EPOCH1_FRESHNESS.md; oem-radar/docs/CURRENT_STATUS.md:12-26", "summary": "Two independent, dated, identically-shaped incidents: a correctly-written baseline flag was never consulted by the aggregation/display query, putting baseline-era records in front of genuine novelty (1,875 records at oem-radar; a comparable burst at watch-clank)." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "feature-phone-clank/src/feature_phone_clank/core/scope.py:1-9", "summary": "Baseline-gates-every-event-type design explicitly inherited from a named cross-Clank incident (smartphone-clank's 73-device contamination)." },
+    { "class": "CROSS_CLANK_BEST_PRACTICE", "source": "chinese-tech-wire/pipeline/freshness.py:1-16; korean-tech-wire/docs/editorial-policy.md:7", "summary": "chinese-tech-wire architecturally separates editorial-freshness reporting from novelty scoring; korean-tech-wire explicitly names the same separation as necessary future work it hasn't built yet." }
+  ],
+  "origin": "DIAGNOSTIC_INCIDENT",
+  "introduced": "2026-08-31",
+  "supersedes": null,
+  "notes": "Pass 1 draft (docs/data-ontology/pass1/dossier-c2-novelty-read-side-exclusion.md), from Pass 0B adjudication candidate C2 (docs/data-ontology/pass0/candidates/c2-novelty-read-side-exclusion.md), from Pass 0A clusters novelty-vs-discovery-time and editorial-freshness-vs-novelty (docs/data-ontology/pass0/clusters/). Deliberately mirrors STD-UI-COM-003's read-side-exclusion shape at the data layer rather than the UI layer — this standard governs the query/logic contract; STD-UI-COM-003 governs what the operator sees. No overlap: STD-UI-COM-003 does not require novelty correctness, only that decided QC items leave the visible queue. This standard does not restate or alter STD-UI-COM-003. Still PROPOSED — not reviewed, not ratified. An agent may not self-ratify this standard."
+}

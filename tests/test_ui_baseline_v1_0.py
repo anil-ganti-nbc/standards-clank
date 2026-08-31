@@ -46,7 +46,7 @@ def test_freeze_commit_resolves(manifest):
     assert len(sha) == 40
     result = subprocess.run(
         ["git", "-C", str(REPO), "rev-parse", "--verify", "--quiet", f"{sha}^{{commit}}"],
-        capture_output=True, text=True,
+        capture_output=True, text=True, stdin=subprocess.DEVNULL,
     )
     assert result.returncode == 0, f"freeze commit {sha} does not resolve"
 

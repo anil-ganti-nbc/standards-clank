@@ -3,13 +3,18 @@
 The adjudication pass must: cover every HIGH-priority handoff cluster,
 give each candidate exactly one recommendation, include counterexample
 tests for every ADVANCE card, keep non-Data concerns rehomed/rejected,
-create no STD-DATA normative files, leave the frozen UI baseline and the
-Pass 0A evidence untouched.
+leave the frozen UI baseline and the Pass 0A evidence untouched. Pass 0B
+itself created no STD-DATA normative files (verified historically by
+test_ui_baseline_and_pass0_evidence_untouched's commit-pinned diffs) — a
+later, separately-authorized Pass 1 legitimately created the four ADVANCE
+candidates' drafts; see tests/test_pass1_drafting.py for those guards.
 """
 
 import re
 import subprocess
 from pathlib import Path
+
+import json
 
 REPO = Path(__file__).resolve().parents[1]
 PASS0 = REPO / "docs" / "data-ontology" / "pass0"
@@ -67,9 +72,19 @@ def test_non_data_concerns_are_rehomed_or_rejected():
     assert "REHOME** (to diagnostic/testing practice" in text
 
 
-def test_no_std_data_normative_files_exist():
-    std_files = list(REPO.rglob("STD-DATA-*.json")) + list(REPO.rglob("STD-DATA-*.md"))
-    assert not std_files, f"Pass 0B must not create normative files: {std_files}"
+def test_std_data_files_are_only_the_four_pass1_advance_candidates_and_all_proposed():
+    """Pass 0B itself created none of these (see
+    test_ui_baseline_and_pass0_evidence_untouched for the historical
+    proof). Now that Pass 1 has legitimately drafted the four ADVANCE
+    candidates, this guard's job is narrower: only those four may exist,
+    named after the ADVANCE cards, and none may be self-ratified."""
+    std_files = sorted(REPO.glob("standards/**/STD-DATA-*.json"))
+    expected_ids = {"STD-DATA-COM-001", "STD-DATA-COM-002", "STD-DATA-COM-003", "STD-DATA-COM-004"}
+    found_ids = {p.stem for p in std_files}
+    assert found_ids == expected_ids, f"expected exactly the four Pass 1 candidates, found {found_ids}"
+    for path in std_files:
+        status = json.loads(path.read_text())["status"]
+        assert status == "PROPOSED", f"{path.name}: expected PROPOSED, found {status!r} — no self-ratification"
 
 
 def test_ui_baseline_and_pass0_evidence_untouched():
@@ -88,7 +103,7 @@ def test_ui_baseline_and_pass0_evidence_untouched():
             try:
                 result = subprocess.run(
                     ["git", "-C", str(REPO), "diff", "--quiet", base, "--", path],
-                    capture_output=True, text=True,
+                    capture_output=True, text=True, stdin=subprocess.DEVNULL,
                 )
                 break
             except OSError:

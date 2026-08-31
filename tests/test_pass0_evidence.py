@@ -6,6 +6,7 @@ UI baseline was not touched) — they do NOT encode any candidate invariant
 from the clusters as normative truth. Pass 0A is evidence only.
 """
 
+import json
 import re
 import subprocess
 from pathlib import Path
@@ -132,16 +133,31 @@ def test_readme_references_every_cluster_file():
 
 # -- this pass must not create any normative standard --
 
-def test_no_std_data_files_exist_anywhere():
-    matches = list(REPO_ROOT.glob("**/STD-DATA-*.json"))
-    assert matches == [], f"Pass 0A must not create standard files, found: {matches}"
+def test_std_data_files_exist_only_under_standards_not_under_pass0_evidence():
+    """Pass 0A itself (this test file's original scope) created zero
+    STD-DATA files anywhere — that was true at the time and is preserved
+    by test_pass0_directory_contains_no_json_standard_files below, which
+    still holds. A later, separately-authorized Pass 1 legitimately
+    drafted four candidates under standards/data-ontology/ — this test's
+    narrower, still-live job is to confirm normative files never leak
+    into the evidence directory itself, wherever they're drafted."""
+    matches = list(PASS0_DIR.rglob("STD-DATA-*.json"))
+    assert matches == [], f"STD-DATA files must never live under the evidence directory: {matches}"
 
 
-def test_no_data_ontology_domain_added_to_standard_schema_enum():
-    schema_text = (REPO_ROOT / "schemas" / "standard.schema.json").read_text()
-    assert '"data-ontology"' not in schema_text, (
-        "standard.schema.json's domain enum must not be extended by an evidence-only pass"
-    )
+def test_data_ontology_domain_enum_extension_is_additive_only():
+    """schemas/standard.schema.json's domain enum was extended (by a
+    later, separately-authorized Pass 1) to add 'data-ontology' — verify
+    that extension was purely additive: every domain present before Pass 1
+    is still present, nothing was removed or renamed."""
+    schema = json.loads((REPO_ROOT / "schemas" / "standard.schema.json").read_text())
+    domain_enum = set(schema["properties"]["domain"]["enum"])
+    pre_pass1_domains = {
+        "ui", "collectors", "sources", "classification", "events",
+        "evidence", "health", "delivery", "soak", "security", "operator-workflow",
+    }
+    assert pre_pass1_domains <= domain_enum, f"a pre-existing domain was removed: {pre_pass1_domains - domain_enum}"
+    assert "data-ontology" in domain_enum
 
 
 def test_pass0_directory_contains_no_json_standard_files():
