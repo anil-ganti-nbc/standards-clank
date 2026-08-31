@@ -19,7 +19,7 @@ OPS_DIR = REPO / "standards" / "operations"
 PASS0_DIR = REPO / "docs" / "operations" / "pass0"
 PASS1_DIR = REPO / "docs" / "operations" / "pass1"
 
-EXPECTED_IDS = {"STD-OPS-COM-001", "STD-OPS-COM-002", "STD-OPS-COM-003"}
+EXPECTED_IDS = {"STD-OPS-COM-001", "STD-OPS-COM-002", "STD-OPS-COM-003", "STD-OPS-COM-004"}
 
 
 def _load(sid: str) -> dict:
@@ -34,12 +34,19 @@ def _git(*args) -> str:
     return result.stdout.strip()
 
 
-# -- exactly three standards, all PROPOSED, all v1 --
+# -- exactly four standards (as of the Pass 2.5 OPS-D commission), all PROPOSED, all v1 --
 
-def test_exactly_three_std_ops_standards_exist():
+def test_exactly_four_std_ops_standards_exist():
+    """At Pass 1's original writing, this test asserted exactly three
+    standards (OPS-A/B/C) — the mission at the time explicitly forbade a
+    fourth. A later, separately-authorized Pass 1.5 (scope-omission
+    resolution) and Pass 2 (adversarial review, verdict 'DRAFT AS
+    STD-OPS-COM-004') led to a narrowly-commissioned Pass 2.5 task that
+    legitimately drafted OPS-D as STD-OPS-COM-004. This test's remaining
+    live job: confirm exactly these four exist, no fifth."""
     files = sorted(OPS_DIR.glob("STD-OPS-*.json"))
     assert {p.stem for p in files} == EXPECTED_IDS, f"expected exactly {EXPECTED_IDS}, found {[p.stem for p in files]}"
-    assert len(files) == 3
+    assert len(files) == 4
 
 
 @pytest.mark.parametrize("sid", sorted(EXPECTED_IDS))
@@ -50,15 +57,19 @@ def test_standard_is_proposed_at_version_1(sid):
     assert obj["domain"] == "operations"
 
 
-def test_no_fourth_operations_standard_and_no_ops_d_normative_file():
-    """The mission explicitly forbade a fourth standard. Superseded in
-    part by the operator-commissioned Pass 1.5 resolution (which produced
-    an OPS-D candidate CARD + resolution doc under docs/, still no
-    normative file): no STD-OPS-COM-004 normative standard may exist
-    unless separately commissioned."""
-    assert not list(REPO.rglob("STD-OPS-COM-004*"))
+def test_no_fifth_operations_standard():
+    """At Pass 1's writing this asserted no STD-OPS-COM-004 normative
+    file existed yet (the Pass 1.5 resolution had produced only a
+    candidate card + resolution doc, explicitly deferring drafting). A
+    later, separately-commissioned Pass 2.5 task legitimately drafted
+    STD-OPS-COM-004 following Pass 2's review constraints. This test's
+    remaining live job: confirm the supporting docs still exist and no
+    fifth standard (STD-OPS-COM-005 or any other ops-e-style candidate)
+    has appeared."""
+    assert not list(REPO.rglob("STD-OPS-COM-005*"))
     assert (REPO / "docs/operations/pass0/candidates/ops-d-exclusivity-marker-soundness.md").is_file()
     assert (REPO / "docs/operations/pass1/ops-d-resolution.md").is_file()
+    assert (REPO / "standards/operations/STD-OPS-COM-004.json").is_file()
 
 
 # -- no self-ratification --
@@ -152,14 +163,19 @@ def test_held_deferred_rehomed_concerns_have_no_std_ops_file():
     """Cluster 14 (HOLD), cluster 10 (DEFER to ADR-0009), clusters 8/9/12
     (REHOME to a future DEPLOYMENT domain), and cluster 15 (REHOME to a
     future DELIVERY domain) must not have been promoted into a drafted
-    standard by this pass."""
-    all_text = " ".join(p.read_text(encoding="utf-8") for p in OPS_DIR.glob("STD-OPS-*.json"))
+    standard's NORMATIVE text (requirement/trigger/forbidden/acceptance).
+    Scoped to normative fields only, not notes/rationale — OPS-D's notes
+    legitimately name ADR-0009 ('destructive production mutation
+    authority') to establish that OPS-D is distinct from, not a
+    restatement of, that concern; that citation is expected good practice,
+    not a leak."""
+    normative_text = " ".join(_normative_text(_load(sid)) for sid in EXPECTED_IDS)
     for forbidden_topic in (
         "destructive", "backup", "deployment revision", "remote host truth",
         "schema deployment", "notification retry", "blocked/mothballed",
     ):
-        assert forbidden_topic.lower() not in all_text.lower(), (
-            f"a held/deferred/rehomed concern ({forbidden_topic!r}) leaked into a drafted standard"
+        assert forbidden_topic.lower() not in normative_text.lower(), (
+            f"a held/deferred/rehomed concern ({forbidden_topic!r}) leaked into a drafted standard's normative text"
         )
 
 
@@ -296,6 +312,78 @@ def test_pass1_dossier_exists_for_each_draft():
             "## Unresolved wording questions", "## Recommendation",
         ):
             assert heading in text, f"{name} missing section {heading!r}"
+
+
+# -- OPS-D (STD-OPS-COM-004) specific guards --
+
+PASS25_DIR = REPO / "docs" / "operations" / "pass2.5"
+
+
+def test_ops_d_dossier_exists_with_required_sections():
+    path = PASS25_DIR / "dossier-ops-d-exclusivity-marker-soundness.md"
+    assert path.is_file(), "missing OPS-D Pass 2.5 dossier"
+    text = path.read_text(encoding="utf-8")
+    for heading in (
+        "## Candidate", "## Source clusters", "## Pass 0B disposition",
+        "## Evidence strength", "## Strongest incidents", "## Lineage assessment",
+        "## Fleet Law / ADR relationship", "## Strongest counterexample",
+        "## Unresolved wording questions", "## Recommendation",
+    ):
+        assert heading in text, f"OPS-D dossier missing section {heading!r}"
+    section = text.split("## Recommendation")[1]
+    assert any(v in section for v in ("READY FOR REVIEW", "NEEDS NARROWING", "HOLD"))
+
+
+def test_ops_d_trigger_scoped_to_cross_context_markers_only():
+    obj = _load("STD-OPS-COM-004")
+    trigger = obj["trigger"]
+    assert "execution context" in trigger
+    assert "out of scope" in trigger
+
+
+def test_ops_d_forbids_bare_identifier_reclaim():
+    obj = _load("STD-OPS-COM-004")
+    forbidden_text = " ".join(obj["forbidden"]).lower()
+    assert "pid" in forbidden_text
+    assert "hostname" in forbidden_text
+
+
+def test_ops_d_allows_named_sound_mechanisms():
+    obj = _load("STD-OPS-COM-004")
+    text = json.dumps(obj).lower()
+    for allowed in ("database session", "lease", "kernel", "fencing"):
+        assert allowed in text, f"STD-OPS-COM-004 must acknowledge {allowed!r} as a conforming mechanism"
+
+
+def test_ops_d_cites_fleet_law_5_and_7_as_complementary_not_replaced():
+    obj = _load("STD-OPS-COM-004")
+    notes = obj["notes"]
+    assert "Fleet Law 7" in notes
+    assert "Fleet Law 5" in notes
+    assert "COMPLEMENT" in notes
+    assert "does not restate" in notes
+
+
+def test_ops_d_does_not_overlap_ops_a():
+    """OPS-D must explicitly distinguish itself from OPS-A (execution
+    materialization truth) rather than silently duplicating it — a stale
+    unsound lock can satisfy OPS-A's materialization contract perfectly
+    while starving, which is the exact distinction the notes field must
+    draw."""
+    obj = _load("STD-OPS-COM-004")
+    notes = obj["notes"]
+    assert "STD-OPS-COM-001" in notes
+    assert "starving" in notes or "starvation" in notes
+
+
+def test_ops_d_does_not_draft_destructive_action_deployment_delivery_or_lifecycle():
+    """No destructive-mutation, deployment, delivery, or lifecycle-state
+    content in OPS-D's binding text — those remain DEFER/REHOME/HOLD per
+    Pass 0B, untouched by this narrowly-scoped drafting task."""
+    obj = _load("STD-OPS-COM-004")
+    normative = _normative_text(obj).lower()
+    for banned in ("deploy", "delivery", "notification", "lifecycle state", "mothball", "blocked state"):
+        assert banned not in normative, f"STD-OPS-COM-004's normative text must not mention {banned!r}"
 
 
 def test_every_dossier_recommendation_is_a_valid_value():

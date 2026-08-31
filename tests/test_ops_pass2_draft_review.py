@@ -150,13 +150,22 @@ def test_no_ops_standard_is_ratified():
         assert d["status"] == "PROPOSED", f"{path.name}: review must not ratify"
 
 
-def test_exactly_three_ops_standards_and_no_fourth_created():
+def test_pass2_reviewed_exactly_the_three_drafted_standards_and_created_none():
+    """At Pass 2's original writing, this test asserted exactly three
+    STD-OPS files existed (this review pass's own job was to review them,
+    not draft OPS-D — its own verdict was 'DRAFT AS STD-OPS-COM-004' as a
+    task for a later, separate Pass 2.5). A later, separately-commissioned
+    Pass 2.5 task legitimately drafted STD-OPS-COM-004 following this
+    review's own stated constraints. This test's remaining live job:
+    confirm the three standards this review actually reviewed
+    (EXPECTED_OPS) are still present and unchanged in status, without
+    claiming a fourth must not exist (deliberately no git subprocess here,
+    matching this file's own host-flakiness-avoidance design — see the
+    Pass 1 drafting test suite's byte-identity pins for the git-verified
+    version of this claim)."""
     files = sorted(OPS_DIR.glob("STD-OPS-*.json"))
-    assert {p.stem for p in files} == set(EXPECTED_OPS)
-    assert len(files) == 3
-    assert not list(REPO.rglob("STD-OPS-COM-004*")), (
-        "OPS-D must not be drafted in this pass — that is Pass 2.5's task"
-    )
+    present_ids = {p.stem for p in files}
+    assert set(EXPECTED_OPS) <= present_ids, f"a standard this review covered went missing: {set(EXPECTED_OPS) - present_ids}"
 
 
 def test_pass15_history_preserved():

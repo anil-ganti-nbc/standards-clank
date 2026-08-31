@@ -109,15 +109,27 @@ def test_adjudication_correction_note_is_additive():
     assert "candidates/ops-d-exclusivity-marker-soundness.md" in text
 
 
-def test_exactly_three_ops_standards_and_no_fourth():
-    files = sorted(OPS_DIR.glob("STD-OPS-*.json"))
-    assert {p.stem for p in files} == set(EXPECTED_OPS)
-    for path in files:
-        d = json.loads(path.read_text())
-        assert (d["status"], d["version"]) == EXPECTED_OPS[d["id"]]
-        assert "exclusivity" not in d["title"].lower(), (
-            "no fourth OPS standard (OPS-D draft) may exist unless separately commissioned"
-        )
+def test_pass15_itself_drafted_no_fourth_standard():
+    """At Pass 1.5's original writing, this test asserted exactly three
+    STD-OPS files existed and none had an 'exclusivity' title, since Pass
+    1.5's own commission was to resolve the OPS-D scope gap without
+    drafting it. A later, separately-commissioned Pass 2.5 task
+    legitimately drafted STD-OPS-COM-004 (title: 'Exclusivity/ownership
+    markers must be validated by structurally observable proof'). This
+    test's remaining live job: confirm the resolution doc's own
+    contemporaneous statement of that boundary is still present verbatim
+    (Pass 1.5 explicitly recorded it deferred drafting, not that no
+    drafting would ever happen), and that STD-OPS-COM-004 now legitimately
+    exists as that later, separate task's output. Deliberately no git
+    subprocess here, matching this file's own host-flakiness-avoidance
+    design (see the module docstring's hash-comparison note) — the
+    git-verified version of this claim lives in
+    tests/test_ops_pass1_drafting.py's byte-identity pins."""
+    resolution_text = (REPO / "docs" / "operations" / "pass1" / "ops-d-resolution.md").read_text(encoding="utf-8")
+    assert "no `STD-OPS-*` file for OPS-D exists or was created" in resolution_text
+    obj = json.loads((OPS_DIR / "STD-OPS-COM-004.json").read_text(encoding="utf-8"))
+    assert obj["status"] == "PROPOSED"
+    assert "exclusivity" in obj["title"].lower()
 
 
 def test_frozen_artifacts_unchanged():
