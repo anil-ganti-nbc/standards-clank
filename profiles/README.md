@@ -12,17 +12,16 @@ A profile may `inherit` from another profile to pick up shared standards
 plus its own family-specific ones. Keep inheritance shallow — one level is
 expected; do not build deep inheritance chains.
 
-No profiles are populated yet. Anticipated initial profiles, based on the
-current fleet:
+The populated, governance-only fleet adoption registry is
+`profiles/fleet-adoption.json`.  Profiles select family candidates; they do
+not by themselves satisfy conditional standard triggers.  Unknown architecture
+facts remain `UNKNOWN`, never silently become false or N/A. The resolver reads
+immutable baseline tags, not mutable `master`.
+
+The initial supported profiles are:
 
 - `news-based`
 - `sku-based`
-- `product-discovery`
-- `specialist-news`
-- `regional-catalogue`
-- `support-source`
-
-Populating these against real Clanks (watch-clank, oem-radar,
-semiconductor-intelligence, chinese-tech-wire, korean-tech-wire,
-feature-phone-clank, smartphone-clank, smartwatch-clank, tablet-clank) is
-future work, not part of this repository's initial groundwork.
+Use `python scripts/resolve_clank_standards.py watch-clank --audit-plan` to
+generate a blind audit plan. It resolves applicability only and makes no
+conformance claim.

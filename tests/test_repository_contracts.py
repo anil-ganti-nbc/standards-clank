@@ -169,7 +169,7 @@ def test_every_standard_filename_matches_its_id():
 
 def _all_profile_files():
     profiles_dir = Path(__file__).parent.parent / "profiles"
-    return sorted(profiles_dir.glob("*.json"))
+    return sorted(p for p in profiles_dir.glob("*.json") if p.name != "fleet-adoption.json")
 
 
 def test_every_profile_file_is_schema_valid():

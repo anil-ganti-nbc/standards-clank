@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "baselines": {"ui": "ui-standards-v1.0", "data-ontology": "data-ontology-standards-v1.0", "operations": "operations-standards-v1.0", "deployment": "deployment-standards-v1.0"},
+  "fact_value_vocabulary": ["TRUE", "FALSE", "UNKNOWN"],
+  "clanks": [
+    {"id":"watch-clank","repository":"https://github.com/anil-ganti-nbc/watch-clank","primary_profile":"sku-based","secondary_profiles":["news-based"],"facts":{"has_gui":"TRUE","has_operator_qc":"TRUE","has_qc_queue":"TRUE","has_collection_trigger":"TRUE","local_history_novelty":"TRUE","has_novelty_consumer":"TRUE","canonical_entity_merge":"TRUE","derives_canonical_state":"TRUE","meaningful_deployment_transition":"TRUE","persistent_structured_state":"TRUE"},"fact_sources":["docs/gui-ratification-pass-1.md#evidence-ledger","standards/data-ontology/STD-DATA-COM-001.json","docs/deployment/pass0/evidence-log.md","docs/deployment/pass0/clusters/03-schema-code-compatibility.md"]},
+    {"id":"oem-radar","repository":"https://github.com/anil-ganti-nbc/oem-radar","primary_profile":"sku-based","secondary_profiles":[],"facts":{},"fact_sources":["profiles/sku-based.json"]},
+    {"id":"semiconductor-intelligence","repository":"https://github.com/anil-ganti-nbc/semiconductor-intelligence","primary_profile":"news-based","secondary_profiles":[],"facts":{},"fact_sources":["profiles/news-based.json"]},
+    {"id":"chinese-tech-wire","repository":"https://github.com/anil-ganti-nbc/chinese-tech-wire","primary_profile":"news-based","secondary_profiles":[],"facts":{},"fact_sources":["profiles/news-based.json"]},
+    {"id":"korean-tech-wire","repository":"https://github.com/anil-ganti-nbc/korean-tech-wire","primary_profile":"news-based","secondary_profiles":[],"facts":{},"fact_sources":["profiles/news-based.json"]},
+    {"id":"feature-phone-clank","repository":"https://github.com/anil-ganti-nbc/feature-phone-clank","primary_profile":"sku-based","secondary_profiles":[],"facts":{},"fact_sources":["profiles/sku-based.json"]},
+    {"id":"smartphone-clank","repository":"https://github.com/anil-ganti-nbc/smartphone-clank","primary_profile":"sku-based","secondary_profiles":[],"facts":{},"fact_sources":["profiles/sku-based.json"]},
+    {"id":"smartwatch-clank","repository":"https://github.com/anil-ganti-nbc/smartwatch-clank","primary_profile":"sku-based","secondary_profiles":[],"facts":{},"fact_sources":["profiles/sku-based.json"]},
+    {"id":"tablet-clank","repository":"https://github.com/anil-ganti-nbc/tablet-clank","primary_profile":"sku-based","secondary_profiles":[],"facts":{},"fact_sources":["profiles/sku-based.json"]}
+  ]
+}
