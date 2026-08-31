@@ -1,0 +1,20 @@
+# Deployment Pass 0A — Incident Ledger
+
+Each deployment ID is stable within this pass. “Reused” means the causal event
+was already recorded by Operations Pass 0 and is deliberately not an additional
+independent vote.
+
+| ID | Prior ID / reuse | Date | Repo/environment | Symptom and deployment state | Cause → impact → remediation | Lineage / domain / confidence |
+|---|---|---|---|---|---|---|
+| DEP-INC-001 | REUSED FROM OPERATIONS PASS 0: INC-007 | ~2026-08-22 | watch-clank staging Docker | Unset `IMAGE_TAG` selected a stale image predating migrations despite a successful-looking compose start | soft default → stale runtime/schema risk → required variable + regression test | INDEPENDENT INCIDENT; Deployment; HIGH |
+| DEP-INC-002 | REUSED FROM OPERATIONS PASS 0: INC-016 | undated, repeated | smartphone-clank production | zero-row schema appeared after `db upgrade`; code could run against accidental schema | `create_all()` was schema authority → recurring incorrect production state → Alembic-only mutation and fail-closed entrypoints | INDEPENDENT INCIDENT; Deployment/Data; HIGH |
+| DEP-INC-003 | REUSED FROM OPERATIONS PASS 0: INC-017 | 2026-08, cutover | smartphone-clank Hetzner | clean checkout failed after deployment on missing dependency and ignored YAML | dev machine hid undeclared state → deploy blocked → committed requirements/fixed ignore rule | INDEPENDENT INCIDENT; Deployment; HIGH |
+| DEP-INC-004 | REUSED FROM OPERATIONS PASS 0: INC-034 | 2026-08-30 | smartwatch production | production wrapper omitted Garmin proxy while soak wrapper did not; production path silently bypassed relay | independently maintained wrappers drifted → disabled required runtime wiring → canonical default propagated + regression test | INDEPENDENT INCIDENT; Deployment; HIGH |
+| DEP-INC-005 | REUSED FROM OPERATIONS PASS 0: INC-041 / INC-036 | 2026-08-23 | feature-phone then smartwatch production volumes | destructive volume action selected by name caused total loss, then partial loss | names treated as identity → production state destroyed → ADR-0009 draft contract; recovery differs by backup availability | INCIDENT INHERITANCE; Architecture/Security/Deployment overlap; HIGH |
+| DEP-INC-006 | REUSED FROM OPERATIONS PASS 0: INC-014 | 2026-08-06 | smartphone repository/fresh checkout | repo-enabled collectors could re-enable locally disabled production scope after a fresh checkout | local/repo divergence → pollution recurrence risk → independent scope gate and regression test | INDEPENDENT INCIDENT; Deployment/Operations; HIGH |
+| DEP-INC-007 | REUSED FROM OPERATIONS PASS 0: INC-035 | 2026-08-21 | smartwatch Hetzner | old and replacement schedules coexisted, duplicating execution lane | migration left another authority active → duplicate work risk → retired timer and explicit lane separation | INDEPENDENT INCIDENT; Operations/Deployment; HIGH |
+| DEP-INC-008 | REUSED FROM OPERATIONS PASS 0: INC-030 | 2026-08 | tablet fleet sweep | “timer not found” check missed Hetzner, yielding a false-negative deployment assertion | host scope incomplete → running state not verified → coverage gap documented | INDEPENDENT INCIDENT; Deployment; HIGH |
+| DEP-INC-009 | REUSED FROM OPERATIONS PASS 0: INC-031 | ongoing 2026-08-29 | tablet Hetzner | host ran Wave-1 allowlist while repo carried Wave-3 | deploy lag/no automatic resync → live host divergence → unresolved at survey | INDEPENDENT INCIDENT; Deployment; HIGH |
+| DEP-INC-010 | REUSED FROM OPERATIONS PASS 0: INC-040 | 2026-08 | diagnostic-clank instance census | stale instance found by census rather than an automatic truth check | no maintained instance evidence → unknown/stale runtime risk → phase0 checklist/preflight leaves unknowns explicit | SHARED GOVERNANCE; Deployment/Diagnostic; MODERATE |
+
+No incident is counted twice merely because it appears in Diagnostic Clank and an originating repository. Permanent remediation is strongest for DEP-INC-001–004; DEP-INC-005 remains governed but unactivated, and DEP-INC-009 is unresolved.
