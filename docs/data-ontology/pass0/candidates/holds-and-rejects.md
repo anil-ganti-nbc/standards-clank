@@ -1,5 +1,14 @@
 # Pass 0B — HOLD and REJECT cards
 
+> **Disposition (2026-08-31, operator-delegated triage):** every card
+> below has been ruled on — see
+> [../../holds-disposition.md](../../holds-disposition.md). Outcomes:
+> honest-unknown, cross-Clank identity, confidence-and-certainty,
+> canonical-overwrite, and regional-variant identity → **DEFER BEYOND
+> V1**; timestamp-shaped values → **REHOME** (diagnostic/testing
+> practice, confirmed); source-disagreement → **REJECT** (stands).
+> The cards below are preserved unmodified as the Pass 0B record.
+
 ## HOLD — Honest-unknown / availability-honesty backing (absorbs cluster 4 remainder + unknown-absent-vs-false)
 - **Invariant (candidate):** an operator-facing semantic guarantee ("we do not infer X") must be backed by queryable state, not presentation-only text; unknown/absence states (unknown, missing, null, not_applicable) must stay distinct from positive/negative facts (unavailable, out_of_stock, not_launched).
 - **Why HOLD:** the contrast is proven (smartphone's presentation-only release-state badge vs smartwatch-clank's real enum backing) but there is no incident and only one defect instance; the gap audit already rehomed "honest unknown" to DATA/ONTOLOGY. Revisit when the smartphone backlog is dispositioned or a second instance appears.
