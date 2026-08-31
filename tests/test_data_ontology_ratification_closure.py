@@ -240,10 +240,15 @@ def test_ui_standards_tag_still_resolves_to_the_expected_commit():
     assert resolved == "d11320704aed69a3d8f854c9264b184e392ec80f"
 
 
-def test_no_data_ontology_baseline_declared_yet():
-    """The operator explicitly deferred freezing this domain — a
-    data-ontology-standards-v1.0 tag or baselines/ manifest must not
-    exist yet; that is a future, separately-authorized decision."""
-    assert not any(REPO.glob("baselines/data-ontology*"))
-    tags = _git("tag", "-l", "data-ontology-standards-v1.0")
-    assert tags == ""
+def test_data_ontology_baseline_now_declared():
+    """At ratification closure (this file's original writing), the
+    operator had explicitly deferred freezing this domain, and this test
+    asserted no baselines/data-ontology* manifest or
+    data-ontology-standards-v1.0 tag existed yet. A later, separately-
+    authorized Baseline Freeze pass (preceded by a hold-resolution audit,
+    docs/data-ontology/holds-disposition.md) has since declared that
+    baseline — see tests/test_data_ontology_baseline_v1_0.py for the live
+    freeze guards. This test's remaining live job: the baseline exists
+    and references this same four-standard, four-decision corpus."""
+    manifest_paths = list(REPO.glob("baselines/data-ontology*"))
+    assert manifest_paths, "expected a baselines/data-ontology* manifest to exist post-freeze"

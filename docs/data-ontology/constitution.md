@@ -188,7 +188,8 @@ Full detail: [docs/data-ontology/pass0/adjudication.md](pass0/adjudication.md).
 
 ## Status of this domain
 
-**Not frozen.** Unlike `ui-standards-v1.0`, no `data-ontology-standards-v1.0`
-baseline has been declared. The next step is a targeted gap/hold-
-resolution audit on the HELD candidates above before that decision is
-made — see [standards/data-ontology/README.md](../../standards/data-ontology/README.md).
+**FROZEN as `data-ontology-standards-v1.0`** (2026-08-31), after a
+dedicated hold-resolution audit on the HELD/REHOME/REJECT candidates
+above concluded none of them advance into v1 — see
+[docs/data-ontology/holds-disposition.md](holds-disposition.md) and
+[baselines/data-ontology-standards-v1.0.json](../../baselines/data-ontology-standards-v1.0.json).

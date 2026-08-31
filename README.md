@@ -126,4 +126,7 @@ python -m pytest
 Validates fixtures against the same constraints as the JSON Schema files
 in `schemas/` (see [tests/validators.py](tests/validators.py) for why a
 lightweight hand-written validator is used instead of the `jsonschema`
-package).
+package). Run `pytest` directly and check its own exit status before
+committing — never pipe its output through another command unless you've
+verified the pipe preserves a failing exit code. See
+[docs/development-hygiene.md](docs/development-hygiene.md) for why.

@@ -46,8 +46,14 @@ values, C7 cross-Clank identity, and the MEDIUM/LOW clusters) remains
 exactly `HOLD`, `REHOME`, or `REJECT` — none were promoted by this
 closure.
 
-**Not frozen.** Unlike the UI domain (`ui-standards-v1.0`), this
-ratification closure does not itself declare a `data-ontology-standards-v1.0`
-baseline — several candidates remain explicitly HELD, and the next step
-is a targeted gap/hold-resolution audit asking whether those HOLDs are
-genuinely required before v1 or can safely stay deferred.
+**FROZEN as `data-ontology-standards-v1.0`** (2026-08-31). The
+[hold-resolution audit](../../docs/data-ontology/holds-disposition.md)
+ruled on every HELD/REHOME/REJECT candidate above and concluded zero of
+them advance into v1. See
+[baselines/data-ontology-standards-v1.0.json](../../baselines/data-ontology-standards-v1.0.json)
+and its
+[release notes](../../baselines/data-ontology-standards-v1.0-release-notes.md)
+for the frozen corpus and what remains explicitly outside it. As with the
+UI baseline, freezing does not forbid future standards — a later
+legitimate addition, revision, or retirement is expected to diverge from
+this historical snapshot; see the manifest's change policy.

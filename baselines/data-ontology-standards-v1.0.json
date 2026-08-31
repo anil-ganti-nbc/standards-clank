@@ -1,0 +1,89 @@
+{
+  "baseline_id": "data-ontology-standards-v1.0",
+  "corpus": "data-ontology",
+  "status": "FROZEN",
+  "freeze_date": "2026-08-31",
+  "freeze_commit": "ae586c4f1c24f835f6c191623362ff8fd7f1b3d8",
+  "standards": [
+    {
+      "id": "STD-DATA-COM-001",
+      "version": 1,
+      "status": "RATIFIED",
+      "title": "Continuity/epoch state must be explicit"
+    },
+    {
+      "id": "STD-DATA-COM-002",
+      "version": 2,
+      "status": "RATIFIED",
+      "title": "First-seen is not novelty; default novelty views must exclude baseline records by construction"
+    },
+    {
+      "id": "STD-DATA-COM-003",
+      "version": 2,
+      "status": "RATIFIED",
+      "title": "Entity-identity merges must be conservative, evidence-gated, auditable, and reversible"
+    },
+    {
+      "id": "STD-DATA-COM-004",
+      "version": 1,
+      "status": "RATIFIED",
+      "title": "Observation, canonical-fact/change, and operator-decision records must stay separable and traceable"
+    }
+  ],
+  "proposed": [],
+  "artifacts": {
+    "ratified_index": {
+      "path": "standards/data-ontology/ratified-index.json",
+      "sha256": "ee68759ec3863598765520d826b2b307dde484561d87c4dea0dd28e9184142e3"
+    },
+    "agent_checklist": {
+      "path": "standards/data-ontology/agent-checklist.json",
+      "sha256": "f21700b78f1469043288f3584f2d27bc2f611bb14f32c5014a0b939e6b93494e"
+    },
+    "constitution": {
+      "path": "docs/data-ontology/constitution.md"
+    },
+    "hold_resolution_audit": {
+      "path": "docs/data-ontology/holds-disposition.md",
+      "conclusion": "Zero concerns advance into a DATA v1 baseline."
+    },
+    "generator": {
+      "path": "tools/data_ontology_agent_layer.py",
+      "introduced_commit": "4407654"
+    }
+  },
+  "evidence_and_review_chain": [
+    "docs/data-ontology/pass0/ (Pass 0A evidence inventory + Pass 0B adversarial adjudication)",
+    "docs/data-ontology/pass1/ (Pass 1 candidate drafting)",
+    "docs/data-ontology/pass2/ (Pass 2 adversarial review)",
+    "Pass 2.5 (exact application of the two REVISE verdicts directly to STD-DATA-COM-002/003, no separate docs/ dossier; landed at commit d6f4e58)",
+    "docs/data-ontology/pass3/ (Pass 3 ratification survey)"
+  ],
+  "ratification_chain": [
+    "decisions/0010-data-com-001-decision.md",
+    "decisions/0011-data-com-002-decision.md",
+    "decisions/0012-data-com-003-decision.md",
+    "decisions/0013-data-com-004-decision.md"
+  ],
+  "ratification_closure_commit": "4407654",
+  "hold_resolution_chain": [
+    "docs/data-ontology/holds-disposition.md"
+  ],
+  "hold_resolution_commit": "cd4384b",
+  "held_set_excluded_from_v1": {
+    "defer_beyond_v1": [
+      "Honest-unknown / availability-honesty backing",
+      "Cross-Clank entity identity",
+      "Confidence-and-certainty semantics",
+      "Canonical fact overwrite discipline",
+      "Regional variant identity"
+    ],
+    "rehome": [
+      "Timestamp-shaped values (rehomed to diagnostic/testing practice)"
+    ],
+    "reject": [
+      "Source-disagreement representation"
+    ]
+  },
+  "change_policy": "Post-freeze normative Data/Ontology changes go through normal governance and result in a new standard, a versioned revision, a supersession, or a retirement. This manifest and the data-ontology-standards-v1.0 tag are immutable historical records and must never be rewritten; future corpus state may legitimately diverge from v1.0."
+}
