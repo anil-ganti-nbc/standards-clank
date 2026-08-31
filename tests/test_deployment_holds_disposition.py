@@ -35,10 +35,8 @@ def test_every_parked_residual_is_resolved_without_new_standard():
     assert all(record["status"] == "RATIFIED" and record["version"] == 1 for record in standards.values())
 
 
-def test_audit_preserves_rehomes_and_freeze_is_not_performed():
+def test_audit_preserves_rehomes_without_reopening_them():
     text = AUDIT.read_text(encoding="utf-8")
     assert "PROPOSED — REVIEWED DRAFT" in text and "ADR-0009" in text
     assert "Fleet Law 6 is ACTIVE" in text and "Law 9 is DEFERRED" in text
     assert "What would reopen this document" in text
-    assert not (REPO / "baselines" / "deployment-standards-v1.0.json").exists()
-    assert not (REPO / "baselines" / "deployment-standards-v1.0-release-notes.md").exists()

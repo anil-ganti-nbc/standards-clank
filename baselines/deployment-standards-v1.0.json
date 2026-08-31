@@ -1,0 +1,48 @@
+{
+  "baseline_id": "deployment-standards-v1.0",
+  "corpus": "deployment",
+  "status": "FROZEN",
+  "version": "1.0",
+  "freeze_date": "2026-08-31",
+  "freeze_commit": "8f7f78bb3be351d66ed1f314576e0762e1211d9e",
+  "immutable_tag": "deployment-standards-v1.0",
+  "standards": [
+    {"id": "STD-DEPLOY-COM-001", "version": 1, "status": "RATIFIED", "title": "Deployment completion must be verified as intended state materially running"},
+    {"id": "STD-DEPLOY-COM-002", "version": 1, "status": "RATIFIED", "title": "Persistent-state compatibility must gate normal operation"}
+  ],
+  "proposed": [],
+  "artifacts": {
+    "standard_files": {
+      "STD-DEPLOY-COM-001": {"path": "standards/deployment/STD-DEPLOY-COM-001.json", "sha256_lf_normalized": "ea8e7cf9347e31d809e768af23da1aaef05d2ecc3e6e03fd080b858428a98d42"},
+      "STD-DEPLOY-COM-002": {"path": "standards/deployment/STD-DEPLOY-COM-002.json", "sha256_lf_normalized": "6e47c7eee52710e52d4799ea5bffc498815f06a60b35350c1bcb5cdd3314ba61"}
+    },
+    "ratified_index": {"path": "standards/deployment/ratified-index.json", "sha256_lf_normalized": "d258eb2fbde7f39c5de211f08bd26b74d8f0deba38e987f3ed4d9888fe4786eb"},
+    "agent_checklist": {"path": "standards/deployment/agent-checklist.json", "sha256_lf_normalized": "4a3eef7cb52a8ef2d912bcba6ae60790a8201fc38cd5a036cb3f4fe57ed288fc"},
+    "constitution": {"path": "docs/deployment/constitution.md"},
+    "generator": {"path": "tools/deployment_agent_layer.py"},
+    "hold_resolution_audit": {"path": "docs/deployment/holds-disposition.md", "conclusion": "NO ESSENTIAL DEPLOYMENT CONTRACT MISSING"},
+    "known_evidence_index": null,
+    "conformance_audit": null
+  },
+  "evidence_and_review_chain": [
+    "docs/deployment/pass0/ (Pass 0A evidence inventory + Pass 0B adversarial adjudication)",
+    "docs/deployment/pass1/ (Pass 1 drafting)",
+    "docs/deployment/pass2/ (Pass 2 adversarial draft review)",
+    "docs/deployment/pass3/ (Pass 3 ratification survey)",
+    "decisions/0018-deploy-com-001-decision.md and decisions/0019-deploy-com-002-decision.md (operator ratification)",
+    "docs/deployment/holds-disposition.md (Pass 4 hold-resolution / final-gap audit)"
+  ],
+  "ratification_chain": ["decisions/0018-deploy-com-001-decision.md", "decisions/0019-deploy-com-002-decision.md"],
+  "hold_resolution_chain": ["docs/deployment/holds-disposition.md"],
+  "evidence_caveat": "10 confirmed Deployment incidents were reused from Operations Pass 0; 0 newly discovered Deployment-specific incidents. Reuse was sufficient because the same causal events evidenced distinct, narrowly adjudicated Deployment contracts rather than being counted as new votes.",
+  "residual_dispositions": {
+    "target_environment_identity": "No standalone standard; COM-001 target-scope facet.",
+    "identity_mechanics": "Fleet Law 6 ACTIVE authority; no duplicate Deployment standard.",
+    "law_9": "DEFERRED in clank-architecture; not activated.",
+    "destructive_state": "Rehomed to ADR-0009 / Architecture-Security-Recovery; ADR-0009 remains PROPOSED — REVIEWED DRAFT.",
+    "config_congruence": "COM-001 facet.",
+    "partial_runtime_wiring": "COM-001 facet.",
+    "schema_migration_mechanics": "Implementation detail beneath COM-002 compatibility outcome."
+  },
+  "change_policy": "This manifest and the deployment-standards-v1.0 tag are immutable historical records and must never be rewritten or moved. Post-freeze normative changes require normal governance and a versioned revision, new standard, supersession, or retirement. Documentation, harness, agent-layer, provenance, and conformance-audit changes land only as forward commits. No Deployment conformance audit had been performed before this baseline; therefore no Deployment known-evidence-index is part of v1.0. That intentional absence does not weaken the normative freeze."
+}
