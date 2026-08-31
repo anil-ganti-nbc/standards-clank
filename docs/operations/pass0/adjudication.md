@@ -101,6 +101,17 @@ Narrowed: applicability wherever locks must survive container/namespace
 boundaries or PID reuse; the fleet runs Docker, NAS, and Windows
 simultaneously, so fleet-wide applicability stands.
 
+> **Pass 1.5 resolution (2026-08-31):** OPS-D advanced as a distinct
+> candidate — the invariant abstracts to exclusivity-marker soundness
+> (an exclusivity/ownership marker must never be reclaimed, honored, or
+> acted upon solely from an identifier whose liveness/ownership cannot
+> be proven in the current execution context). Card:
+> [candidates/ops-d-exclusivity-marker-soundness.md](candidates/ops-d-exclusivity-marker-soundness.md).
+> Pass 1 omitted it from commissioned scope; Pass 1.5 resolves the
+> omission — see
+> [../../pass1/ops-d-resolution.md](../../pass1/ops-d-resolution.md).
+> No STD-OPS-COM-004 drafted (reserved for separate commission).
+
 ### 3+4. Health-honesty two-axis complement — MERGE, ADVANCE (OPS-B)
 
 The most convergently-adopted pattern in the survey (7/9 Clanks, several
