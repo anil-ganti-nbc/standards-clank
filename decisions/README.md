@@ -22,3 +22,7 @@ substance.
 - [0011-data-com-002-decision.md](0011-data-com-002-decision.md) (Accepted 2026-08-31)
 - [0012-data-com-003-decision.md](0012-data-com-003-decision.md) (Accepted 2026-08-31)
 - [0013-data-com-004-decision.md](0013-data-com-004-decision.md) (Accepted 2026-08-31)
+- [0014-ops-com-001-decision.md](0014-ops-com-001-decision.md) (AWAITING OPERATOR DECISION)
+- [0015-ops-com-002-decision.md](0015-ops-com-002-decision.md) (AWAITING OPERATOR DECISION)
+- [0016-ops-com-003-decision.md](0016-ops-com-003-decision.md) (AWAITING OPERATOR DECISION)
+- [0017-ops-com-004-decision.md](0017-ops-com-004-decision.md) (AWAITING OPERATOR DECISION)
