@@ -128,7 +128,8 @@ def test_frozen_tags_untouched():
     for tag, expected in FROZEN_TAGS.items():
         try:
             actual = subprocess.run(
-                ["git", "rev-parse", tag], cwd=REPO, capture_output=True, text=True, check=True
+                ["git", "rev-parse", tag], cwd=REPO, capture_output=True, text=True,
+                check=True, stdin=subprocess.DEVNULL,
             ).stdout.strip()
         except (OSError, subprocess.CalledProcessError) as exc:
             pytest.skip(f"git unavailable or tag unreadable: {exc}")
