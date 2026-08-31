@@ -1,5 +1,12 @@
 # watch-clank M2 — informed remediation plan
 
+```json
+{"clank":"watch-clank","date":"2026-08-31","findings":[]}
+```
+
+This planning artifact is deliberately excluded from automatic known-evidence
+admission; the M1 machine-readable audit remains the conformance record.
+
 ## Scope and state
 
 This plan follows M1 finding `WC-M1-001` exactly. Watch remains at

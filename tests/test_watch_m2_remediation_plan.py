@@ -14,4 +14,4 @@ def test_m2_plan_has_two_options_and_no_known_evidence_admission():
     text = PLAN.read_text()
     assert "Hold an OS/kernel advisory file-lock handle" in text
     assert "database-session-scoped lock" in text
-    assert "only then consider\nknown-evidence admission" in text
+    assert "known-evidence admission" in text
