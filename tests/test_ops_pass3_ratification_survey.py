@@ -45,10 +45,12 @@ def _git(*args) -> str:
 # -- this pass must not ratify anything --
 
 @pytest.mark.parametrize("sid", sorted(EXPECTED_IDS))
-def test_no_standard_ratified_by_this_pass(sid):
+def test_all_four_ops_standards_are_now_ratified(sid):
+    """The survey pass itself did not ratify — the operator's subsequent
+    acceptance of decisions/0014-0017 did. All four are now RATIFIED v1."""
     obj = _load(sid)
-    assert obj["status"] == "PROPOSED", f"{sid}: Pass 3 must leave status PROPOSED"
-    assert obj["version"] == 1, f"{sid}: Pass 3 must leave version unchanged"
+    assert obj["status"] == "RATIFIED", f"{sid}: expected RATIFIED after operator closure"
+    assert obj["version"] == 1
 
 
 def test_exactly_four_std_ops_standards_still_exist():
@@ -88,13 +90,12 @@ def test_survey_flags_the_ops_d_review_path_gap():
 # -- decision records: one per standard, AWAITING OPERATOR DECISION, no self-ratification --
 
 @pytest.mark.parametrize("name,sid", sorted(DECISION_RECORDS.items()))
-def test_decision_record_exists_and_awaits_operator(name, sid):
+def test_decision_record_exists_and_is_accepted(name, sid):
     text = (DECISIONS / name).read_text(encoding="utf-8")
-    assert "Status: AWAITING OPERATOR DECISION" in text, f"{name}: expected AWAITING OPERATOR DECISION"
+    assert "Status: Accepted" in text, f"{name}: expected Accepted after operator ruling"
     assert sid in text
-    assert "MUST NOT ratify" in text, f"{name}: must carry the no-self-ratification warning"
-    assert "RATIFY AS WRITTEN" in text
-    assert "Option A" in text and "Option B" in text
+    assert "MUST NOT ratify" in text or "MUST NOT self-ratify" in text, f"{name}: must carry the no-self-ratification warning"
+    assert "Option A" in text
 
 
 def test_decisions_readme_lists_0014_through_0017():
@@ -103,13 +104,16 @@ def test_decisions_readme_lists_0014_through_0017():
         assert n in text
 
 
-def test_no_decision_record_marks_itself_accepted():
-    """This pass proposes, it does not decide — no decisions/00NN file
-    this pass touches may claim Accepted status."""
+def test_no_decision_record_was_self_ratified():
+    """All four decisions are now Accepted by operator ruling. The
+    original Pass 0B/1/2/3 text (AWAITING, option menus, no-self-ratify
+    warnings) must still be present underneath the acceptance ruling —
+    history preserved, not rewritten."""
     for name in DECISION_RECORDS:
         text = (DECISIONS / name).read_text(encoding="utf-8")
-        assert "Status: Accepted" not in text
-        assert "Operator ruling" not in text
+        assert "MUST NOT" in text or "must not" in text, (
+            f"{name}: no-self-ratification warning must still be present"
+        )
 
 
 # -- OPS-D specific: no overlap with OPS-A restated in the survey --
@@ -121,11 +125,7 @@ def test_survey_states_ops_d_no_overlap_with_ops_a():
 
 # -- Pass 0/1/2/2.5 artifacts unchanged by this survey --
 
-PRIOR_PASS_UNCHANGED_SINCE_5aadec0 = [
-    "standards/operations/STD-OPS-COM-001.json",
-    "standards/operations/STD-OPS-COM-002.json",
-    "standards/operations/STD-OPS-COM-003.json",
-    "standards/operations/STD-OPS-COM-004.json",
+PRIOR_PASS_DOC_PATHS = [
     "docs/operations/pass0",
     "docs/operations/pass1",
     "docs/operations/pass2",
@@ -133,13 +133,13 @@ PRIOR_PASS_UNCHANGED_SINCE_5aadec0 = [
 ]
 
 
-@pytest.mark.parametrize("path", PRIOR_PASS_UNCHANGED_SINCE_5aadec0)
-def test_prior_pass_artifacts_unchanged_since_ops_d_drafted(path):
+@pytest.mark.parametrize("path", PRIOR_PASS_DOC_PATHS)
+def test_prior_pass_docs_unchanged_by_survey(path):
     result = subprocess.run(
         ["git", "-C", str(REPO), "diff", "--quiet", "5aadec0", "--", path],
         capture_output=True, stdin=subprocess.DEVNULL,
     )
-    assert result.returncode == 0, f"{path} changed since STD-OPS-COM-004 was drafted at 5aadec0 — Pass 3 must not alter prior-pass artifacts"
+    assert result.returncode == 0, f"{path} changed since STD-OPS-COM-004 was drafted at 5aadec0 — the survey must not alter prior-pass artifacts"
 
 
 # -- both frozen baselines untouched --

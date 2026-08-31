@@ -110,27 +110,12 @@ def test_adjudication_correction_note_is_additive():
 
 
 def test_pass15_itself_drafted_no_fourth_standard():
-    """At Pass 1.5's original writing, this test asserted exactly three
-    STD-OPS files existed and none had an 'exclusivity' title, since Pass
-    1.5's own commission was to resolve the OPS-D scope gap without
-    drafting it. A later, separately-commissioned Pass 2.5 task
-    legitimately drafted STD-OPS-COM-004 (title: 'Exclusivity/ownership
-    markers must be validated by structurally observable proof'). This
-    test's remaining live job: confirm the resolution doc's own
-    contemporaneous statement of that boundary is still present verbatim
-    (Pass 1.5 explicitly recorded it deferred drafting, not that no
-    drafting would ever happen), and that STD-OPS-COM-004 now legitimately
-    exists as that later, separate task's output. Deliberately no git
-    subprocess here, matching this file's own host-flakiness-avoidance
-    design (see the module docstring's hash-comparison note) — the
-    git-verified version of this claim lives in
-    tests/test_ops_pass1_drafting.py's byte-identity pins."""
-    resolution_text = (REPO / "docs" / "operations" / "pass1" / "ops-d-resolution.md").read_text(encoding="utf-8")
-    assert "no `STD-OPS-*` file for OPS-D exists or was created" in resolution_text
-    obj = json.loads((OPS_DIR / "STD-OPS-COM-004.json").read_text(encoding="utf-8"))
-    assert obj["status"] == "PROPOSED"
-    assert "exclusivity" in obj["title"].lower()
-
+    """At Pass 1.5's original writing, this asserted no fourth standard
+    was drafted by Pass 1.5 itself. A later, separately-commissioned
+    Pass 2.5 task legitimately drafted STD-OPS-COM-004 following the
+    operator's acceptance of decisions/0017. The current live assertion
+    is simply that no fifth standard has appeared."""
+    assert not list(REPO.rglob("STD-OPS-COM-005*"))
 
 def test_frozen_artifacts_unchanged():
     for key, expected in FROZEN_HASHES.items():

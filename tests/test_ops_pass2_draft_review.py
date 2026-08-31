@@ -74,11 +74,11 @@ FROZEN_HASHES = {
     "baselines/data-ontology-standards-v1.0.json":
         "eb6ec348bf777365c414d86f2f3b81f41d2bee5b685285b60d809dc5b2281836",
     "standards/operations/STD-OPS-COM-001.json":
-        "8c1d09d0353e47f9389d9938436eefab0b313cd695a9b0f089799ce5667123aa",
+        "8ef94dd51a31cfb013b711698131f48436852b8159107e79aef8165d93a4f021",
     "standards/operations/STD-OPS-COM-002.json":
-        "e256d73affab269e943bdd07d10f0248928a9e924033609967c0daa9931da9b6",
+        "f75f8670d2acfa6bf9b451c954e3f3bd4c792427dfed49524bd747e3495139ce",
     "standards/operations/STD-OPS-COM-003.json":
-        "5cfb26d4580645965e62ab0504485a0765ba460a09310d997f7a1919c9d24fab",
+        "d36f02e4cdb649ac56efe59526441b670e17a058a9b678e37184aa1c3feaffbc",
 }
 
 
@@ -144,10 +144,12 @@ def test_ops_d_drafting_constraints_specified_without_drafting():
         assert constraint in text, f"OPS-D drafting constraint missing: {constraint!r}"
 
 
-def test_no_ops_standard_is_ratified():
+def test_all_ops_standards_are_ratified():
+    """The operator has ratified all four OPS standards (decisions/0014-0017
+    accepted; ratification closure 4407654). All four should be RATIFIED."""
     for path in sorted(OPS_DIR.glob("STD-OPS-*.json")):
         d = json.loads(path.read_text())
-        assert d["status"] == "PROPOSED", f"{path.name}: review must not ratify"
+        assert d["status"] == "RATIFIED", f"{path.name}: expected RATIFIED"
 
 
 def test_pass2_reviewed_exactly_the_three_drafted_standards_and_created_none():

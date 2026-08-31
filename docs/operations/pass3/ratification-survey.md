@@ -139,3 +139,16 @@ other ratified/proposed standards.
 - [decisions/0015-ops-com-002-decision.md](../../decisions/0015-ops-com-002-decision.md)
 - [decisions/0016-ops-com-003-decision.md](../../decisions/0016-ops-com-003-decision.md)
 - [decisions/0017-ops-com-004-decision.md](../../decisions/0017-ops-com-004-decision.md)
+
+## Post-survey ratification closure (2026-08-31)
+
+All four OPS standards ratified by operator acceptance (decisions/0014-0017).
+The QC GUI absence remains non-normative product backlog; COM-003/004
+remain N/A per their ratified triggers.
+
+## Post-ratification closure note (2026-08-31)
+
+All four OPS standards ratified by operator acceptance (decisions/0014-0017).
+The QC GUI absence remains non-normative product backlog; COM-003/004
+remain N/A per their ratified triggers. The destructive-production-action
+concern (#10) remains DEFERRED to clank-architecture ADR-0009 governance.

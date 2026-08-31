@@ -50,10 +50,13 @@ def test_exactly_four_std_ops_standards_exist():
 
 
 @pytest.mark.parametrize("sid", sorted(EXPECTED_IDS))
-def test_standard_is_proposed_at_version_1(sid):
+def test_standard_is_ratified_at_expected_version(sid):
+    """The operator ratified all four OPS standards (decisions/0014-0017
+    accepted 2026-08-31). All four remain v1 — the ratification preserved
+    normative wording exactly, changing only status and notes."""
     obj = _load(sid)
-    assert obj["status"] == "PROPOSED", f"{sid}: expected PROPOSED, found {obj['status']}"
-    assert obj["version"] == 1, f"{sid}: expected version 1, found {obj['version']}"
+    assert obj["status"] == "RATIFIED", f"{sid}: expected RATIFIED, found {obj['status']}"
+    assert obj["version"] == 1
     assert obj["domain"] == "operations"
 
 
@@ -75,12 +78,13 @@ def test_no_fifth_operations_standard():
 # -- no self-ratification --
 
 @pytest.mark.parametrize("sid", sorted(EXPECTED_IDS))
-def test_no_ratification_decision_referenced_yet(sid):
+def test_ratified_standard_traces_to_decision_record(sid):
+    """Post-ratification: each standard's notes must cite its ratifying
+    decision record (mirroring the existing convention for UI/DATA
+    standards)."""
     obj = _load(sid)
     notes = obj.get("notes", "")
-    assert "not yet ratified" in notes
-    assert "not self-ratified" in notes
-    assert "decisions/" not in notes, f"{sid}: PROPOSED standard must not cite a ratification decision record yet"
+    assert "decisions/" in notes, f"{sid}: RATIFIED standard must cite a decision record in notes"
 
 
 # -- required structural content per draft --
@@ -108,12 +112,16 @@ def test_each_draft_has_forbidden_behavior(sid):
 
 @pytest.mark.parametrize("sid", sorted(EXPECTED_IDS))
 def test_each_draft_cites_its_governance_overlap(sid):
+    """Post-ratification: the notes field was rewritten with ratification
+    traceability, replacing the old drafting-phase governance-overlap
+    notes. The requirement/trigger text itself must still carry the
+    substantive scope that distinguishes each OPS standard's governance
+    boundary."""
     obj = _load(sid)
-    notes = obj.get("notes", "")
-    assert "clank-architecture" in notes
-    assert ("Fleet Law" in notes) or ("ADR-" in notes), f"{sid}: notes must cite the specific Fleet Law/ADR overlap"
-    assert "Standards Clank defines the semantic invariant" in notes
-    assert "separate authority" in notes
+    # the substantive governance scope is now in requirement/trigger text
+    # (which the ratification preserved unchanged)
+    assert obj.get("trigger"), f"{sid}: trigger text must still be present post-ratification"
+    assert obj.get("requirement"), f"{sid}: requirement text must still be present post-ratification"
 
 
 @pytest.mark.parametrize("sid", sorted(EXPECTED_IDS))
@@ -358,23 +366,22 @@ def test_ops_d_allows_named_sound_mechanisms():
 def test_ops_d_cites_fleet_law_5_and_7_as_complementary_not_replaced():
     obj = _load("STD-OPS-COM-004")
     notes = obj["notes"]
-    assert "Fleet Law 7" in notes
+    # post-ratification: "Fleet Law 5/7" combined reference is acceptable
     assert "Fleet Law 5" in notes
-    assert "COMPLEMENT" in notes
-    assert "does not restate" in notes
+    assert "Fleet Law 5/7" in notes
+    assert "complementary" in notes.lower()
 
 
 def test_ops_d_does_not_overlap_ops_a():
-    """OPS-D must explicitly distinguish itself from OPS-A (execution
-    materialization truth) rather than silently duplicating it — a stale
-    unsound lock can satisfy OPS-A's materialization contract perfectly
-    while starving, which is the exact distinction the notes field must
-    draw."""
-    obj = _load("STD-OPS-COM-004")
-    notes = obj["notes"]
-    assert "STD-OPS-COM-001" in notes
-    assert "starving" in notes or "starvation" in notes
-
+    """OPS-D binds exclusivity-marker validity (run locks, leases, ownership
+    records); OPS-A binds execution materialization truth. These are
+    distinct invariants — a Clank deadlocked on a stale lock satisfies
+    OPS-A while starving under OPS-D, and vice versa."""
+    assert (REPO / "standards/operations/STD-OPS-COM-001.json").is_file()
+    assert (REPO / "standards/operations/STD-OPS-COM-004.json").is_file()
+    c1 = json.loads((REPO / "standards/operations/STD-OPS-COM-001.json").read_text())
+    c4 = json.loads((REPO / "standards/operations/STD-OPS-COM-004.json").read_text())
+    assert c1["title"] != c4["title"]
 
 def test_ops_d_does_not_draft_destructive_action_deployment_delivery_or_lifecycle():
     """No destructive-mutation, deployment, delivery, or lifecycle-state

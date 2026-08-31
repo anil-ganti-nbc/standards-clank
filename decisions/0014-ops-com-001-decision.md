@@ -1,7 +1,7 @@
 # 0014 — Operations ratification: STD-OPS-COM-001 (Execution materialization truth)
 
 Date: 2026-08-31
-Status: AWAITING OPERATOR DECISION
+Status: Accepted (operator ruling, 2026-08-31)
 Survey dossier: [../docs/operations/pass3/ratification-survey.md](../docs/operations/pass3/ratification-survey.md)
 Standard: [../standards/operations/STD-OPS-COM-001.json](../standards/operations/STD-OPS-COM-001.json) (v1, PROPOSED)
 
@@ -46,3 +46,8 @@ RATIFY AS WRITTEN (agent recommendation — operator decides).
   single-authority territory; Pass 1's own dossier flagged this exact
   question for adversarial review and it was not specifically contested
   at Pass 2, so B is not evidence-forced.
+
+## Operator ruling — ACCEPTED (2026-08-31)
+
+The operator ratified STD-OPS-COM-001 as written.
+See the ratification closure commit for full traceability.

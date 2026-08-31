@@ -1,7 +1,7 @@
 # 0016 — Operations ratification: STD-OPS-COM-003 (Promotion/soak evidence integrity)
 
 Date: 2026-08-31
-Status: AWAITING OPERATOR DECISION
+Status: Accepted (operator ruling, 2026-08-31)
 Survey dossier: [../docs/operations/pass3/ratification-survey.md](../docs/operations/pass3/ratification-survey.md)
 Standard: [../standards/operations/STD-OPS-COM-003.json](../standards/operations/STD-OPS-COM-003.json) (v1, PROPOSED)
 
@@ -53,3 +53,8 @@ RATIFY AS WRITTEN (agent recommendation — operator decides).
   rather than four independently-graded ones, and facet 1's dependency
   relationship to INC-013 (a MUST-worthy incident) argues against
   softening it specifically.
+
+## Operator ruling — ACCEPTED (2026-08-31)
+
+The operator ratified STD-OPS-COM-003 as written.
+See the ratification closure commit for full traceability.

@@ -1,7 +1,7 @@
 # 0015 — Operations ratification: STD-OPS-COM-002 (Health-honesty two-axis complement)
 
 Date: 2026-08-31
-Status: AWAITING OPERATOR DECISION
+Status: Accepted (operator ruling, 2026-08-31)
 Survey dossier: [../docs/operations/pass3/ratification-survey.md](../docs/operations/pass3/ratification-survey.md)
 Standard: [../standards/operations/STD-OPS-COM-002.json](../standards/operations/STD-OPS-COM-002.json) (v1, PROPOSED)
 
@@ -48,3 +48,8 @@ RATIFY AS WRITTEN (agent recommendation — operator decides).
   as a documentation-clarity improvement; not evidence-forced, since the
   boundary is already stated in full in fields a reader of the standard
   will see.
+
+## Operator ruling — ACCEPTED (2026-08-31)
+
+The operator ratified STD-OPS-COM-002 as written.
+See the ratification closure commit for full traceability.

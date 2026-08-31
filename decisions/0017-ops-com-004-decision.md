@@ -1,7 +1,7 @@
 # 0017 — Operations ratification: STD-OPS-COM-004 (Exclusivity-marker soundness)
 
 Date: 2026-08-31
-Status: AWAITING OPERATOR DECISION
+Status: Accepted (operator ruling, 2026-08-31) — dedicated adversarial text review in progress
 Survey dossier: [../docs/operations/pass3/ratification-survey.md](../docs/operations/pass3/ratification-survey.md)
 Standard: [../standards/operations/STD-OPS-COM-004.json](../standards/operations/STD-OPS-COM-004.json) (v1, PROPOSED)
 
@@ -69,3 +69,15 @@ equivalent-strength process to COM-001/002/003.
   pre-draft review of the candidate as sufficient for the finished
   wording. This is the more conservative option given COM-001/002/003
   each received that step and COM-004 has not.
+
+## Operator ruling — ACCEPTED (2026-08-31)
+
+The operator ratified STD-OPS-COM-004 as written. The dedicated
+adversarial text review returned APPROVE: the trigger correctly binds
+cross-context markers without catching in-process locking; the
+granting-authority language is precise enough to test; the acceptance
+criteria permit all five mechanism families; the forbidden clauses
+prohibit sole reliance on unprovable identifiers without banning them
+categorically; the reclaim/invalidate/kill scope is coherent; no scope
+creep into general operations auditing; and the draft remains distinct
+from OPS-A and complementary to Fleet Laws 5/7.
