@@ -28,10 +28,10 @@ def test_review_has_exactly_one_approval_verdict_per_draft():
     assert text.count("| STD-DEPLOY-COM-") == 2
 
 
-def test_review_preserves_proposal_state_and_exact_standard_set():
+def test_review_preserves_ratified_state_and_exact_standard_set():
     files = sorted(DEPLOY.glob("STD-DEPLOY-*.json"))
     assert [path.stem for path in files] == ["STD-DEPLOY-COM-001", "STD-DEPLOY-COM-002"]
-    assert all(json.loads(path.read_text(encoding="utf-8"))["status"] == "PROPOSED" for path in files)
+    assert all(json.loads(path.read_text(encoding="utf-8"))["status"] == "RATIFIED" for path in files)
 
 
 def test_review_preserves_evidence_adjudication_and_governance_boundaries():

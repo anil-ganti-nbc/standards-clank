@@ -17,9 +17,16 @@ PASS3 = REPO / "docs" / "deployment" / "pass3"
 DECISIONS = REPO / "decisions"
 SURVEY = PASS3 / "ratification-survey.md"
 
-STD_HASHES = {
-    "STD-DEPLOY-COM-001.json": "6f07d90cf4ba8046dbf2fa50e2b6b35f2313985dc3c1b10aa48f7aaca5df32b8",
-    "STD-DEPLOY-COM-002.json": "f7f52bd05eb19f8ecce2d97467b5ed2ee38ea418fb2d7dc43599c16f0bf78ce7",
+NORMATIVE_FIELDS = [
+    "id", "title", "domain", "level", "version", "applies_to", "trigger",
+    "requirement", "rationale", "forbidden", "acceptance",
+    "exceptions_allowed", "evidence", "origin", "introduced", "supersedes",
+]
+# Normative-subset hashes captured immediately before the operator's
+# ratification ruling; prove the ruling changed no normative wording.
+NORMATIVE_HASHES = {
+    "STD-DEPLOY-COM-001": "54599f9c67c1625be7d1a4c203a56873b1c966afb47ec30e119bbb0b68bdfe09",
+    "STD-DEPLOY-COM-002": "1b3eab4aa33117b0f13a25cac7199c8c6b2c78a37271817e0a616c42c105836b",
 }
 PASS1_HASHES = {
     "README.md": "a78bca4a3e6a82f2592e1f98c8b3a90f4c3238ae6888cf014ab36fb40597d29b",
@@ -59,40 +66,47 @@ def test_exactly_one_recommendation_per_standard_from_valid_set():
         assert recommendation in VALID_RECOMMENDATIONS, recommendation
 
 
-def test_both_standards_remain_proposed_v1():
-    for name in STD_HASHES:
-        record = json.loads((DEPLOY / name).read_text(encoding="utf-8"))
-        assert record["status"] == "PROPOSED", name
-        assert record["version"] == 1, name
+def test_both_standards_now_ratified_v1_with_zero_proposed():
+    for sid in NORMATIVE_HASHES:
+        record = json.loads((DEPLOY / f"{sid}.json").read_text(encoding="utf-8"))
+        assert record["status"] == "RATIFIED", sid
+        assert record["version"] == 1, sid
+    proposed = [path for path in DEPLOY.glob("STD-DEPLOY-*.json") if json.loads(path.read_text(encoding="utf-8"))["status"] == "PROPOSED"]
+    assert proposed == []
 
 
-def test_normative_wording_unchanged():
-    for name, expected in STD_HASHES.items():
-        assert _hash(DEPLOY / name) == expected, name
+def test_normative_wording_unchanged_by_ratification():
+    for sid, expected in NORMATIVE_HASHES.items():
+        record = json.loads((DEPLOY / f"{sid}.json").read_text(encoding="utf-8"))
+        subset = {key: record[key] for key in NORMATIVE_FIELDS}
+        blob = json.dumps(subset, sort_keys=True, ensure_ascii=False)
+        assert hashlib.sha256(blob.encode()).hexdigest() == expected, f"{sid}: normative wording changed"
 
 
-def test_decision_records_exist_pending_and_forbid_self_ratification():
+def test_decision_records_accepted_and_preserve_survey_analysis():
     records = {
         "0018": DECISIONS / "0018-deploy-com-001-decision.md",
         "0019": DECISIONS / "0019-deploy-com-002-decision.md",
     }
     for number, path in records.items():
-        text = path.read_text(encoding="utf-8")
         assert path.is_file(), number
-        assert "Status: PENDING" in text, number
-        assert "**PENDING**" in text, number
+        text = path.read_text(encoding="utf-8")
+        assert "Status: Accepted" in text, number
+        assert "RATIFY AS WRITTEN" in text, number
         assert "0002-no-agent-self-ratification.md" in text, number
-        assert "RATIFIED" not in text.split("## Operator decision")[0].split("## Recommendation")[1], number
+        for preserved in ("Evidence basis", "Strongest supporting argument", "Strongest objection",
+                          "Option B", "Evidence-sufficiency result", "Governance-overlap result"):
+            assert preserved in text, f"{number}: survey analysis section missing: {preserved}"
+        assert "PENDING — awaiting operator ruling. Not ratified" not in text, number
     assert not list(DECISIONS.glob("0020-*")), "no additional decision records expected"
 
 
-def test_no_self_ratification_of_deployment_standards():
-    for name in STD_HASHES:
-        record = json.loads((DEPLOY / name).read_text(encoding="utf-8"))
-        assert record["status"] == "PROPOSED"
-        assert "RATIFIED" != record["status"]
+def test_ratification_traces_to_operator_decisions_not_self_ratification():
+    for sid in NORMATIVE_HASHES:
+        record = json.loads((DEPLOY / f"{sid}.json").read_text(encoding="utf-8"))
+        assert record["status"] == "RATIFIED"
+        assert "operator acceptance of decisions/00" in record["notes"], sid
     survey = survey_text()
-    assert "No standard was ratified and no" in survey
     assert "decisions/0002-no-agent-self-ratification.md" in survey
 
 

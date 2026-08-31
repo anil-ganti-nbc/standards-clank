@@ -3,7 +3,7 @@
   "title": "Deployment completion must be verified as intended state materially running",
   "domain": "deployment",
   "level": "MUST",
-  "status": "PROPOSED",
+  "status": "RATIFIED",
   "version": 1,
   "applies_to": [],
   "trigger": "Applies where a Clank represents a transition from a declared intended deployment state into a target runtime/environment as complete. A purely local tool with no meaningful deployment transition is N/A. The trigger does not require Git, a repository checkout, a host, a container, or a particular transport.",
@@ -34,5 +34,5 @@
   "origin": "DIAGNOSTIC_INCIDENT",
   "introduced": "2026-08-31",
   "supersedes": null,
-  "notes": "PROPOSED in Deployment Pass 1 from Pass 0B candidate DEP-A. This standard owns completion/congruence only. Fleet Law 5 remains the ACTIVE authority for scheduler exclusivity; Fleet Law 6 remains the ACTIVE authority for host-evidenced SHA/digest mechanics; deferred Law 9 remains separate. It does not duplicate OPS-COM-001: Operations asks whether the execution that ran materialised and what outcome it produced, while this asks whether the state materially running is the intended deployment state. No ratification or ADR activation occurred."
+  "notes": "RATIFIED 2026-08-31 by operator acceptance of decisions/0018-deploy-com-001-decision.md (Option A — RATIFY AS WRITTEN; Deployment Pass 3 ratification survey over two PROPOSED DEPLOY standards; COM-001 approved for ratification survey in the Pass 2 adversarial review). Version 1 text unchanged. Drafted in Deployment Pass 1 from Pass 0B candidate DEP-A. This standard owns completion/congruence only. Fleet Law 5 remains the ACTIVE authority for scheduler exclusivity; Fleet Law 6 remains the ACTIVE authority for host-evidenced SHA/digest mechanics; deferred Law 9 remains separate. It does not duplicate OPS-COM-001: Operations asks whether the execution that ran materialised and what outcome it produced, while this asks whether the state materially running is the intended deployment state. No ADR activation occurred."
 }

@@ -1,0 +1,12 @@
+[
+  {
+    "standard": "STD-DEPLOY-COM-001",
+    "question": "When this Clank represents a deployment as complete, can it show evidence — appropriate to the stated target scope — that the intended artifact/revision (and, where correctness depends on them, the deploy-critical configuration and required runtime wiring) is what is materially running, rather than resting on the deploy command's exit, repository state, copied files, an image build, or a restart alone?",
+    "failure_means": "A deployment is declared complete because the deploy/build/restart command succeeded or the repository carries the intended state; a partially converged multi-target rollout is represented as complete; or no evidence exists that is capable of comparing the intended and actually running states."
+  },
+  {
+    "standard": "STD-DEPLOY-COM-002",
+    "question": "Where this Clank's code depends on persistent structured state with an independently evolvable compatibility contract, does a barrier before normal work determine code/state compatibility, refuse normal work fail-closed on known incompatibility, and leave evidence identifying compatibility gating as the reason — with process start, database connectivity, or table existence never treated as compatibility proof by itself?",
+    "failure_means": "Normal work is admitted while the deployed code and required persistent-state contract are known to be incompatible; connectivity/table existence/create_all completion is treated as compatibility proof; or an incompatible-state refusal happens silently with no evidence identifying the gate as the cause."
+  }
+]

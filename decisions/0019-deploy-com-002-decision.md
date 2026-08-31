@@ -1,13 +1,13 @@
 # 0019 — Deployment ratification: STD-DEPLOY-COM-002 (Persistent-state compatibility gates normal operation)
 
 Date: 2026-08-31
-Status: PENDING (operator decision required)
+Status: Accepted (operator ruling, 2026-08-31)
 Survey dossier: [../docs/deployment/pass3/ratification-survey.md](../docs/deployment/pass3/ratification-survey.md)
 Standard: [../standards/deployment/STD-DEPLOY-COM-002.json](../standards/deployment/STD-DEPLOY-COM-002.json) (v1, PROPOSED)
 
-An agent MUST NOT ratify this standard (see
-[0002-no-agent-self-ratification.md](0002-no-agent-self-ratification.md)).
-This record creates no normative status; the standard remains PROPOSED.
+An agent MUST NOT ratify a standard unilaterally (see
+[0002-no-agent-self-ratification.md](0002-no-agent-self-ratification.md));
+ratification occurred only by this recorded operator ruling.
 
 ## Standard ID / version
 
@@ -78,7 +78,16 @@ invariant distinctness — but it leaves a known, already-recurred production
 failure shape unstandardised while two fleets have independently converged
 on the gate.
 
-## Operator decision
+## Operator ruling — ACCEPTED (2026-08-31)
 
-**PENDING** — awaiting operator ruling. Not ratified by this record or by
-any agent.
+The operator chose **Option A: RATIFY AS WRITTEN**. STD-DEPLOY-COM-002 v1 is
+ratified as written; version 1 normative text unchanged. The strongest
+objection and genuine Option B above are preserved on record as declined
+alternatives, not smoothed over. Option B (holding until a second
+independent compatibility incident) was considered and declined; the
+determination duty's closure of the never-check loophole stands as analyzed
+in the Pass 3 survey.
+
+(This section replaces the prior "PENDING — awaiting operator ruling" state.
+The evidence sufficiency, objection, governance-overlap, and Option B
+discussions above are the Pass 3 survey's original analysis, unchanged.)

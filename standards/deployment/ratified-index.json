@@ -1,0 +1,22 @@
+[
+  {
+    "id": "STD-DEPLOY-COM-001",
+    "title": "Deployment completion must be verified as intended state materially running",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 1,
+    "requirement_summary": "A deployment may be represented as complete only when evidence appropriate to the stated target scope verifies that the declared intended deployment state — artifact/revision by comparable trustworthy provenance, plus deploy-critical configuration and required runtime wiring where correctness depends on them — is materially running. A deploy command exit, repository state, copied files, image build, or restart command alone is not completion evidence, and a non-converged multi-target subset must be represented as partial/in-progress. No Git, immutable images, atomic rollout, or particular transport/tooling is prescribed.",
+    "source_file": "standards/deployment/STD-DEPLOY-COM-001.json",
+    "ratification_decision": "decisions/0018-deploy-com-001-decision.md"
+  },
+  {
+    "id": "STD-DEPLOY-COM-002",
+    "title": "Persistent-state compatibility must gate normal operation",
+    "level": "MUST",
+    "applies_to": [],
+    "version": 1,
+    "requirement_summary": "Where deployed code depends on persistent structured state whose schema/compatibility contract can evolve independently, the Clank must determine compatibility at a barrier before normal incompatible work is accepted, fail closed on known incompatibility, and leave evidence identifying compatibility gating as the refusal reason. Preflight, startup, lazy first-transaction, or platform-enforced barriers all conform; no SQL engine, Alembic, migrations table, rollout order, downtime, or rollback implementation is prescribed, and stateless/schema-less Clanks are trigger-unmet (N/A).",
+    "source_file": "standards/deployment/STD-DEPLOY-COM-002.json",
+    "ratification_decision": "decisions/0019-deploy-com-002-decision.md"
+  }
+]

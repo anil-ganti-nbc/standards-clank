@@ -27,10 +27,10 @@ def standards():
     return {path.stem: json.loads(path.read_text(encoding="utf-8")) for path in DEPLOY.glob("STD-DEPLOY-*.json")}
 
 
-def test_exactly_two_version_one_proposals_exist():
+def test_exactly_two_version_one_standards_exist():
     records = standards()
     assert set(records) == IDS
-    assert all(record["status"] == "PROPOSED" and record["version"] == 1 for record in records.values())
+    assert all(record["status"] == "RATIFIED" and record["version"] == 1 for record in records.values())
     assert not list(DEPLOY.glob("STD-DEPLOY-*.md"))
 
 
@@ -66,9 +66,9 @@ def test_pass0_evidence_and_adjudication_are_unchanged():
         assert _hash(PASS0 / relative) == expected, relative
 
 
-def test_dossiers_and_index_disclose_proposal_status_and_reused_evidence():
+def test_dossiers_and_index_disclose_ratified_status_and_reused_evidence():
     readme = (DEPLOY / "README.md").read_text(encoding="utf-8")
-    assert "2 `PROPOSED`, 0 `RATIFIED`" in readme
+    assert "2 `RATIFIED`, 0 `PROPOSED`" in readme
     for dossier in PASS1.glob("dossier-*.md"):
         text = dossier.read_text(encoding="utf-8")
         assert "REUSED FROM OPERATIONS PASS 0" in text
