@@ -21,7 +21,7 @@ VERDICTS = ("APPROVE FOR RATIFICATION SURVEY", "REVISE", "HOLD")
 
 
 def _review() -> str:
-    return REVIEW.read_text()
+    return REVIEW.read_text(encoding="utf-8")
 
 
 def test_review_dossier_exists():

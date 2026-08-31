@@ -59,9 +59,15 @@ def test_standard_is_proposed_not_ratified(path):
 
 
 @pytest.mark.parametrize("path", _standard_files(), ids=lambda p: p.stem)
-def test_standard_version_is_one(path):
+def test_standard_version_is_at_least_one(path):
+    """As drafted in Pass 1, all four were version 1. STD-DATA-COM-002 and
+    -003 were later bumped to version 2 by Pass 2.5's revision cycle
+    (operator-confirmed precedent: a REVISE verdict on a still-PROPOSED
+    draft bumps version, same as the UI domain's COM-007/SKU-001) — see
+    tests/test_pass2_5_revisions.py for the precise per-standard version
+    assertions and the diff-from-Pass-1 guard on the other two."""
     obj = _load(path)
-    assert obj["version"] == 1
+    assert obj["version"] >= 1
 
 
 @pytest.mark.parametrize("path", _standard_files(), ids=lambda p: p.stem)
