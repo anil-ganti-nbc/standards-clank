@@ -77,6 +77,7 @@ def test_m10_families_order_and_recipe_are_deterministic():
 
 
 def test_m10_does_not_change_known_evidence_layer():
-    # The planning artifact is not an admission. This hash guard also makes
-    # accidental edits to the active Deployment evidence layer visible.
-    assert _sha256(KNOWN) == "8e12a45027e4c1b781c1817a82c1cb7b190a3e6c587b52021e1f79ea941afa6c"
+    # The planning artifact is not an admission. M11 later adds its one
+    # intentional Semiconductor Deployment admission; this hash guard still
+    # makes any other edit to the active evidence layer visible.
+    assert _sha256(KNOWN) == "f67f420aa004d23c3a178a971786d057eb9f4b3f5a7180a4c068ab4c20a1e9f5"

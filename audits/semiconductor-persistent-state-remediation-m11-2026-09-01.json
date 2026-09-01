@@ -1,0 +1,141 @@
+{
+  "audit_id": "semiconductor-persistent-state-remediation-m11-2026-09-01",
+  "mode": "SOURCE_REMEDIATION_EVIDENCE_RECORD_AND_ADMISSION",
+  "date": "2026-09-01",
+  "standards_clank_head": "5d1309fd4dff3d427aad095fadb26aedb2a7c5fd",
+  "semiconductor": {
+    "target": "semiconductor-intelligence",
+    "branch": "main",
+    "head": "8085a1bbd1a4e133680702e8c1d916b71bb78a14",
+    "origin_main": "8085a1bbd1a4e133680702e8c1d916b71bb78a14",
+    "standard": "STD-DEPLOY-COM-002",
+    "state": "CONFORMS",
+    "lifecycle": "CLOSED",
+    "scope": "source-level persistent-state compatibility barrier only"
+  },
+  "source_lineage": {
+    "m1_audit": "audits/fleet-blind-audit-sweep-m1-2026-09-01.json",
+    "m1_head": "8a356a3bc87bea0f0d95e66c072c8e8a629156d5",
+    "m1_original_state": "INSUFFICIENT_EVIDENCE",
+    "m1_applicable": 23,
+    "m1_conforms": 17,
+    "m1_non_conforming": 0,
+    "m1_insufficient_evidence": 6,
+    "m1_insufficient_standards": [
+      "STD-UI-COM-006",
+      "STD-UI-COM-007",
+      "STD-UI-COM-011",
+      "STD-OPS-COM-003",
+      "STD-DEPLOY-COM-001",
+      "STD-DEPLOY-COM-002"
+    ],
+    "prior_closed_after_m1": ["STD-OPS-COM-003"],
+    "m10_plan": "audits/fleet-persistent-state-compatibility-planning-m10-2026-09-01.json",
+    "m10_classification": "PARTIAL_MECHANISM",
+    "m10_family": "ALEMBIC_MIGRATION_HEAD",
+    "m10_risk": "HIGH",
+    "original_defect": "Base.metadata.create_all bypassed migration-head compatibility on common paths and broad already-exists exception handling could stamp Alembic head over unknown or incompatible state."
+  },
+  "remediation_contract": {
+    "authoritative_identity": "checked-in single Alembic migration head",
+    "expected_head": "c7d8e9f0a1b2",
+    "inspection": "read-only Alembic MigrationContext current-head comparison",
+    "accepted_state": "current_heads exactly equals one tuple containing c7d8e9f0a1b2",
+    "missing_unknown_older_newer_divergent_malformed": "fail closed with explicit SchemaCompatibilityError or truthful health reason",
+    "normal_entry_points": [
+      "CLI _session",
+      "operator status/doctor/update",
+      "dashboard startup",
+      "dashboard request dependency",
+      "runtime_bridge health/identity"
+    ],
+    "create_all_compatibility_admission": false,
+    "automatic_stamp_fallback": false,
+    "migration_operation": "explicit Alembic upgrade only",
+    "failure_evidence": "SchemaCompatibilityError/CLI refusal text or runtime health status_reasons",
+    "no_production_migration": true
+  },
+  "implementation_checks": {
+    "A_authoritative_expected_Alembic_head": "YES",
+    "B_read_only_compatibility_inspection": "YES",
+    "C_missing_unknown_state_fails_closed": "YES",
+    "D_older_divergent_state_fails_closed": "YES",
+    "E_newer_incompatible_state_fails_closed": "YES",
+    "F_create_all_not_compatibility_admission": "YES",
+    "G_automatic_stamp_fallback_removed": "YES",
+    "H_cli_paths_cross_barrier": "YES",
+    "I_dashboard_paths_cross_barrier": "YES",
+    "J_runtime_health_startup_cross_barrier": "YES",
+    "K_no_normal_bypass": "YES",
+    "L_explicit_failure_reason": "YES",
+    "M_exact_head_required": "YES"
+  },
+  "migration": {
+    "added": false,
+    "production_migration": false,
+    "canonical_operation": "explicit Alembic upgrade only",
+    "compatibility_barrier_is_read_only": true,
+    "legacy_history_preserved": true,
+    "migration_framework_alone_is_not_proof": true
+  },
+  "validation": {
+    "focused_command": "python -m pytest -q tests/test_deploy_com_002_m11.py tests/test_legacy_import_interfaces.py tests/test_lifecycle_persistence.py tests/test_web_notifications.py tests/test_cli_db.py",
+    "focused": {"passed": 21, "skipped": 0, "failed": 0, "exit_code": 0},
+    "additional_targeted_command": "python -m pytest -q tests/test_deploy_com_002_m11.py tests/test_operator_cli.py::test_doctor_flags_schema_before_migrations_applied tests/test_operator_cli.py::test_update_applies_pending_schema_changes tests/test_lifecycle_persistence.py::test_dashboard_presents_same_logical_state_after_restart",
+    "additional_targeted": {"passed": 8, "skipped": 0, "failed": 0, "exit_code": 0},
+    "compileall_command": "python -m compileall -q semi_intel",
+    "compileall_exit_code": 0,
+    "full_command": "python -m pytest -q",
+    "full_suite": {"passed": 894, "skipped": 1, "failed": 11, "warnings": 38254, "elapsed_seconds": 1622.52, "exit_code": 1},
+    "full_suite_green": false,
+    "failure_attribution": {
+      "classification": "ENVIRONMENTAL / BASELINE-UNRELATED TO M11",
+      "windows_winerror_50_subprocess_failures": 10,
+      "node_dashboard_parse_failures": 1,
+      "m11_implementation_failures_remaining": 0,
+      "compatibility_migration_failures_remaining": 0,
+      "attribution_preserved_honestly": true
+    }
+  },
+  "remaining_m1_insufficiencies": {
+    "STD-UI-COM-006": "INSUFFICIENT_EVIDENCE",
+    "STD-UI-COM-007": "INSUFFICIENT_EVIDENCE",
+    "STD-UI-COM-011": "INSUFFICIENT_EVIDENCE",
+    "STD-DEPLOY-COM-001": "INSUFFICIENT_EVIDENCE"
+  },
+  "family_status": {
+    "conclusion": "FIRST_VALIDATED_MEMBER_OF_ALEMBIC_MIGRATION_HEAD_DEPLOY_COM_002_FAMILY",
+    "descriptive_only": true,
+    "validated_target": "semiconductor-intelligence",
+    "evidence_inheritance": false,
+    "other_target_conformance_inferred": false
+  },
+  "known_evidence_admission": {
+    "performed": true,
+    "layer": "standards/deployment/known-evidence-index.json",
+    "mechanism": "tools.deployment_agent_layer.build_known_evidence_index",
+    "admitted": {
+      "subject": "semiconductor-intelligence",
+      "revision": "8085a1bbd1a4e133680702e8c1d916b71bb78a14",
+      "standard": "STD-DEPLOY-COM-002",
+      "state": "CONFORMS",
+      "lifecycle": "CLOSED"
+    },
+    "admission_count": 1,
+    "watch_evidence_preserved": true,
+    "deploy_com_001_admitted": false,
+    "other_targets_inherited": false,
+    "m1_history_preserved": true
+  },
+  "guards": {
+    "frozen_standard_files_changed": false,
+    "frozen_tags_changed_or_moved": false,
+    "semiconductor_modified_in_this_pass": false,
+    "migration_added": false,
+    "production_migration": false,
+    "host_deployment_live_or_production_db_actions": false,
+    "full_target_conformance_claim": false,
+    "other_target_evidence_inherited": false,
+    "ktw_m12_started": false
+  }
+}

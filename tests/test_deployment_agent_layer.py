@@ -3,9 +3,9 @@ standards/deployment/ratified-index.json, standards/deployment/agent-checklist.j
 and docs/deployment/constitution.md, checked against the authoritative
 standards/deployment/*.json files — not against each other, so a stale
 generated file or a stale doc can't hide behind agreement with another
-stale artefact. Mirrors tests/test_operations_agent_layer.py's design
-(minus the known-evidence-index checks: no Deployment conformance audit
-exists yet — see tools/deployment_agent_layer.py's own docstring).
+stale artefact. Mirrors tests/test_operations_agent_layer.py's design,
+including the known-evidence-index checks generated from active Deployment
+audit blocks.
 
 Building this layer is mechanical housekeeping commissioned alongside the
 operator's ratification closure: no normative standard text changed as
@@ -196,17 +196,27 @@ def test_known_evidence_index_matches_generator_output():
     assert _load_known_evidence() == build_known_evidence_index()
 
 
-def test_known_evidence_admits_only_confirmed_watch_deployment_conformance():
+def test_known_evidence_admits_only_confirmed_deployment_conformance():
     entries = _load_known_evidence()
-    assert len(entries) == 1
-    entry = entries[0]
-    assert entry["standard"] == "STD-DEPLOY-COM-001"
-    assert entry["subject"] == "watch-clank"
-    assert entry["kind"] == "known_conformance"
-    assert entry["source"] == "audit"
-    assert entry["source_reference"] == "audits/watch-clank-cross-domain-2026-09-01-final.md"
-    assert "LIVE_PROOF_CONFIRMED" in entry["summary"]
-    assert "d03bc4b2f90289686331af0447d5ca4e8cf55822" in entry["summary"]
+    assert len(entries) == 2
+    by_subject = {entry["subject"]: entry for entry in entries}
+    assert set(by_subject) == {"watch-clank", "semiconductor-intelligence"}
+
+    watch = by_subject["watch-clank"]
+    assert watch["standard"] == "STD-DEPLOY-COM-001"
+    assert watch["kind"] == "known_conformance"
+    assert watch["source"] == "audit"
+    assert watch["source_reference"] == "audits/watch-clank-cross-domain-2026-09-01-final.md"
+    assert "LIVE_PROOF_CONFIRMED" in watch["summary"]
+    assert "d03bc4b2f90289686331af0447d5ca4e8cf55822" in watch["summary"]
+
+    semiconductor = by_subject["semiconductor-intelligence"]
+    assert semiconductor["standard"] == "STD-DEPLOY-COM-002"
+    assert semiconductor["kind"] == "known_conformance"
+    assert semiconductor["source"] == "audit"
+    assert semiconductor["source_reference"] == "audits/semiconductor-persistent-state-remediation-m11-2026-09-01.md"
+    assert "CONFORMS / CLOSED" in semiconductor["summary"]
+    assert "8085a1bbd1a4e133680702e8c1d916b71bb78a14" in semiconductor["summary"]
 
 
 # -- this housekeeping pass must not have changed any normative standard text, and no freeze tag exists yet --

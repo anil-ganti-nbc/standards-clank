@@ -1,5 +1,13 @@
 [
   {
+    "standard": "STD-DEPLOY-COM-002",
+    "subject": "semiconductor-intelligence",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "CONFORMS / CLOSED at canonical Semiconductor Intelligence main revision 8085a1bbd1a4e133680702e8c1d916b71bb78a14: every supported normal entry point is behind a read-only exact Alembic-head compatibility barrier; unknown, missing, older, newer, divergent, or malformed state fails closed with an identifying reason, while create_all and automatic stamp fallback cannot admit compatibility.",
+    "source_reference": "audits/semiconductor-persistent-state-remediation-m11-2026-09-01.md"
+  },
+  {
     "standard": "STD-DEPLOY-COM-001",
     "subject": "watch-clank",
     "kind": "known_conformance",
