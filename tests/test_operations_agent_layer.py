@@ -211,7 +211,7 @@ def test_known_evidence_index_matches_generator_output():
 
 def test_known_evidence_admits_only_validated_remediations():
     entries = _load_known_evidence()
-    assert len(entries) == 6
+    assert len(entries) == 7
     expected = {
         ("feature-phone-clank", "STD-OPS-COM-004"): (
             "890ab339234381b04c6f27e710e3382fa70bc076",
@@ -241,6 +241,11 @@ def test_known_evidence_admits_only_validated_remediations():
         ("tablet-clank", "STD-OPS-COM-003"): (
             "d9cb32ccee1b2bcaa4bc9d8af5ac1a7a7e7f6769",
             "audits/tablet-clank-qualification-remediation-m7-2026-09-01.md",
+            "STD-OPS-COM-003",
+        ),
+        ("korean-tech-wire", "STD-OPS-COM-003"): (
+            "2040af82136d8a8f181c464e7d62ce408dd2696d",
+            "audits/ktw-qualification-remediation-m8-2026-09-01.md",
             "STD-OPS-COM-003",
         ),
     }

@@ -17,6 +17,14 @@
   },
   {
     "standard": "STD-OPS-COM-003",
+    "subject": "korean-tech-wire",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "CONFORMS / CLOSED at canonical Korean Tech Wire main revision 2040af82136d8a8f181c464e7d62ce408dd2696d: aggregate SQLite health-history execution establishes provenance, scope-aware material epochs, pre-gate reset lineage, independent terminal evidence, and fail-closed qualification gating.",
+    "source_reference": "audits/ktw-qualification-remediation-m8-2026-09-01.md"
+  },
+  {
+    "standard": "STD-OPS-COM-003",
     "subject": "semiconductor-intelligence",
     "kind": "known_conformance",
     "source": "audit",

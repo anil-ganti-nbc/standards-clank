@@ -1,0 +1,140 @@
+{
+  "audit_id": "ktw-qualification-remediation-m8-2026-09-01",
+  "mode": "SOURCE_REMEDIATION_EVIDENCE_RECORD_AND_ADMISSION",
+  "date": "2026-09-01",
+  "standards_clank_head": "ea0549fa94aa4ffbda7deee00f13d71a3d203bdb",
+  "ktw": {
+    "target": "korean-tech-wire",
+    "branch": "main",
+    "head": "2040af82136d8a8f181c464e7d62ce408dd2696d",
+    "origin_main": "2040af82136d8a8f181c464e7d62ce408dd2696d",
+    "parent": "afb4aada1d4fae09ada4658fe9fcf8dfa38eb23d",
+    "standard": "STD-OPS-COM-003",
+    "state": "CONFORMS",
+    "lifecycle": "CLOSED",
+    "scope": "source-level qualification provenance/reset remediation only"
+  },
+  "source_lineage": {
+    "m1_audit": "audits/fleet-blind-audit-sweep-m1-2026-09-01.json",
+    "m1_head": "afb4aada1d4fae09ada4658fe9fcf8dfa38eb23d",
+    "m1_original_state": "INSUFFICIENT_EVIDENCE",
+    "m1_applicable": 23,
+    "m1_conforms": 18,
+    "m1_non_conforming": 0,
+    "m1_insufficient_evidence": 5,
+    "m1_insufficient_standards": [
+      "STD-DATA-COM-001",
+      "STD-UI-COM-011",
+      "STD-OPS-COM-003",
+      "STD-DEPLOY-COM-001",
+      "STD-DEPLOY-COM-002"
+    ],
+    "m4_plan": "audits/fleet-qualification-planning-m4-2026-09-01.json",
+    "m4_architecture": "AGGREGATE_SQLITE_HEALTH_HISTORY",
+    "m4_family_membership": "KTW independently evaluated; not rich ORM/job or per-source SQLite operational scopes"
+  },
+  "remediation_contract": {
+    "authority_boundary": "run_collectors execution boundary shared by CLI, dashboard, and portable soak",
+    "execution_paths": ["CLI", "dashboard", "portable soak due-aware", "portable soak manual", "direct runner", "test"],
+    "provenance_vocabulary": ["SCHEDULED", "MANUAL", "TEST", "UNKNOWN"],
+    "unsupported_trusted_values": ["DEPLOY", "RECOVERY"],
+    "missing_provenance": "UNKNOWN",
+    "qualification_scope": "per-source production:<source_id> or experimental:<source_id>",
+    "material_identity_components": [
+      "target", "source id", "source status", "source URL", "collector",
+      "request timeout", "user agent", "source revision", "qualification policy", "schema version"
+    ],
+    "material_identity_algorithm": "SHA-256 over canonical sorted JSON inputs",
+    "identity_excludes": ["timestamps", "run IDs"],
+    "epoch_persistence": "qualification_scopes and qualification_epochs keyed by source scope",
+    "reset_lineage": "qualification_resets retains prior/new identity, reason, provenance, source/run linkage, epoch, and time where known",
+    "reset_order": "epoch/reset persistence occurs before current-epoch gate evaluation and collector work",
+    "historical_unknowns": "legacy run provenance defaults to UNKNOWN; no backfill",
+    "event_persistence": "reset and terminal facts are independent; terminal recording is idempotent",
+    "gate_semantics": "absent, stale, divergent, unknown, or non-qualifying evidence fails closed",
+    "downstream_fabrication": "not permitted; absent or invalid provenance normalizes to UNKNOWN"
+  },
+  "migration": {
+    "revision": 5,
+    "adds": [
+      "runs.provenance",
+      "runs.qualification_scope",
+      "runs.qualification_epoch_id",
+      "runs.qualification_material_identity",
+      "runs.qualification_gate_status",
+      "qualification_scopes",
+      "qualification_epochs",
+      "qualification_resets",
+      "qualification_terminals"
+    ],
+    "additive": true,
+    "legacy_history_preserved": true,
+    "legacy_unknown_provenance_preserved": true,
+    "destructive_reset": false,
+    "production_migration": false
+  },
+  "validation": {
+    "focused_command": "python -m pytest tests/test_qualification_m8.py tests/test_health_soak.py tests/test_storage.py",
+    "focused": {"passed": 17, "skipped": 0, "failed": 0, "exit_code": 0},
+    "full_command": "python -m pytest",
+    "full_suite": {"passed": 92, "skipped": 0, "failed": 0, "exit_code": 0}
+  },
+  "implementation_checks": {
+    "A_authority_origin_provenance": "YES",
+    "B_missing_provenance_stays_unknown": "YES",
+    "C_downstream_cannot_fabricate_trusted_provenance": "YES",
+    "D_explicit_appropriate_qualification_scope": "YES",
+    "E_stable_deterministic_material_identity": "YES",
+    "F_material_change_invalidates_prior_evidence": "YES",
+    "G_reset_before_stale_evidence_consumption": "YES",
+    "H_old_epoch_cannot_qualify_first_changed_execution": "YES",
+    "I_prior_new_reset_identities_auditable": "YES",
+    "J_historical_unknowns_preserved": "YES",
+    "K_reset_and_terminal_coexist": "YES",
+    "L_terminal_persistence_idempotent": "YES",
+    "M_gate_fails_closed": "YES",
+    "N_alternate_paths_cannot_bypass_preparation": "YES"
+  },
+  "remaining_m1_insufficiencies": {
+    "STD-DATA-COM-001": "INSUFFICIENT_EVIDENCE",
+    "STD-UI-COM-011": "INSUFFICIENT_EVIDENCE",
+    "STD-DEPLOY-COM-001": "INSUFFICIENT_EVIDENCE",
+    "STD-DEPLOY-COM-002": "INSUFFICIENT_EVIDENCE"
+  },
+  "family_status": {
+    "conclusion": "THIRD_ARCHITECTURAL_SHAPE_UNDER_SHARED_OPS_COM_003_CONTRACT",
+    "descriptive_only": true,
+    "architecture": "AGGREGATE_SQLITE_HEALTH_HISTORY",
+    "rich_orm_job_members": ["smartwatch-clank", "semiconductor-intelligence"],
+    "sqlite_operational_scope_members": ["feature-phone-clank", "tablet-clank"],
+    "ktw_independently_validated": true,
+    "evidence_inheritance": false,
+    "other_target_conformance_inferred": false,
+    "oem_radar_applicability_inferred": false
+  },
+  "known_evidence_admission": {
+    "performed": true,
+    "layer": "standards/operations/known-evidence-index.json",
+    "mechanism": "tools.operations_agent_layer.build_known_evidence_index",
+    "admitted": {
+      "subject": "korean-tech-wire",
+      "revision": "2040af82136d8a8f181c464e7d62ce408dd2696d",
+      "standard": "STD-OPS-COM-003",
+      "state": "CONFORMS",
+      "lifecycle": "CLOSED"
+    },
+    "admission_count": 1,
+    "unrelated_standards_admitted": false,
+    "other_targets_inherited": false,
+    "historical_m1_preserved": true,
+    "deployment_evidence_admitted": false
+  },
+  "guards": {
+    "frozen_standard_files_changed": false,
+    "frozen_tags_changed_or_moved": false,
+    "ktw_modified_in_this_pass": false,
+    "host_deployment_live_or_production_db_actions": false,
+    "full_target_conformance_claim": false,
+    "oem_radar_work_started": false
+  }
+}
