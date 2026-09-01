@@ -70,14 +70,18 @@ def test_deployment_known_evidence_is_admitted_deterministically():
     audit = _audit()["known_evidence_admission"]
     entries = build_known_evidence_index()
     assert entries == json.loads((REPO / "standards/deployment/known-evidence-index.json").read_text(encoding="utf-8"))
-    # M11 intentionally adds one independent Semiconductor Deployment fact;
-    # the Watch admission remains unchanged and is still present exactly once.
-    assert len(entries) == 2
+    # M11 and M12 add independently guarded Semiconductor and KTW Deployment
+    # facts; the Watch admission remains unchanged and is still present once.
+    assert len(entries) == 3
     watch = [entry for entry in entries if entry["subject"] == "watch-clank"]
     assert len(watch) == audit["entries"] == 1
     assert watch[0]["standard"] == "STD-DEPLOY-COM-001"
     assert watch[0]["kind"] == "known_conformance"
     assert watch[0]["source_reference"] == "audits/watch-clank-cross-domain-2026-09-01-final.md"
+    ktw = [entry for entry in entries if entry["subject"] == "korean-tech-wire"]
+    assert len(ktw) == 1
+    assert ktw[0]["standard"] == "STD-DEPLOY-COM-002"
+    assert ktw[0]["source_reference"] == "audits/ktw-persistent-state-remediation-m12-2026-09-02.md"
 
 
 def test_reference_clank_claim_is_descriptive_and_scoped():

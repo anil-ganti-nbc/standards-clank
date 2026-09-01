@@ -198,9 +198,9 @@ def test_known_evidence_index_matches_generator_output():
 
 def test_known_evidence_admits_only_confirmed_deployment_conformance():
     entries = _load_known_evidence()
-    assert len(entries) == 2
+    assert len(entries) == 3
     by_subject = {entry["subject"]: entry for entry in entries}
-    assert set(by_subject) == {"watch-clank", "semiconductor-intelligence"}
+    assert set(by_subject) == {"watch-clank", "semiconductor-intelligence", "korean-tech-wire"}
 
     watch = by_subject["watch-clank"]
     assert watch["standard"] == "STD-DEPLOY-COM-001"
@@ -217,6 +217,14 @@ def test_known_evidence_admits_only_confirmed_deployment_conformance():
     assert semiconductor["source_reference"] == "audits/semiconductor-persistent-state-remediation-m11-2026-09-01.md"
     assert "CONFORMS / CLOSED" in semiconductor["summary"]
     assert "8085a1bbd1a4e133680702e8c1d916b71bb78a14" in semiconductor["summary"]
+
+    ktw = by_subject["korean-tech-wire"]
+    assert ktw["standard"] == "STD-DEPLOY-COM-002"
+    assert ktw["kind"] == "known_conformance"
+    assert ktw["source"] == "audit"
+    assert ktw["source_reference"] == "audits/ktw-persistent-state-remediation-m12-2026-09-02.md"
+    assert "CONFORMS / CLOSED" in ktw["summary"]
+    assert "354cb7aed0b174923393a0c71e7c4c6230cda28c" in ktw["summary"]
 
 
 # -- this housekeeping pass must not have changed any normative standard text, and no freeze tag exists yet --

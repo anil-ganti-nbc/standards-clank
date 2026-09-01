@@ -1,0 +1,133 @@
+{
+  "audit_id": "ktw-persistent-state-remediation-m12-2026-09-02",
+  "mode": "SOURCE_REMEDIATION_EVIDENCE_RECORD_AND_ADMISSION",
+  "date": "2026-09-02",
+  "standards_clank_head": "30c573eb151013a4174a22f62bb284fbcfcc5ed2",
+  "ktw": {
+    "target": "korean-tech-wire",
+    "branch": "main",
+    "head": "354cb7aed0b174923393a0c71e7c4c6230cda28c",
+    "origin_main": "354cb7aed0b174923393a0c71e7c4c6230cda28c",
+    "parent": "2040af82136d8a8f181c464e7d62ce408dd2696d",
+    "standard": "STD-DEPLOY-COM-002",
+    "state": "CONFORMS",
+    "lifecycle": "CLOSED",
+    "scope": "source-level persistent-state compatibility barrier only"
+  },
+  "source_lineage": {
+    "m1_audit": "audits/fleet-blind-audit-sweep-m1-2026-09-01.json",
+    "m1_head": "afb4aada1d4fae09ada4658fe9fcf8dfa38eb23d",
+    "m1_original_state": "INSUFFICIENT_EVIDENCE",
+    "m1_applicable": 23,
+    "m1_conforms": 18,
+    "m1_non_conforming": 0,
+    "m1_insufficient_evidence": 5,
+    "m1_insufficient_standards": [
+      "STD-DATA-COM-001",
+      "STD-UI-COM-011",
+      "STD-OPS-COM-003",
+      "STD-DEPLOY-COM-001",
+      "STD-DEPLOY-COM-002"
+    ],
+    "m10_plan": "audits/fleet-persistent-state-compatibility-planning-m10-2026-09-01.json",
+    "m10_classification": "PARTIAL_MECHANISM",
+    "m10_family": "ORDERED_NUMBERED_SQLITE",
+    "m10_risk": "MEDIUM",
+    "original_defect": "Numbered SQLite migrations existed, but normal work had no explicit expected-head compatibility barrier; the separate QC archive was unversioned and rollback/version-skew behavior was unguarded."
+  },
+  "persistent_state_authorities": {
+    "main_collector_database": {
+      "authority": "explicit ordered numbered SQLite schema",
+      "expected_version": 5,
+      "marker": "schema_migrations"
+    },
+    "qc_archive": {
+      "authority": "independent explicit numbered SQLite schema",
+      "expected_version": 1,
+      "marker": "qc_schema_migrations"
+    }
+  },
+  "compatibility_model": {
+    "states": ["FRESH", "MIGRATION_REQUIRED", "COMPATIBLE", "INCOMPATIBLE_NEWER", "UNKNOWN", "CORRUPT", "PARTIAL"],
+    "inspection": "read-only SQLite URI inspection plus integrity, marker, ordered-prefix, and required-structure checks",
+    "fresh_vs_unknown": "FRESH is absent or empty state; a non-empty store without trustworthy version authority is UNKNOWN and cannot bootstrap.",
+    "normal_work_ready_state": "COMPATIBLE"
+  },
+  "remediation_contract": {
+    "canonical_migration_boundaries": ["CLI context", "dashboard startup"],
+    "normal_access_guards": ["Database.connect", "QCArchive.connect"],
+    "covered_paths": ["CLI including status and health", "portable soak scheduler and retry/due path", "dashboard/manual paths", "QC archive paths", "direct normal state consumers"],
+    "older_main_store": "valid contiguous prefixes require canonical ordered migration before normal work",
+    "unknown_missing_corrupt_partial_newer": "refuse normal work fail closed without deletion, stamping, reconstruction, or structural inference",
+    "post_migration": "require_compatible re-inspects the expected authority before work proceeds",
+    "failed_migration": "cannot make state COMPATIBLE because readiness is re-inspected from durable marker and structure",
+    "version_skew": "older KTW binaries refuse v6+ state",
+    "rollback": "no rollback compatibility guarantee is claimed",
+    "production_migration": false
+  },
+  "implementation_checks": {
+    "A_expected_schema_version_explicit": "YES",
+    "B_compatibility_inspection_read_only": "YES",
+    "C_unknown_state_silently_compatible": "NO",
+    "D_older_unmigrated_state_normal_work": "NO",
+    "E_newer_state_normal_work": "NO",
+    "F_missing_marker_non_empty_silently_bootstraps": "NO",
+    "G_corrupt_or_partial_state_normal_work": "NO",
+    "H_canonical_migration_remains_authoritative": "YES",
+    "I_post_migration_version_reverified": "YES",
+    "J_failed_migration_can_mark_ready": "NO",
+    "K_every_operational_entry_point_crosses_barrier": "YES",
+    "L_alternate_db_open_path_can_bypass_barrier": "NO",
+    "M_current_version_behavior_intact": "YES",
+    "N_ops_com_003_intact": "YES"
+  },
+  "validation": {
+    "compatibility_command": "python -m pytest -q tests/test_deploy_com_002_m12.py",
+    "compatibility": {"passed": 7, "skipped": 0, "failed": 0, "warnings": 0, "elapsed_seconds": 1.87, "exit_code": 0},
+    "focused_command": "python -m pytest -q tests/test_deploy_com_002_m12.py tests/test_storage.py tests/test_qc_archive.py tests/test_qualification_m8.py tests/test_health_soak.py tests/test_scheduling.py tests/test_field_test_dashboard.py",
+    "focused": {"passed": 57, "skipped": 0, "failed": 0, "warnings": 0, "elapsed_seconds": 22.01, "exit_code": 0},
+    "full_command": "python -m pytest -q",
+    "full_suite": {"passed": 99, "skipped": 0, "failed": 0, "warnings": 0, "elapsed_seconds": 22.25, "exit_code": 0},
+    "full_suite_green": true
+  },
+  "remaining_m1_insufficiencies": {
+    "STD-DATA-COM-001": "INSUFFICIENT_EVIDENCE",
+    "STD-UI-COM-011": "INSUFFICIENT_EVIDENCE",
+    "STD-DEPLOY-COM-001": "INSUFFICIENT_EVIDENCE"
+  },
+  "prior_closed_after_m1": ["STD-OPS-COM-003"],
+  "family_status": {
+    "conclusion": "FIRST_VALIDATED_MEMBER_OF_NUMBERED_SQLITE_COMPATIBILITY_FAMILY",
+    "descriptive_only": true,
+    "validated_target": "korean-tech-wire",
+    "tablet_inherits_conformance": false,
+    "evidence_inheritance": false,
+    "other_target_conformance_inferred": false
+  },
+  "known_evidence_admission": {
+    "performed": true,
+    "layer": "standards/deployment/known-evidence-index.json",
+    "mechanism": "tools.deployment_agent_layer.build_known_evidence_index",
+    "admitted": {
+      "subject": "korean-tech-wire",
+      "revision": "354cb7aed0b174923393a0c71e7c4c6230cda28c",
+      "standard": "STD-DEPLOY-COM-002",
+      "state": "CONFORMS",
+      "lifecycle": "CLOSED"
+    },
+    "admission_count": 1,
+    "watch_deploy_com_001_preserved": true,
+    "semiconductor_deploy_com_002_preserved": true,
+    "historical_m1_preserved": true,
+    "unrelated_ktw_standards_admitted": false
+  },
+  "guards": {
+    "frozen_standard_files_changed": false,
+    "frozen_tags_changed_or_moved": false,
+    "ktw_modified_in_this_pass": false,
+    "host_deployment_live_or_production_db_actions": false,
+    "production_migration": false,
+    "full_target_conformance_claim": false,
+    "tablet_remediation_started": false
+  }
+}

@@ -1,6 +1,14 @@
 [
   {
     "standard": "STD-DEPLOY-COM-002",
+    "subject": "korean-tech-wire",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "CONFORMS / CLOSED at canonical Korean Tech Wire main revision 354cb7aed0b174923393a0c71e7c4c6230cda28c: main SQLite v5 and the independent QC archive v1 each use read-only compatibility inspection and fail-closed normal-access barriers; valid older main-store prefixes migrate only through the canonical path and every other unknown, corrupt, partial, or newer state is refused.",
+    "source_reference": "audits/ktw-persistent-state-remediation-m12-2026-09-02.md"
+  },
+  {
+    "standard": "STD-DEPLOY-COM-002",
     "subject": "semiconductor-intelligence",
     "kind": "known_conformance",
     "source": "audit",
