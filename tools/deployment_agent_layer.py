@@ -13,13 +13,10 @@ question + what failing it means). Both are keyed by standard id and
 verified by tests/test_deployment_agent_layer.py to cover every RATIFIED
 id and nothing else, so a summary can never silently go stale.
 
-No known-evidence-index equivalent exists for this domain — there are no
-audits/*.md findings against a RATIFIED Deployment standard as of this
-writing (no Deployment conformance audit has been performed against any
-Clank). If/when a Deployment audit is performed, extend this module the
-same way tools/ui_agent_layer.py's build_known_evidence_index() does,
-reusing the same audits/*.md structured-block convention, rather than
-inventing a new one.
+The Deployment known-evidence index is generated from the same audits/*.md
+structured-block convention as the UI layer.  It is intentionally separate
+from the normative ratified index: it records the latest admitted
+Deployment-standard audit evidence without changing frozen standard text.
 """
 
 from __future__ import annotations
@@ -31,6 +28,8 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).parent.parent
 STANDARDS_DEPLOYMENT_DIR = REPO_ROOT / "standards" / "deployment"
 DECISIONS_DIR = REPO_ROOT / "decisions"
+AUDITS_DIR = REPO_ROOT / "audits"
+AUDIT_JSON_BLOCK_RE = re.compile(r"```json\s*\n(.*?)\n```", re.DOTALL)
 
 DECISION_REF_RE = re.compile(r"decisions/(\d{4}-[a-z0-9-]+\.md)")
 
@@ -109,3 +108,70 @@ def build_agent_checklist() -> list[dict]:
             }
         )
     return checklist
+
+
+def _load_audit_findings() -> list[tuple[Path, dict]]:
+    """Load audit structured blocks using the fleet-wide audit convention.
+
+    A malformed audit fails closed.  Superseded blocks remain historical but
+    are excluded from the admitted index, matching the UI layer's semantics.
+    """
+    results: list[tuple[Path, dict]] = []
+    for path in sorted(AUDITS_DIR.glob("*.md")):
+        if path.name == "README.md":
+            continue
+        match = AUDIT_JSON_BLOCK_RE.search(path.read_text(encoding="utf-8"))
+        if not match:
+            raise ValueError(f"{path}: no leading ```json findings block found")
+        block = json.loads(match.group(1))
+        for key in ("clank", "date", "findings"):
+            if key not in block:
+                raise ValueError(f"{path}: findings block missing required key {key!r}")
+        results.append((path, block))
+
+    superseded = {path for path, block in results if block.get("superseded_by")}
+    active: list[tuple[Path, dict]] = []
+    for path, block in results:
+        ref = block.get("superseded_by")
+        if not ref:
+            active.append((path, block))
+            continue
+        target = REPO_ROOT / ref
+        if f"audits/{path.name}" == ref:
+            raise ValueError(f"{path}: superseded_by points at itself")
+        if not target.is_file():
+            raise ValueError(f"{path}: superseded_by target {ref!r} does not exist")
+        if target in superseded:
+            raise ValueError(f"{path}: superseded_by target {ref!r} is itself superseded")
+    return active
+
+
+def build_known_evidence_index() -> list[dict]:
+    """Build the admitted Deployment evidence index from active audits.
+
+    Only findings for ratified Deployment standards are considered.  The
+    entry shape follows ``tools.ui_agent_layer``'s known-evidence convention;
+    ``known_conformance`` is used here because the first Deployment audit is
+    a positive live/source conformance admission rather than a violation.
+    """
+    ratified_ids = {s["id"] for s in load_ratified_deployment_standards()}
+    index: list[dict] = []
+    for path, block in _load_audit_findings():
+        for finding in block["findings"]:
+            standard = finding.get("standard")
+            if standard not in ratified_ids:
+                continue
+            kind = finding.get("kind")
+            if kind not in {"conformance", "violation"}:
+                continue
+            index.append(
+                {
+                    "standard": standard,
+                    "subject": block["clank"],
+                    "kind": "known_conformance" if kind == "conformance" else "known_nonconformance",
+                    "source": "audit",
+                    "summary": finding["summary"],
+                    "source_reference": f"audits/{path.name}",
+                }
+            )
+    return index

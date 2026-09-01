@@ -1,0 +1,10 @@
+[
+  {
+    "standard": "STD-DEPLOY-COM-001",
+    "subject": "watch-clank",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "LIVE_PROOF_CONFIRMED at Watch d03bc4b2f90289686331af0447d5ca4e8cf55822: independent target, full-SHA OCI/runtime provenance, congruent selector/config, 22/22 timer wiring, schema compatibility, complete convergence, and deployment-status COMPLETE (exit 0).",
+    "source_reference": "audits/watch-clank-cross-domain-2026-09-01-final.md"
+  }
+]

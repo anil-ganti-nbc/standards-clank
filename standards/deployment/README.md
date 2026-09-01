@@ -22,8 +22,12 @@ baseline or tag exists until a separate mechanical freeze pass.
 Agent-facing layer: [ratified-index.json](ratified-index.json),
 [agent-checklist.json](agent-checklist.json), and
 [docs/deployment/constitution.md](../../docs/deployment/constitution.md).
-No known-evidence-index exists because no Deployment conformance audit has
-been performed against any Clank.
+The admitted Deployment evidence layer is
+[known-evidence-index.json](known-evidence-index.json), generated from active
+`audits/*.md` structured blocks by `tools/deployment_agent_layer.py`. It records
+the confirmed Watch conformance audit separately from the normative ratified
+index; historical failed/insufficient audits remain preserved and are
+superseded rather than rewritten.
 
 Read [Pass 1](../../docs/deployment/pass1/README.md) for provenance and
 distinctness. Destructive-state mutation remains rehomed to the ADR-0009

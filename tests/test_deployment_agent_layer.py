@@ -20,6 +20,7 @@ from tools.deployment_agent_layer import (
     REPO_ROOT,
     STANDARDS_DEPLOYMENT_DIR,
     build_agent_checklist,
+    build_known_evidence_index,
     build_ratified_index,
     load_deployment_standards,
     load_ratified_deployment_standards,
@@ -42,6 +43,10 @@ def _load_index():
 
 def _load_checklist():
     return json.loads((STANDARDS_DEPLOYMENT_DIR / "agent-checklist.json").read_text(encoding="utf-8"))
+
+
+def _load_known_evidence():
+    return json.loads((STANDARDS_DEPLOYMENT_DIR / "known-evidence-index.json").read_text(encoding="utf-8"))
 
 
 def _ratified_ids():
@@ -185,13 +190,23 @@ def test_constitution_principle_count_is_reasonable():
     assert 5 <= len(principle_markers) <= 12, f"expected ~5-12 principles for 2 standards, found {len(principle_markers)}"
 
 
-# -- no known-evidence-index exists yet (no Deployment conformance audit has been performed) --
+# -- Deployment known-evidence admission is generated from active audit blocks --
 
-def test_no_known_evidence_index_exists_yet():
-    assert not (STANDARDS_DEPLOYMENT_DIR / "known-evidence-index.json").exists()
-    assert "no Deployment conformance audit has been performed" in Path(
-        REPO_ROOT / "tools" / "deployment_agent_layer.py"
-    ).read_text(encoding="utf-8")
+def test_known_evidence_index_matches_generator_output():
+    assert _load_known_evidence() == build_known_evidence_index()
+
+
+def test_known_evidence_admits_only_confirmed_watch_deployment_conformance():
+    entries = _load_known_evidence()
+    assert len(entries) == 1
+    entry = entries[0]
+    assert entry["standard"] == "STD-DEPLOY-COM-001"
+    assert entry["subject"] == "watch-clank"
+    assert entry["kind"] == "known_conformance"
+    assert entry["source"] == "audit"
+    assert entry["source_reference"] == "audits/watch-clank-cross-domain-2026-09-01-final.md"
+    assert "LIVE_PROOF_CONFIRMED" in entry["summary"]
+    assert "d03bc4b2f90289686331af0447d5ca4e8cf55822" in entry["summary"]
 
 
 # -- this housekeeping pass must not have changed any normative standard text, and no freeze tag exists yet --

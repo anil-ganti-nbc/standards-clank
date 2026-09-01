@@ -1,7 +1,7 @@
 # watch-clank — M4G final OPS-COM-003 closure re-audit
 
 ```json
-{"clank":"watch-clank","date":"2026-09-01","findings":[]}
+{"clank":"watch-clank","date":"2026-09-01","findings":[],"superseded_by":"audits/watch-clank-cross-domain-2026-09-01-final.md"}
 ```
 
 Read-only source re-audit of Watch `d03bc4b2f90289686331af0447d5ca4e8cf55822`
@@ -61,6 +61,6 @@ Standards direct pre-audit suite: `791 passed in 7.41s`. Independent Watch
 qualification/schema checks: `15 passed in 3.74s`. M4F additionally recorded
 a direct full non-live run: `500 passed, 2 skipped`, exit 0, 53.922s.
 
-**ADMIT AFTER LIVE PROOF.** OPS-COM-003 is now closed. Do not modify the
-known-evidence index in this pass; the exact next action is separately
-authorized host observation for DEPLOY-COM-001 live proof.
+**ADMIT AFTER LIVE PROOF.** OPS-COM-003 is now closed. This audit is retained
+as historical evidence and is superseded by the final Watch audit after the
+separately authorized DEPLOY-COM-001 live proof.

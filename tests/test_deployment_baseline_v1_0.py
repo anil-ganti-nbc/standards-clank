@@ -70,7 +70,9 @@ def test_agent_layer_decisions_and_final_gap_provenance_are_current(manifest):
     audit = AUDIT.read_text(encoding="utf-8")
     assert "NO ESSENTIAL DEPLOYMENT CONTRACT MISSING" in audit
     assert "READY TO FREEZE DEPLOYMENT STANDARDS V1.0" in audit
-    assert not (DEPLOY / "known-evidence-index.json").exists()
+    # The frozen normative baseline remains unchanged; the post-freeze
+    # Deployment known-evidence layer is generated from the final audit.
+    assert (DEPLOY / "known-evidence-index.json").is_file()
     assert manifest["artifacts"]["conformance_audit"] is None
 
 

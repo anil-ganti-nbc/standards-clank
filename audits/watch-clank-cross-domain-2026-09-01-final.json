@@ -1,0 +1,96 @@
+{
+  "audit_id": "watch-clank-cross-domain-2026-09-01-final",
+  "mode": "FINAL_INFORMED_READ_ONLY_REAUDIT_AND_ADMISSION",
+  "standards_clank_head": "528b51c2e494890439abcaac87ce4e64e386d252",
+  "target": {
+    "id": "watch-clank",
+    "branch": "main",
+    "head": "d03bc4b2f90289686331af0447d5ca4e8cf55822",
+    "modified": false,
+    "scope": "hetzner/ubuntu-4gb-hel1-1:user-systemd-docker"
+  },
+  "frozen_tags": {
+    "ui-standards-v1.0": "d11320704aed69a3d8f854c9264b184e392ec80f",
+    "data-ontology-standards-v1.0": "464a8057ea5dc26ef83248a20bafa0be5aa31148",
+    "operations-standards-v1.0": "7100f294a83c30594f2ff9e953f7c9f77a95747f",
+    "deployment-standards-v1.0": "33cc38849180716fd4d06b1356cf70c49d3d41d2"
+  },
+  "applicability": {
+    "source": "audits/watch-clank-cross-domain-2026-09-01-reaudit-4.json",
+    "method": "M4G controlling applicability ledger; frozen ratified set unchanged",
+    "APPLIES": 25,
+    "NOT_APPLICABLE": 0,
+    "UNKNOWN": 0
+  },
+  "verdicts": [
+    {"id": "STD-UI-COM-001", "domain": "ui", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-UI-COM-002", "domain": "ui", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-UI-COM-003", "domain": "ui", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-UI-COM-004", "domain": "ui", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-UI-COM-005", "domain": "ui", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-UI-COM-006", "domain": "ui", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-UI-COM-007", "domain": "ui", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-UI-COM-008", "domain": "ui", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-UI-COM-009", "domain": "ui", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-UI-COM-010", "domain": "ui", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-UI-COM-011", "domain": "ui", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-UI-COM-012", "domain": "ui", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-UI-NEWS-001", "domain": "ui", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-UI-NEWS-002", "domain": "ui", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-UI-SKU-001", "domain": "ui", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-DATA-COM-001", "domain": "data-ontology", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-DATA-COM-002", "domain": "data-ontology", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-DATA-COM-003", "domain": "data-ontology", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-DATA-COM-004", "domain": "data-ontology", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-OPS-COM-001", "domain": "operations", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-OPS-COM-002", "domain": "operations", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-OPS-COM-003", "domain": "operations", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-OPS-COM-004", "domain": "operations", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"},
+    {"id": "STD-DEPLOY-COM-001", "domain": "deployment", "applicability": "APPLIES", "state": "CONFORMS", "lifecycle": "CLOSED", "regression": "FINAL_LIVE_PROOF"},
+    {"id": "STD-DEPLOY-COM-002", "domain": "deployment", "applicability": "APPLIES", "state": "CONFORMS", "regression": "STILL_CONFORMS"}
+  ],
+  "final_counts": {
+    "CONFORMS": 25,
+    "NON_CONFORMING": 0,
+    "INSUFFICIENT_EVIDENCE": 0,
+    "NOT_APPLICABLE": 0,
+    "UNKNOWN": 0
+  },
+  "deployment_com_001": {
+    "verdict": "CONFORMS",
+    "lifecycle": "CLOSED",
+    "live_proof": "LIVE_PROOF_CONFIRMED",
+    "evidence_artifact": "audits/watch-clank-deploy-live-proof-2026-09-01-confirmed.md",
+    "intended_revision": "d03bc4b2f90289686331af0447d5ca4e8cf55822",
+    "observed_revision": "d03bc4b2f90289686331af0447d5ca4e8cf55822",
+    "image_id": "sha256:a091fbe7f1736c98004c63f45c1b2c1c5abb85733e6b95779de635e4c90c7bdf",
+    "target_scope": "hetzner/ubuntu-4gb-hel1-1:user-systemd-docker",
+    "config_matches": true,
+    "wiring_matches": true,
+    "converged": true,
+    "comparator_state": "COMPLETE",
+    "comparison_matches": true,
+    "comparator_exit": 0
+  },
+  "ops_com_003": {"verdict": "CONFORMS", "lifecycle": "CLOSED", "basis": "M4G qualification provenance/reset/terminal closure"},
+  "ops_com_004": {"verdict": "CONFORMS", "lifecycle": "CLOSED", "basis": "M4G grant-backed advisory lock closure"},
+  "live_proof_chronology": [
+    {"artifact": "audits/watch-clank-deploy-live-proof-2026-09-01.md", "verdict": "LIVE_PROOF_FAILED", "comparator": "UNVERIFIED", "exit": 2},
+    {"artifact": "audits/watch-clank-deploy-live-proof-2026-09-01-confirmed.md", "verdict": "LIVE_PROOF_CONFIRMED", "comparator": "COMPLETE", "exit": 0}
+  ],
+  "regression_assessment": {"prior_conforms": 24, "still_conforms": 24, "regressed": 0, "insufficient_evidence_now": 0},
+  "known_evidence_admission": {
+    "mechanism": "tools.deployment_agent_layer.build_known_evidence_index",
+    "index": "standards/deployment/known-evidence-index.json",
+    "entries": 1,
+    "admitted": [{"standard": "STD-DEPLOY-COM-001", "subject": "watch-clank", "kind": "known_conformance", "source_reference": "audits/watch-clank-cross-domain-2026-09-01-final.md"}],
+    "supersedes": ["audits/watch-clank-cross-domain-2026-09-01-reaudit-4.md"],
+    "historical_failed_proof_preserved": true
+  },
+  "reference_clank": {"clank": "watch-clank", "first_fully_wired_admitted_reference": true, "descriptive_only": true},
+  "tests": {"before": "793 passed", "after": "793 passed"},
+  "frozen_standards_unchanged": true,
+  "frozen_tags_unchanged": true,
+  "watch_unchanged": true,
+  "scope_caveat": "Conformance is certified only for Watch d03bc4b2f90289686331af0447d5ca4e8cf55822 at the audited target/evidence point, not for future revisions or deployments."
+}
