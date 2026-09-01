@@ -1,0 +1,159 @@
+{
+  "plan_id": "fleet-remediation-planning-m2-2026-09-01",
+  "mode": "READ_ONLY_REMEDIATION_PLAN",
+  "date": "2026-09-01",
+  "source_audit": "audits/fleet-blind-audit-sweep-m1-2026-09-01.json",
+  "source_audit_commit": "c8969263a1b936c4ff888eb9d2dc9449b3d12fef",
+  "standards_clank_head": "c8969263a1b936c4ff888eb9d2dc9449b3d12fef",
+  "purpose": "Convert the M1 fleet matrix into implementation-neutral remediation patterns and a safe order of work without changing any target.",
+  "guardrails": {
+    "target_repositories_modified": false,
+    "host_actions_performed": false,
+    "deployments_or_schedulers_modified": false,
+    "known_evidence_modified": false,
+    "new_standards_drafted": false,
+    "live_proof_performed": false,
+    "target_tests_run": false,
+    "evidence_admission_authorized": false,
+    "principle": "A shared recipe may standardize the contract and proof shape, never fabricate target evidence or silently port target-specific code."
+  },
+  "pattern_ledger": [
+    {
+      "pattern_id": "LOCK_AUTHORITY_PID_OPENPROCESS",
+      "pattern": "PID/OpenProcess ownership-marker reclamation",
+      "affected_clanks": ["feature-phone-clank", "tablet-clank"],
+      "implicated_standards": ["STD-OPS-COM-004"],
+      "m1_state": "NON_CONFORMING",
+      "shared_fix_viable": true,
+      "shared_fix_shape": "Replace reusable PID/liveness-based stale-marker decisions with a grantor-observable authority (for example, an OS advisory lock or an equivalent lease/fencing authority). Keep diagnostic metadata non-authoritative.",
+      "code_reuse_policy": "Share the invariant, acceptance tests, and review checklist; do not copy a Watch/OEM implementation without checking each target's process, filesystem, and runtime boundary.",
+      "per_target_proof_required": true,
+      "proof_gates": [
+        "The real execution path acquires the authority before work and releases it on normal and abnormal termination.",
+        "A stale/reused PID or hostname cannot by itself authorize reclaim, termination, or duplicate execution.",
+        "A contention test demonstrates refusal/serialization and a release test demonstrates recovery after owner death.",
+        "All prior lock metadata remains diagnostic only, with no alternate caller consulting it as authority."
+      ],
+      "recommended_targets": ["feature-phone-clank", "tablet-clank"]
+    },
+    {
+      "pattern_id": "QUALIFICATION_PROVENANCE_RESET",
+      "pattern": "Qualification provenance, material-change reset, and gate-agreement evidence",
+      "affected_clanks": ["oem-radar", "semiconductor-intelligence", "korean-tech-wire", "feature-phone-clank", "smartwatch-clank", "tablet-clank"],
+      "implicated_standards": ["STD-OPS-COM-003"],
+      "m1_state": "INSUFFICIENT_EVIDENCE",
+      "shared_fix_viable": true,
+      "shared_fix_shape": "Use a durable, append-only qualification/epoch record that carries authority-supplied trigger provenance, explicit prior material identity on reset, reset reason/time, and gate-visible evidence. Natural, manual, deploy-verification, and recovery paths remain distinguishable; missing provenance is UNKNOWN/fail-closed.",
+      "code_reuse_policy": "Share the data contract, state-transition invariants, and adversarial test vectors. Each target must bind its own scheduler/manual/deploy/recovery paths and its own material-change detector.",
+      "per_target_proof_required": true,
+      "proof_gates": [
+        "Every real trigger path supplies provenance structurally; no downstream fallback fabricates NATURAL.",
+        "A material change creates a new qualification epoch before the first changed-run event is evaluated.",
+        "The reset record contains the explicit prior material identity and reason; stale pre-reset evidence cannot satisfy the new gate.",
+        "Natural/manual/deploy/recovery runs remain distinguishable and UNKNOWN is preserved when provenance is absent.",
+        "Independent gates cannot silently disagree; divergence fails closed and is recorded."
+      ],
+      "recommended_targets": ["oem-radar", "semiconductor-intelligence", "korean-tech-wire", "feature-phone-clank", "smartwatch-clank", "tablet-clank"],
+      "excluded_targets": {"chinese-tech-wire": "No promotion path was counted in M1.", "smartphone-clank": "No promotion/soak lifecycle was counted in M1."}
+    },
+    {
+      "pattern_id": "PERSISTENT_STATE_COMPATIBILITY",
+      "pattern": "Persistent-state compatibility gate",
+      "affected_clanks": ["oem-radar", "semiconductor-intelligence", "chinese-tech-wire", "korean-tech-wire", "feature-phone-clank", "smartwatch-clank", "tablet-clank"],
+      "implicated_standards": ["STD-DEPLOY-COM-002"],
+      "m1_state": "INSUFFICIENT_EVIDENCE",
+      "shared_fix_viable": true,
+      "shared_fix_shape": "Add or verify a pre-normal-work compatibility barrier that compares the deployed code's required persistent-state contract with the target state, fails closed on known mismatch, and records the compatibility refusal. Migration framework/order remains target-specific.",
+      "code_reuse_policy": "Share the gate contract, failure vocabulary, and regression scenarios; do not prescribe Alembic, SQL, create_all, startup, or rollout mechanics across targets.",
+      "per_target_proof_required": true,
+      "proof_gates": [
+        "The actual normal-work entrypoint crosses the compatibility barrier first.",
+        "Known incompatible code/state refuses normal work and leaves an identifying record.",
+        "Connectivity, table existence, process start, and migration-command success alone cannot pass the gate.",
+        "Fresh, upgraded, stale, and partially-migrated target states are covered by focused tests."
+      ],
+      "recommended_targets": ["oem-radar", "semiconductor-intelligence", "chinese-tech-wire", "korean-tech-wire", "feature-phone-clank", "smartwatch-clank", "tablet-clank"],
+      "positive_exception": {"smartphone-clank": "M1 source evidence identifies database/schema_guard.py as a positive implementation; preserve and independently re-check it during the fleet re-audit."}
+    },
+    {
+      "pattern_id": "LIVE_DEPLOYMENT_IDENTITY",
+      "pattern": "Intended-to-materially-running deployment identity",
+      "affected_clanks": ["oem-radar", "semiconductor-intelligence", "chinese-tech-wire", "korean-tech-wire", "feature-phone-clank", "smartphone-clank", "smartwatch-clank", "tablet-clank"],
+      "implicated_standards": ["STD-DEPLOY-COM-001"],
+      "m1_state": "INSUFFICIENT_EVIDENCE",
+      "shared_fix_viable": false,
+      "shared_fix_shape": "Share Watch's read-only comparator and evidence schema only. There is no transferable target evidence: intended artifact/revision, target environment, configuration, wiring, and materially running identity must be observed per target.",
+      "code_reuse_policy": "Common proof mechanism is allowed; target identity, target scope, artifact provenance, and result are never inherited from Watch or another Clank.",
+      "per_target_proof_required": true,
+      "proof_gates": [
+        "The target environment/scope is named in the completion claim.",
+        "Intended and running artifact/revision provenance are comparable and trustworthy.",
+        "Deploy-critical configuration and required runtime wiring are observed where applicable.",
+        "Partial/in-progress convergence is represented as partial, never complete.",
+        "The proof is read-only and occurs only after source remediation and re-audit are green."
+      ],
+      "recommended_targets": ["oem-radar", "semiconductor-intelligence", "chinese-tech-wire", "korean-tech-wire", "feature-phone-clank", "smartphone-clank", "smartwatch-clank", "tablet-clank"]
+    },
+    {
+      "pattern_id": "RESOLVER_FACT_REGISTRY",
+      "pattern": "Empty target trigger facts in fleet-adoption.json",
+      "affected_clanks": ["oem-radar", "semiconductor-intelligence", "chinese-tech-wire", "korean-tech-wire", "feature-phone-clank", "smartphone-clank", "smartwatch-clank", "tablet-clank"],
+      "implicated_standards": [],
+      "m1_state": "PROCESS_LIMITATION",
+      "shared_fix_viable": false,
+      "shared_fix_shape": "Do not silently populate or mutate registry facts as part of remediation. Treat source-trigger confirmation and any future profile-fact update as a separately authorized governance decision.",
+      "per_target_proof_required": true,
+      "proof_gates": ["A future resolver/profile change must cite target source evidence and preserve UNKNOWN semantics."],
+      "recommended_targets": []
+    }
+  ],
+  "remediation_order": [
+    {
+      "phase": 1,
+      "name": "Close actual lock-authority defects",
+      "targets": ["feature-phone-clank", "tablet-clank"],
+      "standards": ["STD-OPS-COM-004"],
+      "why_first": "These are the only M1 NON_CONFORMING findings, and both share the same PID/OpenProcess defect family.",
+      "safe_boundary": "Source-only changes and focused target tests; no deployment or host verification.",
+      "exit_gate": "Independent source re-audit shows CONFORMS for OPS-COM-004 in both targets."
+    },
+    {
+      "phase": 2,
+      "name": "Apply common source-level evidence recipes",
+      "targets": ["oem-radar", "semiconductor-intelligence", "korean-tech-wire", "feature-phone-clank", "smartwatch-clank", "tablet-clank", "chinese-tech-wire"],
+      "standards": ["STD-OPS-COM-003", "STD-DEPLOY-COM-002"],
+      "why_now": "Qualification and compatibility are source-level prerequisites for honest deployment proof; the contract and adversarial tests can be shared while integration remains per target.",
+      "safe_boundary": "No target implementation starts from this ledger alone; each target needs an independently authorized remediation pass and a target-specific test plan.",
+      "exit_gate": "Every affected target has target-local structural evidence and focused tests for its applicable pattern, with UNKNOWN/fail-closed behavior preserved."
+    },
+    {
+      "phase": 3,
+      "name": "Fleet source re-audit",
+      "targets": ["oem-radar", "semiconductor-intelligence", "chinese-tech-wire", "korean-tech-wire", "feature-phone-clank", "smartphone-clank", "smartwatch-clank", "tablet-clank"],
+      "standards": ["STD-UI-*", "STD-DATA-*", "STD-OPS-*", "STD-DEPLOY-*"],
+      "why_now": "A clean source state must be established before any production observation is allowed to influence DEPLOY-COM-001.",
+      "safe_boundary": "Read-only source audit and safe focused regression tests; no host action and no evidence admission.",
+      "exit_gate": "Per-target re-audit records current applicability and state; no unresolved source defect is silently carried into live proof."
+    },
+    {
+      "phase": 4,
+      "name": "Per-target read-only live deployment proofs",
+      "targets": ["oem-radar", "semiconductor-intelligence", "chinese-tech-wire", "korean-tech-wire", "feature-phone-clank", "smartphone-clank", "smartwatch-clank", "tablet-clank"],
+      "standards": ["STD-DEPLOY-COM-001"],
+      "why_last": "Live materialization evidence is meaningful only after source-level contracts and compatibility gates are independently re-audited.",
+      "safe_boundary": "Read-only comparator only; no deploy, restart, config mutation, scheduler change, or recovery action.",
+      "exit_gate": "Each target separately reaches a complete or explicitly partial result with trustworthy intended/running identity, config, wiring, and scope evidence."
+    }
+  ],
+  "per_target_queue": [
+    {"rank": 1, "target": "feature-phone-clank", "first_pattern": "LOCK_AUTHORITY_PID_OPENPROCESS", "then": ["QUALIFICATION_PROVENANCE_RESET", "PERSISTENT_STATE_COMPATIBILITY"], "live_proof": "last"},
+    {"rank": 1, "target": "tablet-clank", "first_pattern": "LOCK_AUTHORITY_PID_OPENPROCESS", "then": ["QUALIFICATION_PROVENANCE_RESET", "PERSISTENT_STATE_COMPATIBILITY"], "live_proof": "last"},
+    {"rank": 2, "target": "oem-radar", "first_pattern": "QUALIFICATION_PROVENANCE_RESET", "then": ["PERSISTENT_STATE_COMPATIBILITY"], "live_proof": "last"},
+    {"rank": 2, "target": "semiconductor-intelligence", "first_pattern": "QUALIFICATION_PROVENANCE_RESET", "then": ["PERSISTENT_STATE_COMPATIBILITY"], "live_proof": "last"},
+    {"rank": 2, "target": "korean-tech-wire", "first_pattern": "QUALIFICATION_PROVENANCE_RESET", "then": ["PERSISTENT_STATE_COMPATIBILITY"], "live_proof": "last"},
+    {"rank": 2, "target": "smartwatch-clank", "first_pattern": "QUALIFICATION_PROVENANCE_RESET", "then": ["PERSISTENT_STATE_COMPATIBILITY"], "live_proof": "last"},
+    {"rank": 3, "target": "chinese-tech-wire", "first_pattern": "PERSISTENT_STATE_COMPATIBILITY", "then": [], "live_proof": "last"},
+    {"rank": 4, "target": "smartphone-clank", "first_pattern": "NONE_REQUIRED_FROM_M1", "then": ["PRESERVE_SCHEMA_GUARD"], "live_proof": "last"}
+  ],
+  "decision": "Use shared contracts, invariants, and proof gates to reduce duplicated reasoning, but keep implementation and evidence per target. Do not begin remediation or live proof from this planning artifact alone."
+}
