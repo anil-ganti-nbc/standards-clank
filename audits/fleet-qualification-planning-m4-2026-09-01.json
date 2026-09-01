@@ -1,0 +1,278 @@
+{
+  "plan_id": "fleet-qualification-planning-m4-2026-09-01",
+  "mode": "READ_ONLY_QUALIFICATION_PLANNING",
+  "date": "2026-09-01",
+  "source_audits": [
+    "audits/fleet-blind-audit-sweep-m1-2026-09-01.json",
+    "audits/fleet-remediation-planning-m2-2026-09-01.json"
+  ],
+  "source_audit_commits": {
+    "m1": "c8969263a1b936c4ff888eb9d2dc9449b3d12fef",
+    "standards_head_at_planning": "a88f39244184e1e3500331e806029c26740614e0"
+  },
+  "purpose": "Read-only implementation-family planning for the six Clanks with the M1 STD-OPS-COM-003 qualification provenance/reset evidence gap. No target is remediated or admitted by this artifact.",
+  "shared_contract": "execution authority establishes provenance -> material identity is computed -> required epoch reset occurs before gated use -> evidence is persisted against execution/epoch -> downstream gates consume but never invent provenance",
+  "shared_invariants": [
+    "Every real execution authority supplies provenance structurally; scheduled, manual, deploy-verification, recovery, retry, and unknown paths remain distinguishable wherever they exist.",
+    "Material identity is a trustworthy release/config/schema identity, not a product or content identity.",
+    "A material change appends an auditable reset containing explicit prior material identity, new identity, reason, authority, and time before first changed-run gate evaluation.",
+    "Qualification evidence is linked to execution and epoch; reset and terminal execution facts are independently persisted when needed.",
+    "Downstream delivery consumes persisted provenance and never fabricates NATURAL or equivalent provenance; absent/divergent provenance is UNKNOWN and fail-closed where required.",
+    "This planning contract does not make an existing continuity, host-migration, campaign, or editorial epoch a qualification epoch."
+  ],
+  "target_observations": [
+    {
+      "target": "oem-radar",
+      "display_name": "OEM Radar",
+      "audited_head": "d720e0635894ddcc9a39f116e2aa4a1768090042",
+      "m1_qualification_state": "INSUFFICIENT_EVIDENCE",
+      "family": "STATELESS_ONE_SHOT_TELEMETRY",
+      "authority_boundary": "External OS scheduler, manual CLI, and dashboard invocation converge on a stateless one-shot runner; no trigger is passed into the runner.",
+      "evidence_boundary": "SQLite crawler_runs plus snapshots, events, and source health.",
+      "material_identity": "Product/configuration keys and content hashes identify observations, not release/config material identity.",
+      "reset_boundary": "No qualification epoch or reset lineage; first decision is whether an applicable qualification lifecycle exists.",
+      "gate_boundary": "Due/health/completed-run checks; production is explicitly unverified/frozen and no epoch-aware promotion gate exists.",
+      "persistence_model": "Embedded SQLite schema version 7 with local migrations.",
+      "migration_need": "Additive qualification records only after applicability is confirmed; preserve crawler history and do not overload product hashes.",
+      "risk": "Highest ambiguity: adding a lifecycle could be a governance change rather than a remediation.",
+      "evidence_refs": [
+        "work/fleet/oem-radar/src/oem_radar/core/runner.py::run_all",
+        "work/fleet/oem-radar/src/oem_radar/providers/sqlite/__init__.py::run_started/run_finished",
+        "work/fleet/oem-radar/docs/ARCHITECTURE.md",
+        "work/fleet/oem-radar/docs/DATABASE_LIFECYCLE.md",
+        "work/fleet/oem-radar/docs/SOAK_ARCHIVE_2026-08.md",
+        "work/fleet/oem-radar/README.md"
+      ]
+    },
+    {
+      "target": "semiconductor-intelligence",
+      "display_name": "Semiconductor Intelligence",
+      "audited_head": "8a356a3bc87bea0f0d95e66c072c8e8a629156d5",
+      "m1_qualification_state": "INSUFFICIENT_EVIDENCE",
+      "family": "RICH_ORM_JOB_PROVENANCE",
+      "authority_boundary": "OperationalScheduler persists MANUAL_CLI, MANUAL_GUI, SCHEDULER, STARTUP_CATCHUP, RETRY, and TEST on OperationalJobRun with owner and lease identity.",
+      "evidence_boundary": "Operational jobs/leases, provider runs, signal items/candidates, promotion events, evidence, and editorial stories.",
+      "material_identity": "Candidate fingerprints/content hashes identify signal evidence, not deployed code/config or qualification identity.",
+      "reset_boundary": "Job trigger provenance exists, but no qualification epoch, material-change detector, or explicit reset lineage.",
+      "gate_boundary": "Candidate eligibility, thresholds, budgets, and manual/automatic promotion; editorial promotion is not soak qualification.",
+      "persistence_model": "SQLAlchemy/Alembic migrations, latest observed phase-9 operational automation migration.",
+      "migration_need": "Add a dedicated qualification projection linked to job execution; do not retrofit free-form promoted_by or candidate fingerprints.",
+      "risk": "Strongest scheduler evidence, but high semantic risk of confusing editorial promotion with qualification.",
+      "evidence_refs": [
+        "work/fleet/semiconductor-intelligence/semi_intel/domain/enums.py::OperationalTriggerType",
+        "work/fleet/semiconductor-intelligence/semi_intel/domain/models.py::OperationalJobRun",
+        "work/fleet/semiconductor-intelligence/semi_intel/operations/scheduler.py",
+        "work/fleet/semiconductor-intelligence/semi_intel/signals/promotion.py",
+        "work/fleet/semiconductor-intelligence/docs/SIGNAL_PROMOTION_IMPLEMENTATION_PLAN.md",
+        "work/fleet/semiconductor-intelligence/alembic/versions/f9a4c6d8e203_phase9_operational_automation.py"
+      ]
+    },
+    {
+      "target": "korean-tech-wire",
+      "display_name": "Korean Tech Wire",
+      "audited_head": "afb4aada1d4fae09ada4658fe9fcf8dfa38eb23d",
+      "m1_qualification_state": "INSUFFICIENT_EVIDENCE",
+      "family": "AGGREGATE_SQLITE_HEALTH_HISTORY",
+      "authority_boundary": "Foreground CLI/dashboard and portable soak invoke the same collector path; any future scheduler is external. RunLock serializes but does not establish trigger provenance.",
+      "evidence_boundary": "Aggregate runs, per-source health, fetch attempts, errors, articles, and QC/archive history.",
+      "material_identity": "Canonical URLs/content hashes and source status identify content, not release/config identity.",
+      "reset_boundary": "No qualification epoch; source history and production/experimental policy are narrative.",
+      "gate_boundary": "Source status plus health-history/promotion-policy review; no persisted fail-closed qualification gate.",
+      "persistence_model": "Embedded SQLite migrations versions 1 through 4.",
+      "migration_need": "Additive per-invocation/per-source provenance and qualification tables; preserve aggregate history and migration versions.",
+      "risk": "Aggregate invocation versus per-source evidence can lose authority linkage; the existing policy has no single gate boundary.",
+      "evidence_refs": [
+        "work/fleet/korean-tech-wire/src/korean_tech_wire/discovery/runner.py::run_collectors",
+        "work/fleet/korean-tech-wire/src/korean_tech_wire/storage/database.py::MIGRATIONS",
+        "work/fleet/korean-tech-wire/src/korean_tech_wire/soak.py::run_soak",
+        "work/fleet/korean-tech-wire/src/korean_tech_wire/locking.py",
+        "work/fleet/korean-tech-wire/docs/promotion-policy.md",
+        "work/fleet/korean-tech-wire/docs/runbook.md"
+      ]
+    },
+    {
+      "target": "feature-phone-clank",
+      "display_name": "Feature Phone",
+      "audited_head": "890ab339234381b04c6f27e710e3382fa70bc076",
+      "m1_qualification_state": "INSUFFICIENT_EVIDENCE",
+      "family": "PER_SOURCE_SQLITE_OPERATIONAL_SCOPES",
+      "authority_boundary": "Manual dashboard and scheduled/CLI production runs converge on _run; production and experimental use separate stores/locks. No trigger provenance is passed.",
+      "evidence_boundary": "SQLite collector_runs, observations, classification log, events, and append-only continuity JSONL.",
+      "material_identity": "Product keys/content hashes/classifications identify data; production allowlist is configuration, not recorded material identity.",
+      "reset_boundary": "Continuity JSONL has data-loss epoch fpc-epoch-2, which must remain separate from qualification epoch/reset.",
+      "gate_boundary": "Scope allowlist and healthy/baseline run status; no explicit epoch-aware qualification gate.",
+      "persistence_model": "SQLite schema version 4 plus hash-tamper-evident JSONL continuity registry.",
+      "migration_need": "Add separate qualification/epoch/reset records and additive run provenance; keep continuity epochs and historical unknowns intact.",
+      "risk": "Continuity/qualification epoch collision and production/experimental store scope confusion.",
+      "evidence_refs": [
+        "work/fleet/feature-phone-clank/src/feature_phone_clank/core/runner.py::_run",
+        "work/fleet/feature-phone-clank/src/feature_phone_clank/local_collection.py::start_all_production",
+        "work/fleet/feature-phone-clank/src/feature_phone_clank/providers/sqlite/__init__.py::SCHEMA_VERSION",
+        "work/fleet/feature-phone-clank/src/feature_phone_clank/core/continuity.py::EPOCH_ID",
+        "work/fleet/feature-phone-clank/config/scope.yaml"
+      ]
+    },
+    {
+      "target": "smartwatch-clank",
+      "display_name": "Smartwatch",
+      "audited_head": "08a23f90297f7c0fbaffdb4018116c13d5e60b84",
+      "m1_qualification_state": "INSUFFICIENT_EVIDENCE",
+      "family": "RICH_ORM_JOB_PROVENANCE",
+      "authority_boundary": "CLI production/experimental, manual controller, and soak cycle establish structured run metadata; RunProvenance carries app version, config fingerprint, git revision, and UUID run identity.",
+      "evidence_boundary": "Run/observation/discovery tables, health, soak state, host migrations, and continuity evidence.",
+      "material_identity": "Git revision, config fingerprint, schema version, and run UUID are the closest existing material identity.",
+      "reset_boundary": "No qualification epoch/reset lineage; host migration is continuity evidence, not a qualification reset.",
+      "gate_boundary": "Production allowlist and soak health summary; no fail-closed qualification epoch gate.",
+      "persistence_model": "SQLite schema version 2 with embedded schema evolution and continuity/soak metadata.",
+      "migration_need": "Additive qualification epoch/reset records linked to existing run UUID/provenance; preserve host migration history.",
+      "risk": "Lowest implementation risk, but existing provenance must not be mistaken for qualification closure and material-change detection is absent.",
+      "evidence_refs": [
+        "work/fleet/smartwatch-clank/src/smartwatch_clank/core/runner.py::RunProvenance",
+        "work/fleet/smartwatch-clank/src/smartwatch_clank/cli.py",
+        "work/fleet/smartwatch-clank/src/smartwatch_clank/core/soak.py::prepare_soak_cycle",
+        "work/fleet/smartwatch-clank/src/smartwatch_clank/core/store.py::SCHEMA_VERSION",
+        "work/fleet/smartwatch-clank/src/smartwatch_clank/local_collection.py",
+        "work/fleet/smartwatch-clank/tests/test_run_provenance.py"
+      ]
+    },
+    {
+      "target": "tablet-clank",
+      "display_name": "Tablet",
+      "audited_head": "568fcfc9b80a2bffcebe8af475b3319f2304ad76",
+      "m1_qualification_state": "INSUFFICIENT_EVIDENCE",
+      "family": "PER_SOURCE_SQLITE_OPERATIONAL_SCOPES",
+      "authority_boundary": "Bounded soak/campaign and production/manual collection are serialized by the OS advisory lock; campaign manifests bind roster and environment.",
+      "evidence_boundary": "SQLite collector runs, source state, observations, change_events.run_id, and append-only campaign JSONL/manifests.",
+      "material_identity": "Product identity/observations plus roster hash/interpreter environment; no code/config/release identity is tied to qualification.",
+      "reset_boundary": "Campaign closure and historical host records are evidence, not a qualification reset.",
+      "gate_boundary": "Readiness/integrity, allowlist, healthy-cycle count, and human promotion; no epoch-aware fail-closed gate.",
+      "persistence_model": "Inline SQLite schema v1 plus additive v2 change_events.run_id migration and JSONL campaign reports.",
+      "migration_need": "Additive qualification/epoch/reset records linked to run_id; preserve the v2 migration and separate reset from terminal facts.",
+      "risk": "Campaign and production evidence can be conflated unless scope, epoch, and terminal records are explicit.",
+      "evidence_refs": [
+        "work/fleet/tablet-clank/tablet_clank/soak.py::run_bounded",
+        "work/fleet/tablet-clank/tablet_clank/pipeline/__init__.py",
+        "work/fleet/tablet-clank/tablet_clank/storage/db.py::schema_migrations",
+        "work/fleet/tablet-clank/tablet_clank/campaign.py",
+        "work/fleet/tablet-clank/docs/SOAK_OPERATIONS.md",
+        "work/fleet/tablet-clank/docs/SOAK_READINESS.md"
+      ]
+    }
+  ],
+  "implementation_families": [
+    {
+      "family_id": "RICH_ORM_JOB_PROVENANCE",
+      "members": [
+        "smartwatch-clank",
+        "semiconductor-intelligence"
+      ],
+      "shared_recipe_viable": true,
+      "shared_shape": "Qualification projection keyed to an existing run/job identity with explicit trigger provenance, material identity, epoch/reset lineage, and gate projection.",
+      "target_local_boundaries": "Smartwatch has run-level provenance/UUID; Semiconductor has scheduler/job provenance and a separate editorial promotion model that must remain separate.",
+      "proof_still_per_target": true
+    },
+    {
+      "family_id": "PER_SOURCE_SQLITE_OPERATIONAL_SCOPES",
+      "members": [
+        "feature-phone-clank",
+        "tablet-clank"
+      ],
+      "shared_recipe_viable": true,
+      "shared_shape": "Additive qualification rows linked to collector/run IDs; reset and terminal facts are separate; production/experimental or campaign scope is explicit.",
+      "target_local_boundaries": "Feature Phone keeps data-loss continuity epochs separate; Tablet preserves campaign manifests and change_events.run_id.",
+      "proof_still_per_target": true
+    },
+    {
+      "family_id": "AGGREGATE_SQLITE_HEALTH_HISTORY",
+      "members": [
+        "korean-tech-wire"
+      ],
+      "shared_recipe_viable": "partial",
+      "shared_shape": "Additive invocation/per-source provenance and qualification projection over existing run/health history.",
+      "target_local_boundaries": "Aggregate invocation and per-source evidence linkage, plus narrative production policy, need explicit mechanics.",
+      "proof_still_per_target": true
+    },
+    {
+      "family_id": "STATELESS_ONE_SHOT_TELEMETRY",
+      "members": [
+        "oem-radar"
+      ],
+      "shared_recipe_viable": "applicability_checkpoint_first",
+      "shared_shape": "If applicable, add the smallest execution/qualification envelope around the external trigger and existing crawler_runs.",
+      "target_local_boundaries": "There is no in-process scheduler, qualification gate, or release identity today; do not implement a new lifecycle as if it already existed.",
+      "proof_still_per_target": true
+    }
+  ],
+  "batching_order": [
+    {
+      "rank": 1,
+      "batch": [
+        "smartwatch-clank"
+      ],
+      "action": "Prototype the rich provenance adapter against existing UUID/config/git records.",
+      "reason": "Richest existing run provenance and material identity; lowest implementation risk.",
+      "exit_gate": "Focused structural proof of epoch/reset/gate semantics without claiming qualification closure."
+    },
+    {
+      "rank": 2,
+      "batch": [
+        "semiconductor-intelligence"
+      ],
+      "action": "Adapt the contract at the scheduler/job boundary.",
+      "reason": "Validates rich ORM family under multiple trigger types while keeping editorial promotion separate.",
+      "exit_gate": "Job-linked qualification evidence and adversarial provenance tests are target-local."
+    },
+    {
+      "rank": 3,
+      "batch": [
+        "feature-phone-clank",
+        "tablet-clank"
+      ],
+      "action": "Apply one per-source SQLite recipe with independent integrations.",
+      "reason": "Shared storage shape and operational scopes; both already have lock remediation evidence.",
+      "exit_gate": "Separate qualification reset/terminal facts; continuity/campaign records preserved."
+    },
+    {
+      "rank": 4,
+      "batch": [
+        "korean-tech-wire"
+      ],
+      "action": "Adapt to aggregate invocation and per-source health history.",
+      "reason": "Requires explicit linkage where current aggregate runs and source evidence diverge.",
+      "exit_gate": "Authority and per-source evidence linkage is structurally persisted."
+    },
+    {
+      "rank": 5,
+      "batch": [
+        "oem-radar"
+      ],
+      "action": "Run an applicability checkpoint through existing governance before implementation.",
+      "reason": "No existing qualification/promotion lifecycle; a new lifecycle may be governance, not remediation.",
+      "exit_gate": "Explicit applicable/not-applicable decision, not an inferred gate."
+    },
+    {
+      "rank": 6,
+      "batch": [
+        "all-six"
+      ],
+      "action": "Re-audit source state, then perform per-target read-only live proof.",
+      "reason": "Deployment identity evidence cannot be inherited from Watch or another Clank.",
+      "exit_gate": "Each target has independent source and live identity evidence."
+    }
+  ],
+  "m1_scope_note": "Chinese Tech Wire and Smartphone are not included because M1/M2 did not count a qualifying promotion/soak lifecycle for STD-OPS-COM-003; this plan does not reclassify that applicability.",
+  "guardrails": {
+    "target_repositories_modified": false,
+    "target_tests_run": false,
+    "deployments_or_schedulers_modified": false,
+    "host_actions_performed": false,
+    "resolver_facts_modified": false,
+    "known_evidence_modified": false,
+    "evidence_admission_authorized": false,
+    "new_standards_drafted": false,
+    "live_proof_performed": false,
+    "target_heads_verified": true,
+    "standards_worktree_before_artifact": "clean",
+    "decision": "Use shared contracts and adversarial proof gates to reduce duplicated reasoning, while keeping implementation and evidence per target. Do not start remediation from this planning artifact alone."
+  }
+}
