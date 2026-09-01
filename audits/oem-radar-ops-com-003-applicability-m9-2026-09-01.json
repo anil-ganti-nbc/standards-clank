@@ -1,0 +1,157 @@
+{
+  "audit_id": "oem-radar-ops-com-003-applicability-m9-2026-09-01",
+  "mode": "READ_ONLY_APPLICABILITY_CHECKPOINT",
+  "date": "2026-09-01",
+  "standards_clank_head": "d65e67a5fa4e48f788220596408ee867ffa52f36",
+  "target": {
+    "id": "oem-radar",
+    "display_name": "OEM Radar",
+    "repository": "https://github.com/anil-ganti-nbc/oem-radar",
+    "branch": "main",
+    "head": "d720e0635894ddcc9a39f116e2aa4a1768090042",
+    "origin_main": "d720e0635894ddcc9a39f116e2aa4a1768090042",
+    "working_tree": "CLEAN",
+    "standard": "STD-OPS-COM-003",
+    "applicability": "NOT_APPLICABLE"
+  },
+  "source_lineage": {
+    "m1_audit": "audits/fleet-blind-audit-sweep-m1-2026-09-01.json",
+    "m1_standards_head": "e643c1688a63c681401c9e0e1336c05b3e4c1a6b",
+    "m1_prior_state": "INSUFFICIENT_EVIDENCE",
+    "m1_prior_insufficient_standard": "STD-OPS-COM-003",
+    "m1_resolver_disposition": "UNKNOWN",
+    "m4_plan": "audits/fleet-qualification-planning-m4-2026-09-01.json",
+    "m4_family": "STATELESS_ONE_SHOT_TELEMETRY",
+    "m4_instruction": "Applicability checkpoint before implementation; do not invent a lifecycle."
+  },
+  "execution_model": {
+    "runtime_shape": "STATELESS_ONE_SHOT",
+    "authority_boundary": [
+      "External systemd timer, cron, or Windows Task Scheduler invokes the one-shot CLI.",
+      "Explicit CLI invocation invokes the same execute_crawl/run_all path.",
+      "Dashboard CrawlController invokes execute_crawl in a background thread; its auto/manual trigger is in-memory controller state only."
+    ],
+    "control_flow": "execute_crawl -> run_all -> run_started -> run_source -> run_finished -> notifier.drain",
+    "durable_run_identity": {
+      "present": true,
+      "shape": "crawler_runs.id integer per source execution",
+      "persisted_fields": ["source_key", "started_at", "finished_at", "status", "stats_json"],
+      "scope": "telemetry/run history, not qualification identity"
+    },
+    "provenance": {
+      "recorded": false,
+      "scheduled_manual_distinction": "not persisted; dashboard trigger is an in-memory status field and scheduler wrappers call the same one-shot command",
+      "deploy_verification": "no qualification execution class exists",
+      "recovery": "no qualification execution class exists",
+      "unknown": "no provenance field or qualification consumer exists"
+    },
+    "persistence": {
+      "telemetry": ["crawler_runs", "run_errors", "snapshots", "change_events", "notifications", "evidence_items", "evidence_events", "source-health stats"],
+      "qualification_evidence": false,
+      "qualification_epoch_or_reset": false,
+      "gate_state": false
+    },
+    "prior_evidence_consumption": {
+      "qualification_evidence": false,
+      "telemetry_consumers": ["source_due", "has_completed_run", "prior-successful-run health/catalog baseline"],
+      "effect": "due/health/telemetry behavior only; no promotion or maturity decision"
+    },
+    "qualification_gate": {
+      "present": false,
+      "production_promotion": "README posture is UNVERIFIED_PRODUCTION / promotion frozen, not an application gate",
+      "multi_gate_agreement": false
+    },
+    "material_change": {
+      "qualification_material_identity": false,
+      "observed_content_identity": true,
+      "release_config_schema_identity_tied_to_qualification": false,
+      "stale_reusable_qualification_risk": false
+    },
+    "epoch_reset": {
+      "qualification_epoch": false,
+      "documented_database_epochs": "manual archive/reset bookkeeping only; no epoch column",
+      "semantically_needed_for_existing_workflow": false
+    },
+    "downstream_provenance_fabrication": {
+      "qualification_delivery_path": false,
+      "finding": "No qualification gate or downstream qualification consumer exists, so there is no trusted provenance path to fabricate."
+    }
+  },
+  "applicability_test": {
+    "evidence_persists_across_executions": true,
+    "persisted_state_is_qualification_evidence": false,
+    "evidence_affects_qualification_or_maturity_gate": false,
+    "material_basis_change_can_stale_reusable_qualification": false,
+    "durable_provenance_reset_traceability_needed": false,
+    "all_ops_com_003_conditions_satisfied": false,
+    "interpretation": "Telemetry and catalog/evidence observations persist, but they do not accumulate as reusable soak evidence or justify a production decision."
+  },
+  "resolver_trigger_fact_analysis": {
+    "resolver": "tools/fleet_standards_resolver.py",
+    "mapped_fact": "has_promotion_soak",
+    "registry_value": "MISSING",
+    "registry_entry": "profiles/fleet-adoption.json::oem-radar",
+    "fact_sources": ["profiles/sku-based.json"],
+    "m1_raw_counts": {"APPLIES": 1, "NOT_APPLICABLE": 2, "UNKNOWN": 22},
+    "finding": "TARGET_TRIGGER_FACT_INCOMPLETE",
+    "assessment": "M1 correctly treated the absent fact as unresolved rather than FALSE; generic sku-based profile scope did not prove a promotion/soak lifecycle. Source inspection now establishes that the lifecycle is absent.",
+    "required_follow_up": "Separate Standards-only applicability-record correction; no frozen-standard or resolver redesign in this checkpoint."
+  },
+  "real_governed_behaviour": {
+    "description": "One-shot invocation telemetry, due gating, source/output health, catalog diffs, notifications, and evidence observation storage.",
+    "likely_operations_standards": ["STD-OPS-COM-001", "STD-OPS-COM-002"],
+    "re_audit_performed_here": false,
+    "qualification_or_promotion_semantics": false
+  },
+  "decision": {
+    "verdict": "NOT_APPLICABLE",
+    "rationale": [
+      "OEM Radar is explicitly stateless one-shot collection driven by external scheduler/manual/dashboard invocation.",
+      "Durable crawler_runs and related records are telemetry, health, catalog-diff, delivery, and evidence-observation state, not reusable qualification evidence.",
+      "No promotion/soak maturity gate consumes prior evidence to authorize production behavior.",
+      "No qualification material identity, epoch, or reset boundary exists; adding one would create a new lifecycle rather than repair an existing risk.",
+      "The README's UNVERIFIED_PRODUCTION / promotion-frozen posture is a deployment/release posture, not a qualification gate.",
+      "The evidence architecture explicitly leaves an evidence-promotion path undefined, and the documented database epochs are operational archive bookkeeping."
+    ],
+    "remediation_warranted": false,
+    "m10_qualification_pass": false
+  },
+  "known_evidence": {
+    "conformance_admitted": false,
+    "non_conformance_admitted": false,
+    "applicability_finding_kind": "not_applicable",
+    "known_evidence_generator_effect": "ignored; no Operations known-evidence entry is produced"
+  },
+  "validation": {
+    "target_tests_run": false,
+    "collectors_run": false,
+    "safe_focused_target_tests": "not required for source-only applicability decision",
+    "standards_suite": {
+      "command": "python -m pytest",
+      "direct_unpiped": true,
+      "status": "PASS",
+      "passed": 834,
+      "failed": 0,
+      "skipped": 0,
+      "exit_code": 0
+    }
+  },
+  "safety_guards": {
+    "target_mutated": false,
+    "host_access": false,
+    "deployment_changed": false,
+    "database_changed": false,
+    "scheduler_changed": false,
+    "frozen_standards_changed": false,
+    "tags_moved": false,
+    "resolver_changed": false,
+    "known_evidence_admitted": false,
+    "full_target_conformance_claim": false,
+    "no_qualification_remediation": true
+  },
+  "artifacts": {
+    "markdown": "audits/oem-radar-ops-com-003-applicability-m9-2026-09-01.md",
+    "json": "audits/oem-radar-ops-com-003-applicability-m9-2026-09-01.json",
+    "guard_test": "tests/test_oem_radar_ops_com_003_applicability_m9.py"
+  }
+}
