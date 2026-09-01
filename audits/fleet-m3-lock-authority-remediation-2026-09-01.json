@@ -1,0 +1,93 @@
+{
+  "audit_id": "fleet-m3-lock-authority-remediation-2026-09-01",
+  "mode": "REMEDIATION_EVIDENCE_RECORD_AND_ADMISSION",
+  "date": "2026-09-01",
+  "standards_clank_head": "c81fdccad2b6415fdfb2e7a822eea1494ac7724b",
+  "targets": {
+    "feature-phone-clank": {
+      "branch": "main",
+      "head": "890ab339234381b04c6f27e710e3382fa70bc076",
+      "origin_main": "890ab339234381b04c6f27e710e3382fa70bc076",
+      "standard": "STD-OPS-COM-004",
+      "state": "CONFORMS",
+      "lifecycle": "CLOSED",
+      "audit": "audits/feature-phone-clank-ops-com-004-2026-09-01.md",
+      "focused_lock_tests": "6 passed",
+      "full_suite": "214 passed, 2 skipped, 4 failed",
+      "baseline_comparison": {
+        "baseline": "4051b64fe7ba4dc188ec1e1a6920ce72b14f013d",
+        "result": "214 passed, 2 skipped, 4 failed",
+        "same_four_failures": true,
+        "new_failures": false,
+        "attribution": "Pre-existing environmental/runtime-contract failures: three HealthPayload/Pydantic schema failures and one Windows Python 3.14 subprocess-handle failure."
+      },
+      "overall_m1_scope": {
+        "applies": 22,
+        "conforms": 18,
+        "non_conforming": 0,
+        "insufficient_evidence": 4
+      }
+    },
+    "tablet-clank": {
+      "branch": "main",
+      "head": "568fcfc9b80a2bffcebe8af475b3319f2304ad76",
+      "origin_main": "568fcfc9b80a2bffcebe8af475b3319f2304ad76",
+      "standard": "STD-OPS-COM-004",
+      "state": "CONFORMS",
+      "lifecycle": "CLOSED",
+      "audit": "audits/tablet-clank-ops-com-004-2026-09-01.md",
+      "focused_lock_tests": "102 passed",
+      "full_suite": "118 passed",
+      "overall_m1_scope": {
+        "applies": 22,
+        "conforms": 18,
+        "non_conforming": 0,
+        "insufficient_evidence": 4
+      }
+    }
+  },
+  "shared_invariant": "Lock ownership/reclamation authority must come from the granting authority or trustworthy grantor-observable mechanism; PID/OpenProcess metadata may be diagnostic, never authoritative.",
+  "shared_regression_recipe": [
+    "First acquisition and contention while a real grant is held.",
+    "Release/recovery and context-manager failure cleanup.",
+    "Readable diagnostic metadata without authority semantics.",
+    "Dead, stale, reused, or unrelated PID metadata cannot block a legitimate acquisition.",
+    "Stale metadata cannot authorize reclaim of an active grant.",
+    "No liveness-only lock decision or destructive marker unlink."
+  ],
+  "target_specific_differences": {
+    "feature-phone-clank": "Dataclass RunLock classmethod surface with path argument and historical stale_after_hours API retained but ignored; diagnostic marker persists after release.",
+    "tablet-clank": "SoakLock instance/context-manager surface plus campaign SoakLock.inspect probe; canonical preflight reports active from kernel contention and stale only for readable unheld metadata."
+  },
+  "implementation_check": {
+    "A_pid_existence_proves_ownership": "NO",
+    "B_pid_alone_blocks_after_grant_gone": "NO",
+    "C_pid_alone_reclaims_active_grant": "NO",
+    "D_grantor_determines_exclusivity": "YES",
+    "E_grant_held_critical_lifetime": "YES",
+    "F_release_allows_later_acquisition": "YES",
+    "G_metadata_diagnostic_only": "YES",
+    "H_pid_reuse_unrelated_regression": "YES",
+    "I_normal_lifecycle_intact": "YES"
+  },
+  "known_evidence_admission": {
+    "performed": true,
+    "layer": "standards/operations/known-evidence-index.json",
+    "mechanism": "tools.operations_agent_layer.build_known_evidence_index",
+    "entries": 2,
+    "scope": "Only STD-OPS-COM-004 conformance findings for these two target revisions are admitted."
+  },
+  "first_validated_shared_fleet_remediation_pattern": {
+    "pattern": "One authority invariant, two independent target integrations, shared adversarial regression shape, no Watch code cargo-culting.",
+    "descriptive_only": true,
+    "normative_change": false
+  },
+  "guardrails": {
+    "frozen_standard_files_changed": false,
+    "resolver_facts_changed": false,
+    "other_target_repositories_changed": false,
+    "host_or_production_actions": false,
+    "overall_target_conformance_claim": false,
+    "next_wave": "OPS-COM-003 qualification provenance/reset remediation across its six affected Clanks."
+  }
+}

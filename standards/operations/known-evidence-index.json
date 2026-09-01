@@ -1,0 +1,18 @@
+[
+  {
+    "standard": "STD-OPS-COM-004",
+    "subject": "feature-phone-clank",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "CONFORMS / CLOSED at canonical feature-phone-clank main revision 890ab339234381b04c6f27e710e3382fa70bc076: RunLock exclusivity is granted by a held OS advisory lock; PID and marker metadata are diagnostic only.",
+    "source_reference": "audits/feature-phone-clank-ops-com-004-2026-09-01.md"
+  },
+  {
+    "standard": "STD-OPS-COM-004",
+    "subject": "tablet-clank",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "CONFORMS / CLOSED at canonical tablet-clank main revision 568fcfc9b80a2bffcebe8af475b3319f2304ad76: SoakLock and canonical-lock preflight use a held OS advisory lock; PID and marker metadata are diagnostic only.",
+    "source_reference": "audits/tablet-clank-ops-com-004-2026-09-01.md"
+  }
+]

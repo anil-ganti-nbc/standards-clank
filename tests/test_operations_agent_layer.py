@@ -3,10 +3,9 @@ standards/operations/ratified-index.json, standards/operations/agent-checklist.j
 and docs/operations/constitution.md, checked against the authoritative
 standards/operations/*.json files — not against each other, so a stale
 generated file or a stale doc can't hide behind agreement with another
-stale artefact. Mirrors tests/test_ui_agent_layer.py's design (minus the
-known-evidence-index checks: no Operations conformance audit exists yet,
-same as the Data/Ontology domain at this stage — see
-tools/operations_agent_layer.py's own docstring).
+stale artefact. Mirrors tests/test_ui_agent_layer.py's design, including the
+generated known-evidence admission layer introduced by the first Operations
+conformance audit.
 
 Building this layer is mechanical housekeeping, commissioned after the
 operations-standards-v1.0 freeze: no normative standard text changes as
@@ -22,6 +21,7 @@ from tools.operations_agent_layer import (
     REPO_ROOT,
     STANDARDS_OPERATIONS_DIR,
     build_agent_checklist,
+    build_known_evidence_index,
     build_ratified_index,
     load_operations_standards,
     load_ratified_operations_standards,
@@ -44,6 +44,10 @@ def _load_index():
 
 def _load_checklist():
     return json.loads((STANDARDS_OPERATIONS_DIR / "agent-checklist.json").read_text(encoding="utf-8"))
+
+
+def _load_known_evidence():
+    return json.loads((STANDARDS_OPERATIONS_DIR / "known-evidence-index.json").read_text(encoding="utf-8"))
 
 
 def _ratified_ids():
@@ -199,13 +203,35 @@ def test_constitution_principle_count_is_reasonable():
     assert 10 <= len(principle_markers) <= 20, f"expected ~10-20 principles for 4 standards, found {len(principle_markers)}"
 
 
-# -- no known-evidence-index exists yet (same reasoning as Data/Ontology) --
+# -- Operations known-evidence admission is generated from active audit blocks --
 
-def test_no_known_evidence_index_exists_yet():
-    assert not (STANDARDS_OPERATIONS_DIR / "known-evidence-index.json").exists()
-    assert "no Operations conformance audit has been performed" in Path(
-        REPO_ROOT / "tools" / "operations_agent_layer.py"
-    ).read_text(encoding="utf-8")
+def test_known_evidence_index_matches_generator_output():
+    assert _load_known_evidence() == build_known_evidence_index()
+
+
+def test_known_evidence_admits_only_the_two_validated_lock_remediations():
+    entries = _load_known_evidence()
+    assert len(entries) == 2
+    by_subject = {entry["subject"]: entry for entry in entries}
+    assert set(by_subject) == {"feature-phone-clank", "tablet-clank"}
+    expected = {
+        "feature-phone-clank": (
+            "890ab339234381b04c6f27e710e3382fa70bc076",
+            "audits/feature-phone-clank-ops-com-004-2026-09-01.md",
+        ),
+        "tablet-clank": (
+            "568fcfc9b80a2bffcebe8af475b3319f2304ad76",
+            "audits/tablet-clank-ops-com-004-2026-09-01.md",
+        ),
+    }
+    for subject, entry in by_subject.items():
+        sha, source = expected[subject]
+        assert entry["standard"] == "STD-OPS-COM-004"
+        assert entry["kind"] == "known_conformance"
+        assert entry["source"] == "audit"
+        assert entry["source_reference"] == source
+        assert sha in entry["summary"]
+        assert "CONFORMS / CLOSED" in entry["summary"]
 
 
 # -- this housekeeping pass must not have changed any normative standard text or the frozen tag --

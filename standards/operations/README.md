@@ -30,6 +30,13 @@ below by `tools/operations_agent_layer.py` — see
 `scripts/generate_operations_agent_layer.py` to regenerate them after any
 change.
 
+The admitted Operations evidence layer is
+[known-evidence-index.json](known-evidence-index.json), generated from active
+`audits/*.md` structured blocks by
+`tools/operations_agent_layer.py`. It records target-scoped source
+conformance evidence separately from the normative ratified index; it does not
+change frozen standards or imply overall fleet conformance.
+
 | id | title | version | status | decision |
 |---|---|---|---|---|
 | [STD-OPS-COM-001](STD-OPS-COM-001.json) | Execution invocation and outcome must be independently recorded, never inferred from scheduler-claimed state | v1 | RATIFIED | [0014](../../decisions/0014-ops-com-001-decision.md) |

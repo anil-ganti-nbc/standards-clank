@@ -98,4 +98,4 @@ def test_no_target_or_architecture_modification():
         return  # git unavailable; other guards cover the repo state
     tracked = [line[3:] for line in result.stdout.splitlines() if line.strip()]
     for relative in tracked:
-        assert relative.startswith(("standards/deployment/", "docs/deployment/", "docs/fleet-wiring.md", "docs/project-completion-audit.md", "baselines/deployment-standards-v1.0", "audits/", "decisions/", "tests/", "tools/", "scripts/", "profiles/")), relative
+        assert relative.startswith(("standards/deployment/", "standards/operations/", "docs/deployment/", "docs/fleet-wiring.md", "docs/project-completion-audit.md", "baselines/deployment-standards-v1.0", "audits/", "decisions/", "tests/", "tools/", "scripts/", "profiles/")), relative

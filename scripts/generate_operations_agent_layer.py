@@ -17,6 +17,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from tools.operations_agent_layer import (
     STANDARDS_OPERATIONS_DIR,
     build_agent_checklist,
+    build_known_evidence_index,
     build_ratified_index,
 )
 
@@ -24,12 +25,15 @@ from tools.operations_agent_layer import (
 def main() -> None:
     index_path = STANDARDS_OPERATIONS_DIR / "ratified-index.json"
     checklist_path = STANDARDS_OPERATIONS_DIR / "agent-checklist.json"
+    known_evidence_path = STANDARDS_OPERATIONS_DIR / "known-evidence-index.json"
 
     index_path.write_text(json.dumps(build_ratified_index(), indent=2) + "\n", encoding="utf-8")
     checklist_path.write_text(json.dumps(build_agent_checklist(), indent=2) + "\n", encoding="utf-8")
+    known_evidence_path.write_text(json.dumps(build_known_evidence_index(), indent=2) + "\n", encoding="utf-8")
 
     print(f"Wrote {index_path}")
     print(f"Wrote {checklist_path}")
+    print(f"Wrote {known_evidence_path}")
 
 
 if __name__ == "__main__":
