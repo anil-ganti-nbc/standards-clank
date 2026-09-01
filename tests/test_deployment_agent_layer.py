@@ -198,9 +198,9 @@ def test_known_evidence_index_matches_generator_output():
 
 def test_known_evidence_admits_only_confirmed_deployment_conformance():
     entries = _load_known_evidence()
-    assert len(entries) == 3
+    assert len(entries) == 4
     by_subject = {entry["subject"]: entry for entry in entries}
-    assert set(by_subject) == {"watch-clank", "semiconductor-intelligence", "korean-tech-wire"}
+    assert set(by_subject) == {"watch-clank", "semiconductor-intelligence", "korean-tech-wire", "tablet-clank"}
 
     watch = by_subject["watch-clank"]
     assert watch["standard"] == "STD-DEPLOY-COM-001"
@@ -225,6 +225,12 @@ def test_known_evidence_admits_only_confirmed_deployment_conformance():
     assert ktw["source_reference"] == "audits/ktw-persistent-state-remediation-m12-2026-09-02.md"
     assert "CONFORMS / CLOSED" in ktw["summary"]
     assert "354cb7aed0b174923393a0c71e7c4c6230cda28c" in ktw["summary"]
+
+    tablet = by_subject["tablet-clank"]
+    assert tablet["standard"] == "STD-DEPLOY-COM-002"
+    assert tablet["kind"] == "known_conformance"
+    assert tablet["source_reference"] == "audits/tablet-persistent-state-remediation-m13-2026-09-02.md"
+    assert "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb" in tablet["summary"]
 
 
 # -- this housekeeping pass must not have changed any normative standard text, and no freeze tag exists yet --

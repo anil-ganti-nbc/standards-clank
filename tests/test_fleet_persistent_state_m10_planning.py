@@ -80,4 +80,4 @@ def test_m10_does_not_change_known_evidence_layer():
     # The planning artifact is not an admission. M11 and M12 later add their
     # separately guarded Semiconductor and KTW Deployment facts; this hash
     # still makes any other edit to the active evidence layer visible.
-    assert _sha256(KNOWN) == "3b073ddd4bb09d027f8c79bd06a9c0d1ac95ef2a0b4b033d935de4aac9f2f39f"
+    assert _sha256(KNOWN) == "063113d39969dc9f38937abfd346bbeb3799cd532eb0a9981c23beb373ea8d30"
