@@ -1,0 +1,194 @@
+{
+  "audit_id": "feature-phone-tablet-qualification-remediation-m7-2026-09-01",
+  "mode": "SOURCE_REMEDIATION_EVIDENCE_RECORD_AND_ADMISSION",
+  "date": "2026-09-01",
+  "standards_clank_head": "2a1fd3465872f38333031422bd623dbb4add04b0",
+  "targets": {
+    "feature-phone-clank": {
+      "branch": "main",
+      "head": "4b7dce284f7c581395c5efe2b20ce1872e26897e",
+      "origin_main": "4b7dce284f7c581395c5efe2b20ce1872e26897e",
+      "standard": "STD-OPS-COM-003",
+      "state": "CONFORMS",
+      "lifecycle": "CLOSED",
+      "scope": "source-level qualification provenance/reset remediation only",
+      "implementation_family": "SQLITE_OPERATIONAL_SCOPES",
+      "execution_authority": "feature_phone_clank.core.runner production/experimental run boundary",
+      "provenance_vocabulary": ["SCHEDULED", "MANUAL", "TEST", "UNKNOWN"],
+      "scope_model": "qualification scope_key is explicit and gates are isolated per production or experimental source scope",
+      "material_identity": "stable SHA-256 over qualification-relevant target/collector/config/policy inputs; runtime timestamps and run identifiers are excluded",
+      "reset_lineage": "schema version 5 qualification_epochs and qualification_events persist RESET with prior_material_identity, new material identity, reason, provenance, epoch, and run linkage",
+      "terminal_lineage": "qualification_events persist independent TERMINAL facts with idempotent run/event uniqueness",
+      "gate_semantics": "UNKNOWN provenance, stale/divergent material, absent evidence, and non-qualifying terminal state fail closed",
+      "scope_isolation_evidence": "tests/test_qualification_m7.py verifies independent source scopes and UNKNOWN never qualifies",
+      "focused_qualification": {
+        "command": "python -m pytest tests/test_qualification_m7.py",
+        "passed": 3,
+        "failed": 0
+      },
+      "full_suite": {
+        "command": "python -m pytest",
+        "baseline": {
+          "revision": "4051b64fe7ba4dc188ec1e1a6920ce72b14f013d",
+          "passed": 214,
+          "skipped": 2,
+          "failed": 4,
+          "exit_code": 1
+        },
+        "final": {
+          "revision": "4b7dce284f7c581395c5efe2b20ce1872e26897e",
+          "passed": 217,
+          "skipped": 2,
+          "failed": 4,
+          "exit_code": 1
+        },
+        "baseline_attribution": {
+          "classification": "PRE_EXISTING / BASELINE_ATTRIBUTED",
+          "same_four_failures": true,
+          "new_failures_introduced": false,
+          "causes": "three HealthPayload/Pydantic shared-schema failures and one Windows Python 3.14 subprocess-handle failure",
+          "full_suite_claim": "not green"
+        }
+      },
+      "m3_lock_authority": {
+        "standard": "STD-OPS-COM-004",
+        "validated_revision": "890ab339234381b04c6f27e710e3382fa70bc076",
+        "state": "CONFORMS",
+        "lifecycle": "CLOSED",
+        "remains_intact": true,
+        "new_lock_evidence_admitted": false
+      },
+      "remaining_m1_insufficiencies": {
+        "STD-UI-COM-011": "INSUFFICIENT_EVIDENCE",
+        "STD-DEPLOY-COM-001": "INSUFFICIENT_EVIDENCE",
+        "STD-DEPLOY-COM-002": "INSUFFICIENT_EVIDENCE"
+      }
+    },
+    "tablet-clank": {
+      "branch": "main",
+      "head": "d9cb32ccee1b2bcaa4bc9d8af5ac1a7a7e7f6769",
+      "origin_main": "d9cb32ccee1b2bcaa4bc9d8af5ac1a7a7e7f6769",
+      "standard": "STD-OPS-COM-003",
+      "state": "CONFORMS",
+      "lifecycle": "CLOSED",
+      "scope": "source-level qualification provenance/reset remediation only",
+      "implementation_family": "SQLITE_OPERATIONAL_SCOPES",
+      "execution_authority": "tablet_clank pipeline/campaign/production run boundary",
+      "provenance_vocabulary": ["SCHEDULED", "MANUAL", "UNKNOWN"],
+      "scope_model": "qualification scope_key is explicit and gates are isolated per production or campaign source scope",
+      "material_identity": "stable SHA-256 over qualification-relevant source/material inputs; runtime timestamps and run identifiers are excluded",
+      "reset_lineage": "migration 3 qualification_epochs and qualification_resets persist prior_material_identity, new_material_identity, reason, provenance, epoch, and run linkage",
+      "terminal_lineage": "migration 3 qualification_terminals persist independent terminal facts with idempotent run uniqueness",
+      "gate_semantics": "UNKNOWN provenance, stale/divergent material, absent evidence, and non-qualifying terminal state fail closed",
+      "scope_isolation_evidence": "tests/test_qualification_m7.py verifies independent source scopes and UNKNOWN never qualifies",
+      "focused_qualification": {
+        "command": "python -m pytest tests/test_qualification_m7.py",
+        "passed": 3,
+        "failed": 0
+      },
+      "full_suite": {
+        "command": "python -m pytest",
+        "baseline": {
+          "revision": "568fcfc9b80a2bffcebe8af475b3319f2304ad76",
+          "passed": 118,
+          "exit_code": 0
+        },
+        "final": {
+          "revision": "d9cb32ccee1b2bcaa4bc9d8af5ac1a7a7e7f6769",
+          "passed": 121,
+          "skipped": 0,
+          "failed": 0,
+          "exit_code": 0
+        },
+        "baseline_attribution": {
+          "classification": "BASELINE GREEN",
+          "new_failures_introduced": false,
+          "full_suite_claim": "green"
+        }
+      },
+      "m3_lock_authority": {
+        "standard": "STD-OPS-COM-004",
+        "validated_revision": "568fcfc9b80a2bffcebe8af475b3319f2304ad76",
+        "state": "CONFORMS",
+        "lifecycle": "CLOSED",
+        "remains_intact": true,
+        "new_lock_evidence_admitted": false
+      },
+      "remaining_m1_insufficiencies": {
+        "STD-UI-COM-011": "INSUFFICIENT_EVIDENCE",
+        "STD-DEPLOY-COM-001": "INSUFFICIENT_EVIDENCE",
+        "STD-DEPLOY-COM-002": "INSUFFICIENT_EVIDENCE"
+      }
+    }
+  },
+  "source_lineage": {
+    "m1_audit": "audits/fleet-blind-audit-sweep-m1-2026-09-01.json",
+    "m1_original_state": "INSUFFICIENT_EVIDENCE",
+    "m1_applicable": 22,
+    "m1_conforms": 18,
+    "m1_non_conforming": 0,
+    "m1_insufficient_evidence": 4,
+    "m1_insufficient_standards": [
+      "STD-UI-COM-011",
+      "STD-OPS-COM-003",
+      "STD-DEPLOY-COM-001",
+      "STD-DEPLOY-COM-002"
+    ],
+    "m3_lock_record": "audits/fleet-m3-lock-authority-remediation-2026-09-01.json"
+  },
+  "shared_contract": {
+    "family": "SQLITE_OPERATIONAL_SCOPES",
+    "authority_boundary": "target-local execution boundary establishes provenance before qualification facts are written",
+    "material_identity": "stable, explicit, scope-aware identity is computed before prior evidence is gated",
+    "reset_order": "material-change reset is persisted before changed-run gate evaluation",
+    "reset_lineage": "prior and new material identities plus reason, provenance, epoch, and execution linkage are retained",
+    "evidence_persistence": "reset and terminal facts are distinct and terminal persistence is idempotent",
+    "gate_rule": "gates consume current-scope/current-epoch evidence and never invent provenance; UNKNOWN remains UNKNOWN and fails closed",
+    "migration_rule": "target-local SQLite migrations are additive and preserve existing history, including unknown legacy provenance",
+    "implementation_neutral": true
+  },
+  "family_status": {
+    "conclusion": "SQLITE_OPERATIONAL_SCOPE_RECIPE_VALIDATED",
+    "descriptive_only": true,
+    "members": {
+      "feature-phone-clank": "4b7dce284f7c581395c5efe2b20ce1872e26897e",
+      "tablet-clank": "d9cb32ccee1b2bcaa4bc9d8af5ac1a7a7e7f6769"
+    },
+    "shared_contract_closed_independently": true,
+    "evidence_inheritance": false,
+    "other_target_conformance_inferred": false
+  },
+  "known_evidence_admission": {
+    "performed": true,
+    "layer": "standards/operations/known-evidence-index.json",
+    "mechanism": "tools.operations_agent_layer.build_known_evidence_index",
+    "admitted": [
+      {
+        "subject": "feature-phone-clank",
+        "revision": "4b7dce284f7c581395c5efe2b20ce1872e26897e",
+        "standard": "STD-OPS-COM-003",
+        "state": "CONFORMS",
+        "lifecycle": "CLOSED"
+      },
+      {
+        "subject": "tablet-clank",
+        "revision": "d9cb32ccee1b2bcaa4bc9d8af5ac1a7a7e7f6769",
+        "standard": "STD-OPS-COM-003",
+        "state": "CONFORMS",
+        "lifecycle": "CLOSED"
+      }
+    ],
+    "unrelated_standards_admitted": false,
+    "deployment_evidence_admitted": false,
+    "historical_m1_preserved": true
+  },
+  "guards": {
+    "frozen_standard_files_changed": false,
+    "frozen_tags_changed_or_moved": false,
+    "target_repositories_modified_in_this_pass": false,
+    "host_or_deployment_actions": false,
+    "full_target_conformance_claim": false,
+    "deployment_evidence_admitted": false,
+    "lock_conformance_reaudited": false
+  }
+}

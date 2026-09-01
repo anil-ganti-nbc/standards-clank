@@ -9,6 +9,14 @@
   },
   {
     "standard": "STD-OPS-COM-003",
+    "subject": "feature-phone-clank",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "CONFORMS / CLOSED at canonical Feature Phone main revision 4b7dce284f7c581395c5efe2b20ce1872e26897e: scope-aware SQLite qualification provenance, material-change reset lineage, independent terminal evidence, and fail-closed gating are implemented and focused coverage is green.",
+    "source_reference": "audits/feature-phone-clank-qualification-remediation-m7-2026-09-01.md"
+  },
+  {
+    "standard": "STD-OPS-COM-003",
     "subject": "semiconductor-intelligence",
     "kind": "known_conformance",
     "source": "audit",
@@ -30,5 +38,13 @@
     "source": "audit",
     "summary": "CONFORMS / CLOSED at canonical tablet-clank main revision 568fcfc9b80a2bffcebe8af475b3319f2304ad76: SoakLock and canonical-lock preflight use a held OS advisory lock; PID and marker metadata are diagnostic only.",
     "source_reference": "audits/tablet-clank-ops-com-004-2026-09-01.md"
+  },
+  {
+    "standard": "STD-OPS-COM-003",
+    "subject": "tablet-clank",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "CONFORMS / CLOSED at canonical Tablet main revision d9cb32ccee1b2bcaa4bc9d8af5ac1a7a7e7f6769: scope-aware SQLite qualification provenance, material-change reset lineage, independent terminal evidence, and fail-closed gating are implemented and focused coverage is green.",
+    "source_reference": "audits/tablet-clank-qualification-remediation-m7-2026-09-01.md"
   }
 ]

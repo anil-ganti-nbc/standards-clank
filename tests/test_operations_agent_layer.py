@@ -211,35 +211,43 @@ def test_known_evidence_index_matches_generator_output():
 
 def test_known_evidence_admits_only_validated_remediations():
     entries = _load_known_evidence()
-    assert len(entries) == 4
-    by_subject = {entry["subject"]: entry for entry in entries}
-    assert set(by_subject) == {
-        "feature-phone-clank", "semiconductor-intelligence", "smartwatch-clank", "tablet-clank",
-    }
+    assert len(entries) == 6
     expected = {
-        "feature-phone-clank": (
+        ("feature-phone-clank", "STD-OPS-COM-004"): (
             "890ab339234381b04c6f27e710e3382fa70bc076",
             "audits/feature-phone-clank-ops-com-004-2026-09-01.md",
             "STD-OPS-COM-004",
         ),
-        "smartwatch-clank": (
+        ("feature-phone-clank", "STD-OPS-COM-003"): (
+            "4b7dce284f7c581395c5efe2b20ce1872e26897e",
+            "audits/feature-phone-clank-qualification-remediation-m7-2026-09-01.md",
+            "STD-OPS-COM-003",
+        ),
+        ("smartwatch-clank", "STD-OPS-COM-003"): (
             "a631421e276b58ce3499787cc2bc72218648ce72",
             "audits/smartwatch-clank-qualification-remediation-m5-2026-09-01.md",
             "STD-OPS-COM-003",
         ),
-        "semiconductor-intelligence": (
+        ("semiconductor-intelligence", "STD-OPS-COM-003"): (
             "688b71a93b4988b5ce52ce85e46f09080b9a7948",
             "audits/semiconductor-qualification-remediation-m6-2026-09-01.md",
             "STD-OPS-COM-003",
         ),
-        "tablet-clank": (
+        ("tablet-clank", "STD-OPS-COM-004"): (
             "568fcfc9b80a2bffcebe8af475b3319f2304ad76",
             "audits/tablet-clank-ops-com-004-2026-09-01.md",
             "STD-OPS-COM-004",
         ),
+        ("tablet-clank", "STD-OPS-COM-003"): (
+            "d9cb32ccee1b2bcaa4bc9d8af5ac1a7a7e7f6769",
+            "audits/tablet-clank-qualification-remediation-m7-2026-09-01.md",
+            "STD-OPS-COM-003",
+        ),
     }
-    for subject, entry in by_subject.items():
-        sha, source, standard = expected[subject]
+    assert {(entry["subject"], entry["standard"]) for entry in entries} == set(expected)
+    for entry in entries:
+        subject = entry["subject"]
+        sha, source, standard = expected[(subject, entry["standard"])]
         assert entry["standard"] == standard
         assert entry["kind"] == "known_conformance"
         assert entry["source"] == "audit"
