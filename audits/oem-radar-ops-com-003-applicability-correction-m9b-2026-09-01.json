@@ -1,0 +1,111 @@
+{
+  "audit_id": "oem-radar-ops-com-003-applicability-correction-m9b-2026-09-01",
+  "mode": "STANDARDS_ONLY_APPLICABILITY_CORRECTION",
+  "date": "2026-09-01",
+  "standards_clank_head": "421aab2a3e185a6ad6d72fef2ac5b3aa762e5be1",
+  "target": {
+    "id": "oem-radar",
+    "display_name": "OEM Radar",
+    "repository": "https://github.com/anil-ganti-nbc/oem-radar",
+    "branch": "main",
+    "head": "d720e0635894ddcc9a39f116e2aa4a1768090042",
+    "origin_main": "d720e0635894ddcc9a39f116e2aa4a1768090042",
+    "working_tree": "CLEAN",
+    "standard": "STD-OPS-COM-003",
+    "current_applicability": "NOT_APPLICABLE",
+    "current_state_source": "target-scoped applicability correction ledger"
+  },
+  "history": {
+    "m1_audit": "audits/fleet-blind-audit-sweep-m1-2026-09-01.json",
+    "m1_standards_head": "e643c1688a63c681401c9e0e1336c05b3e4c1a6b",
+    "m1_sha256": "1b6bfa718f2528db1655eb20f63d534e426440ed8b2e46e325c9bb020effedde",
+    "m1_oem_radar_state": "INSUFFICIENT_EVIDENCE",
+    "m1_ops_com_003_state": "unresolved/insufficient; applicability not source-confirmed",
+    "m9_checkpoint": "audits/oem-radar-ops-com-003-applicability-m9-2026-09-01.json",
+    "m9_checkpoint_commit": "421aab2a3e185a6ad6d72fef2ac5b3aa762e5be1",
+    "chain": "M1 uncertainty -> M9 applicability investigation -> M9B NOT_APPLICABLE",
+    "m1_rewritten": false
+  },
+  "correction": {
+    "standard": "STD-OPS-COM-003",
+    "previous_current_state": "INSUFFICIENT_EVIDENCE",
+    "current_applicability": "NOT_APPLICABLE",
+    "rationale": "OEM Radar is stateless one-shot telemetry. Durable crawler history, snapshots, change events, notifications, and evidence observations are not reusable soak/promotion evidence; no qualification/maturity gate consumes them, and no qualification material identity, epoch, or reset semantics exist.",
+    "conformance_claim": false,
+    "remediation_warranted": false
+  },
+  "resolver_fact_boundary": {
+    "resolver": "tools/fleet_standards_resolver.py",
+    "mapped_fact": "has_promotion_soak",
+    "registry_path": "profiles/fleet-adoption.json::oem-radar",
+    "registry_fact_value": "MISSING",
+    "raw_resolver_disposition": "UNKNOWN",
+    "fact_invented": false,
+    "resolver_mutated": false,
+    "meaning": "The M9B adjudication supplies target-specific applicability without fabricating resolver input; missing trigger-fact coverage remains a separate governance/data-quality limitation."
+  },
+  "counts": {
+    "basis": "canonical M1 OEM Radar matrix, 25 ratified standards; only STD-OPS-COM-003 changed state",
+    "before_m1": {
+      "APPLIES": 22,
+      "NOT_APPLICABLE": 3,
+      "CONFORMS": 18,
+      "NON_CONFORMING": 0,
+      "INSUFFICIENT_EVIDENCE": 4
+    },
+    "after_m9b": {
+      "APPLIES": 21,
+      "NOT_APPLICABLE": 4,
+      "CONFORMS": 18,
+      "NON_CONFORMING": 0,
+      "INSUFFICIENT_EVIDENCE": 3
+    },
+    "changed_standard_ids": ["STD-OPS-COM-003"],
+    "preserved_insufficiencies": [
+      "STD-UI-COM-011",
+      "STD-DEPLOY-COM-001",
+      "STD-DEPLOY-COM-002"
+    ],
+    "unrelated_findings_changed": false
+  },
+  "known_evidence": {
+    "conformance_admitted": false,
+    "non_conformance_admitted": false,
+    "applicability_finding_kind": "not_applicable",
+    "oem_radar_ops_com_003_entry_created": false,
+    "known_index_sha256_unchanged": "3d805bce31df58546229c22c7982e9dc9ac579303a1798f6bf31c008308048b1"
+  },
+  "safety": {
+    "target_modified": false,
+    "target_tests_run": false,
+    "collectors_run": false,
+    "host_access": false,
+    "deployment_changed": false,
+    "frozen_standard_changed": false,
+    "tags_moved": false,
+    "m1_history_rewritten": false,
+    "resolver_or_trigger_facts_changed": false,
+    "unrelated_standards_reaudited": false,
+    "full_target_conformance_claim": false
+  },
+  "frozen_refs": {
+    "ui-standards-v1.0": "d11320704aed69a3d8f854c9264b184e392ec80f",
+    "data-ontology-standards-v1.0": "464a8057ea5dc26ef83248a20bafa0be5aa31148",
+    "operations-standards-v1.0": "7100f294a83c30594f2ff9e953f7c9f77a95747f",
+    "deployment-standards-v1.0": "33cc38849180716fd4d06b1356cf70c49d3d41d2"
+  },
+  "validation": {
+    "command": "python -m pytest",
+    "direct_unpiped": true,
+    "passed": 840,
+    "skipped": 0,
+    "failed": 0,
+    "exit_code": 0,
+    "elapsed_seconds": 8.40
+  },
+  "artifacts": {
+    "markdown": "audits/oem-radar-ops-com-003-applicability-correction-m9b-2026-09-01.md",
+    "json": "audits/oem-radar-ops-com-003-applicability-correction-m9b-2026-09-01.json",
+    "guard_test": "tests/test_oem_radar_ops_com_003_applicability_correction_m9b.py"
+  }
+}
