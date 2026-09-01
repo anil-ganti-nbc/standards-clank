@@ -1,0 +1,376 @@
+{
+  "plan_id": "fleet-persistent-state-compatibility-planning-m10-2026-09-01",
+  "mode": "READ_ONLY_DEPLOY_COM_002_PLANNING",
+  "date": "2026-09-01",
+  "standards_clank_head": "043612756452fc9db871833425c2a641b68e00c3",
+  "scope": {
+    "included_targets": [
+      "oem-radar",
+      "semiconductor-intelligence",
+      "chinese-tech-wire",
+      "korean-tech-wire",
+      "feature-phone-clank",
+      "smartwatch-clank",
+      "tablet-clank"
+    ],
+    "excluded_targets": ["smartphone-clank"],
+    "exclusion_reason": "Smartphone was not flagged for this gap in the canonical M1 sweep; no source evidence in this pass overturns that bookkeeping."
+  },
+  "takeover": {
+    "standards": {
+      "repository": "https://github.com/anil-ganti-nbc/standards-clank.git",
+      "branch": "master",
+      "head": "043612756452fc9db871833425c2a641b68e00c3",
+      "origin_head": "043612756452fc9db871833425c2a641b68e00c3",
+      "working_tree": "CLEAN"
+    },
+    "targets": {
+      "oem-radar": {"repository": "https://github.com/anil-ganti-nbc/oem-radar.git", "branch": "main", "head": "d720e0635894ddcc9a39f116e2aa4a1768090042", "origin_head": "d720e0635894ddcc9a39f116e2aa4a1768090042", "working_tree": "CLEAN"},
+      "semiconductor-intelligence": {"repository": "https://github.com/anil-ganti-nbc/semiconductor-intelligence.git", "branch": "main", "head": "688b71a93b4988b5ce52ce85e46f09080b9a7948", "origin_head": "688b71a93b4988b5ce52ce85e46f09080b9a7948", "working_tree": "CLEAN"},
+      "chinese-tech-wire": {"repository": "https://github.com/anil-ganti-nbc/chinese-tech-wire.git", "branch": "main", "head": "1a47220c69e6bb91f2899a0508508c42254c9d5b", "origin_head": "1a47220c69e6bb91f2899a0508508c42254c9d5b", "working_tree": "CLEAN"},
+      "korean-tech-wire": {"repository": "https://github.com/anil-ganti-nbc/korean-tech-wire.git", "branch": "main", "head": "2040af82136d8a8f181c464e7d62ce408dd2696d", "origin_head": "2040af82136d8a8f181c464e7d62ce408dd2696d", "working_tree": "CLEAN"},
+      "feature-phone-clank": {"repository": "https://github.com/anil-ganti-nbc/feature-phone-clank.git", "branch": "main", "head": "4b7dce284f7c581395c5efe2b20ce1872e26897e", "origin_head": "4b7dce284f7c581395c5efe2b20ce1872e26897e", "working_tree": "CLEAN"},
+      "smartwatch-clank": {"repository": "https://github.com/anil-ganti-nbc/smartwatch-clank.git", "branch": "main", "head": "a631421e276b58ce3499787cc2bc72218648ce72", "origin_head": "a631421e276b58ce3499787cc2bc72218648ce72", "working_tree": "CLEAN"},
+      "tablet-clank": {"repository": "https://github.com/anil-ganti-nbc/tablet-clank.git", "branch": "main", "head": "d9cb32ccee1b2bcaa4bc9d8af5ac1a7a7e7f6769", "origin_head": "d9cb32ccee1b2bcaa4bc9d8af5ac1a7a7e7f6769", "working_tree": "CLEAN"}
+    }
+  },
+  "standard": {
+    "id": "STD-DEPLOY-COM-002",
+    "version": 1,
+    "status": "RATIFIED",
+    "trigger": "Applies where deployed code depends on persistent structured state whose schema or compatibility contract can evolve independently. Stateless Clanks, schema-less Clanks, and ephemeral stores with no evolving compatibility boundary are N/A.",
+    "requirement": "A Clank whose trigger is met MUST prevent normal work from being admitted while the deployed code and required persistent-state contract are known to be incompatible. It MUST determine compatibility at a barrier that occurs before normal incompatible work is accepted, fail closed on known incompatibility, and preserve evidence sufficient to identify compatibility gating as the reason normal work was refused. The barrier may be deploy preflight, startup, first normal transaction, or another trustworthy gate; deployment ordering and mechanism are not prescribed.",
+    "operative_contract": [
+      "identify intended software/state contract",
+      "inspect persistent-state identity/version/shape",
+      "establish compatibility BEFORE normal work",
+      "fail closed on unknown or known-incompatible state",
+      "migrate only through the canonical mechanism where allowed",
+      "verify resulting compatibility before admitting normal work",
+      "cover every operational entry point",
+      "preserve an auditable refusal reason",
+      "do not mutate state merely to discover compatibility"
+    ],
+    "forbidden_interpretation": "Migration-framework presence, process/database/table existence, create_all completion, connectivity, or deployment-command success is not compatibility proof by itself.",
+    "watch_precedent": [
+      "audits/watch-clank-cross-domain-2026-09-01-final.json",
+      "audits/watch-clank-deploy-live-proof-2026-09-01-confirmed.md"
+    ]
+  },
+  "targets": [
+    {
+      "target": "oem-radar",
+      "display_name": "OEM Radar",
+      "sha": "d720e0635894ddcc9a39f116e2aa4a1768090042",
+      "applicability": "APPLIES",
+      "persistent_state_stores": [
+        {"type": "SQLite", "location": "data/radar.db", "authority": "SqliteStore product/source/run/snapshot/event state", "survives_deploy": true, "relevant_to_normal_work": true},
+        {"type": "filesystem raw snapshots", "location": "data/raw", "authority": "supporting fetch artifacts; database remains operational authority", "survives_deploy": true, "relevant_to_normal_work": false}
+      ],
+      "schema_version_authority": "EXPLICIT_VERSION",
+      "version_details": "schema_migrations records versions 1-7 and SCHEMA_VERSION=7; fresh databases execute current schema.sql and insert all versions. No expected-head comparison or application-version relation exists.",
+      "migration": {"mechanism": "in-app numbered SQLite migration plus current-schema bootstrap", "head_or_version": 7, "transactional": "NO_STRICT_TRANSACTION_PER_MIGRATION", "automatic": true, "downgrade": "NONE", "downgrade_tested": false, "failure_recoverability": "partial statements may remain; retry is implicit on next open, with no durable not-ready marker", "source_refs": ["work/fleet/oem-radar/src/oem_radar/providers/sqlite/__init__.py::SqliteStore.migrate", "work/fleet/oem-radar/src/oem_radar/providers/sqlite/schema.sql::schema_migrations"]},
+      "compatibility_barrier": {"location": "SqliteStore.__init__ -> migrate() before run_all", "compares": "none beyond max recorded migration number", "behavior": "FAIL_OPEN for missing/newer/unrecognized state; migration success is treated as readiness", "normal_work_before_barrier": true, "quality": "NO_COMPATIBILITY_BARRIER"},
+      "entry_points": [
+        {"entry_point": "oem-radar run / deploy one-shot timer / cron", "touches_state": "after SqliteStore construction", "crosses_barrier": false, "bypass_or_risk": "automatic migration is the only pre-work step and does not prove compatibility"},
+        {"entry_point": "dashboard CrawlController manual trigger", "touches_state": "through execute_crawl and SqliteStore", "crosses_barrier": false, "bypass_or_risk": "same unverified migration path"},
+        {"entry_point": "read-only dashboard/status", "touches_state": "connect_readonly", "crosses_barrier": false, "bypass_or_risk": "safe read-only bypass; not a normal-work proof"}
+      ],
+      "unknown_version_behavior": {"missing": "AUTO_MIGRATE/RECREATE-LIKE bootstrap; existing shape is not proven", "corrupt": "UNDEFINED", "older": "AUTO_MIGRATE", "newer": "FAIL_OPEN", "partial_history": "UNDEFINED", "state_without_trustworthy_authority": "FAIL_OPEN", "unknown_becomes_compatible": true},
+      "old_software_new_state": "An older binary can open a database with a higher schema_migrations value; no compatibility refusal or rollback contract is enforced.",
+      "migration_failure_semantics": "DDL/DML and version-row writes are not protected by a durable readiness state. A raised error may leave partial structure; no backup or rollback is coupled to startup, and another entry point can still attempt normal work.",
+      "rollback_classification": "UNGUARDED",
+      "planning_classification": "NO_COMPATIBILITY_BARRIER",
+      "likely_remediation_family": "CURRENT_SCHEMA_BOOTSTRAP_NUMBERED_SQLITE",
+      "migration_required": "YES",
+      "source_changes_likely": "YES",
+      "production_migration_eventually_required": "YES",
+      "risk": "HIGH",
+      "risk_reason": "Persistent SQLite state and automatic current-schema bootstrap have no fail-closed head/capability check; one-shot scheduling reduces concurrency, not version-skew risk.",
+      "exact_gap": "Normal crawl work is admitted after migration() without proving that the running code and database contract are compatible; unknown/newer/partial state can proceed.",
+      "recommended_next_action": "Validate a target-local expected schema contract and refusal record around the existing numbered migration path; cover CLI, scheduler, and dashboard before any production migration."
+    },
+    {
+      "target": "semiconductor-intelligence",
+      "display_name": "Semiconductor Intelligence",
+      "sha": "688b71a93b4988b5ce52ce85e46f09080b9a7948",
+      "applicability": "APPLIES",
+      "persistent_state_stores": [
+        {"type": "SQLAlchemy database (SQLite default; URL-configurable)", "location": "semi_intel.paths.get_db_path / SEMI_INTEL_DB_URL", "authority": "ORM tables plus Alembic version table", "survives_deploy": true, "relevant_to_normal_work": true}
+      ],
+      "schema_version_authority": "MIGRATION_HEAD",
+      "version_details": "Alembic chain has a current qualification/provenance head c7d8e9f0a1b2 and durable alembic_version metadata; Base.metadata.create_all remains available and does not establish a migration head.",
+      "migration": {"mechanism": "Alembic migrations", "head_or_version": "c7d8e9f0a1b2", "transactional": "ALEMBIC_TRANSACTION_PER_MIGRATION_CONFIGURED", "automatic": "mixed: explicit db/install/update and dashboard startup; _session/runtime bridge call create_all", "downgrade": "AVAILABLE_IN_MIGRATIONS", "downgrade_tested": true, "failure_recoverability": "explicit Alembic errors surface, but upgrade_or_stamp_to_head stamps head on any exception containing 'already exists'", "source_refs": ["work/fleet/semiconductor-intelligence/semi_intel/cli.py::upgrade_or_stamp_to_head", "work/fleet/semiconductor-intelligence/semi_intel/web/app.py::create_app", "work/fleet/semiconductor-intelligence/semi_intel/db.py::init_db"]},
+      "compatibility_barrier": {"location": "dashboard create_app and explicit install/update use upgrade_or_stamp_to_head; ordinary _session and runtime_bridge use Base.metadata.create_all", "compares": "Alembic head only on selected paths; create_all paths compare nothing", "behavior": "PARTIAL/FAIL_OPEN: create_all admits work without alembic_version, and broad 'already exists' fallback can stamp rather than diagnose", "normal_work_before_barrier": true, "quality": "PARTIAL_MECHANISM"},
+      "entry_points": [
+        {"entry_point": "Typer status/ingest/pipeline and other commands", "touches_state": "_session -> Base.metadata.create_all", "crosses_barrier": false, "bypass_or_risk": "can open older/newer/missing-version state without Alembic compatibility check"},
+        {"entry_point": "semi-intel db/install/update", "touches_state": "Alembic command", "crosses_barrier": true, "bypass_or_risk": "stamp fallback can mask an incompatible pre-existing structure"},
+        {"entry_point": "web dashboard startup/request dependency", "touches_state": "startup Alembic then per-request create_all fallback", "crosses_barrier": "startup yes; dependency no", "bypass_or_risk": "request path can still use create_all semantics"},
+        {"entry_point": "runtime_bridge health/identity", "touches_state": "_init_db -> create_all", "crosses_barrier": false, "bypass_or_risk": "health/readiness path is not a compatibility proof"}
+      ],
+      "unknown_version_behavior": {"missing": "FAIL_OPEN on create_all paths; explicit upgrade may AUTO_MIGRATE or stamp", "corrupt": "UNDEFINED/exception-dependent", "older": "AUTO_MIGRATE only on Alembic paths; create_all paths proceed", "newer": "UNGUARDED on create_all paths; explicit Alembic path may refuse", "partial_history": "UNDEFINED; broad stamp fallback is dangerous", "state_without_trustworthy_authority": "FAIL_OPEN on common command/runtime paths", "unknown_becomes_compatible": true},
+      "old_software_new_state": "Older code can call create_all against state produced by a newer migration and proceed without proving compatibility; rollback is therefore not protected by the migration head.",
+      "migration_failure_semantics": "Alembic can roll back a failed migration transaction, but alternate create_all paths and the already-exists stamp fallback can bypass that safety. No single durable not-ready state is consumed by every entry point.",
+      "rollback_classification": "UNGUARDED",
+      "planning_classification": "PARTIAL_MECHANISM",
+      "likely_remediation_family": "ALEMBIC_MIGRATION_HEAD",
+      "migration_required": "UNKNOWN",
+      "source_changes_likely": "YES",
+      "production_migration_eventually_required": "UNKNOWN",
+      "risk": "HIGH",
+      "risk_reason": "The strongest migration authority in the fleet is undermined by common create_all entry points and an exception-string stamping fallback.",
+      "exact_gap": "A migration framework exists, but normal work can be admitted without a trustworthy current-head/compatibility decision and without a uniform refusal record.",
+      "recommended_next_action": "Use Semiconductor as the migration-head validation target: route every normal entry point through one strict head/capability gate, remove broad stamping semantics, and prove old/new/missing/partial cases."
+    },
+    {
+      "target": "chinese-tech-wire",
+      "display_name": "Chinese Tech Wire",
+      "sha": "1a47220c69e6bb91f2899a0508508c42254c9d5b",
+      "applicability": "APPLIES",
+      "persistent_state_stores": [
+        {"type": "SQLAlchemy SQLite operational database", "location": "data/ctw.db", "authority": "ORM tables plus structural PRAGMA inspection", "survives_deploy": true, "relevant_to_normal_work": true},
+        {"type": "separate SQLite QC archive", "location": "data/qc_archive.db", "authority": "append-only QC ledger; no version marker", "survives_deploy": true, "relevant_to_normal_work": true}
+      ],
+      "schema_version_authority": "STRUCTURAL_INFERENCE",
+      "version_details": "Base.metadata.create_all creates missing tables; migrate_schema uses PRAGMA table_info, ALTER TABLE, and indexes. Neither operational DB nor QC archive has a durable schema head or application/state relation.",
+      "migration": {"mechanism": "SQLAlchemy create_all plus ad hoc additive ALTER TABLE; separate QC create_all", "head_or_version": "NONE", "transactional": "PARTIAL engine transaction; individual migration/index exceptions are caught or skipped", "automatic": true, "downgrade": "NONE", "downgrade_tested": false, "failure_recoverability": "partial updates may be committed or silently skipped; no not-ready marker", "source_refs": ["work/fleet/chinese-tech-wire/database/db.py::migrate_schema", "work/fleet/chinese-tech-wire/database/qc_archive.py::init_qc_archive", "work/fleet/chinese-tech-wire/main.py::main"]},
+      "compatibility_barrier": {"location": "init_db before main CLI and dashboard startup", "compares": "table/column shape only", "behavior": "FAIL_OPEN: absent/newer/extra/incompatible shape is not rejected; missing-column and index errors may be skipped", "normal_work_before_barrier": true, "quality": "NO_COMPATIBILITY_BARRIER"},
+      "entry_points": [
+        {"entry_point": "main.py CLI and scheduled full cycle", "touches_state": "init_db then sessions", "crosses_barrier": false, "bypass_or_risk": "create_all/ALTER shape work is mistaken for compatibility"},
+        {"entry_point": "FastAPI create_app/run_gui", "touches_state": "init_db; routes use get_session", "crosses_barrier": false, "bypass_or_risk": "request dependency can be imported/called outside startup and has no head check"},
+        {"entry_point": "direct library get_session/run_source", "touches_state": "session/ORM", "crosses_barrier": false, "bypass_or_risk": "callers can bypass init_db entirely"},
+        {"entry_point": "QC archive decisions", "touches_state": "separate qc_archive.db", "crosses_barrier": false, "bypass_or_risk": "second persistent schema has no compatibility authority"}
+      ],
+      "unknown_version_behavior": {"missing": "AUTO_CREATE/AUTO_ALTER", "corrupt": "UNDEFINED", "older": "AUTO_ALTER where recognized; otherwise FAIL_OPEN", "newer": "FAIL_OPEN", "partial_history": "UNDEFINED", "state_without_trustworthy_authority": "FAIL_OPEN", "unknown_becomes_compatible": true},
+      "old_software_new_state": "Older ORM code can connect to newer tables/columns and continue; no version marker or capability contract blocks accidental rollback.",
+      "migration_failure_semantics": "Some schema/index exceptions are intentionally caught, and there is no durable readiness/refusal record. A partially upgraded main DB and the independently evolving QC archive can diverge without a common gate.",
+      "rollback_classification": "UNGUARDED",
+      "planning_classification": "NO_COMPATIBILITY_BARRIER",
+      "likely_remediation_family": "STRUCTURAL_SQLALCHEMY_CREATE_ALL_ADDITIVE",
+      "migration_required": "YES",
+      "source_changes_likely": "YES",
+      "production_migration_eventually_required": "YES",
+      "risk": "HIGH",
+      "risk_reason": "Two durable SQLite schema families have no explicit version authority, silently tolerated migration failures, and direct-library bypasses.",
+      "exact_gap": "Normal ingestion/dashboard/QC work has no fail-closed compatibility decision; structural existence and additive patching are the only evidence.",
+      "recommended_next_action": "Design a dual-store compatibility contract with explicit policy for both the operational DB and QC archive; add a refusal record before any normal session or collector work."
+    },
+    {
+      "target": "korean-tech-wire",
+      "display_name": "Korean Tech Wire",
+      "sha": "2040af82136d8a8f181c464e7d62ce408dd2696d",
+      "applicability": "APPLIES",
+      "persistent_state_stores": [
+        {"type": "SQLite", "location": "data/korean_tech_wire.db (settings.database_path)", "authority": "Database schema_migrations and numbered SQL", "survives_deploy": true, "relevant_to_normal_work": true},
+        {"type": "separate SQLite QC archive", "location": "korean_tech_wire_qc.db", "authority": "append-only QC table; no version marker", "survives_deploy": true, "relevant_to_normal_work": true}
+      ],
+      "schema_version_authority": "EXPLICIT_VERSION",
+      "version_details": "Database.migrate creates schema_migrations and applies numbered versions 1-5, including qualification tables. The expected head is implicit in source; no newer-head refusal or application/state comparison exists.",
+      "migration": {"mechanism": "ordered numbered SQLite migrations", "head_or_version": 5, "transactional": "NO_STRICT_TRANSACTION_PER_VERSION", "automatic": true, "downgrade": "NONE", "downgrade_tested": false, "failure_recoverability": "migration exception stops startup, but executescript/marker ordering can leave partial state; no durable not-ready record", "source_refs": ["work/fleet/korean-tech-wire/src/korean_tech_wire/storage/database.py::MIGRATIONS/Database.migrate", "work/fleet/korean-tech-wire/src/korean_tech_wire/cli.py::context", "work/fleet/korean-tech-wire/src/korean_tech_wire/storage/qc_archive.py::QCArchive.migrate"]},
+      "compatibility_barrier": {"location": "CLI context() calls Database.migrate before command dispatch", "compares": "presence of applied version rows; no required-head/capability comparison", "behavior": "PARTIAL/FAIL_OPEN for newer or unrecognized rows; migration errors refuse that process but no evidence contract is persisted", "normal_work_before_barrier": true, "quality": "PARTIAL_MECHANISM"},
+      "entry_points": [
+        {"entry_point": "CLI run/source/status/articles/maintenance", "touches_state": "context Database.migrate then command", "crosses_barrier": true, "bypass_or_risk": "migration presence is not compatibility proof; library callers can instantiate Database/connect directly"},
+        {"entry_point": "CLI soak scheduler/manual", "touches_state": "same context then run_soak", "crosses_barrier": true, "bypass_or_risk": "same missing newer-head check"},
+        {"entry_point": "dashboard/operator storage", "touches_state": "Database plus QCArchive", "crosses_barrier": "main DB generally yes; QC archive no", "bypass_or_risk": "separate archive schema has no version authority"}
+      ],
+      "unknown_version_behavior": {"missing": "AUTO_CREATE/AUTO_MIGRATE; existing unmarked shape may fail on duplicate DDL", "corrupt": "UNDEFINED/exception-dependent", "older": "AUTO_MIGRATE", "newer": "FAIL_OPEN", "partial_history": "exception-dependent; no not-ready marker", "state_without_trustworthy_authority": "FAIL_OPEN or raw startup error", "unknown_becomes_compatible": true},
+      "old_software_new_state": "A rollback to code before migration 5 has no source-enforced refusal when it opens a database carrying newer columns/tables; the migration list is forward-only but runtime skew is unguarded.",
+      "migration_failure_semantics": "A failing migration generally aborts the process, but no durable failed/readiness state is written and separate QC archive setup is independent. Retry is implicit on next startup.",
+      "rollback_classification": "UNGUARDED",
+      "planning_classification": "PARTIAL_MECHANISM",
+      "likely_remediation_family": "ORDERED_NUMBERED_SQLITE",
+      "migration_required": "YES",
+      "source_changes_likely": "YES",
+      "production_migration_eventually_required": "YES",
+      "risk": "MEDIUM",
+      "risk_reason": "The ordered migration authority is clear and startup-wide for the normal CLI, but the head is not checked, QC is a second unversioned store, and direct library paths remain possible.",
+      "exact_gap": "Migration completion is used as a proxy for compatibility; newer, corrupt, partial, or archive state is not uniformly refused with auditable evidence.",
+      "recommended_next_action": "Use KTW as the ordered-SQLite family validator: add expected-head/capability and durable refusal semantics, then cover CLI, soak, dashboard, and QC archive."
+    },
+    {
+      "target": "feature-phone-clank",
+      "display_name": "Feature Phone Clank",
+      "sha": "4b7dce284f7c581395c5efe2b20ce1872e26897e",
+      "applicability": "APPLIES",
+      "persistent_state_stores": [
+        {"type": "SQLite", "location": "data/feature_phone_clank.db", "authority": "SqliteStore schema_migrations and operational/qualification tables", "survives_deploy": true, "relevant_to_normal_work": true},
+        {"type": "separate experimental SQLite", "location": "data/feature_phone_clank_experimental.db", "authority": "same target-local store implementation", "survives_deploy": true, "relevant_to_normal_work": true},
+        {"type": "JSONL continuity registry", "location": "data/continuity/continuity-events.jsonl", "authority": "continuity evidence; not a schema compatibility authority", "survives_deploy": true, "relevant_to_normal_work": false}
+      ],
+      "schema_version_authority": "EXPLICIT_VERSION",
+      "version_details": "schema_migrations records versions 1-5 and SCHEMA_VERSION=5; version 5 adds qualification state/epoch/event tables. Missing/newer head is not compared to the running code.",
+      "migration": {"mechanism": "in-app numbered SQLite migration plus current-schema bootstrap", "head_or_version": 5, "transactional": "NO_STRICT_TRANSACTION_PER_MIGRATION", "automatic": true, "downgrade": "NONE", "downgrade_tested": false, "failure_recoverability": "a failed statement can leave prior version rows/DDL; next open retries without durable not-ready state", "source_refs": ["work/fleet/feature-phone-clank/src/feature_phone_clank/providers/sqlite/__init__.py::SqliteStore.migrate", "work/fleet/feature-phone-clank/src/feature_phone_clank/cli.py::cmd_run/cmd_run_experimental", "work/fleet/feature-phone-clank/src/feature_phone_clank/core/runner.py"]},
+      "compatibility_barrier": {"location": "SqliteStore construction before production/experimental runner", "compares": "max schema_migrations only; no expected contract", "behavior": "FAIL_OPEN for newer, missing, corrupt, and partial authority in common paths", "normal_work_before_barrier": true, "quality": "PARTIAL_MECHANISM"},
+      "entry_points": [
+        {"entry_point": "production CLI run", "touches_state": "SqliteStore then run_production_collector", "crosses_barrier": false, "bypass_or_risk": "automatic migration is not a compatibility proof"},
+        {"entry_point": "experimental CLI run", "touches_state": "separate SqliteStore path", "crosses_barrier": false, "bypass_or_risk": "same implementation can silently accept incompatible experimental state"},
+        {"entry_point": "health/status/notifications/backup", "touches_state": "store open; backup also snapshots continuity", "crosses_barrier": false, "bypass_or_risk": "read/backup paths do not establish readiness for later normal work"},
+        {"entry_point": "direct runner/library invocation", "touches_state": "caller-supplied store", "crosses_barrier": false, "bypass_or_risk": "runner assumes store lifecycle has already made state ready"}
+      ],
+      "unknown_version_behavior": {"missing": "AUTO_BOOTSTRAP and record 1-5; incomplete existing shape may be mis-stamped", "corrupt": "UNDEFINED", "older": "AUTO_MIGRATE", "newer": "FAIL_OPEN", "partial_history": "AUTO_RETRY/UNDEFINED", "state_without_trustworthy_authority": "FAIL_OPEN", "unknown_becomes_compatible": true},
+      "old_software_new_state": "Older production or experimental code can open a newer schema_migrations value and continue; separate stores make accidental scope/version skew easier to miss.",
+      "migration_failure_semantics": "Migration and normal readiness share one connection but no durable failed state. A partial migration can leave marker/shape disagreement; restart retries and the runner has no independent compatibility refusal.",
+      "rollback_classification": "UNGUARDED",
+      "planning_classification": "PARTIAL_MECHANISM",
+      "likely_remediation_family": "CURRENT_SCHEMA_BOOTSTRAP_NUMBERED_SQLITE",
+      "migration_required": "YES",
+      "source_changes_likely": "YES",
+      "production_migration_eventually_required": "YES",
+      "risk": "HIGH",
+      "risk_reason": "Production and experimental SQLite stores share an auto-migrating implementation while schema authority and readiness are not checked before work.",
+      "exact_gap": "The v5 marker proves only that the local migration routine recorded progress; it does not prove current code/state compatibility or fail closed on unknown/newer/partial state.",
+      "recommended_next_action": "Pair with Tablet only after a family recipe is validated elsewhere: add a strict expected-state gate per production/experimental DB and preserve current qualification/continuity history."
+    },
+    {
+      "target": "smartwatch-clank",
+      "display_name": "Smartwatch Clank",
+      "sha": "a631421e276b58ce3499787cc2bc72218648ce72",
+      "applicability": "APPLIES",
+      "persistent_state_stores": [
+        {"type": "SQLite", "location": "var/smartwatch-clank.sqlite3", "authority": "SQLiteStore observation/qualification schema_version", "survives_deploy": true, "relevant_to_normal_work": true},
+        {"type": "separate SQLite QC archive", "location": "var/smartwatch-clank-qc.sqlite3", "authority": "append-only QC ledger with create-if-not-exists schema", "survives_deploy": true, "relevant_to_normal_work": true},
+        {"type": "JSONL continuity registry and JSON cache", "location": "beside configured database", "authority": "continuity/cache evidence, not relational schema authority", "survives_deploy": true, "relevant_to_normal_work": false}
+      ],
+      "schema_version_authority": "EXPLICIT_VERSION",
+      "version_details": "SQLiteStore.SCHEMA_VERSION=3 and schema_version(id=1) are durable; schema changes are guarded additive CREATE/ALTER statements. Version is advanced when greater but never compared as a compatibility contract.",
+      "migration": {"mechanism": "inline additive SQLite DDL with schema_version marker", "head_or_version": 3, "transactional": "PARTIAL; executescript/ALTER then commit", "automatic": true, "downgrade": "NONE", "downgrade_tested": false, "failure_recoverability": "partial DDL can precede commit and no durable not-ready state exists; read_only backup intentionally skips migration", "source_refs": ["work/fleet/smartwatch-clank/src/smartwatch_clank/core/store.py::SQLiteStore._migrate", "work/fleet/smartwatch-clank/src/smartwatch_clank/qc_archive.py::QCArchive.migrate", "work/fleet/smartwatch-clank/src/smartwatch_clank/cli.py::main"]},
+      "compatibility_barrier": {"location": "SQLiteStore._migrate on writer construction", "compares": "schema_version monotonic update only", "behavior": "FAIL_OPEN for missing/corrupt/newer/partial schema; read-only paths deliberately bypass migration", "normal_work_before_barrier": true, "quality": "PARTIAL_MECHANISM"},
+      "entry_points": [
+        {"entry_point": "CLI run", "touches_state": "continuity ensure_registry, RunLock, SQLiteStore", "crosses_barrier": false, "bypass_or_risk": "schema marker update is not a compatibility check"},
+        {"entry_point": "portable soak runner / scheduler", "touches_state": "same SQLiteStore path", "crosses_barrier": false, "bypass_or_risk": "host migration evidence is separate from schema compatibility"},
+        {"entry_point": "local collection/dashboard", "touches_state": "SQLiteStore in finalized runner", "crosses_barrier": false, "bypass_or_risk": "alternate writer still relies on implicit DDL"},
+        {"entry_point": "QC archive/backup/read-only operations", "touches_state": "separate archive or read-only main DB", "crosses_barrier": false, "bypass_or_risk": "archive has no version authority; read-only backup intentionally copies unverified source"}
+      ],
+      "unknown_version_behavior": {"missing": "AUTO_CREATE/AUTO_ALTER and set version 3", "corrupt": "UNDEFINED", "older": "AUTO_MIGRATE", "newer": "FAIL_OPEN", "partial_history": "UNDEFINED", "state_without_trustworthy_authority": "FAIL_OPEN", "unknown_becomes_compatible": true},
+      "old_software_new_state": "Older code can open a database with a newer schema_version because no maximum-supported version refusal exists; host-migration metadata does not protect schema rollback.",
+      "migration_failure_semantics": "Inline DDL has no durable failed/readiness state. The separate QC archive and continuity registry evolve independently, so partial main-store success cannot establish whole-target compatibility.",
+      "rollback_classification": "UNGUARDED",
+      "planning_classification": "PARTIAL_MECHANISM",
+      "likely_remediation_family": "INLINE_ADDITIVE_SQLITE_SCHEMA_VERSION",
+      "migration_required": "YES",
+      "source_changes_likely": "YES",
+      "production_migration_eventually_required": "YES",
+      "risk": "HIGH",
+      "risk_reason": "The target has a useful version marker and strong operational provenance, but inline DDL, separate stores, and read-only bypasses lack a fail-closed compatibility gate.",
+      "exact_gap": "schema_version monotonicity and host/qualification evidence are not a proof that every required persistent store is compatible before collection work.",
+      "recommended_next_action": "Validate the additive-schema family with a strict maximum-supported/version-shape gate for the main DB and an explicit independent policy for QC/continuity sidecars."
+    },
+    {
+      "target": "tablet-clank",
+      "display_name": "Tablet Clank",
+      "sha": "d9cb32ccee1b2bcaa4bc9d8af5ac1a7a7e7f6769",
+      "applicability": "APPLIES",
+      "persistent_state_stores": [
+        {"type": "SQLite", "location": "var/tablet_clank.db", "authority": "Database schema_migrations and collector/qualification tables", "survives_deploy": true, "relevant_to_normal_work": true},
+        {"type": "separate SQLite QC archive", "location": "var/tablet_clank_qc.db (sibling derived from DB path)", "authority": "append-only QC ledger with no version marker", "survives_deploy": true, "relevant_to_normal_work": true},
+        {"type": "isolated campaign SQLite plus JSONL report", "location": "var/campaigns/<campaign>/ and var/logs", "authority": "campaign-scoped evidence; canonical DB is read-only during preflight", "survives_deploy": true, "relevant_to_normal_work": true}
+      ],
+      "schema_version_authority": "EXPLICIT_VERSION",
+      "version_details": "schema_migrations versions 1-3 are written by Database.migrate; version 2 adds change_events.run_id and version 3 qualification projection. No expected-head or maximum-supported check exists.",
+      "migration": {"mechanism": "inline numbered SQLite migration", "head_or_version": 3, "transactional": "PARTIAL; executescript/ALTER then final commit", "automatic": true, "downgrade": "NONE", "downgrade_tested": false, "failure_recoverability": "partial DDL can remain before commit; no durable not-ready marker; campaign DB is isolated and canonical preflight is read-only", "source_refs": ["work/fleet/tablet-clank/tablet_clank/storage/db.py::Database.migrate", "work/fleet/tablet-clank/tablet_clank/campaign.py::preflight_campaign", "work/fleet/tablet-clank/tablet_clank/cli.py::main"]},
+      "compatibility_barrier": {"location": "Database.__init__ -> migrate before most CLI commands; campaign preflight is separate read-only safety", "compares": "presence of numbered rows and structural columns", "behavior": "FAIL_OPEN for newer/corrupt/unknown version; migration completion is not compatibility proof", "normal_work_before_barrier": true, "quality": "PARTIAL_MECHANISM"},
+      "entry_points": [
+        {"entry_point": "collect/soak/production/status/health CLI", "touches_state": "Database constructed before dispatch", "crosses_barrier": false, "bypass_or_risk": "auto-migration precedes work but does not compare compatibility"},
+        {"entry_point": "soak-campaign", "touches_state": "manifest preflight opens canonical read-only, then isolated campaign Database", "crosses_barrier": false, "bypass_or_risk": "canonical safety is strong but isolated DB still has no strict head gate"},
+        {"entry_point": "backup/db-integrity", "touches_state": "Database open and migration before operation", "crosses_barrier": false, "bypass_or_risk": "backup/readiness are not compatibility proof"},
+        {"entry_point": "QC archive", "touches_state": "separate sibling SQLite", "crosses_barrier": false, "bypass_or_risk": "archive schema can evolve without a version contract"}
+      ],
+      "unknown_version_behavior": {"missing": "AUTO_CREATE/AUTO_MIGRATE and stamp versions 1-3", "corrupt": "UNDEFINED", "older": "AUTO_MIGRATE", "newer": "FAIL_OPEN", "partial_history": "UNDEFINED/partial", "state_without_trustworthy_authority": "FAIL_OPEN", "unknown_becomes_compatible": true},
+      "old_software_new_state": "A rollback to older tablet code can open state carrying newer migration rows/columns; campaign isolation and locks do not establish code/schema compatibility.",
+      "migration_failure_semantics": "Migration is not separated from normal DB construction and has no durable failed/readiness fact. Campaign reports refusal/abort in isolated JSONL, but that does not guard the canonical production entry point.",
+      "rollback_classification": "UNGUARDED",
+      "planning_classification": "PARTIAL_MECHANISM",
+      "likely_remediation_family": "ORDERED_NUMBERED_SQLITE",
+      "migration_required": "YES",
+      "source_changes_likely": "YES",
+      "production_migration_eventually_required": "YES",
+      "risk": "HIGH",
+      "risk_reason": "Several persistent scopes (canonical, QC, campaign) share implicit migration semantics; only campaign preflight is explicitly read-only and no store has a strict compatibility refusal.",
+      "exact_gap": "Normal collection/soak/production work can proceed after auto-migration without proving the required state contract, especially for newer or partially migrated stores.",
+      "recommended_next_action": "After KTW validates ordered SQLite gating, adapt it independently to canonical, campaign, and QC stores; prove campaign isolation does not substitute for compatibility."
+    }
+  ],
+  "families": [
+    {"family_id": "ALEMBIC_MIGRATION_HEAD", "members": ["semiconductor-intelligence"], "shared_invariant": "one expected migration head/capability decision precedes every normal ORM session", "shared_likely_shape": "strict head gate; no create_all fallback for existing state; durable refusal evidence", "target_local_mechanics": "Alembic chain, SQLAlchemy URL, and existing operational-job tables remain local", "per_target_risk": "stamp fallback and create_all bypass"},
+    {"family_id": "CURRENT_SCHEMA_BOOTSTRAP_NUMBERED_SQLITE", "members": ["oem-radar", "feature-phone-clank"], "shared_invariant": "current-schema bootstrap and numbered history cannot make unknown/newer state ready", "shared_likely_shape": "maximum-supported version/shape guard around existing SqliteStore.migrate plus explicit not-ready refusal", "target_local_mechanics": "OEM source/snapshot model versus Feature production/experimental/qualification scopes", "per_target_risk": "automatic bootstrap can mis-stamp incomplete state"},
+    {"family_id": "ORDERED_NUMBERED_SQLITE", "members": ["korean-tech-wire", "tablet-clank"], "shared_invariant": "ordered migration head and all relevant store scopes must be compatible before work", "shared_likely_shape": "strict expected-head check, transactional migration/readiness result, per-store refusal evidence", "target_local_mechanics": "KTW main+QC archive versus Tablet canonical+campaign+QC", "per_target_risk": "forward-only skew and multiple stores"},
+    {"family_id": "INLINE_ADDITIVE_SQLITE_SCHEMA_VERSION", "members": ["smartwatch-clank"], "shared_invariant": "schema_version and structural capabilities are a bounded contract, not a monotonic write", "shared_likely_shape": "validate supported range and all sidecar policies before collection", "target_local_mechanics": "main SQLite, QC archive, continuity registry, and read-only backup", "per_target_risk": "inline DDL/sidecar divergence"},
+    {"family_id": "STRUCTURAL_SQLALCHEMY_CREATE_ALL_ADDITIVE", "members": ["chinese-tech-wire"], "shared_invariant": "ORM/table shape inference must be replaced or bounded by explicit compatibility authority", "shared_likely_shape": "durable version/capability contract for operational and QC stores, with no swallowed migration failure", "target_local_mechanics": "SQLAlchemy sessions, source-health pipeline, loopback dashboard, separate QC archive", "per_target_risk": "no version authority, silent exception skips, direct-session bypass"}
+  ],
+  "migration_vs_compatibility": {
+    "framework_rule": "A migration framework or auto-DDL routine only changes state. It is not evidence that the running code can safely perform normal work against that state.",
+    "barrier_rule": "Conformance requires a trustworthy pre-normal-work decision, fail-closed known incompatibility, and an auditable refusal reason across every operational entry point.",
+    "implication": "All seven targets remain planning candidates; none is marked conforming by this artifact. Semiconductor and the numbered-SQLite targets have useful primitives, but each still needs a barrier-focused re-audit."
+  },
+  "applicability_assessment": {
+    "oem-radar": "APPLIES",
+    "semiconductor-intelligence": "APPLIES",
+    "chinese-tech-wire": "APPLIES",
+    "korean-tech-wire": "APPLIES",
+    "feature-phone-clank": "APPLIES",
+    "smartwatch-clank": "APPLIES",
+    "tablet-clank": "APPLIES",
+    "correction_needed": false,
+    "basis": "Each target has durable structured state that survives restart/deployment and has an evolving schema or compatibility boundary. One-shot scheduling, QC archives, campaign stores, and sidecars do not make the main trigger N/A."
+  },
+  "reusable_regression_recipe": [
+    "expected state version/capabilities permit startup and normal work",
+    "older migratable state cannot admit normal work before canonical migration/barrier",
+    "newer incompatible state fails closed with a compatibility-specific refusal",
+    "missing version fails closed unless the repository documents an explicit safe empty-state bootstrap",
+    "corrupt or partial migration state fails closed",
+    "every operational entry point crosses the same compatibility barrier",
+    "compatibility inspection itself is non-destructive",
+    "migration executes only through the canonical mechanism",
+    "post-migration version/capabilities are verified before work proceeds",
+    "failed migration never records or infers state READY",
+    "rollback/version-skew behavior matches the declared contract",
+    "fresh empty state/bootstrap works where explicitly supported"
+  ],
+  "implementation_order": [
+    {"rank": 1, "target": "semiconductor-intelligence", "family": "ALEMBIC_MIGRATION_HEAD", "reason": "strongest existing durable authority; validates head-gate recipe first while fixing the dangerous create_all/stamp bypass"},
+    {"rank": 2, "target": "korean-tech-wire", "family": "ORDERED_NUMBERED_SQLITE", "reason": "clear numbered migration model and relatively contained primary store; validates ordered SQLite recipe"},
+    {"rank": 3, "target": "feature-phone-clank", "family": "CURRENT_SCHEMA_BOOTSTRAP_NUMBERED_SQLITE", "reason": "validates current-schema bootstrap family with production/experimental scope separation and existing qualification history"},
+    {"rank": 4, "target": "tablet-clank", "family": "ORDERED_NUMBERED_SQLITE", "reason": "reuse ordered recipe with independent proof across canonical, campaign, and QC stores"},
+    {"rank": 5, "target": "smartwatch-clank", "family": "INLINE_ADDITIVE_SQLITE_SCHEMA_VERSION", "reason": "adapt the contract to inline DDL and sidecar/continuity policy after numbered families are proven"},
+    {"rank": 6, "target": "oem-radar", "family": "CURRENT_SCHEMA_BOOTSTRAP_NUMBERED_SQLITE", "reason": "reuse bootstrap recipe after Feature Phone validation; one-shot scheduling lowers concurrency but not compatibility risk"},
+    {"rank": 7, "target": "chinese-tech-wire", "family": "STRUCTURAL_SQLALCHEMY_CREATE_ALL_ADDITIVE", "reason": "highest ambiguity and dual-store risk; defer until explicit version/capability design is validated elsewhere"}
+  ],
+  "current_m1_context": {
+    "all_seven_m1_state": "INSUFFICIENT_EVIDENCE",
+    "m1_standard": "STD-DEPLOY-COM-002",
+    "no_target_conformance_claim": true,
+    "prior_target_verdicts_preserved": true
+  },
+  "safety": {
+    "read_only": true,
+    "target_repositories_modified": false,
+    "target_tests_or_collectors_run": false,
+    "target_migrations_run": false,
+    "databases_edited": false,
+    "hosts_accessed": false,
+    "deployments_or_restarts": false,
+    "resolver_facts_modified": false,
+    "known_evidence_admitted": false,
+    "frozen_standards_modified": false,
+    "tags_moved": false,
+    "smartphone_added": false
+  },
+  "validation": {
+    "command": "python -m pytest -q",
+    "direct_unpiped": true,
+    "passed": 844,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 0,
+    "elapsed_seconds": 8.08,
+    "exit_code": 0,
+    "status": "PASS"
+  },
+  "commit": {
+    "message": "audit: plan persistent-state compatibility remediation",
+    "standards_only": true,
+    "push_authorized": false,
+    "push_status": "NOT_PUSHED_PENDING_EXPLICIT_AUTHORIZATION"
+  }
+}
