@@ -1,0 +1,129 @@
+{
+  "audit_id": "smartwatch-clank-qualification-remediation-m5-2026-09-01",
+  "mode": "SOURCE_REMEDIATION_EVIDENCE_RECORD_AND_ADMISSION",
+  "date": "2026-09-01",
+  "standards_clank_head": "a56e8dc1ddce54e229096ec55bec90c1e2ec6e15",
+  "smartwatch": {
+    "target": "smartwatch-clank",
+    "branch": "main",
+    "head": "a631421e276b58ce3499787cc2bc72218648ce72",
+    "origin_main": "a631421e276b58ce3499787cc2bc72218648ce72",
+    "standard": "STD-OPS-COM-003",
+    "state": "CONFORMS",
+    "lifecycle": "CLOSED",
+    "scope": "source-level qualification provenance/reset remediation only"
+  },
+  "source_lineage": {
+    "m1_audit": "audits/fleet-blind-audit-sweep-m1-2026-09-01.json",
+    "m1_head": "08a23f90297f7c0fbaffdb4018116c13d5e60b84",
+    "m1_original_state": "INSUFFICIENT_EVIDENCE",
+    "m1_applicable": 22,
+    "m1_conforms": 18,
+    "m1_non_conforming": 0,
+    "m1_insufficient_evidence": 4,
+    "m1_insufficient_standards": [
+      "STD-UI-COM-011",
+      "STD-OPS-COM-003",
+      "STD-DEPLOY-COM-001",
+      "STD-DEPLOY-COM-002"
+    ],
+    "m4_plan": "audits/fleet-qualification-planning-m4-2026-09-01.json",
+    "m4_family": "RICH_ORM_JOB_PROVENANCE",
+    "m4_family_members": ["smartwatch-clank", "semiconductor-intelligence"]
+  },
+  "remediation_contract": {
+    "provenance_vocabulary": ["SCHEDULED", "MANUAL", "UNKNOWN"],
+    "missing_provenance": "UNKNOWN",
+    "material_identity_components": [
+      "app version",
+      "config fingerprint",
+      "baked git revision",
+      "SQLite schema version",
+      "execution scope",
+      "contract version"
+    ],
+    "identity_excludes": ["product/content observations", "host", "process", "timestamps"],
+    "reset_order": "material identity is compared and any new epoch/reset is persisted before prior qualification evidence is read or the changed-run gate is evaluated",
+    "reset_lineage": "explicit prior identity, new identity, reason, authority, execution identity, provenance, and time",
+    "epoch_isolation": "old-epoch evidence cannot qualify the first changed execution",
+    "historical_unknowns": "legacy unknowns remain null/UNKNOWN and are not backfilled",
+    "event_persistence": "reset and terminal facts coexist for one execution; terminal recording is idempotent",
+    "gate_semantics": "unknown, stale, divergent, or untrusted evidence fails closed",
+    "path_provenance": "scheduler, CLI, and dashboard preserve execution provenance; downstream consumers never fabricate NATURAL"
+  },
+  "validation": {
+    "focused_qualification_provenance": {"passed": 40},
+    "final_gate_focused_rerun": {"passed": 13},
+    "full_command": "$env:PYTHONPATH='src'; python -m pytest",
+    "full_remediation": {
+      "passed": 243,
+      "skipped": 1,
+      "failed": 2,
+      "warnings": 0,
+      "exit_code": 1,
+      "elapsed_seconds": 20.99
+    },
+    "baseline": {
+      "revision": "08a23f90297f7c0fbaffdb4018116c13d5e60b84",
+      "passed": 235,
+      "skipped": 1,
+      "failed": 2
+    },
+    "baseline_attribution": {
+      "classification": "PRE_EXISTING / BASELINE_ATTRIBUTED",
+      "failures": "same two dcrainmaker_specialist tier-expectation failures",
+      "same_failures_at_baseline_and_remediation": true,
+      "new_failures_introduced": false,
+      "focused_coverage_green": true,
+      "full_suite_claim": "not green; baseline-attributed failures remain outside M5 scope"
+    }
+  },
+  "implementation_checks": {
+    "A_authority_origin_provenance": "YES",
+    "B_missing_provenance_trusted_downstream": "NO",
+    "C_old_epoch_qualifies_first_changed_execution": "NO",
+    "D_reset_before_gated_use": "YES",
+    "E_stable_explicit_material_identity": "YES",
+    "F_prior_new_reset_identities_auditable": "YES",
+    "G_legacy_unknowns_preserved": "YES",
+    "H_reset_and_terminal_coexist": "YES",
+    "I_terminal_persistence_idempotent": "YES",
+    "J_gate_fails_closed": "YES",
+    "K_alternate_path_bypasses_preparation": "NO"
+  },
+  "remaining_m1_insufficiencies": {
+    "STD-UI-COM-011": "INSUFFICIENT_EVIDENCE",
+    "STD-DEPLOY-COM-001": "INSUFFICIENT_EVIDENCE",
+    "STD-DEPLOY-COM-002": "INSUFFICIENT_EVIDENCE"
+  },
+  "family_status": {
+    "statement": "FIRST VALIDATED MEMBER OF THE RICH ORM/JOB QUALIFICATION REMEDIATION FAMILY",
+    "descriptive_only": true,
+    "semiconductor_status": "INDEPENDENT IMPLEMENTATION AND PROOF REQUIRED",
+    "evidence_inheritance": false,
+    "schema_copy_requirement": false
+  },
+  "known_evidence_admission": {
+    "performed": true,
+    "layer": "standards/operations/known-evidence-index.json",
+    "mechanism": "tools.operations_agent_layer.build_known_evidence_index",
+    "admitted": {
+      "subject": "smartwatch-clank",
+      "revision": "a631421e276b58ce3499787cc2bc72218648ce72",
+      "standard": "STD-OPS-COM-003",
+      "state": "CONFORMS",
+      "lifecycle": "CLOSED"
+    },
+    "unrelated_standards_admitted": false,
+    "historical_m1_preserved": true
+  },
+  "guards": {
+    "frozen_standard_files_changed": false,
+    "frozen_tags_changed_or_moved": false,
+    "smartwatch_modified_in_this_pass": false,
+    "host_or_deployment_actions": false,
+    "live_collectors_or_live_proof": false,
+    "semiconductor_conformance_inferred": false,
+    "overall_smartwatch_conformance_claim": false
+  }
+}

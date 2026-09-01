@@ -8,6 +8,14 @@
     "source_reference": "audits/feature-phone-clank-ops-com-004-2026-09-01.md"
   },
   {
+    "standard": "STD-OPS-COM-003",
+    "subject": "smartwatch-clank",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "CONFORMS / CLOSED at canonical Smartwatch main revision a631421e276b58ce3499787cc2bc72218648ce72: source-level qualification provenance, stable material identity, pre-gate epoch reset, auditable reset lineage, and fail-closed qualification gating are implemented and focused coverage is green.",
+    "source_reference": "audits/smartwatch-clank-qualification-remediation-m5-2026-09-01.md"
+  },
+  {
     "standard": "STD-OPS-COM-004",
     "subject": "tablet-clank",
     "kind": "known_conformance",

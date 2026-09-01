@@ -209,24 +209,31 @@ def test_known_evidence_index_matches_generator_output():
     assert _load_known_evidence() == build_known_evidence_index()
 
 
-def test_known_evidence_admits_only_the_two_validated_lock_remediations():
+def test_known_evidence_admits_only_validated_remediations():
     entries = _load_known_evidence()
-    assert len(entries) == 2
+    assert len(entries) == 3
     by_subject = {entry["subject"]: entry for entry in entries}
-    assert set(by_subject) == {"feature-phone-clank", "tablet-clank"}
+    assert set(by_subject) == {"feature-phone-clank", "smartwatch-clank", "tablet-clank"}
     expected = {
         "feature-phone-clank": (
             "890ab339234381b04c6f27e710e3382fa70bc076",
             "audits/feature-phone-clank-ops-com-004-2026-09-01.md",
+            "STD-OPS-COM-004",
+        ),
+        "smartwatch-clank": (
+            "a631421e276b58ce3499787cc2bc72218648ce72",
+            "audits/smartwatch-clank-qualification-remediation-m5-2026-09-01.md",
+            "STD-OPS-COM-003",
         ),
         "tablet-clank": (
             "568fcfc9b80a2bffcebe8af475b3319f2304ad76",
             "audits/tablet-clank-ops-com-004-2026-09-01.md",
+            "STD-OPS-COM-004",
         ),
     }
     for subject, entry in by_subject.items():
-        sha, source = expected[subject]
-        assert entry["standard"] == "STD-OPS-COM-004"
+        sha, source, standard = expected[subject]
+        assert entry["standard"] == standard
         assert entry["kind"] == "known_conformance"
         assert entry["source"] == "audit"
         assert entry["source_reference"] == source
