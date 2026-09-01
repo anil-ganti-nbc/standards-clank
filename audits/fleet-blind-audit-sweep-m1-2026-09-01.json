@@ -1,0 +1,204 @@
+{
+  "audit_id": "fleet-blind-audit-sweep-m1-2026-09-01",
+  "mode": "BLIND_READ_ONLY_SWEEP",
+  "date": "2026-09-01",
+  "standards_clank_head": "e643c1688a63c681401c9e0e1336c05b3e4c1a6b",
+  "baselines": {
+    "ui": "ui-standards-v1.0",
+    "data-ontology": "data-ontology-standards-v1.0",
+    "operations": "operations-standards-v1.0",
+    "deployment": "deployment-standards-v1.0"
+  },
+  "method": {
+    "resolver": "tools/fleet_standards_resolver.py",
+    "applicability_rule": "Profile scope plus source-confirmed trigger presence; a missing fact is not treated as FALSE.",
+    "state_rule": "CONFORMS requires direct checked-in source evidence; NON_CONFORMING is reserved for a clear current source defect; unresolved semantics and all host-dependent proof remain INSUFFICIENT_EVIDENCE.",
+    "blind_boundary": "The eight target repositories were inspected independently at the recorded local origin/main heads. Existing Watch closure is a reference row only; no target-specific prior verdict was imported as an admission.",
+    "safety_boundary": "No target repository, deployment, scheduler, database, host, or known-evidence index was modified. No fetch, live probe, remediation, or admission occurred."
+  },
+  "resolver_observation": {
+    "note": "The registry intentionally has explicit trigger facts only for Watch. Raw resolver counts are retained below; source inspection closes only the applicability questions needed for this M1 inventory and does not mutate profiles/facts.",
+    "raw_counts": {
+      "watch-clank": {"APPLIES": 14, "NOT_APPLICABLE": 0, "UNKNOWN": 11},
+      "oem-radar": {"APPLIES": 1, "NOT_APPLICABLE": 2, "UNKNOWN": 22},
+      "semiconductor-intelligence": {"APPLIES": 2, "NOT_APPLICABLE": 1, "UNKNOWN": 22},
+      "chinese-tech-wire": {"APPLIES": 2, "NOT_APPLICABLE": 1, "UNKNOWN": 22},
+      "korean-tech-wire": {"APPLIES": 2, "NOT_APPLICABLE": 1, "UNKNOWN": 22},
+      "feature-phone-clank": {"APPLIES": 1, "NOT_APPLICABLE": 2, "UNKNOWN": 22},
+      "smartphone-clank": {"APPLIES": 1, "NOT_APPLICABLE": 2, "UNKNOWN": 22},
+      "smartwatch-clank": {"APPLIES": 1, "NOT_APPLICABLE": 2, "UNKNOWN": 22},
+      "tablet-clank": {"APPLIES": 1, "NOT_APPLICABLE": 2, "UNKNOWN": 22}
+    }
+  },
+  "matrix": [
+    {
+      "clank": "Watch",
+      "id": "watch-clank",
+      "profile": "sku-based + news-based",
+      "head": "d03bc4b2f90289686331af0447d5ca4e8cf55822",
+      "working_tree": "CLEAN",
+      "not_applicable": 0,
+      "applies": 25,
+      "conforms": 25,
+      "non_conforming": 0,
+      "insufficient_evidence": 0,
+      "basis": "Reference-only: existing final cross-domain audit and live-proof closure; not re-audited in this pass."
+    },
+    {
+      "clank": "OEM Radar",
+      "id": "oem-radar",
+      "profile": "sku-based",
+      "head": "d720e0635894ddcc9a39f116e2aa4a1768090042",
+      "working_tree": "CLEAN",
+      "not_applicable": 3,
+      "applies": 22,
+      "conforms": 18,
+      "non_conforming": 0,
+      "insufficient_evidence": 4,
+      "insufficient_standards": ["STD-UI-COM-011", "STD-OPS-COM-003", "STD-DEPLOY-COM-001", "STD-DEPLOY-COM-002"],
+      "basis": "Source and dashboard contracts are present; no current target-side qualification record or compatibility barrier was evidenced, and deployment identity is not materially running proof."
+    },
+    {
+      "clank": "Semiconductor Intelligence",
+      "id": "semiconductor-intelligence",
+      "profile": "news-based",
+      "head": "8a356a3bc87bea0f0d95e66c072c8e8a629156d5",
+      "working_tree": "CLEAN",
+      "not_applicable": 2,
+      "applies": 23,
+      "conforms": 17,
+      "non_conforming": 0,
+      "insufficient_evidence": 6,
+      "insufficient_standards": ["STD-UI-COM-006", "STD-UI-COM-007", "STD-UI-COM-011", "STD-OPS-COM-003", "STD-DEPLOY-COM-001", "STD-DEPLOY-COM-002"],
+      "basis": "The source has a rich review/claims/health surface and database-backed leases, but the checked-in containment explicitly remains UNVERIFIED_PRODUCTION and the sweep did not promote source-only claims to live deployment or complete qualification evidence."
+    },
+    {
+      "clank": "Chinese Tech Wire",
+      "id": "chinese-tech-wire",
+      "profile": "news-based",
+      "head": "1a47220c69e6bb91f2899a0508508c42254c9d5b",
+      "working_tree": "CLEAN",
+      "not_applicable": 3,
+      "applies": 22,
+      "conforms": 18,
+      "non_conforming": 0,
+      "insufficient_evidence": 4,
+      "insufficient_standards": ["STD-UI-COM-007", "STD-UI-COM-011", "STD-DEPLOY-COM-001", "STD-DEPLOY-COM-002"],
+      "basis": "The staging-only runtime bridge, separate QC archive, and explicit source-health states are positive evidence; staging/soak posture, disabled external delivery, and dual schema mechanisms leave the listed contract questions open without a live target proof."
+    },
+    {
+      "clank": "Korean Tech Wire",
+      "id": "korean-tech-wire",
+      "profile": "news-based",
+      "head": "afb4aada1d4fae09ada4658fe9fcf8dfa38eb23d",
+      "working_tree": "CLEAN",
+      "not_applicable": 2,
+      "applies": 23,
+      "conforms": 18,
+      "non_conforming": 0,
+      "insufficient_evidence": 5,
+      "insufficient_standards": ["STD-DATA-COM-001", "STD-UI-COM-011", "STD-OPS-COM-003", "STD-DEPLOY-COM-001", "STD-DEPLOY-COM-002"],
+      "basis": "Dashboard health is explicitly distinct from discovered/output counts, QC and locking are structurally present, and promotion policy is written; continuity-break recording, delivery state, schema compatibility gating, and live deployment materialization remain unproven in this read-only pass."
+    },
+    {
+      "clank": "Feature Phone Clank",
+      "id": "feature-phone-clank",
+      "profile": "sku-based",
+      "head": "4051b64fe7ba4dc188ec1e1a6920ce72b14f013d",
+      "working_tree": "CLEAN",
+      "not_applicable": 3,
+      "applies": 22,
+      "conforms": 17,
+      "non_conforming": 1,
+      "insufficient_evidence": 4,
+      "non_conforming_standards": ["STD-OPS-COM-004"],
+      "insufficient_standards": ["STD-UI-COM-011", "STD-OPS-COM-003", "STD-DEPLOY-COM-001", "STD-DEPLOY-COM-002"],
+      "basis": "The source/config isolation and read-only dashboard are strong positive evidence. Current RunLock still reclaims a persisted marker using PID/liveness metadata rather than grantor-observable ownership; qualification reset, compatibility, and live deployment proof remain open."
+    },
+    {
+      "clank": "Smartphone Clank",
+      "id": "smartphone-clank",
+      "profile": "sku-based",
+      "head": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "working_tree": "CLEAN",
+      "not_applicable": 10,
+      "applies": 15,
+      "conforms": 12,
+      "non_conforming": 0,
+      "insufficient_evidence": 3,
+      "insufficient_standards": ["STD-UI-COM-011", "STD-DATA-COM-001", "STD-DEPLOY-COM-001"],
+      "basis": "No QC queue/decision surface or promotion-soak lifecycle was counted as applicable; current lock and schema-guard implementations are positive evidence. Delivery presentation, continuity evidence, and materially running deployment identity were not established by this source-only sweep."
+    },
+    {
+      "clank": "Smartwatch Clank",
+      "id": "smartwatch-clank",
+      "profile": "sku-based",
+      "head": "08a23f90297f7c0fbaffdb4018116c13d5e60b84",
+      "working_tree": "CLEAN",
+      "not_applicable": 3,
+      "applies": 22,
+      "conforms": 18,
+      "non_conforming": 0,
+      "insufficient_evidence": 4,
+      "insufficient_standards": ["STD-UI-COM-011", "STD-OPS-COM-003", "STD-DEPLOY-COM-001", "STD-DEPLOY-COM-002"],
+      "basis": "Five-way deployment parity is recorded historically and the current lock/QC/dashboard contracts are structurally strong; no current target observation, compatibility barrier, qualification reset lineage, or delivery-outcome surface proof was admitted."
+    },
+    {
+      "clank": "Tablet Clank",
+      "id": "tablet-clank",
+      "profile": "sku-based",
+      "head": "41282f78438704d563692560a8a1fdfb8a1d66ed",
+      "working_tree": "CLEAN",
+      "not_applicable": 3,
+      "applies": 22,
+      "conforms": 17,
+      "non_conforming": 1,
+      "insufficient_evidence": 4,
+      "non_conforming_standards": ["STD-OPS-COM-004"],
+      "insufficient_standards": ["STD-UI-COM-011", "STD-OPS-COM-003", "STD-DEPLOY-COM-001", "STD-DEPLOY-COM-002"],
+      "basis": "The separate QC archive, source-health classification, bounded soak, and production allowlist are directly visible. Soak locking still relies on PID/OpenProcess reclamation; qualification lineage, compatibility gating, delivery state, and live deployment identity remain open."
+    }
+  ],
+  "collapsed_root_causes": [
+    {
+      "id": "DEPLOYMENT_LIVE_MATERIALIZATION_UNPROVEN",
+      "affected": ["oem-radar", "semiconductor-intelligence", "chinese-tech-wire", "korean-tech-wire", "feature-phone-clank", "smartphone-clank", "smartwatch-clank", "tablet-clank"],
+      "standards": ["STD-DEPLOY-COM-001"],
+      "state": "INSUFFICIENT_EVIDENCE",
+      "summary": "Source identity/build/runbook mechanisms exist, but no authorized target observation in this pass compares intended and materially running artifact, configuration, and wiring."
+    },
+    {
+      "id": "PERSISTENT_STATE_COMPATIBILITY_GATE_UNPROVEN",
+      "affected": ["oem-radar", "semiconductor-intelligence", "chinese-tech-wire", "korean-tech-wire", "feature-phone-clank", "smartwatch-clank", "tablet-clank"],
+      "standards": ["STD-DEPLOY-COM-002"],
+      "state": "INSUFFICIENT_EVIDENCE",
+      "summary": "The sweep found schemas/migrations, but not a target-specific fail-closed compatibility barrier that can be trusted as deployment evidence. Smartphone Clank's schema guard was the positive exception."
+    },
+    {
+      "id": "QUALIFICATION_PROVENANCE_RESET_NOT_CLOSED",
+      "affected": ["oem-radar", "semiconductor-intelligence", "korean-tech-wire", "feature-phone-clank", "smartwatch-clank", "tablet-clank"],
+      "standards": ["STD-OPS-COM-003"],
+      "state": "INSUFFICIENT_EVIDENCE",
+      "summary": "Promotion/soak surfaces exist in these Clanks, but the sweep did not find Watch-level structural provenance, material-change reset lineage, and independently auditable gate agreement."
+    },
+    {
+      "id": "UNSAFE_PID_MARKER_RECLAMATION",
+      "affected": ["feature-phone-clank", "tablet-clank"],
+      "standards": ["STD-OPS-COM-004"],
+      "state": "NON_CONFORMING",
+      "summary": "Current RunLock/SoakLock paths reclaim persisted ownership using PID liveness/OpenProcess metadata rather than a grantor-observable lock authority."
+    },
+    {
+      "id": "REGISTRY_TRIGGER_FACT_COVERAGE",
+      "affected": ["oem-radar", "semiconductor-intelligence", "chinese-tech-wire", "korean-tech-wire", "feature-phone-clank", "smartphone-clank", "smartwatch-clank", "tablet-clank"],
+      "standards": [],
+      "state": "PROCESS_LIMITATION",
+      "summary": "fleet-adoption.json has empty trigger facts for the eight targets. This is recorded as an audit limitation, not admitted as a new standard or target defect."
+    }
+  ],
+  "next_decision": "Use the matrix to select a shared remediation pattern only after reviewing the collapsed causes. Do not begin target remediation or live proof from this artifact alone.",
+  "admission": {"performed": false, "known_evidence_modified": false},
+  "remediation": {"performed": false, "target_repositories_modified": false},
+  "host_actions": {"performed": false},
+  "suite": {"target_suites_run": false, "reason": "M1 is a read-only source inventory; no target tests or collectors were run."}
+}
