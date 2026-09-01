@@ -1,0 +1,18 @@
+{
+  "audit_id":"watch-clank-cross-domain-2026-09-01-reaudit-4",
+  "mode":"INFORMED_READ_ONLY_REAUDIT",
+  "standards_clank_head":"b88aa7ddf18d4ba709ab7046974ca493fd5d3e98",
+  "target":{"id":"watch-clank","branch":"main","head":"d03bc4b2f90289686331af0447d5ca4e8cf55822","modified":false},
+  "frozen_tags":{"ui-standards-v1.0":"71e7ac427fd3c6dc11eea87d3eab528cd72ffd5f","data-ontology-standards-v1.0":"f2f8a7626592f5f007377b1e0b04d2feb78d5cc2","operations-standards-v1.0":"b36239d4b07b578822d62c8681046fa108e32d5c","deployment-standards-v1.0":"6c00706b6a9469d17996978b01af91a1f46d62a9"},
+  "applicability":{"generator":"python scripts/resolve_clank_standards.py watch-clank --json","APPLIES":25,"NOT_APPLICABLE":0,"UNKNOWN":0},
+  "verdicts":[
+    {"id":"STD-UI-COM-001","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-UI-COM-002","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-UI-COM-003","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-UI-COM-004","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-UI-COM-005","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-UI-COM-006","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-UI-COM-007","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-UI-COM-008","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-UI-COM-009","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-UI-COM-010","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-UI-COM-011","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-UI-COM-012","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-UI-NEWS-001","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-UI-NEWS-002","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-UI-SKU-001","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-DATA-COM-001","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-DATA-COM-002","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-DATA-COM-003","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-DATA-COM-004","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-OPS-COM-001","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-OPS-COM-002","applicability":"APPLIES","state":"CONFORMS"},
+    {"id":"STD-OPS-COM-003","applicability":"APPLIES","state":"CONFORMS","evidence":"Authority-supplied provenance, pre-event reset, durable lineage, fail-closed gate, and reset/terminal same-execution coexistence are structurally wired and regression-proven."},
+    {"id":"STD-OPS-COM-004","applicability":"APPLIES","state":"CONFORMS"},{"id":"STD-DEPLOY-COM-001","applicability":"APPLIES","state":"INSUFFICIENT_EVIDENCE","evidence":"No authorized materially-running host observation."},{"id":"STD-DEPLOY-COM-002","applicability":"APPLIES","state":"CONFORMS"}
+  ],
+  "ops_com_003_closure":{"structural_provenance":true,"pre_event_reset":true,"reset_lineage":true,"reset_terminal_coexistence":true,"terminal_dedup_ignores_reset":true,"terminal_idempotence":true,"lifecycle":"CLOSED"},
+  "prior_finding_lifecycle":[{"finding_id":"WC-M1-001","state":"CLOSED"},{"finding_id":"STD-OPS-COM-003-insufficiency","state":"CLOSED","basis":"M4F records distinct reset and terminal facts for one execution"},{"finding_id":"STD-DEPLOY-COM-001-insufficiency","state":"LIVE_PROOF_PENDING"}],
+  "regression_assessment":{"prior_conforms":23,"still_conforms":23,"regressed":0,"insufficient_evidence_now":0},
+  "test_evidence":{"standards_before":"791 passed in 7.41s","watch_safe":"15 passed in 3.74s","watch_m4f_full_non_live":"500 passed, 2 skipped, exit 0, 53.922s","watch_mutated":false},
+  "known_evidence_recommendation":"ADMIT AFTER LIVE PROOF","no_remediation_declaration":true,"no_known_evidence_admission":true,"no_frozen_standard_changes":true
+}
