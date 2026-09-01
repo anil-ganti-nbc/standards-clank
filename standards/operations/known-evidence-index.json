@@ -9,6 +9,14 @@
   },
   {
     "standard": "STD-OPS-COM-003",
+    "subject": "semiconductor-intelligence",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "CONFORMS / CLOSED at canonical Semiconductor main revision 688b71a93b4988b5ce52ce85e46f09080b9a7948: target-local qualification provenance, deterministic material identity, pre-gate epoch reset, auditable reset lineage, independent terminal evidence, and fail-closed gating are implemented and focused coverage is green.",
+    "source_reference": "audits/semiconductor-qualification-remediation-m6-2026-09-01.md"
+  },
+  {
+    "standard": "STD-OPS-COM-003",
     "subject": "smartwatch-clank",
     "kind": "known_conformance",
     "source": "audit",

@@ -211,9 +211,11 @@ def test_known_evidence_index_matches_generator_output():
 
 def test_known_evidence_admits_only_validated_remediations():
     entries = _load_known_evidence()
-    assert len(entries) == 3
+    assert len(entries) == 4
     by_subject = {entry["subject"]: entry for entry in entries}
-    assert set(by_subject) == {"feature-phone-clank", "smartwatch-clank", "tablet-clank"}
+    assert set(by_subject) == {
+        "feature-phone-clank", "semiconductor-intelligence", "smartwatch-clank", "tablet-clank",
+    }
     expected = {
         "feature-phone-clank": (
             "890ab339234381b04c6f27e710e3382fa70bc076",
@@ -223,6 +225,11 @@ def test_known_evidence_admits_only_validated_remediations():
         "smartwatch-clank": (
             "a631421e276b58ce3499787cc2bc72218648ce72",
             "audits/smartwatch-clank-qualification-remediation-m5-2026-09-01.md",
+            "STD-OPS-COM-003",
+        ),
+        "semiconductor-intelligence": (
+            "688b71a93b4988b5ce52ce85e46f09080b9a7948",
+            "audits/semiconductor-qualification-remediation-m6-2026-09-01.md",
             "STD-OPS-COM-003",
         ),
         "tablet-clank": (

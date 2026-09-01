@@ -1,0 +1,151 @@
+{
+  "audit_id": "semiconductor-qualification-remediation-m6-2026-09-01",
+  "mode": "SOURCE_REMEDIATION_EVIDENCE_RECORD_AND_ADMISSION",
+  "date": "2026-09-01",
+  "standards_clank_head": "3f729b9ff169105487cd875bd8ed9a0722b22f6e",
+  "semiconductor": {
+    "target": "semiconductor-intelligence",
+    "branch": "main",
+    "head": "688b71a93b4988b5ce52ce85e46f09080b9a7948",
+    "origin_main": "688b71a93b4988b5ce52ce85e46f09080b9a7948",
+    "standard": "STD-OPS-COM-003",
+    "state": "CONFORMS",
+    "lifecycle": "CLOSED",
+    "scope": "source-level qualification provenance/reset remediation only"
+  },
+  "source_lineage": {
+    "m1_audit": "audits/fleet-blind-audit-sweep-m1-2026-09-01.json",
+    "m1_head": "8a356a3bc87bea0f0d95e66c072c8e8a629156d5",
+    "m1_original_state": "INSUFFICIENT_EVIDENCE",
+    "m1_applicable": 23,
+    "m1_conforms": 17,
+    "m1_non_conforming": 0,
+    "m1_insufficient_evidence": 6,
+    "m1_insufficient_standards": [
+      "STD-UI-COM-006",
+      "STD-UI-COM-007",
+      "STD-UI-COM-011",
+      "STD-OPS-COM-003",
+      "STD-DEPLOY-COM-001",
+      "STD-DEPLOY-COM-002"
+    ],
+    "m4_plan": "audits/fleet-qualification-planning-m4-2026-09-01.json",
+    "m4_family": "RICH_ORM_JOB_PROVENANCE",
+    "m4_family_members": ["smartwatch-clank", "semiconductor-intelligence"]
+  },
+  "remediation_contract": {
+    "authority_boundary": "OperationalScheduler.run_job",
+    "execution_paths": ["scheduler", "retry", "CLI", "GUI", "startup-catchup", "test"],
+    "provenance_vocabulary": ["SCHEDULED", "MANUAL_CLI", "MANUAL_GUI", "STARTUP_CATCHUP", "RETRY", "TEST", "UNKNOWN"],
+    "unsupported_trusted_values": ["DEPLOY", "RECOVERY"],
+    "missing_provenance": "UNKNOWN",
+    "material_identity_components": ["job type", "application version", "implementation revision", "config fingerprint", "policy version", "execution scope"],
+    "material_identity_algorithm": "siq1- SHA-256 over canonical sorted JSON payload",
+    "identity_excludes": ["timestamps", "run IDs", "host/process details", "content observations"],
+    "epoch_persistence": "qualification_epochs is durable and keyed by job type/material identity",
+    "reset_lineage": "append-only reset event with prior identity, new identity, reason, authority provenance, and execution linkage where known",
+    "reset_order": "epoch preparation/reset occurs before reusable qualification evidence is gated",
+    "historical_unknowns": "legacy qualification fields remain nullable and unknown; no backfill",
+    "event_persistence": "reset and terminal events coexist independently; terminal recording is idempotent",
+    "gate_semantics": "absent, stale, divergent, unknown, untrusted, non-qualifying, or unhealthy evidence fails closed",
+    "downstream_fabrication": "not permitted; terminal provenance is recomputed from the authority-bound trigger"
+  },
+  "migration": {
+    "revision": "c7d8e9f0a1b2",
+    "adds": ["qualification_epochs", "qualification_events", "nullable qualification fields on operational_job_runs"],
+    "additive": true,
+    "legacy_rows_preserved": true,
+    "unknown_history_preserved": true,
+    "destructive_reset": false,
+    "disposable_sqlite_upgrade": "PASS",
+    "disposable_sqlite_downgrade": "PASS",
+    "production_migration": false
+  },
+  "validation": {
+    "focused_qualification": {"passed": 21},
+    "full_command": "python -m pytest",
+    "baseline": {
+      "revision": "8a356a3bc87bea0f0d95e66c072c8e8a629156d5",
+      "passed": 877,
+      "skipped": 1,
+      "failed": 2,
+      "exit_code": 1,
+      "failures": "notification-adapter assertions"
+    },
+    "final": {
+      "revision": "688b71a93b4988b5ce52ce85e46f09080b9a7948",
+      "passed": 898,
+      "skipped": 1,
+      "failed": 2,
+      "warnings": 38541,
+      "elapsed_seconds": 1244.62,
+      "exit_code": 1,
+      "failures": "notification-adapter assertions"
+    },
+    "baseline_attribution": {
+      "classification": "PRE_EXISTING / BASELINE_ATTRIBUTED",
+      "same_failures_at_baseline_and_remediation": true,
+      "new_qualification_failures": false,
+      "new_migration_failures": false,
+      "new_failures_introduced_by_m6": false,
+      "focused_coverage_green": true,
+      "full_suite_claim": "not green"
+    }
+  },
+  "implementation_checks": {
+    "A_authority_origin_provenance": "YES",
+    "B_missing_provenance_trusted_downstream": "NO",
+    "C_old_epoch_qualifies_first_changed_execution": "NO",
+    "D_reset_before_gate": "YES",
+    "E_stable_deterministic_material_identity": "YES",
+    "F_prior_new_reset_identities_auditable": "YES",
+    "G_legacy_unknowns_preserved": "YES",
+    "H_reset_and_terminal_coexist": "YES",
+    "I_terminal_persistence_idempotent": "YES",
+    "J_gate_fails_closed": "YES",
+    "K_alternate_path_bypasses_preparation": "NO",
+    "L_trusted_provenance_overwritable_downstream": "NO"
+  },
+  "remaining_m1_insufficiencies": {
+    "STD-UI-COM-006": "INSUFFICIENT_EVIDENCE",
+    "STD-UI-COM-007": "INSUFFICIENT_EVIDENCE",
+    "STD-UI-COM-011": "INSUFFICIENT_EVIDENCE",
+    "STD-DEPLOY-COM-001": "INSUFFICIENT_EVIDENCE",
+    "STD-DEPLOY-COM-002": "INSUFFICIENT_EVIDENCE"
+  },
+  "family_status": {
+    "conclusion": "RICH_ORM_JOB_RECIPE_VALIDATED",
+    "descriptive_only": true,
+    "members": {
+      "smartwatch-clank": "a631421e276b58ce3499787cc2bc72218648ce72",
+      "semiconductor-intelligence": "688b71a93b4988b5ce52ce85e46f09080b9a7948"
+    },
+    "shared_contract_closed_independently": true,
+    "evidence_inheritance": false,
+    "other_target_conformance_inferred": false,
+    "smartwatch_difference": "independent job/provenance/storage model",
+    "semiconductor_difference": "OperationalJobRun/trigger model, target-local projection/migration, and separate editorial promotion model"
+  },
+  "known_evidence_admission": {
+    "performed": true,
+    "layer": "standards/operations/known-evidence-index.json",
+    "mechanism": "tools.operations_agent_layer.build_known_evidence_index",
+    "admitted": {
+      "subject": "semiconductor-intelligence",
+      "revision": "688b71a93b4988b5ce52ce85e46f09080b9a7948",
+      "standard": "STD-OPS-COM-003",
+      "state": "CONFORMS",
+      "lifecycle": "CLOSED"
+    },
+    "unrelated_standards_admitted": false,
+    "prior_m1_preserved": true
+  },
+  "guards": {
+    "frozen_standard_files_changed": false,
+    "frozen_tags_changed_or_moved": false,
+    "semiconductor_modified_in_this_pass": false,
+    "other_target_evidence_inherited": false,
+    "host_deployment_live_or_production_db_actions": false,
+    "overall_semiconductor_conformance_claim": false
+  }
+}
