@@ -25,7 +25,10 @@ def _record():
 
 
 def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    # LF-normalized so the pin is checkout-EOL independent (raw-byte hashing
+    # made this guard fail on CRLF working copies for reasons unrelated to
+    # content).
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def test_m10_scope_shas_and_clean_takeover_are_exact():
@@ -77,7 +80,9 @@ def test_m10_families_order_and_recipe_are_deterministic():
 
 
 def test_m10_does_not_change_known_evidence_layer():
-    # The planning artifact is not an admission. M11 and M12 later add their
-    # separately guarded Semiconductor and KTW Deployment facts; this hash
-    # still makes any other edit to the active evidence layer visible.
-    assert _sha256(KNOWN) == "063113d39969dc9f38937abfd346bbeb3799cd532eb0a9981c23beb373ea8d30"
+    # The planning artifact is not an admission. The index legitimately
+    # gains one fact per recorded conformance (M11 Semiconductor, M12 KTW,
+    # M13 Tablet, M14 Feature Phone); this LF-normalized hash still makes
+    # any other edit to the active evidence layer visible. Recomputed at
+    # M14 (b60e881 recording pass) after the prior pin went stale at M13.
+    assert _sha256(KNOWN) == "b237f8d4401fa404f613ac4d894e344409f8bf3b1087a35fe3ae425ce35cd7a1"

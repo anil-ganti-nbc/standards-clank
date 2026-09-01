@@ -1,6 +1,14 @@
 [
   {
     "standard": "STD-DEPLOY-COM-002",
+    "subject": "feature-phone-clank",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "CONFORMS / CLOSED at canonical Feature Phone main revision b60e881319b16d36625268d9ba2d66cb8ea8f818: SqliteStore and the QC archive each sit behind a read-only-first compatibility barrier that inspects through a mode=ro handle before any mutable setup, admits only genuinely fresh or known-older state through the canonical bootstrap/migration path with explicit re-verification, and leaves every refused file byte-identical \u2014 newer, unknown, corrupt, partial, and failed-migration state fails closed with compatibility evidence on CLI, dashboard, controller, and health surfaces.",
+    "source_reference": "audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md"
+  },
+  {
+    "standard": "STD-DEPLOY-COM-002",
     "subject": "korean-tech-wire",
     "kind": "known_conformance",
     "source": "audit",

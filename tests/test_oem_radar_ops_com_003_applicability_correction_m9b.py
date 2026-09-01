@@ -17,7 +17,10 @@ REGISTRY = ROOT / "profiles" / "fleet-adoption.json"
 OEM_SHA = "d720e0635894ddcc9a39f116e2aa4a1768090042"
 STANDARDS_SHA = "421aab2a3e185a6ad6d72fef2ac5b3aa762e5be1"
 M1_SHA256 = "1b6bfa718f2528db1655eb20f63d534e426440ed8b2e46e325c9bb020effedde"
-KNOWN_SHA256 = "3d805bce31df58546229c22c7982e9dc9ac579303a1798f6bf31c008308048b1"
+# Recomputed at the M14 recording pass with LF-normalized hashing (the
+# prior value was a raw CRLF working-copy hash, host-dependent); the
+# operations index content itself is unchanged.
+KNOWN_SHA256 = "b5673b0be4d85f430c0ef803b1b54a9ca77146146c9d0373405dc789e00299a1"
 
 
 def _record():
@@ -25,7 +28,10 @@ def _record():
 
 
 def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    # LF-normalized so the pins are checkout-EOL independent (raw-byte
+    # hashing made this guard fail on CRLF working copies for reasons
+    # unrelated to content).
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def test_m9b_pins_target_and_current_not_applicable_state():
