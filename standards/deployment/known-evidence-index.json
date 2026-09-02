@@ -64,6 +64,14 @@
     "source_reference": "audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md"
   },
   {
+    "standard": "STD-DEPLOY-COM-001",
+    "subject": "tablet-clank",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "LIVE_PROOF_CONFIRMED at Tablet b3088ebc716227b99e1d8aa66942c8a6e87bbfcb on target hetzner/ubuntu-4gb-hel1-1:systemd-timer-experimental-dir: the M27 canonical deployment replaced the stale but honestly-labelled 2bd8929/v1 deployment (STALE_CONTENT_CONSISTENT, 10 commits behind, 3-source pre-Wave-3 scope, not a provenance lie) via a canonical-checkout -> rebuilt editable venv -> exact systemd interpreter identity chain, migrated the live database v1 -> v3 through the M13 barrier to COMPATIBLE with integrity OK (pre-deploy backup sha256 e3a5c1972925ad5a44889cb2117f507d69060905c06ab6a0ed9915a94381634b, 11071488 bytes), closed the live DEP-INC-009 allowlist drift (PRODUCTION_ALLOWLIST_DRIFT_CLOSED: all four canonical sources executed naturally, honor_uk_tablets run 162 SUCCESS with 25 accepted / 2 new), and the naturally timer-fired 2026-09-02T18:20:54Z oneshot cycle (service 18:20:54-18:20:59 UTC, exit 0, PID 1557855) recorded durable SCHEDULED provenance for runs 160-163 on the canonical SoakLock OS advisory lock path. No immutable OCI-style artifact identity exists on this venv lane and TABLET_CLANK_SOURCE_REVISION is unused on it; tracked examples still describe a /opt/tablet-clank path that differs from live (TRACKED_DEPLOYMENT_PATH_DESCRIPTION_STALE, classified NON_MATERIAL_PATH_VARIANCE).",
+    "source_reference": "audits/tablet-deployment-proof-m28-2026-09-03.md"
+  },
+  {
     "standard": "STD-DEPLOY-COM-002",
     "subject": "tablet-clank",
     "kind": "known_conformance",

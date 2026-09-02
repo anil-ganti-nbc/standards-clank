@@ -1,0 +1,216 @@
+{
+  "audit_id": "tablet-deployment-proof-m28-2026-09-03",
+  "mode": "LIVE_PROOF_EVIDENCE_RECORD_AND_ADMISSION",
+  "date": "2026-09-03",
+  "standards_clank_head": "9f784326b4ec5bfd4327fc4c162d0165f6d73ee7",
+  "tablet": {
+    "target": "tablet-clank",
+    "branch": "main",
+    "head": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+    "origin_main": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+    "modified_in_this_pass": false,
+    "standard": "STD-DEPLOY-COM-001",
+    "state": "LIVE_PROOF_CONFIRMED",
+    "lifecycle": "CLOSED",
+    "deployment_target": "hetzner/ubuntu-4gb-hel1-1:systemd-timer-experimental-dir",
+    "scope": "this exact source SHA + target + systemd timer/oneshot venv mechanism + M26/M27 evidence package"
+  },
+  "deployment_mechanism": {
+    "model": "systemd timer + oneshot venv execution (non-Docker)",
+    "service": "tablet-clank-production.service (Type=oneshot)",
+    "timer": "tablet-clank-production.timer (enabled)",
+    "on_calendar_utc": ["06:20", "18:20"],
+    "randomized_delay_sec": 90,
+    "exec_start": "/home/deploy/experimental/tablet-clank/.venv/bin/python -m tablet_clank.cli production --db /home/deploy/experimental/tablet-clank/var/tablet_clank.db",
+    "working_directory": "/home/deploy/experimental/tablet-clank",
+    "resident_service_required": false,
+    "operational_proof_shape": "naturally timer-fired oneshot cycle"
+  },
+  "identity_model": {
+    "oci_container_chain": false,
+    "immutable_artifact_identity_claimed": false,
+    "identity_chain": [
+      "canonical Git checkout SHA b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "production venv rebuilt from canonical checkout (editable installation)",
+      "exact systemd interpreter (.venv/bin/python -m tablet_clank.cli production)",
+      "imported tablet_clank modules resolve under /home/deploy/experimental/tablet-clank",
+      "natural production execution"
+    ],
+    "module_import_evidence": "tablet_clank.__file__ and module-path probes resolved under the canonical checkout",
+    "revision_env_used": false,
+    "revision_env_deliberately_not_added": true,
+    "limitation_recorded_honestly": true
+  },
+  "canonical_content_probes": {
+    "schema_version_v3": true,
+    "m13_fail_closed_barrier_present": true,
+    "ops_com_003_qualification_machinery_present": true,
+    "ops_com_004_grant_backed_advisory_lock_present": true,
+    "production_allowlist_count": 4,
+    "honor_uk_tablets_included": true,
+    "canonical_production_cli_path": true
+  },
+  "pre_m27_stale_history": {
+    "live_source": "2bd8929459cb44ac840dc0cabcfb7ed91383cf45",
+    "commits_behind_canonical": 10,
+    "schema": "v1",
+    "historical_runs": 159,
+    "qualification_tables": false,
+    "provenance_column": false,
+    "production_scope_sources": 3,
+    "honor_uk_tablets_absent": true,
+    "predated": ["OPS-COM-003 remediation", "OPS-COM-004 remediation", "M13 COM-002 remediation"],
+    "code_state_pair": "internally coherent",
+    "classification": "STALE_CONTENT_CONSISTENT",
+    "mislabelled_claim_made": false
+  },
+  "persistent_state": {
+    "backup_path": "var/backups/m27-pre-deploy-2bd8929-schema-v1.sqlite",
+    "backup_sha256": "e3a5c1972925ad5a44889cb2117f507d69060905c06ab6a0ed9915a94381634b",
+    "backup_size_bytes": 11071488,
+    "canonical_classification": "MIGRATION_REQUIRED",
+    "canonical_migration": "v1 -> v3 using Database()",
+    "post_migrations": [1, 2, 3],
+    "post_state": "COMPATIBLE",
+    "integrity": "OK",
+    "historical_data_preserved": true,
+    "old_v1_rows": "left UNKNOWN, not rewritten",
+    "com_002_re_ratified_here": false
+  },
+  "path_debt": {
+    "classification": "TRACKED_DEPLOYMENT_PATH_DESCRIPTION_STALE",
+    "tracked_examples_path": "/opt/tablet-clank",
+    "live_production_path": "/home/deploy/experimental/tablet-clank",
+    "m27_classification": "NON_MATERIAL_PATH_VARIANCE",
+    "m27_rationale": "the actual unit points to the exact canonical checkout and venv",
+    "examples_claimed_correct": false,
+    "modified_in_this_pass": false,
+    "admission_does_not_bless": ["arbitrary paths", "example currency", "future revisions/targets"]
+  },
+  "ops_com_004_live_path": {
+    "source_level_closure_preserved": true,
+    "re_admitted_here": false,
+    "chain": ["systemd ExecStart", "canonical Tablet production CLI", "SoakLock", "OS advisory lock acquisition"],
+    "natural_service_pid": 1557855,
+    "lock_authority": "os_advisory_lock",
+    "post_run_lock_inspect": "stale (diagnostic only)",
+    "pid_is_authority": false,
+    "kernel_tracing_claimed": false
+  },
+  "natural_timer_proof": {
+    "fired_at_utc": "2026-09-02T18:20:54Z",
+    "naturally_timer_fired": true,
+    "manual_test_run": false,
+    "service_start_utc": "2026-09-02T18:20:54Z",
+    "service_finish_utc": "2026-09-02T18:20:59Z",
+    "exit_code": 0,
+    "result": "success",
+    "pid": 1557855,
+    "runs": "160-163"
+  },
+  "durable_provenance": {
+    "runs": ["160", "161", "162", "163"],
+    "execution_provenance": "SCHEDULED",
+    "authority": "durable DB record (not inferred from systemd)",
+    "historical_v1_rows": "remain UNKNOWN, not rewritten"
+  },
+  "dep_inc_009_scope_drift_closure": {
+    "m26_live_scope_sources": 3,
+    "canonical_intended_sources": 4,
+    "canonical_four": ["honor_cn_tablets_catalogue", "honor_cn_tablets_comparison", "tcl_global_tablets", "honor_uk_tablets"],
+    "m27_natural_cycle_executed_all_four": true,
+    "classification": "PRODUCTION_ALLOWLIST_DRIFT_CLOSED",
+    "closure_evidence": "live natural execution (not merely source containing the allowlist entry)",
+    "honor_uk_evidence": {"run": 162, "status": "SUCCESS", "accepted": 25, "new": 2}
+  },
+  "qualification_evidence": {
+    "new_canonical_scopes_epochs_terminals": 4,
+    "provenance": "SCHEDULED",
+    "first_canonical_scheduled_epochs": "expected NOT_QUALIFIED state where applicable",
+    "historical_v1_evidence_rewritten": false,
+    "com_001_fact": "canonical scheduled qualification machinery materially executed on the live deployment",
+    "qualification_status_overstated": false
+  },
+  "operational_result": {
+    "cycle_result": "SUCCESS",
+    "db": "v3 / COMPATIBLE",
+    "integrity": "OK",
+    "timer_still_enabled": true,
+    "checkout_still_exact": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+    "production_sources_executed": 4,
+    "rollback_observed": false,
+    "permanent_residency_required": false
+  },
+  "evidence_review": {
+    "A_exact_target": true,
+    "B_intended_canonical_sha": true,
+    "C_actual_checkout_at_that_sha": true,
+    "D_venv_bound_to_checkout": true,
+    "E_imports_from_checkout": true,
+    "F_canonical_content_materially_present": true,
+    "G_canonical_v1_to_v3_migration": true,
+    "H_post_migration_compatible": true,
+    "I_natural_systemd_timer_execution": true,
+    "J_durable_provenance_scheduled": true,
+    "K_canonical_four_source_allowlist_executed": true,
+    "L_honor_uk_live_in_production": true,
+    "M_canonical_advisory_lock_chain_used": true,
+    "N_cycle_completed_successfully": true,
+    "O_partial_stale_history_honest": true,
+    "P_path_debt_visible": true,
+    "unsupported_material_obligations": []
+  },
+  "verdict": {
+    "standard": "STD-DEPLOY-COM-001",
+    "state": "LIVE_PROOF_CONFIRMED",
+    "lifecycle": "CLOSED",
+    "revision": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+    "deployment_target": "hetzner/ubuntu-4gb-hel1-1:systemd-timer-experimental-dir",
+    "generalizes_to_other_targets": false,
+    "generalizes_to_future_revisions": false,
+    "implies_all_tablet_deployments_conform": false,
+    "implies_opt_examples_correct": false,
+    "implies_immutable_artifact_identity": false,
+    "implies_revision_env_meaningful_on_this_lane": false,
+    "implies_ui_com_011_closed": false,
+    "implies_full_target_conformance": false
+  },
+  "remaining_tablet_findings": {
+    "STD-OPS-COM-003": "CLOSED (preserved)",
+    "STD-OPS-COM-004": "CLOSED (preserved)",
+    "STD-DEPLOY-COM-002": "CLOSED at M13 (preserved)",
+    "STD-UI-COM-011": "unresolved",
+    "fully_conforming_claimed_here": false
+  },
+  "non_inheritance": {
+    "no_other_target_inherits_this_proof": true,
+    "tablet_com_002_fact_preserved": true,
+    "watch_smartwatch_feature_phone_com_001_facts_preserved": true,
+    "all_other_admissions_preserved": true
+  },
+  "known_evidence_admission": {
+    "performed": true,
+    "layer": "standards/deployment/known-evidence-index.json",
+    "admitted": {
+      "subject": "tablet-clank",
+      "revision": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "standard": "STD-DEPLOY-COM-001",
+      "deployment_target": "hetzner/ubuntu-4gb-hel1-1:systemd-timer-experimental-dir",
+      "state": "LIVE_PROOF_CONFIRMED",
+      "lifecycle": "CLOSED"
+    },
+    "admission_count": 1,
+    "deployment_facts_after_admission": 11
+  },
+  "guards": {
+    "frozen_standard_files_changed": false,
+    "frozen_tags_changed_or_moved": false,
+    "tablet_modified_in_this_pass": false,
+    "host_access_or_mutation_in_this_pass": false,
+    "deploy_restart_unit_timer_db_or_collector_action_in_this_pass": false,
+    "historical_evidence_rewritten": false,
+    "old_deployment_described_as_mislabelled": false,
+    "kernel_tracing_claimed": false,
+    "full_target_conformance_claim": false
+  }
+}

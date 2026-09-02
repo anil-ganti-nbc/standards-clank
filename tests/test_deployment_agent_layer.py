@@ -198,7 +198,7 @@ def test_known_evidence_index_matches_generator_output():
 
 def test_known_evidence_admits_only_confirmed_deployment_conformance():
     entries = _load_known_evidence()
-    assert len(entries) == 10
+    assert len(entries) == 11
     by_subject = {entry["subject"]: entry for entry in entries}
     assert set(by_subject) == {"watch-clank", "semiconductor-intelligence", "korean-tech-wire", "tablet-clank", "feature-phone-clank", "oem-radar", "chinese-tech-wire", "smartwatch-clank"}
 
@@ -279,6 +279,16 @@ def test_known_evidence_admits_only_confirmed_deployment_conformance():
     assert fp_com001[0]["source_reference"] == "audits/feature-phone-deployment-proof-m25-2026-09-02.md"
     assert "LIVE_PROOF_CONFIRMED" in fp_com001[0]["summary"]
     assert "hetzner/ubuntu-4gb-hel1-1:cron-docker-compose-staging" in fp_com001[0]["summary"]
+
+    # Tablet joins COM-001 at M28 as its second Deployment fact; the
+    # by_subject dict above keeps the (later-sorted) M13 COM-002 entry, so
+    # the COM-001 fact is checked directly from the list.
+    tab_com001 = [e for e in entries
+                  if e["subject"] == "tablet-clank" and e["standard"] == "STD-DEPLOY-COM-001"]
+    assert len(tab_com001) == 1
+    assert tab_com001[0]["source_reference"] == "audits/tablet-deployment-proof-m28-2026-09-03.md"
+    assert "LIVE_PROOF_CONFIRMED" in tab_com001[0]["summary"]
+    assert "hetzner/ubuntu-4gb-hel1-1:systemd-timer-experimental-dir" in tab_com001[0]["summary"]
 
 
 # -- this housekeeping pass must not have changed any normative standard text, and no freeze tag exists yet --
