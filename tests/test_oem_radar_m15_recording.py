@@ -215,7 +215,9 @@ def test_m15_admits_exactly_one_oem_deployment_fact():
         "watch-clank", "smartwatch-clank",
     }
     # the Feature Phone family fact remains exactly as M14 admitted it
-    fp = [e for e in entries if e["subject"] == "feature-phone-clank"]
+    # (feature-phone-clank joins COM-001 at M25 as its second fact)
+    fp = [e for e in entries if e["subject"] == "feature-phone-clank"
+          and e["standard"] == "STD-DEPLOY-COM-002"]
     assert len(fp) == 1 and FP_SHA in fp[0]["summary"]
 
 

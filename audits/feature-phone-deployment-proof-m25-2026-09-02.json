@@ -1,0 +1,148 @@
+{
+  "audit_id": "feature-phone-deployment-proof-m25-2026-09-02",
+  "mode": "LIVE_PROOF_EVIDENCE_RECORD_AND_ADMISSION",
+  "date": "2026-09-02",
+  "standards_clank_head": "760b2949acd0a6c742ca91e370d99647d4a8c200",
+  "feature_phone": {
+    "target": "feature-phone-clank",
+    "branch": "main",
+    "head": "b60e881319b16d36625268d9ba2d66cb8ea8f818",
+    "origin_main": "b60e881319b16d36625268d9ba2d66cb8ea8f818",
+    "modified_in_this_pass": false,
+    "standard": "STD-DEPLOY-COM-001",
+    "state": "LIVE_PROOF_CONFIRMED",
+    "lifecycle": "CLOSED",
+    "deployment_target": "hetzner/ubuntu-4gb-hel1-1:cron-docker-compose-staging",
+    "scope": "this exact source SHA + target + actual Hetzner cron/docker-compose mechanism + M23/M24 evidence package"
+  },
+  "deployment_mechanism": {
+    "model": "Hetzner cron + Docker Compose one-shot",
+    "production_scheduler": "15 1,7,13,17 * * * /home/deploy/staging/feature-phone-clank/deploy_run.sh",
+    "wrapper_tracked_source": null,
+    "host_wrapper_untracked": true,
+    "wrapper_semantics": ".deployed-id -> IMAGE_TAG -> docker compose -f docker-compose.staging.yml run --rm feature-phone-clank",
+    "resident_service_required": false,
+    "natural_production_cron_fire_utc": "13:15Z"
+  },
+  "pre_m24_defect_history": {
+    "tracked_docs_claimed_windows_task_scheduler_production": true,
+    "windows_task_disabled": true,
+    "windows_target_checkout_absent": true,
+    "actual_production_hetzner_cron_compose": true,
+    "actual_host_wrapper_untracked": true,
+    "live_selector_revision": "303e42ff56c6929e603a85316023c16de039e6f9",
+    "stale_classification": "STALE_CONTENT_CONSISTENT",
+    "mislabelled_claim_made": false,
+    "live_pair_coherently_v4": true,
+    "predecessor_predated": ["OPS-COM-003 remediation", "OPS-COM-004 remediation", "M14 COM-002 remediation"]
+  },
+  "canonical_deployment_evidence": {
+    "deployed_source": "b60e881319b16d36625268d9ba2d66cb8ea8f818",
+    "identity_chain_and_content_probes": "captured in the M24 evidence package, admitted by reference (image ID/digest, OCI revision, baked source revision, runtime/durable revision, content probes; build with GIT_REVISION build-arg, identity AND content verified, never tag alone)",
+    "production_scope_collectors": ["hmd-nokia", "punkt-ch", "doro-gb", "mudita-com", "sunbeam-f1-us", "tcl-alcatel-global"],
+    "production_scope_count_verified_against_tracked_config": 6,
+    "experimental_sources_part_of_production_success": false
+  },
+  "persistent_state": {
+    "pre_deploy": "coherent v4 code/state pair, honestly stale",
+    "canonical_classification": "MIGRATION_REQUIRED",
+    "canonical_migration": "v4 -> v5 via M14 read-only-first barrier and canonical path",
+    "post_state": "COMPATIBLE",
+    "post_schema": 5,
+    "integrity": "OK",
+    "natural_1315z_run_schema_evidence": "recorded in the M24 evidence package against the v5 store",
+    "com_002_re_ratified_here": false
+  },
+  "ops_com_004_live_path": {
+    "source_level_closure_preserved": true,
+    "re_admitted_here": false,
+    "deployment_relevant_fact": "actual production execution path used the canonical grant-backed OS advisory lock path during the M24 natural run",
+    "lock_mechanism": "core/run_lock.py fcntl.flock, lock_authority os_advisory_lock",
+    "pid_metadata_treated_as_authority": false
+  },
+  "scheduler_provenance_proof": {
+    "natural_cron_fire_utc": "13:15Z",
+    "artifact_selected": "b60e881319b16d36625268d9ba2d66cb8ea8f818",
+    "durable_source_revision": "b60e881319b16d36625268d9ba2d66cb8ea8f818",
+    "execution_provenance": "SCHEDULED",
+    "provenance_source": "durable application record (not inferred from crontab presence)",
+    "collector_outcome": "all production collectors succeeded",
+    "run_and_cycle_identifiers": "preserved in the M24 evidence package admitted by reference"
+  },
+  "deployment_mechanism_gap": {
+    "classification": "TRACKED_DEPLOYMENT_DESCRIPTION_STALE",
+    "tracked_readme_still_describes_windows_lane_as_production": true,
+    "windows_task_still_disabled": true,
+    "windows_target_checkout_still_absent": true,
+    "host_wrapper_still_untracked": true,
+    "fixed_in_this_pass": false,
+    "feature_phone_docs_or_source_modified_in_this_pass": false,
+    "admission_does_not_bless": ["documented Windows deployment", "arbitrary host wrappers", "future revisions", "deployment documentation correctness"]
+  },
+  "evidence_review": {
+    "A_exact_target_identity": true,
+    "B_intended_canonical_source_revision": true,
+    "C_deployed_artifact_identity": true,
+    "D_artifact_content_consistent_with_canonical_source": true,
+    "E_execution_selected_canonical_artifact": true,
+    "F_persistent_state_v5_compatible": true,
+    "G_natural_scheduler_path_executed": true,
+    "H_durable_provenance_scheduled": true,
+    "I_production_collectors_succeeded": true,
+    "J_canonical_ops_com_004_lock_path_used": true,
+    "K_material_config_wiring_identified": true,
+    "L_partial_deployment_history_honest": true,
+    "M_stale_v4_history_preserved": true,
+    "N_deployment_mechanism_gap_visible": true,
+    "unsupported_material_obligations": []
+  },
+  "verdict": {
+    "standard": "STD-DEPLOY-COM-001",
+    "state": "LIVE_PROOF_CONFIRMED",
+    "lifecycle": "CLOSED",
+    "revision": "b60e881319b16d36625268d9ba2d66cb8ea8f818",
+    "deployment_target": "hetzner/ubuntu-4gb-hel1-1:cron-docker-compose-staging",
+    "generalizes_to_other_targets": false,
+    "generalizes_to_future_revisions": false,
+    "blesses_documented_windows_deployment": false
+  },
+  "remaining_feature_phone_findings": {
+    "STD-OPS-COM-003": "CLOSED (preserved)",
+    "STD-OPS-COM-004": "CLOSED (preserved)",
+    "STD-DEPLOY-COM-002": "CLOSED at M14 (preserved)",
+    "STD-UI-COM-011": "unresolved",
+    "fully_conforming_claimed_here": false
+  },
+  "non_inheritance": {
+    "no_other_target_inherits_this_proof": true,
+    "feature_phone_com_002_fact_preserved": true,
+    "smartwatch_com_001_and_com_002_facts_preserved": true,
+    "watch_com_001_fact_preserved": true,
+    "all_other_admissions_preserved": true
+  },
+  "known_evidence_admission": {
+    "performed": true,
+    "layer": "standards/deployment/known-evidence-index.json",
+    "admitted": {
+      "subject": "feature-phone-clank",
+      "revision": "b60e881319b16d36625268d9ba2d66cb8ea8f818",
+      "standard": "STD-DEPLOY-COM-001",
+      "deployment_target": "hetzner/ubuntu-4gb-hel1-1:cron-docker-compose-staging",
+      "state": "LIVE_PROOF_CONFIRMED",
+      "lifecycle": "CLOSED"
+    },
+    "admission_count": 1,
+    "deployment_facts_after_admission": 10
+  },
+  "guards": {
+    "frozen_standard_files_changed": false,
+    "frozen_tags_changed_or_moved": false,
+    "feature_phone_modified_in_this_pass": false,
+    "host_access_or_mutation_in_this_pass": false,
+    "deploy_restart_cron_wrapper_db_or_collector_action_in_this_pass": false,
+    "historical_evidence_rewritten": false,
+    "old_artifact_described_as_mislabelled": false,
+    "deployment_doc_gap_claimed_fixed": false,
+    "full_target_conformance_claim": false
+  }
+}

@@ -293,8 +293,9 @@ def test_m18_admits_exactly_one_smartwatch_deployment_fact():
         "korean-tech-wire", "oem-radar", "semiconductor-intelligence",
         "tablet-clank", "watch-clank",
     }
-    # smartwatch-clank joins COM-001 at M22 as its second Deployment fact
-    assert len(entries) == 9
+    # smartwatch-clank (M22 COM-001, M18 COM-002) and feature-phone-clank
+    # (M25 COM-001) each carry two Deployment facts
+    assert len(entries) == 10
 
 
 def test_m18_prose_scope_and_no_action_declaration():

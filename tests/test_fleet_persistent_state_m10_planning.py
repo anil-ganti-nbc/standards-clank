@@ -83,7 +83,8 @@ def test_m10_does_not_change_known_evidence_layer():
     # The planning artifact is not an admission. The index legitimately
     # gains one fact per recorded conformance (M11 Semiconductor, M12 KTW,
     # M13 Tablet, M14 Feature Phone, M15 OEM Radar, M17 CTW, M18
-    # Smartwatch COM-002, M22 Smartwatch COM-001 live proof); this
-    # LF-normalized hash still makes any other edit to the active evidence
-    # layer visible. Recomputed at the M22 (live-proof admission) pass.
-    assert _sha256(KNOWN) == "c356728bfae6f109b25740dbd3c3e9aa8ccb0ba34cd88755605625812cf96172"
+    # Smartwatch COM-002, M22 Smartwatch COM-001, M25 Feature Phone
+    # COM-001 live proof); this LF-normalized hash still makes any other
+    # edit to the active evidence layer visible. Recomputed at the M25
+    # (live-proof admission) pass.
+    assert _sha256(KNOWN) == "190b27513c930b2dbe79f7d4b14ca563375a02884fa5b61532b80919093244d9"

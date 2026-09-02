@@ -180,8 +180,9 @@ def test_m14_admits_exactly_one_feature_phone_deployment_fact():
     assert admission["oem_radar_evidence_created"] is False
     entries = json.loads(KNOWN.read_text(encoding="utf-8"))
     assert entries == build_known_evidence_index()
-    fp = [e for e in entries if e["subject"] == "feature-phone-clank"]
-    assert len(fp) == 1 and fp[0]["standard"] == "STD-DEPLOY-COM-002"
+    fp = [e for e in entries if e["subject"] == "feature-phone-clank"
+          and e["standard"] == "STD-DEPLOY-COM-002"]
+    assert len(fp) == 1
     assert FP_SHA in fp[0]["summary"]
     # every prior admission preserved, none replaced
     subjects = {e["subject"] for e in entries}

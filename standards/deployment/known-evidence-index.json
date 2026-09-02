@@ -8,6 +8,14 @@
     "source_reference": "audits/ctw-persistent-state-remediation-m17-2026-09-02.md"
   },
   {
+    "standard": "STD-DEPLOY-COM-001",
+    "subject": "feature-phone-clank",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "LIVE_PROOF_CONFIRMED at Feature Phone b60e881319b16d36625268d9ba2d66cb8ea8f818 on target hetzner/ubuntu-4gb-hel1-1:cron-docker-compose-staging: the M24 canonical deployment replaced the stale but honestly-labelled 303e42ff v4 deployment (STALE_CONTENT_CONSISTENT, not a provenance lie) with the exact canonical source, migrated the live database v4 -> v5 through the M14 compatibility barrier to COMPATIBLE with integrity OK, and the natural 13:15Z production cron fire ran all six tracked production collectors with durable execution_provenance SCHEDULED on the canonical grant-backed OS advisory lock path. Operational debt is explicitly preserved: the tracked README still describes the dead Windows Task Scheduler lane as production, and the actual host production wrapper remains untracked (TRACKED_DEPLOYMENT_DESCRIPTION_STALE).",
+    "source_reference": "audits/feature-phone-deployment-proof-m25-2026-09-02.md"
+  },
+  {
     "standard": "STD-DEPLOY-COM-002",
     "subject": "feature-phone-clank",
     "kind": "known_conformance",
