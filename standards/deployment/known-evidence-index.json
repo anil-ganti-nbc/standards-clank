@@ -40,6 +40,14 @@
     "source_reference": "audits/semiconductor-persistent-state-remediation-m11-2026-09-01.md"
   },
   {
+    "standard": "STD-DEPLOY-COM-001",
+    "subject": "smartwatch-clank",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "LIVE_PROOF_CONFIRMED at Smartwatch a93355480bb11e1bd16ae7837256ce9002fc2aa7 on target hetzner/ubuntu-4gb-hel1-1:cron-docker-compose-staging: intended SHA = host source HEAD = OCI revision = runtime/run git_revision, deployed image smartwatch-clank:a933554 (sha256:8fdace0a3847c346aa4bd989f7429be7de2cacb45d71af853017770bacab83b5), canonical v2-to-v3 migration to COMPATIBLE (integrity ok), production cron 50 1-23/2 * * * through a host wrapper now content-identical to tracked deploy/deploy_run.sh, first natural post-deploy tick exposed and preserved a MATERIAL_WIRING_DRIFT (03:50Z MANUAL provenance), and after the one-line host-only wrapper correction the second natural tick (2026-09-02T05:50:02Z, cycle 61d54662fbf344fca9888df3f5f870a3, runs 1583-1595) delivered 13/13 healthy production runs with durable SCHEDULED provenance, full canonical git_revision, schema_version_at_run 3, and config_fingerprint f24e97c47e741913.",
+    "source_reference": "audits/smartwatch-deployment-proof-m22-2026-09-02.md"
+  },
+  {
     "standard": "STD-DEPLOY-COM-002",
     "subject": "smartwatch-clank",
     "kind": "known_conformance",

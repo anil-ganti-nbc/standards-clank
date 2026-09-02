@@ -186,14 +186,16 @@ def test_m14_admits_exactly_one_feature_phone_deployment_fact():
     # every prior admission preserved, none replaced
     subjects = {e["subject"] for e in entries}
     # oem-radar joins at M15; chinese-tech-wire joins at M17; smartwatch-clank
-    # joins at M18. The Feature Phone admission itself is unchanged.
+    # joins at M18 (COM-002) and M22 (COM-001 live proof). The Feature Phone
+    # admission itself is unchanged.
     assert subjects == {
         "feature-phone-clank", "korean-tech-wire", "oem-radar",
         "chinese-tech-wire", "semiconductor-intelligence", "tablet-clank",
         "watch-clank", "smartwatch-clank",
     }
-    assert [e for e in entries if e["standard"] == "STD-DEPLOY-COM-001"] and \
-        all(e["subject"] == "watch-clank" for e in entries if e["standard"] == "STD-DEPLOY-COM-001")
+    com001 = [e for e in entries if e["standard"] == "STD-DEPLOY-COM-001"]
+    # the Watch COM-001 fact remains; smartwatch-clank joins COM-001 at M22
+    assert any(e["subject"] == "watch-clank" for e in com001)
 
 
 def test_m14_prose_scope_and_no_action_declaration():

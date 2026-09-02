@@ -71,9 +71,10 @@ def test_deployment_known_evidence_is_admitted_deterministically():
     entries = build_known_evidence_index()
     assert entries == json.loads((REPO / "standards/deployment/known-evidence-index.json").read_text(encoding="utf-8"))
     # M11-M18 add independently guarded Semiconductor, KTW, Tablet,
-    # Feature Phone, OEM Radar, CTW, and Smartwatch Deployment facts; the
-    # Watch admission remains unchanged and is still present once.
-    assert len(entries) == 8
+    # Feature Phone, OEM Radar, CTW, and Smartwatch Deployment facts; M22
+    # adds the Smartwatch COM-001 live-proof fact. The Watch admission
+    # remains unchanged and is still present once.
+    assert len(entries) == 9
     watch = [entry for entry in entries if entry["subject"] == "watch-clank"]
     assert len(watch) == audit["entries"] == 1
     assert watch[0]["standard"] == "STD-DEPLOY-COM-001"

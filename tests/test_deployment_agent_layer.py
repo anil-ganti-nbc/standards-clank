@@ -198,7 +198,7 @@ def test_known_evidence_index_matches_generator_output():
 
 def test_known_evidence_admits_only_confirmed_deployment_conformance():
     entries = _load_known_evidence()
-    assert len(entries) == 8
+    assert len(entries) == 9
     by_subject = {entry["subject"]: entry for entry in entries}
     assert set(by_subject) == {"watch-clank", "semiconductor-intelligence", "korean-tech-wire", "tablet-clank", "feature-phone-clank", "oem-radar", "chinese-tech-wire", "smartwatch-clank"}
 
@@ -259,6 +259,16 @@ def test_known_evidence_admits_only_confirmed_deployment_conformance():
     assert smartwatch["source_reference"] == "audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md"
     assert "CONFORMS / CLOSED" in smartwatch["summary"]
     assert "a93355480bb11e1bd16ae7837256ce9002fc2aa7" in smartwatch["summary"]
+
+    # Smartwatch joins COM-001 at M22 as its second Deployment fact; the
+    # by_subject dict above keeps the (later-sorted) M18 COM-002 entry, so
+    # the COM-001 fact is checked directly from the list.
+    sw_com001 = [e for e in entries
+                 if e["subject"] == "smartwatch-clank" and e["standard"] == "STD-DEPLOY-COM-001"]
+    assert len(sw_com001) == 1
+    assert sw_com001[0]["source_reference"] == "audits/smartwatch-deployment-proof-m22-2026-09-02.md"
+    assert "LIVE_PROOF_CONFIRMED" in sw_com001[0]["summary"]
+    assert "hetzner/ubuntu-4gb-hel1-1:cron-docker-compose-staging" in sw_com001[0]["summary"]
 
 
 # -- this housekeeping pass must not have changed any normative standard text, and no freeze tag exists yet --

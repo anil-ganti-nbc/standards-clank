@@ -1,0 +1,168 @@
+{
+  "audit_id": "smartwatch-deployment-proof-m22-2026-09-02",
+  "mode": "LIVE_PROOF_EVIDENCE_RECORD_AND_ADMISSION",
+  "date": "2026-09-02",
+  "standards_clank_head": "8cea2e5f4d95a40be5119bc0f1da2612bc83f11f",
+  "smartwatch": {
+    "target": "smartwatch-clank",
+    "branch": "main",
+    "head": "a93355480bb11e1bd16ae7837256ce9002fc2aa7",
+    "origin_main": "a93355480bb11e1bd16ae7837256ce9002fc2aa7",
+    "modified_in_this_pass": false,
+    "standard": "STD-DEPLOY-COM-001",
+    "state": "LIVE_PROOF_CONFIRMED",
+    "lifecycle": "CLOSED",
+    "deployment_target": "hetzner/ubuntu-4gb-hel1-1:cron-docker-compose-staging",
+    "scope": "this exact source SHA + target + deployment mechanism + evidence package"
+  },
+  "deployment_mechanism": {
+    "model": "cron + docker compose one-shot execution",
+    "production_scheduler": "50 1-23/2 * * * /home/deploy/staging/smartwatch-clank/deploy_run.sh",
+    "wrapper_tracked_source": "deploy/deploy_run.sh",
+    "host_wrapper_content_identical_to_tracked": true,
+    "exec_line": "exec docker compose -f docker-compose.staging.yml run --rm smartwatch-clank run --mode production --trigger SCHEDULED",
+    "resident_service_required": false,
+    "compose_service_one_shot": true
+  },
+  "initial_live_state": {
+    "deployed_selector": "smartwatch-clank:08a23f9",
+    "intended_source": "a93355480bb11e1bd16ae7837256ce9002fc2aa7",
+    "classification": "STALE_CONTENT_CONSISTENT",
+    "provenance_lie_proven": false,
+    "material_mismatch": "intended deployment had not materialized; closure refused"
+  },
+  "identity_chain": {
+    "intended_source_sha": "a93355480bb11e1bd16ae7837256ce9002fc2aa7",
+    "host_source_head": "a93355480bb11e1bd16ae7837256ce9002fc2aa7",
+    "oci_revision": "a93355480bb11e1bd16ae7837256ce9002fc2aa7",
+    "runtime_run_revision": "a93355480bb11e1bd16ae7837256ce9002fc2aa7",
+    "four_way_equal": true,
+    "deployed_artifact": "smartwatch-clank:a933554",
+    "image_id": "sha256:8fdace0a3847c346aa4bd989f7429be7de2cacb45d71af853017770bacab83b5",
+    "deployed_id_selector_alone_is_not_artifact_proof": true
+  },
+  "persistent_state": {
+    "pre_deploy_schema": 2,
+    "canonical_deployment_classification": "MIGRATION_REQUIRED",
+    "canonical_migration": "v2 -> v3 via M18 compatibility barrier and canonical additive _migrate()",
+    "post_schema": 3,
+    "expected": 3,
+    "state": "COMPATIBLE",
+    "integrity_check": "ok",
+    "migration_during_m21c_observation": false
+  },
+  "material_wiring_defect": {
+    "first_natural_tick": "03:50Z",
+    "exposed": "MATERIAL_WIRING_DRIFT",
+    "detail": "host wrapper omitted --trigger SCHEDULED",
+    "recorded_provenance_at_first_tick": "MANUAL",
+    "blocked_deploy_com_001": true,
+    "historical_manual_evidence_preserved_not_rewritten": true
+  },
+  "host_wrapper_remediation": {
+    "changed": "exactly one exec line",
+    "no_crontab_change": true,
+    "no_image_rebuild": true,
+    "no_source_commit": true,
+    "no_standards_change_in_remediation": true,
+    "result": "host wrapper content-identical to tracked deploy/deploy_run.sh"
+  },
+  "closing_evidence": {
+    "second_natural_tick_utc": "2026-09-02T05:50:02Z",
+    "cycle_id": "61d54662fbf344fca9888df3f5f870a3",
+    "runs": "1583-1595",
+    "attempted": 13,
+    "healthy": 13,
+    "failed": 0,
+    "execution_provenance": "SCHEDULED for all 13 new runs",
+    "run_git_revision": "full canonical a93355480bb11e1bd16ae7837256ce9002fc2aa7 for all 13",
+    "schema_version_at_run": 3,
+    "config_fingerprint": "f24e97c47e741913",
+    "production_allowlist_count_verified_against_tracked_config": 13
+  },
+  "qualification_provenance": {
+    "historical_0350_manual_epoch_openings": "valid history, untouched, not rewritten",
+    "at_0550": {
+      "same_material_identity": true,
+      "epoch_reset": false,
+      "terminal_events_appended": 13,
+      "terminal_provenance": "SCHEDULED",
+      "terminal_outcome": "HEALTHY"
+    },
+    "epoch_not_recreated_as_scheduled": true,
+    "latest_terminal_evidence_represents_scheduled_path": true,
+    "matches_tracked_qualification_semantics": true
+  },
+  "experimental_garmin": {
+    "collectors": ["garmin_catalogue", "garmin_official_news"],
+    "state": "unhealthy in soak",
+    "in_production_allowlist_tick": false,
+    "orthogonal_to_com_001_proof": true,
+    "claimed_healthy": false
+  },
+  "evidence_review": {
+    "intended_target_explicit": true,
+    "intended_source_revision_explicit": true,
+    "deployed_artifact_identity_explicit": true,
+    "oci_revision_equals_intended": true,
+    "runtime_revision_equals_intended": true,
+    "scheduler_selects_canonical_artifact": true,
+    "wrapper_matches_tracked_semantics": true,
+    "natural_scheduled_execution_observed": true,
+    "durable_provenance_scheduled": true,
+    "persistent_state_compatible": true,
+    "production_run_succeeded": true,
+    "partial_states_honestly_represented": true,
+    "wiring_defect_preserved": true,
+    "garmin_correctly_separated": true,
+    "no_claim_rests_on_checkout_or_tag_alone": true,
+    "unsupported_material_obligations": []
+  },
+  "verdict": {
+    "standard": "STD-DEPLOY-COM-001",
+    "state": "LIVE_PROOF_CONFIRMED",
+    "lifecycle": "CLOSED",
+    "revision": "a93355480bb11e1bd16ae7837256ce9002fc2aa7",
+    "deployment_target": "hetzner/ubuntu-4gb-hel1-1:cron-docker-compose-staging",
+    "closure_depends_on_corrected_live_wiring_evidence": true,
+    "closure_depends_only_on_artifact_revision": false,
+    "generalizes_to_other_targets": false,
+    "generalizes_to_future_revisions": false
+  },
+  "remaining_smartwatch_findings": {
+    "STD-OPS-COM-003": "CLOSED at M5 (preserved)",
+    "STD-DEPLOY-COM-002": "CLOSED at M18 (preserved)",
+    "STD-UI-COM-011": "unresolved",
+    "fully_conforming_claimed_here": false
+  },
+  "non_inheritance": {
+    "no_other_target_inherits_this_proof": true,
+    "watch_com_001_fact_preserved": true,
+    "smartwatch_com_002_fact_preserved": true,
+    "all_other_admissions_preserved": true
+  },
+  "known_evidence_admission": {
+    "performed": true,
+    "layer": "standards/deployment/known-evidence-index.json",
+    "admitted": {
+      "subject": "smartwatch-clank",
+      "revision": "a93355480bb11e1bd16ae7837256ce9002fc2aa7",
+      "standard": "STD-DEPLOY-COM-001",
+      "deployment_target": "hetzner/ubuntu-4gb-hel1-1:cron-docker-compose-staging",
+      "state": "LIVE_PROOF_CONFIRMED",
+      "lifecycle": "CLOSED"
+    },
+    "admission_count": 1,
+    "deployment_facts_after_admission": 9
+  },
+  "guards": {
+    "frozen_standard_files_changed": false,
+    "frozen_tags_changed_or_moved": false,
+    "smartwatch_modified_in_this_pass": false,
+    "host_access_or_mutation_in_this_pass": false,
+    "deploy_restart_cron_wrapper_db_or_collector_action_in_this_pass": false,
+    "historical_manual_evidence_rewritten": false,
+    "experimental_garmin_claimed_healthy": false,
+    "full_target_conformance_claim": false
+  }
+}

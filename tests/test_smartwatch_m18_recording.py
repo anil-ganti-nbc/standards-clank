@@ -284,15 +284,17 @@ def test_m18_admits_exactly_one_smartwatch_deployment_fact():
         assert admission[not_admitted] is False
     entries = json.loads(KNOWN.read_text(encoding="utf-8"))
     assert entries == build_known_evidence_index()
-    sw = [e for e in entries if e["subject"] == "smartwatch-clank"]
-    assert len(sw) == 1 and sw[0]["standard"] == "STD-DEPLOY-COM-002"
+    sw = [e for e in entries if e["subject"] == "smartwatch-clank"
+          and e["standard"] == "STD-DEPLOY-COM-002"]
+    assert len(sw) == 1
     assert SW_SHA in sw[0]["summary"]
     assert {e["subject"] for e in entries} == {
         "smartwatch-clank", "chinese-tech-wire", "feature-phone-clank",
         "korean-tech-wire", "oem-radar", "semiconductor-intelligence",
         "tablet-clank", "watch-clank",
     }
-    assert len(entries) == 8
+    # smartwatch-clank joins COM-001 at M22 as its second Deployment fact
+    assert len(entries) == 9
 
 
 def test_m18_prose_scope_and_no_action_declaration():
