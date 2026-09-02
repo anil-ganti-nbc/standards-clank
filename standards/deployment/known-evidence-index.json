@@ -1,6 +1,14 @@
 [
   {
     "standard": "STD-DEPLOY-COM-002",
+    "subject": "chinese-tech-wire",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "CONFORMS / CLOSED at canonical Chinese Tech Wire main revision c340a45ac8cfbab58d749dcbf78a7d703ca9cdb1: the new durable schema_meta v1 authority, corroborated by a deterministic 21-table required-column structural manifest, sits behind a read-only-first compatibility barrier \u2014 create_all is restricted to genuinely fresh bootstrap, structurally complete but marker-less databases are LEGACY_UNADOPTED and fail closed everywhere, promotion happens only through the explicit operator-only --adopt-current-schema action (structural proof before any write, re-verification after), and newer/partial/contradictory/corrupt state fails closed with evidence across CLI, session, dashboard, scheduled, and health surfaces.",
+    "source_reference": "audits/ctw-persistent-state-remediation-m17-2026-09-02.md"
+  },
+  {
+    "standard": "STD-DEPLOY-COM-002",
     "subject": "feature-phone-clank",
     "kind": "known_conformance",
     "source": "audit",

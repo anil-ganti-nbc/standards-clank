@@ -198,9 +198,9 @@ def test_known_evidence_index_matches_generator_output():
 
 def test_known_evidence_admits_only_confirmed_deployment_conformance():
     entries = _load_known_evidence()
-    assert len(entries) == 6
+    assert len(entries) == 7
     by_subject = {entry["subject"]: entry for entry in entries}
-    assert set(by_subject) == {"watch-clank", "semiconductor-intelligence", "korean-tech-wire", "tablet-clank", "feature-phone-clank", "oem-radar"}
+    assert set(by_subject) == {"watch-clank", "semiconductor-intelligence", "korean-tech-wire", "tablet-clank", "feature-phone-clank", "oem-radar", "chinese-tech-wire"}
 
     watch = by_subject["watch-clank"]
     assert watch["standard"] == "STD-DEPLOY-COM-001"
@@ -245,6 +245,13 @@ def test_known_evidence_admits_only_confirmed_deployment_conformance():
     assert oem_radar["source_reference"] == "audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md"
     assert "CONFORMS / CLOSED" in oem_radar["summary"]
     assert "79fbee63ee3a43badad085671ba5bf6837b627f7" in oem_radar["summary"]
+
+    ctw = by_subject["chinese-tech-wire"]
+    assert ctw["standard"] == "STD-DEPLOY-COM-002"
+    assert ctw["kind"] == "known_conformance"
+    assert ctw["source_reference"] == "audits/ctw-persistent-state-remediation-m17-2026-09-02.md"
+    assert "CONFORMS / CLOSED" in ctw["summary"]
+    assert "c340a45ac8cfbab58d749dcbf78a7d703ca9cdb1" in ctw["summary"]
 
 
 # -- this housekeeping pass must not have changed any normative standard text, and no freeze tag exists yet --
