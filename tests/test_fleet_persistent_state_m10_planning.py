@@ -82,7 +82,8 @@ def test_m10_families_order_and_recipe_are_deterministic():
 def test_m10_does_not_change_known_evidence_layer():
     # The planning artifact is not an admission. The index legitimately
     # gains one fact per recorded conformance (M11 Semiconductor, M12 KTW,
-    # M13 Tablet, M14 Feature Phone, M15 OEM Radar, M17 CTW); this
-    # LF-normalized hash still makes any other edit to the active evidence
-    # layer visible. Recomputed at the M17 (c340a45 recording) pass.
-    assert _sha256(KNOWN) == "dce5db75972e399700346046b92095aa717b4787cb4fee6b089ca537d6bd2f81"
+    # M13 Tablet, M14 Feature Phone, M15 OEM Radar, M17 CTW, M18
+    # Smartwatch); this LF-normalized hash still makes any other edit to
+    # the active evidence layer visible. Recomputed at the M18 (a933554
+    # recording) pass.
+    assert _sha256(KNOWN) == "7b675ee6dc861184bea074fb088f4f144dedfd7fbfa9cf01e5e3be5c0facfdf6"

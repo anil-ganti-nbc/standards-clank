@@ -41,6 +41,14 @@
   },
   {
     "standard": "STD-DEPLOY-COM-002",
+    "subject": "smartwatch-clank",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "CONFORMS / CLOSED at canonical Smartwatch main revision a93355480bb11e1bd16ae7837256ce9002fc2aa7: the retained durable monotonic schema_version v3 marker (single row, id=1), structurally corroborated against the expected 17-table contract plus the complete runs column set, sits behind a read-only-first compatibility barrier \u2014 read-write construction inspects through a mode=ro handle before any mutating open, compatible state opens with zero schema writes (hash-proven byte-identical), only genuinely fresh or source-proven historical pre-marker (v1/v2 runs-only) state may enter the canonical additive _migrate() and is re-verified read-only afterwards, arbitrary marker-less state is UNKNOWN and fails closed, and newer/partial/contradictory/malformed/corrupt/failed-migration state fails closed with evidence across CLI run, read-only inspection commands, scheduler, dashboard, local collection, and the independent QC archive gate.",
+    "source_reference": "audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md"
+  },
+  {
+    "standard": "STD-DEPLOY-COM-002",
     "subject": "tablet-clank",
     "kind": "known_conformance",
     "source": "audit",

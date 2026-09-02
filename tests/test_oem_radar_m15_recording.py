@@ -207,11 +207,12 @@ def test_m15_admits_exactly_one_oem_deployment_fact():
     assert OEM_SHA in oem[0]["summary"]
     subjects = {e["subject"] for e in entries}
     # chinese-tech-wire joins at M17 (audits/ctw-persistent-state-
-    # remediation-m17-2026-09-02.md); the OEM Radar fact is unchanged
+    # remediation-m17-2026-09-02.md); smartwatch-clank joins at M18; the
+    # OEM Radar fact is unchanged
     assert subjects == {
         "feature-phone-clank", "korean-tech-wire", "oem-radar",
         "chinese-tech-wire", "semiconductor-intelligence", "tablet-clank",
-        "watch-clank",
+        "watch-clank", "smartwatch-clank",
     }
     # the Feature Phone family fact remains exactly as M14 admitted it
     fp = [e for e in entries if e["subject"] == "feature-phone-clank"]
