@@ -17,6 +17,14 @@
   },
   {
     "standard": "STD-DEPLOY-COM-002",
+    "subject": "oem-radar",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "CONFORMS / CLOSED at canonical OEM Radar main revision 79fbee63ee3a43badad085671ba5bf6837b627f7: schema_migrations v7 authority corroborated against the expected 20-table structure sits behind a read-only-first compatibility barrier that inspects through a mode=ro handle before any mutable setup, admits only genuinely fresh or known-older state through the canonical bootstrap/migration path with explicit re-verification, leaves refused files byte-identical, and no longer swallows duplicate-column migration errors \u2014 newer, unknown, corrupt, partial, and marker-behind-structure state fails closed across scheduler, CLI, dashboard, one-shot crawl, and health surfaces.",
+    "source_reference": "audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md"
+  },
+  {
+    "standard": "STD-DEPLOY-COM-002",
     "subject": "semiconductor-intelligence",
     "kind": "known_conformance",
     "source": "audit",

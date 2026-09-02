@@ -185,8 +185,10 @@ def test_m14_admits_exactly_one_feature_phone_deployment_fact():
     assert FP_SHA in fp[0]["summary"]
     # every prior admission preserved, none replaced
     subjects = {e["subject"] for e in entries}
+    # oem-radar joins at M15 (audits/oem-radar-persistent-state-remediation-
+    # m15-2026-09-02.md); the Feature Phone admission itself is unchanged
     assert subjects == {
-        "feature-phone-clank", "korean-tech-wire",
+        "feature-phone-clank", "korean-tech-wire", "oem-radar",
         "semiconductor-intelligence", "tablet-clank", "watch-clank",
     }
     assert [e for e in entries if e["standard"] == "STD-DEPLOY-COM-001"] and \
