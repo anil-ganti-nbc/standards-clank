@@ -195,12 +195,6 @@ def test_ui_baseline_untouched_by_this_freeze():
     assert "ui-standards-v1.0" in tags
     assert not any(t.lower().replace(" ", "-").startswith("standards-clank-v1") for t in tags)
 
-    ui_tag_tree = subprocess.run(
-        ["git", "-C", str(REPO), "rev-parse", "ui-standards-v1.0:standards/ui"],
-        capture_output=True, text=True, encoding="utf-8", stdin=subprocess.DEVNULL, check=True,
-    ).stdout.strip()
-    head_tree = subprocess.run(
-        ["git", "-C", str(REPO), "rev-parse", "HEAD:standards/ui"],
-        capture_output=True, text=True, encoding="utf-8", stdin=subprocess.DEVNULL, check=True,
-    ).stdout.strip()
-    assert ui_tag_tree == head_tree, "standards/ui changed by the data-ontology freeze"
+    from tools.ui_agent_layer import assert_ui_frozen_tree_intact
+    
+    assert_ui_frozen_tree_intact('ui-standards-v1.0', 'standards/ui')

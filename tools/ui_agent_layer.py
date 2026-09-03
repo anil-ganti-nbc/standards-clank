@@ -620,3 +620,79 @@ def build_fleet_ui_summary() -> dict:
         "schema": "ui-fleet-summary/1",
         "targets": {t: summary[t] for t in sorted(summary)},
     }
+
+
+# -- M18/M36: frozen-tree guard for the UI standards directory ----------------
+#
+# The ui-standards-v1.0 freeze predates the evidence layer, so a whole-
+# directory tree-hash comparison ("tag:standards/ui == HEAD:standards/ui")
+# can no longer express the freeze: adding the non-normative evidence
+# ledger and its generated index changes the directory's tree hash without
+# touching a single frozen file. This guard checks what the freeze actually
+# means: every file present at the tag still exists at HEAD with an
+# identical blob, and the only permitted additions are the explicit
+# non-normative evidence-layer files.
+
+UI_FROZEN_TREE_ALLOWED_ADDITIONS = frozenset({
+    "evidence-facts.json",
+    "evidence-index.json",
+})
+
+
+def _git_ls_tree(tag_ref: str, path: str) -> set[str]:
+    import subprocess
+
+    result = subprocess.run(
+        ["git", "ls-tree", "--name-only", f"{tag_ref}:{path}"],
+        capture_output=True, text=True, encoding="utf-8",
+        stdin=subprocess.DEVNULL, check=True,
+    )
+    return set(result.stdout.splitlines())
+
+
+def _git_blob_sha(tag_ref: str, path: str, name: str) -> str:
+    import subprocess
+
+    ref = f"{tag_ref}:{path}/{name}" if name else f"{tag_ref}:{path}"
+    return subprocess.run(
+        ["git", "rev-parse", ref],
+        capture_output=True, text=True, encoding="utf-8",
+        stdin=subprocess.DEVNULL, check=True,
+    ).stdout.strip()
+
+
+def _git_object_type(tag_ref: str, path: str) -> str:
+    import subprocess
+
+    return subprocess.run(
+        ["git", "cat-file", "-t", f"{tag_ref}:{path}"],
+        capture_output=True, text=True, encoding="utf-8",
+        stdin=subprocess.DEVNULL, check=True,
+    ).stdout.strip()
+
+
+def assert_ui_frozen_tree_intact(tag_ref: str = "ui-standards-v1.0",
+                                 path: str = "standards/ui") -> None:
+    """Every frozen file unchanged; only the declared evidence-layer
+    additions permitted. A changed or removed frozen file fails exactly as
+    the old tree-hash guard did. Also accepts single-file paths (compares
+    the blob directly)."""
+    if _git_object_type(tag_ref, path) == "blob":
+        assert _git_blob_sha(tag_ref, path, "") == _git_blob_sha("HEAD", path, ""), (
+            f"{path} changed since {tag_ref} - the UI freeze is immutable"
+        )
+        return
+    frozen = _git_ls_tree(tag_ref, path)
+    head = _git_ls_tree("HEAD", path)
+    unexpected = sorted(head - frozen - UI_FROZEN_TREE_ALLOWED_ADDITIONS)
+    assert not unexpected, (
+        f"{path}: new files since {tag_ref}: {unexpected} - extend "
+        "UI_FROZEN_TREE_ALLOWED_ADDITIONS only for explicit non-normative "
+        "evidence-layer additions"
+    )
+    missing = sorted(frozen - head)
+    assert not missing, f"{path}: frozen files removed since {tag_ref}: {missing}"
+    for name in sorted(frozen):
+        assert _git_blob_sha(tag_ref, path, name) == _git_blob_sha("HEAD", path, name), (
+            f"{path}/{name} changed since {tag_ref} - the UI freeze is immutable"
+        )

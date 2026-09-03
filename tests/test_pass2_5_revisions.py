@@ -273,9 +273,9 @@ def test_ui_baseline_paths_unchanged_since_freeze(path):
     data-ontology-standards-v1.0 freeze) — this checks the UI baseline's
     own files by path, not the whole directory tree, which now
     legitimately has a sibling."""
-    tag_tree = _git("rev-parse", f"ui-standards-v1.0:{path}")
-    head_tree = _git("rev-parse", f"HEAD:{path}")
-    assert tag_tree == head_tree, f"{path} changed since the ui-standards-v1.0 freeze"
+    from tools.ui_agent_layer import assert_ui_frozen_tree_intact
+
+    assert_ui_frozen_tree_intact("ui-standards-v1.0", path)
 
 
 def test_ui_standards_tag_still_resolves_to_the_expected_commit():

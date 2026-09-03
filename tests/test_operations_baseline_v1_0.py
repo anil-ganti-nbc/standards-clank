@@ -232,8 +232,13 @@ def test_ui_and_data_ontology_baselines_untouched_by_this_freeze():
     assert "data-ontology-standards-v1.0" in tags
     assert not any(t.lower().replace(" ", "-").startswith("standards-clank-v1") for t in tags)
 
+    from tools.ui_agent_layer import assert_ui_frozen_tree_intact
+
+    # standards/ui: per-frozen-file comparison (the non-normative M36
+    # evidence layer legitimately adds files there); data-ontology: the
+    # original whole-tree comparison, unchanged.
+    assert_ui_frozen_tree_intact("ui-standards-v1.0", "standards/ui")
     for tag, path in (
-        ("ui-standards-v1.0", "standards/ui"),
         ("data-ontology-standards-v1.0", "standards/data-ontology"),
     ):
         tag_tree = subprocess.run(

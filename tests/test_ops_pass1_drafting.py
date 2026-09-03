@@ -273,9 +273,9 @@ def test_both_baseline_tags_resolve_to_their_frozen_commits():
     "baselines/ui-standards-v1.0.json", "baselines/ui-standards-v1.0-release-notes.md",
 ])
 def test_ui_baseline_paths_unchanged(path):
-    tag_tree = _git("rev-parse", f"ui-standards-v1.0:{path}")
-    head_tree = _git("rev-parse", f"HEAD:{path}")
-    assert tag_tree == head_tree, f"{path} changed since the ui-standards-v1.0 freeze"
+    from tools.ui_agent_layer import assert_ui_frozen_tree_intact
+
+    assert_ui_frozen_tree_intact("ui-standards-v1.0", path)
 
 
 @pytest.mark.parametrize("path", [

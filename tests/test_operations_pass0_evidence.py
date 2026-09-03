@@ -219,9 +219,9 @@ def test_data_ontology_baseline_tag_exists_and_resolves():
     "baselines/ui-standards-v1.0.json", "baselines/ui-standards-v1.0-release-notes.md",
 ])
 def test_ui_baseline_paths_unchanged_since_freeze(path):
-    tag_tree = _git("rev-parse", f"ui-standards-v1.0:{path}")
-    head_tree = _git("rev-parse", f"HEAD:{path}")
-    assert tag_tree == head_tree, f"{path} changed since the ui-standards-v1.0 freeze"
+    from tools.ui_agent_layer import assert_ui_frozen_tree_intact
+
+    assert_ui_frozen_tree_intact("ui-standards-v1.0", path)
 
 
 @pytest.mark.parametrize("path", [

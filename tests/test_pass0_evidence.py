@@ -186,12 +186,9 @@ def test_ui_baseline_tag_exists_and_resolves():
 
 @pytest.mark.parametrize("path", ["standards/ui", "docs/ui"])
 def test_ui_baseline_tree_unchanged_since_tag(path):
-    tag_tree = _git("rev-parse", f"ui-standards-v1.0:{path}")
-    head_tree = _git("rev-parse", f"HEAD:{path}")
-    assert tag_tree == head_tree, (
-        f"{path} tree hash changed between ui-standards-v1.0 and HEAD "
-        f"({tag_tree} -> {head_tree}) — the UI baseline must stay frozen"
-    )
+    from tools.ui_agent_layer import assert_ui_frozen_tree_intact
+
+    assert_ui_frozen_tree_intact("ui-standards-v1.0", path)
 
 
 @pytest.mark.parametrize(
