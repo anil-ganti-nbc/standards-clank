@@ -1,0 +1,2722 @@
+{
+  "schema": "ui-evidence-index/1",
+  "generated_from": "standards/ui/evidence-facts.json",
+  "current": [
+    {
+      "fact_id": "UI-F-0046",
+      "standard_id": "STD-UI-COM-001",
+      "target": "chinese-tech-wire",
+      "source_sha": "24c0b7974ac3162ead2796f30793b811209b120d",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit 24c0b79 (STD-UI-COM-009 run-row links, request vs parse failure split)",
+          "commit c15f303 (UTC timestamp convention normalised)"
+        ],
+        "note": "Overhaul commits verified in history at 24c0b79. This-pass anchors: qc_archive.py lead_id UNIQUE backstop (atomic race-guarded QC decide); web/templates/base.html _fmt() converts to UTC; lead_notifications delivery ledger; web/app.py QC decide endpoint with AlreadyDecided handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0047",
+      "standard_id": "STD-UI-COM-002",
+      "target": "chinese-tech-wire",
+      "source_sha": "24c0b7974ac3162ead2796f30793b811209b120d",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit 24c0b79 (STD-UI-COM-009 run-row links, request vs parse failure split)",
+          "commit c15f303 (UTC timestamp convention normalised)"
+        ],
+        "note": "Overhaul commits verified in history at 24c0b79. This-pass anchors: qc_archive.py lead_id UNIQUE backstop (atomic race-guarded QC decide); web/templates/base.html _fmt() converts to UTC; lead_notifications delivery ledger; web/app.py QC decide endpoint with AlreadyDecided handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0048",
+      "standard_id": "STD-UI-COM-003",
+      "target": "chinese-tech-wire",
+      "source_sha": "24c0b7974ac3162ead2796f30793b811209b120d",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit 24c0b79 (STD-UI-COM-009 run-row links, request vs parse failure split)",
+          "commit c15f303 (UTC timestamp convention normalised)"
+        ],
+        "note": "Overhaul commits verified in history at 24c0b79. This-pass anchors: qc_archive.py lead_id UNIQUE backstop (atomic race-guarded QC decide); web/templates/base.html _fmt() converts to UTC; lead_notifications delivery ledger; web/app.py QC decide endpoint with AlreadyDecided handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0049",
+      "standard_id": "STD-UI-COM-004",
+      "target": "chinese-tech-wire",
+      "source_sha": "24c0b7974ac3162ead2796f30793b811209b120d",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit 24c0b79 (STD-UI-COM-009 run-row links, request vs parse failure split)",
+          "commit c15f303 (UTC timestamp convention normalised)"
+        ],
+        "note": "Overhaul commits verified in history at 24c0b79. This-pass anchors: qc_archive.py lead_id UNIQUE backstop (atomic race-guarded QC decide); web/templates/base.html _fmt() converts to UTC; lead_notifications delivery ledger; web/app.py QC decide endpoint with AlreadyDecided handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0050",
+      "standard_id": "STD-UI-COM-005",
+      "target": "chinese-tech-wire",
+      "source_sha": "24c0b7974ac3162ead2796f30793b811209b120d",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit 24c0b79 (STD-UI-COM-009 run-row links, request vs parse failure split)",
+          "commit c15f303 (UTC timestamp convention normalised)"
+        ],
+        "note": "Overhaul commits verified in history at 24c0b79. This-pass anchors: qc_archive.py lead_id UNIQUE backstop (atomic race-guarded QC decide); web/templates/base.html _fmt() converts to UTC; lead_notifications delivery ledger; web/app.py QC decide endpoint with AlreadyDecided handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0051",
+      "standard_id": "STD-UI-COM-006",
+      "target": "chinese-tech-wire",
+      "source_sha": "24c0b7974ac3162ead2796f30793b811209b120d",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit 24c0b79 (STD-UI-COM-009 run-row links, request vs parse failure split)",
+          "commit c15f303 (UTC timestamp convention normalised)"
+        ],
+        "note": "Overhaul commits verified in history at 24c0b79. This-pass anchors: qc_archive.py lead_id UNIQUE backstop (atomic race-guarded QC decide); web/templates/base.html _fmt() converts to UTC; lead_notifications delivery ledger; web/app.py QC decide endpoint with AlreadyDecided handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0052",
+      "standard_id": "STD-UI-COM-007",
+      "target": "chinese-tech-wire",
+      "source_sha": "24c0b7974ac3162ead2796f30793b811209b120d",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit 24c0b79 (STD-UI-COM-009 run-row links, request vs parse failure split)",
+          "commit c15f303 (UTC timestamp convention normalised)"
+        ],
+        "note": "Overhaul commits verified in history at 24c0b79. This-pass anchors: qc_archive.py lead_id UNIQUE backstop (atomic race-guarded QC decide); web/templates/base.html _fmt() converts to UTC; lead_notifications delivery ledger; web/app.py QC decide endpoint with AlreadyDecided handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0053",
+      "standard_id": "STD-UI-COM-008",
+      "target": "chinese-tech-wire",
+      "source_sha": "24c0b7974ac3162ead2796f30793b811209b120d",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit 24c0b79 (STD-UI-COM-009 run-row links, request vs parse failure split)",
+          "commit c15f303 (UTC timestamp convention normalised)"
+        ],
+        "note": "Overhaul commits verified in history at 24c0b79. This-pass anchors: qc_archive.py lead_id UNIQUE backstop (atomic race-guarded QC decide); web/templates/base.html _fmt() converts to UTC; lead_notifications delivery ledger; web/app.py QC decide endpoint with AlreadyDecided handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0054",
+      "standard_id": "STD-UI-COM-009",
+      "target": "chinese-tech-wire",
+      "source_sha": "24c0b7974ac3162ead2796f30793b811209b120d",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit 24c0b79 (STD-UI-COM-009 run-row links, request vs parse failure split)",
+          "commit c15f303 (UTC timestamp convention normalised)"
+        ],
+        "note": "Overhaul commits verified in history at 24c0b79. This-pass anchors: qc_archive.py lead_id UNIQUE backstop (atomic race-guarded QC decide); web/templates/base.html _fmt() converts to UTC; lead_notifications delivery ledger; web/app.py QC decide endpoint with AlreadyDecided handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0055",
+      "standard_id": "STD-UI-COM-010",
+      "target": "chinese-tech-wire",
+      "source_sha": "24c0b7974ac3162ead2796f30793b811209b120d",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit 24c0b79 (STD-UI-COM-009 run-row links, request vs parse failure split)",
+          "commit c15f303 (UTC timestamp convention normalised)"
+        ],
+        "note": "Overhaul commits verified in history at 24c0b79. This-pass anchors: qc_archive.py lead_id UNIQUE backstop (atomic race-guarded QC decide); web/templates/base.html _fmt() converts to UTC; lead_notifications delivery ledger; web/app.py QC decide endpoint with AlreadyDecided handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0056",
+      "standard_id": "STD-UI-COM-011",
+      "target": "chinese-tech-wire",
+      "source_sha": "24c0b7974ac3162ead2796f30793b811209b120d",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit 24c0b79 (STD-UI-COM-009 run-row links, request vs parse failure split)",
+          "commit c15f303 (UTC timestamp convention normalised)"
+        ],
+        "note": "Overhaul commits verified in history at 24c0b79. This-pass anchors: qc_archive.py lead_id UNIQUE backstop (atomic race-guarded QC decide); web/templates/base.html _fmt() converts to UTC; lead_notifications delivery ledger; web/app.py QC decide endpoint with AlreadyDecided handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0057",
+      "standard_id": "STD-UI-COM-012",
+      "target": "chinese-tech-wire",
+      "source_sha": "24c0b7974ac3162ead2796f30793b811209b120d",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit 24c0b79 (STD-UI-COM-009 run-row links, request vs parse failure split)",
+          "commit c15f303 (UTC timestamp convention normalised)"
+        ],
+        "note": "Overhaul commits verified in history at 24c0b79. This-pass anchors: qc_archive.py lead_id UNIQUE backstop (atomic race-guarded QC decide); web/templates/base.html _fmt() converts to UTC; lead_notifications delivery ledger; web/app.py QC decide endpoint with AlreadyDecided handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0058",
+      "standard_id": "STD-UI-NEWS-001",
+      "target": "chinese-tech-wire",
+      "source_sha": "24c0b7974ac3162ead2796f30793b811209b120d",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit 24c0b79 (STD-UI-COM-009 run-row links, request vs parse failure split)",
+          "commit c15f303 (UTC timestamp convention normalised)"
+        ],
+        "note": "Overhaul commits verified in history at 24c0b79. This-pass anchors: qc_archive.py lead_id UNIQUE backstop (atomic race-guarded QC decide); web/templates/base.html _fmt() converts to UTC; lead_notifications delivery ledger; web/app.py QC decide endpoint with AlreadyDecided handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0059",
+      "standard_id": "STD-UI-NEWS-002",
+      "target": "chinese-tech-wire",
+      "source_sha": "24c0b7974ac3162ead2796f30793b811209b120d",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit 24c0b79 (STD-UI-COM-009 run-row links, request vs parse failure split)",
+          "commit c15f303 (UTC timestamp convention normalised)"
+        ],
+        "note": "Overhaul commits verified in history at 24c0b79. This-pass anchors: qc_archive.py lead_id UNIQUE backstop (atomic race-guarded QC decide); web/templates/base.html _fmt() converts to UTC; lead_notifications delivery ledger; web/app.py QC decide endpoint with AlreadyDecided handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0060",
+      "standard_id": "STD-UI-SKU-001",
+      "target": "chinese-tech-wire",
+      "source_sha": "24c0b7974ac3162ead2796f30793b811209b120d",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "commit 24c0b79 (STD-UI-COM-009 run-row links, request vs parse failure split)",
+          "commit c15f303 (UTC timestamp convention normalised)"
+        ],
+        "note": "news-based Clank: no SKU/product-availability review surface exists; an availability-negative disposition has no referent.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0076",
+      "standard_id": "STD-UI-COM-001",
+      "target": "feature-phone-clank",
+      "source_sha": "a608d84785736062ec19341016c6d316698c7ba4",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit a608d84 (STD-UI-COM-009 Run History failure reason from run_errors)",
+          "commit b608d84-era M14 barrier (audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md)"
+        ],
+        "note": "Overhaul commit verified in history at a608d84 (257->258 passed recorded in the commit). This-pass anchors: dashboard.py:144-145 run_errors surfaced; local_collection.py run-all production-only; runtime_bridge UTC; providers/qc_store.py QC archive. COM-011 carries the recorded applicability boundary.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0077",
+      "standard_id": "STD-UI-COM-002",
+      "target": "feature-phone-clank",
+      "source_sha": "a608d84785736062ec19341016c6d316698c7ba4",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit a608d84 (STD-UI-COM-009 Run History failure reason from run_errors)",
+          "commit b608d84-era M14 barrier (audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md)"
+        ],
+        "note": "Overhaul commit verified in history at a608d84 (257->258 passed recorded in the commit). This-pass anchors: dashboard.py:144-145 run_errors surfaced; local_collection.py run-all production-only; runtime_bridge UTC; providers/qc_store.py QC archive. COM-011 carries the recorded applicability boundary.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0078",
+      "standard_id": "STD-UI-COM-003",
+      "target": "feature-phone-clank",
+      "source_sha": "a608d84785736062ec19341016c6d316698c7ba4",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit a608d84 (STD-UI-COM-009 Run History failure reason from run_errors)",
+          "commit b608d84-era M14 barrier (audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md)"
+        ],
+        "note": "Overhaul commit verified in history at a608d84 (257->258 passed recorded in the commit). This-pass anchors: dashboard.py:144-145 run_errors surfaced; local_collection.py run-all production-only; runtime_bridge UTC; providers/qc_store.py QC archive. COM-011 carries the recorded applicability boundary.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0079",
+      "standard_id": "STD-UI-COM-004",
+      "target": "feature-phone-clank",
+      "source_sha": "a608d84785736062ec19341016c6d316698c7ba4",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit a608d84 (STD-UI-COM-009 Run History failure reason from run_errors)",
+          "commit b608d84-era M14 barrier (audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md)"
+        ],
+        "note": "Overhaul commit verified in history at a608d84 (257->258 passed recorded in the commit). This-pass anchors: dashboard.py:144-145 run_errors surfaced; local_collection.py run-all production-only; runtime_bridge UTC; providers/qc_store.py QC archive. COM-011 carries the recorded applicability boundary.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0080",
+      "standard_id": "STD-UI-COM-005",
+      "target": "feature-phone-clank",
+      "source_sha": "a608d84785736062ec19341016c6d316698c7ba4",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit a608d84 (STD-UI-COM-009 Run History failure reason from run_errors)",
+          "commit b608d84-era M14 barrier (audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md)"
+        ],
+        "note": "Overhaul commit verified in history at a608d84 (257->258 passed recorded in the commit). This-pass anchors: dashboard.py:144-145 run_errors surfaced; local_collection.py run-all production-only; runtime_bridge UTC; providers/qc_store.py QC archive. COM-011 carries the recorded applicability boundary.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0081",
+      "standard_id": "STD-UI-COM-006",
+      "target": "feature-phone-clank",
+      "source_sha": "a608d84785736062ec19341016c6d316698c7ba4",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit a608d84 (STD-UI-COM-009 Run History failure reason from run_errors)",
+          "commit b608d84-era M14 barrier (audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md)"
+        ],
+        "note": "Overhaul commit verified in history at a608d84 (257->258 passed recorded in the commit). This-pass anchors: dashboard.py:144-145 run_errors surfaced; local_collection.py run-all production-only; runtime_bridge UTC; providers/qc_store.py QC archive. COM-011 carries the recorded applicability boundary.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0082",
+      "standard_id": "STD-UI-COM-007",
+      "target": "feature-phone-clank",
+      "source_sha": "a608d84785736062ec19341016c6d316698c7ba4",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit a608d84 (STD-UI-COM-009 Run History failure reason from run_errors)",
+          "commit b608d84-era M14 barrier (audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md)"
+        ],
+        "note": "Overhaul commit verified in history at a608d84 (257->258 passed recorded in the commit). This-pass anchors: dashboard.py:144-145 run_errors surfaced; local_collection.py run-all production-only; runtime_bridge UTC; providers/qc_store.py QC archive. COM-011 carries the recorded applicability boundary.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0083",
+      "standard_id": "STD-UI-COM-008",
+      "target": "feature-phone-clank",
+      "source_sha": "a608d84785736062ec19341016c6d316698c7ba4",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit a608d84 (STD-UI-COM-009 Run History failure reason from run_errors)",
+          "commit b608d84-era M14 barrier (audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md)"
+        ],
+        "note": "Overhaul commit verified in history at a608d84 (257->258 passed recorded in the commit). This-pass anchors: dashboard.py:144-145 run_errors surfaced; local_collection.py run-all production-only; runtime_bridge UTC; providers/qc_store.py QC archive. COM-011 carries the recorded applicability boundary.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0084",
+      "standard_id": "STD-UI-COM-009",
+      "target": "feature-phone-clank",
+      "source_sha": "a608d84785736062ec19341016c6d316698c7ba4",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit a608d84 (STD-UI-COM-009 Run History failure reason from run_errors)",
+          "commit b608d84-era M14 barrier (audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md)"
+        ],
+        "note": "Overhaul commit verified in history at a608d84 (257->258 passed recorded in the commit). This-pass anchors: dashboard.py:144-145 run_errors surfaced; local_collection.py run-all production-only; runtime_bridge UTC; providers/qc_store.py QC archive. COM-011 carries the recorded applicability boundary.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0085",
+      "standard_id": "STD-UI-COM-010",
+      "target": "feature-phone-clank",
+      "source_sha": "a608d84785736062ec19341016c6d316698c7ba4",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit a608d84 (STD-UI-COM-009 Run History failure reason from run_errors)",
+          "commit b608d84-era M14 barrier (audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md)"
+        ],
+        "note": "Overhaul commit verified in history at a608d84 (257->258 passed recorded in the commit). This-pass anchors: dashboard.py:144-145 run_errors surfaced; local_collection.py run-all production-only; runtime_bridge UTC; providers/qc_store.py QC archive. COM-011 carries the recorded applicability boundary.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0086",
+      "standard_id": "STD-UI-COM-011",
+      "target": "feature-phone-clank",
+      "source_sha": "a608d84785736062ec19341016c6d316698c7ba4",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "commit a608d84 (STD-UI-COM-009 Run History failure reason from run_errors)",
+          "commit b608d84-era M14 barrier (audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md)"
+        ],
+        "note": "APPLICABILITY BOUNDARY (not a blanket N/A). N/A holds for the audited field-test GUI surface because: GUI-triggered runs wire no notifier (local_collection.py constructs no DiscordNotifier), the dashboard explicitly states external delivery is disabled, and the native launcher defaults the webhook env empty. HOWEVER the CLI path can deliver (cmd_run wires DiscordNotifier when FEATURE_PHONE_CLANK_DISCORD_WEBHOOK_URL is set) and outcomes can be written to the same database; if delivery becomes reachable from the GUI mode, STD-UI-COM-011 becomes APPLIES for feature-phone-clank and this cell must be re-verified.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0087",
+      "standard_id": "STD-UI-COM-012",
+      "target": "feature-phone-clank",
+      "source_sha": "a608d84785736062ec19341016c6d316698c7ba4",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit a608d84 (STD-UI-COM-009 Run History failure reason from run_errors)",
+          "commit b608d84-era M14 barrier (audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md)"
+        ],
+        "note": "Overhaul commit verified in history at a608d84 (257->258 passed recorded in the commit). This-pass anchors: dashboard.py:144-145 run_errors surfaced; local_collection.py run-all production-only; runtime_bridge UTC; providers/qc_store.py QC archive. COM-011 carries the recorded applicability boundary.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0088",
+      "standard_id": "STD-UI-NEWS-001",
+      "target": "feature-phone-clank",
+      "source_sha": "a608d84785736062ec19341016c6d316698c7ba4",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "commit a608d84 (STD-UI-COM-009 Run History failure reason from run_errors)",
+          "commit b608d84-era M14 barrier (audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md)"
+        ],
+        "note": "sku-based Clank: no news/editorial intake pipeline exists; the fourth news-vocabulary terminal action has no referent.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0089",
+      "standard_id": "STD-UI-NEWS-002",
+      "target": "feature-phone-clank",
+      "source_sha": "a608d84785736062ec19341016c6d316698c7ba4",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "commit a608d84 (STD-UI-COM-009 Run History failure reason from run_errors)",
+          "commit b608d84-era M14 barrier (audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md)"
+        ],
+        "note": "sku-based Clank: no live editorial intake/review surface exists to be reachable.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0090",
+      "standard_id": "STD-UI-SKU-001",
+      "target": "feature-phone-clank",
+      "source_sha": "a608d84785736062ec19341016c6d316698c7ba4",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit a608d84 (STD-UI-COM-009 Run History failure reason from run_errors)",
+          "commit b608d84-era M14 barrier (audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md)"
+        ],
+        "note": "Overhaul commit verified in history at a608d84 (257->258 passed recorded in the commit). This-pass anchors: dashboard.py:144-145 run_errors surfaced; local_collection.py run-all production-only; runtime_bridge UTC; providers/qc_store.py QC archive. COM-011 carries the recorded applicability boundary.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0061",
+      "standard_id": "STD-UI-COM-001",
+      "target": "korean-tech-wire",
+      "source_sha": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit f49bd02 (STD-UI-COM-009 Run History failed-phase attribution; dashboard.py:342 anchors run_errors.error_type per failing source)"
+        ],
+        "note": "Overhaul commit verified in history at f49bd02. This-pass anchors: storage/qc_archive.py QC_DECISIONS/AlreadyDecided race guard; dashboard.py run-all comment (never silently includes EXPERIMENTAL/soak); notification state surface; dashboard timezone handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0062",
+      "standard_id": "STD-UI-COM-002",
+      "target": "korean-tech-wire",
+      "source_sha": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit f49bd02 (STD-UI-COM-009 Run History failed-phase attribution; dashboard.py:342 anchors run_errors.error_type per failing source)"
+        ],
+        "note": "Overhaul commit verified in history at f49bd02. This-pass anchors: storage/qc_archive.py QC_DECISIONS/AlreadyDecided race guard; dashboard.py run-all comment (never silently includes EXPERIMENTAL/soak); notification state surface; dashboard timezone handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0063",
+      "standard_id": "STD-UI-COM-003",
+      "target": "korean-tech-wire",
+      "source_sha": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit f49bd02 (STD-UI-COM-009 Run History failed-phase attribution; dashboard.py:342 anchors run_errors.error_type per failing source)"
+        ],
+        "note": "Overhaul commit verified in history at f49bd02. This-pass anchors: storage/qc_archive.py QC_DECISIONS/AlreadyDecided race guard; dashboard.py run-all comment (never silently includes EXPERIMENTAL/soak); notification state surface; dashboard timezone handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0064",
+      "standard_id": "STD-UI-COM-004",
+      "target": "korean-tech-wire",
+      "source_sha": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit f49bd02 (STD-UI-COM-009 Run History failed-phase attribution; dashboard.py:342 anchors run_errors.error_type per failing source)"
+        ],
+        "note": "Overhaul commit verified in history at f49bd02. This-pass anchors: storage/qc_archive.py QC_DECISIONS/AlreadyDecided race guard; dashboard.py run-all comment (never silently includes EXPERIMENTAL/soak); notification state surface; dashboard timezone handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0065",
+      "standard_id": "STD-UI-COM-005",
+      "target": "korean-tech-wire",
+      "source_sha": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit f49bd02 (STD-UI-COM-009 Run History failed-phase attribution; dashboard.py:342 anchors run_errors.error_type per failing source)"
+        ],
+        "note": "Overhaul commit verified in history at f49bd02. This-pass anchors: storage/qc_archive.py QC_DECISIONS/AlreadyDecided race guard; dashboard.py run-all comment (never silently includes EXPERIMENTAL/soak); notification state surface; dashboard timezone handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0066",
+      "standard_id": "STD-UI-COM-006",
+      "target": "korean-tech-wire",
+      "source_sha": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit f49bd02 (STD-UI-COM-009 Run History failed-phase attribution; dashboard.py:342 anchors run_errors.error_type per failing source)"
+        ],
+        "note": "Overhaul commit verified in history at f49bd02. This-pass anchors: storage/qc_archive.py QC_DECISIONS/AlreadyDecided race guard; dashboard.py run-all comment (never silently includes EXPERIMENTAL/soak); notification state surface; dashboard timezone handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0067",
+      "standard_id": "STD-UI-COM-007",
+      "target": "korean-tech-wire",
+      "source_sha": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit f49bd02 (STD-UI-COM-009 Run History failed-phase attribution; dashboard.py:342 anchors run_errors.error_type per failing source)"
+        ],
+        "note": "Overhaul commit verified in history at f49bd02. This-pass anchors: storage/qc_archive.py QC_DECISIONS/AlreadyDecided race guard; dashboard.py run-all comment (never silently includes EXPERIMENTAL/soak); notification state surface; dashboard timezone handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0068",
+      "standard_id": "STD-UI-COM-008",
+      "target": "korean-tech-wire",
+      "source_sha": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit f49bd02 (STD-UI-COM-009 Run History failed-phase attribution; dashboard.py:342 anchors run_errors.error_type per failing source)"
+        ],
+        "note": "Overhaul commit verified in history at f49bd02. This-pass anchors: storage/qc_archive.py QC_DECISIONS/AlreadyDecided race guard; dashboard.py run-all comment (never silently includes EXPERIMENTAL/soak); notification state surface; dashboard timezone handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0069",
+      "standard_id": "STD-UI-COM-009",
+      "target": "korean-tech-wire",
+      "source_sha": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit f49bd02 (STD-UI-COM-009 Run History failed-phase attribution; dashboard.py:342 anchors run_errors.error_type per failing source)"
+        ],
+        "note": "Overhaul commit verified in history at f49bd02. This-pass anchors: storage/qc_archive.py QC_DECISIONS/AlreadyDecided race guard; dashboard.py run-all comment (never silently includes EXPERIMENTAL/soak); notification state surface; dashboard timezone handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0070",
+      "standard_id": "STD-UI-COM-010",
+      "target": "korean-tech-wire",
+      "source_sha": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit f49bd02 (STD-UI-COM-009 Run History failed-phase attribution; dashboard.py:342 anchors run_errors.error_type per failing source)"
+        ],
+        "note": "Overhaul commit verified in history at f49bd02. This-pass anchors: storage/qc_archive.py QC_DECISIONS/AlreadyDecided race guard; dashboard.py run-all comment (never silently includes EXPERIMENTAL/soak); notification state surface; dashboard timezone handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0071",
+      "standard_id": "STD-UI-COM-011",
+      "target": "korean-tech-wire",
+      "source_sha": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit f49bd02 (STD-UI-COM-009 Run History failed-phase attribution; dashboard.py:342 anchors run_errors.error_type per failing source)"
+        ],
+        "note": "Overhaul commit verified in history at f49bd02. This-pass anchors: storage/qc_archive.py QC_DECISIONS/AlreadyDecided race guard; dashboard.py run-all comment (never silently includes EXPERIMENTAL/soak); notification state surface; dashboard timezone handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0072",
+      "standard_id": "STD-UI-COM-012",
+      "target": "korean-tech-wire",
+      "source_sha": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit f49bd02 (STD-UI-COM-009 Run History failed-phase attribution; dashboard.py:342 anchors run_errors.error_type per failing source)"
+        ],
+        "note": "Overhaul commit verified in history at f49bd02. This-pass anchors: storage/qc_archive.py QC_DECISIONS/AlreadyDecided race guard; dashboard.py run-all comment (never silently includes EXPERIMENTAL/soak); notification state surface; dashboard timezone handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0073",
+      "standard_id": "STD-UI-NEWS-001",
+      "target": "korean-tech-wire",
+      "source_sha": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit f49bd02 (STD-UI-COM-009 Run History failed-phase attribution; dashboard.py:342 anchors run_errors.error_type per failing source)"
+        ],
+        "note": "Overhaul commit verified in history at f49bd02. This-pass anchors: storage/qc_archive.py QC_DECISIONS/AlreadyDecided race guard; dashboard.py run-all comment (never silently includes EXPERIMENTAL/soak); notification state surface; dashboard timezone handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0074",
+      "standard_id": "STD-UI-NEWS-002",
+      "target": "korean-tech-wire",
+      "source_sha": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit f49bd02 (STD-UI-COM-009 Run History failed-phase attribution; dashboard.py:342 anchors run_errors.error_type per failing source)"
+        ],
+        "note": "Overhaul commit verified in history at f49bd02. This-pass anchors: storage/qc_archive.py QC_DECISIONS/AlreadyDecided race guard; dashboard.py run-all comment (never silently includes EXPERIMENTAL/soak); notification state surface; dashboard timezone handling.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0075",
+      "standard_id": "STD-UI-SKU-001",
+      "target": "korean-tech-wire",
+      "source_sha": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "commit f49bd02 (STD-UI-COM-009 Run History failed-phase attribution; dashboard.py:342 anchors run_errors.error_type per failing source)"
+        ],
+        "note": "news-based Clank: no SKU/product-availability review surface exists; an availability-negative disposition has no referent.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0016",
+      "standard_id": "STD-UI-COM-001",
+      "target": "oem-radar",
+      "source_sha": "b9f76a48c2cd9475fcc9ae2c352424de6af4128b",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit b9f76a4 (STD-UI-COM-009 Runs-table failure phase)",
+          "commit 6fcaf7b (dashboard timezone convention)",
+          "commit 54f5e39 (delivery-state granularity)",
+          "commit 79fbee6 (M15 persistent-state barrier; audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md)"
+        ],
+        "note": "Overhaul commits verified in history at b9f76a4. This-pass anchors: runner.py:110 health_reason phase surface; dashboard/data.py:151 delivery render; render.py timezone-selector script; schema.sql alert_reviews feedback foundation with DB-level uniqueness. Suite green at overhaul commits (578->580 passed recorded in b9f76a4).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0017",
+      "standard_id": "STD-UI-COM-002",
+      "target": "oem-radar",
+      "source_sha": "b9f76a48c2cd9475fcc9ae2c352424de6af4128b",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit b9f76a4 (STD-UI-COM-009 Runs-table failure phase)",
+          "commit 6fcaf7b (dashboard timezone convention)",
+          "commit 54f5e39 (delivery-state granularity)",
+          "commit 79fbee6 (M15 persistent-state barrier; audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md)"
+        ],
+        "note": "Overhaul commits verified in history at b9f76a4. This-pass anchors: runner.py:110 health_reason phase surface; dashboard/data.py:151 delivery render; render.py timezone-selector script; schema.sql alert_reviews feedback foundation with DB-level uniqueness. Suite green at overhaul commits (578->580 passed recorded in b9f76a4).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0018",
+      "standard_id": "STD-UI-COM-003",
+      "target": "oem-radar",
+      "source_sha": "b9f76a48c2cd9475fcc9ae2c352424de6af4128b",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit b9f76a4 (STD-UI-COM-009 Runs-table failure phase)",
+          "commit 6fcaf7b (dashboard timezone convention)",
+          "commit 54f5e39 (delivery-state granularity)",
+          "commit 79fbee6 (M15 persistent-state barrier; audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md)"
+        ],
+        "note": "Overhaul commits verified in history at b9f76a4. This-pass anchors: runner.py:110 health_reason phase surface; dashboard/data.py:151 delivery render; render.py timezone-selector script; schema.sql alert_reviews feedback foundation with DB-level uniqueness. Suite green at overhaul commits (578->580 passed recorded in b9f76a4).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0019",
+      "standard_id": "STD-UI-COM-004",
+      "target": "oem-radar",
+      "source_sha": "b9f76a48c2cd9475fcc9ae2c352424de6af4128b",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit b9f76a4 (STD-UI-COM-009 Runs-table failure phase)",
+          "commit 6fcaf7b (dashboard timezone convention)",
+          "commit 54f5e39 (delivery-state granularity)",
+          "commit 79fbee6 (M15 persistent-state barrier; audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md)"
+        ],
+        "note": "Overhaul commits verified in history at b9f76a4. This-pass anchors: runner.py:110 health_reason phase surface; dashboard/data.py:151 delivery render; render.py timezone-selector script; schema.sql alert_reviews feedback foundation with DB-level uniqueness. Suite green at overhaul commits (578->580 passed recorded in b9f76a4).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0020",
+      "standard_id": "STD-UI-COM-005",
+      "target": "oem-radar",
+      "source_sha": "b9f76a48c2cd9475fcc9ae2c352424de6af4128b",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit b9f76a4 (STD-UI-COM-009 Runs-table failure phase)",
+          "commit 6fcaf7b (dashboard timezone convention)",
+          "commit 54f5e39 (delivery-state granularity)",
+          "commit 79fbee6 (M15 persistent-state barrier; audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md)"
+        ],
+        "note": "Overhaul commits verified in history at b9f76a4. This-pass anchors: runner.py:110 health_reason phase surface; dashboard/data.py:151 delivery render; render.py timezone-selector script; schema.sql alert_reviews feedback foundation with DB-level uniqueness. Suite green at overhaul commits (578->580 passed recorded in b9f76a4).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0021",
+      "standard_id": "STD-UI-COM-006",
+      "target": "oem-radar",
+      "source_sha": "b9f76a48c2cd9475fcc9ae2c352424de6af4128b",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit b9f76a4 (STD-UI-COM-009 Runs-table failure phase)",
+          "commit 6fcaf7b (dashboard timezone convention)",
+          "commit 54f5e39 (delivery-state granularity)",
+          "commit 79fbee6 (M15 persistent-state barrier; audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md)"
+        ],
+        "note": "Overhaul commits verified in history at b9f76a4. This-pass anchors: runner.py:110 health_reason phase surface; dashboard/data.py:151 delivery render; render.py timezone-selector script; schema.sql alert_reviews feedback foundation with DB-level uniqueness. Suite green at overhaul commits (578->580 passed recorded in b9f76a4).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0022",
+      "standard_id": "STD-UI-COM-007",
+      "target": "oem-radar",
+      "source_sha": "b9f76a48c2cd9475fcc9ae2c352424de6af4128b",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit b9f76a4 (STD-UI-COM-009 Runs-table failure phase)",
+          "commit 6fcaf7b (dashboard timezone convention)",
+          "commit 54f5e39 (delivery-state granularity)",
+          "commit 79fbee6 (M15 persistent-state barrier; audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md)"
+        ],
+        "note": "Overhaul commits verified in history at b9f76a4. This-pass anchors: runner.py:110 health_reason phase surface; dashboard/data.py:151 delivery render; render.py timezone-selector script; schema.sql alert_reviews feedback foundation with DB-level uniqueness. Suite green at overhaul commits (578->580 passed recorded in b9f76a4).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0023",
+      "standard_id": "STD-UI-COM-008",
+      "target": "oem-radar",
+      "source_sha": "b9f76a48c2cd9475fcc9ae2c352424de6af4128b",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit b9f76a4 (STD-UI-COM-009 Runs-table failure phase)",
+          "commit 6fcaf7b (dashboard timezone convention)",
+          "commit 54f5e39 (delivery-state granularity)",
+          "commit 79fbee6 (M15 persistent-state barrier; audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md)"
+        ],
+        "note": "Overhaul commits verified in history at b9f76a4. This-pass anchors: runner.py:110 health_reason phase surface; dashboard/data.py:151 delivery render; render.py timezone-selector script; schema.sql alert_reviews feedback foundation with DB-level uniqueness. Suite green at overhaul commits (578->580 passed recorded in b9f76a4).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0024",
+      "standard_id": "STD-UI-COM-009",
+      "target": "oem-radar",
+      "source_sha": "b9f76a48c2cd9475fcc9ae2c352424de6af4128b",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit b9f76a4 (STD-UI-COM-009 Runs-table failure phase)",
+          "commit 6fcaf7b (dashboard timezone convention)",
+          "commit 54f5e39 (delivery-state granularity)",
+          "commit 79fbee6 (M15 persistent-state barrier; audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md)"
+        ],
+        "note": "Overhaul commits verified in history at b9f76a4. This-pass anchors: runner.py:110 health_reason phase surface; dashboard/data.py:151 delivery render; render.py timezone-selector script; schema.sql alert_reviews feedback foundation with DB-level uniqueness. Suite green at overhaul commits (578->580 passed recorded in b9f76a4).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0025",
+      "standard_id": "STD-UI-COM-010",
+      "target": "oem-radar",
+      "source_sha": "b9f76a48c2cd9475fcc9ae2c352424de6af4128b",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit b9f76a4 (STD-UI-COM-009 Runs-table failure phase)",
+          "commit 6fcaf7b (dashboard timezone convention)",
+          "commit 54f5e39 (delivery-state granularity)",
+          "commit 79fbee6 (M15 persistent-state barrier; audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md)"
+        ],
+        "note": "Overhaul commits verified in history at b9f76a4. This-pass anchors: runner.py:110 health_reason phase surface; dashboard/data.py:151 delivery render; render.py timezone-selector script; schema.sql alert_reviews feedback foundation with DB-level uniqueness. Suite green at overhaul commits (578->580 passed recorded in b9f76a4).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0026",
+      "standard_id": "STD-UI-COM-011",
+      "target": "oem-radar",
+      "source_sha": "b9f76a48c2cd9475fcc9ae2c352424de6af4128b",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit b9f76a4 (STD-UI-COM-009 Runs-table failure phase)",
+          "commit 6fcaf7b (dashboard timezone convention)",
+          "commit 54f5e39 (delivery-state granularity)",
+          "commit 79fbee6 (M15 persistent-state barrier; audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md)"
+        ],
+        "note": "Overhaul commits verified in history at b9f76a4. This-pass anchors: runner.py:110 health_reason phase surface; dashboard/data.py:151 delivery render; render.py timezone-selector script; schema.sql alert_reviews feedback foundation with DB-level uniqueness. Suite green at overhaul commits (578->580 passed recorded in b9f76a4).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0027",
+      "standard_id": "STD-UI-COM-012",
+      "target": "oem-radar",
+      "source_sha": "b9f76a48c2cd9475fcc9ae2c352424de6af4128b",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit b9f76a4 (STD-UI-COM-009 Runs-table failure phase)",
+          "commit 6fcaf7b (dashboard timezone convention)",
+          "commit 54f5e39 (delivery-state granularity)",
+          "commit 79fbee6 (M15 persistent-state barrier; audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md)"
+        ],
+        "note": "Overhaul commits verified in history at b9f76a4. This-pass anchors: runner.py:110 health_reason phase surface; dashboard/data.py:151 delivery render; render.py timezone-selector script; schema.sql alert_reviews feedback foundation with DB-level uniqueness. Suite green at overhaul commits (578->580 passed recorded in b9f76a4).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0028",
+      "standard_id": "STD-UI-NEWS-001",
+      "target": "oem-radar",
+      "source_sha": "b9f76a48c2cd9475fcc9ae2c352424de6af4128b",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "commit b9f76a4 (STD-UI-COM-009 Runs-table failure phase)",
+          "commit 6fcaf7b (dashboard timezone convention)",
+          "commit 54f5e39 (delivery-state granularity)",
+          "commit 79fbee6 (M15 persistent-state barrier; audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md)"
+        ],
+        "note": "sku-based Clank: no news/editorial intake pipeline exists; the fourth news-vocabulary terminal action has no referent.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0029",
+      "standard_id": "STD-UI-NEWS-002",
+      "target": "oem-radar",
+      "source_sha": "b9f76a48c2cd9475fcc9ae2c352424de6af4128b",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "commit b9f76a4 (STD-UI-COM-009 Runs-table failure phase)",
+          "commit 6fcaf7b (dashboard timezone convention)",
+          "commit 54f5e39 (delivery-state granularity)",
+          "commit 79fbee6 (M15 persistent-state barrier; audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md)"
+        ],
+        "note": "sku-based Clank: no live editorial intake/review surface exists to be reachable.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0030",
+      "standard_id": "STD-UI-SKU-001",
+      "target": "oem-radar",
+      "source_sha": "b9f76a48c2cd9475fcc9ae2c352424de6af4128b",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "overhaul_commits_plus_source_verification",
+        "references": [
+          "commit b9f76a4 (STD-UI-COM-009 Runs-table failure phase)",
+          "commit 6fcaf7b (dashboard timezone convention)",
+          "commit 54f5e39 (delivery-state granularity)",
+          "commit 79fbee6 (M15 persistent-state barrier; audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md)"
+        ],
+        "note": "Overhaul commits verified in history at b9f76a4. This-pass anchors: runner.py:110 health_reason phase surface; dashboard/data.py:151 delivery render; render.py timezone-selector script; schema.sql alert_reviews feedback foundation with DB-level uniqueness. Suite green at overhaul commits (578->580 passed recorded in b9f76a4).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0031",
+      "standard_id": "STD-UI-COM-001",
+      "target": "semiconductor-intelligence",
+      "source_sha": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "acceptance_doc_plus_overhaul_commits",
+        "references": [
+          "docs/UI_ACCEPTANCE_2026-08.md (browser-first acceptance record, v0.9.2)",
+          "commit 53cb3f1 (dashboard timezone convention)",
+          "commit 8a356a3 (human QC review for Radar candidates, fleet QC contract)"
+        ],
+        "note": "UI acceptance record at current SHA; overhaul commits verified in history. CAVEAT (NON-UI): the overall canonical suite is not fully green - test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database is a known unrelated failure and a claims test has shown local flakiness. This does not downgrade any UI verdict; the suite must not be called green.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03",
+      "caveats": [
+        "NON-UI CAVEAT: the overall canonical suite is not fully green (test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database known unrelated failure; a claims test has shown local flakiness). UI verdicts unaffected; the suite is not claimed green."
+      ]
+    },
+    {
+      "fact_id": "UI-F-0032",
+      "standard_id": "STD-UI-COM-002",
+      "target": "semiconductor-intelligence",
+      "source_sha": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "acceptance_doc_plus_overhaul_commits",
+        "references": [
+          "docs/UI_ACCEPTANCE_2026-08.md (browser-first acceptance record, v0.9.2)",
+          "commit 53cb3f1 (dashboard timezone convention)",
+          "commit 8a356a3 (human QC review for Radar candidates, fleet QC contract)"
+        ],
+        "note": "UI acceptance record at current SHA; overhaul commits verified in history. CAVEAT (NON-UI): the overall canonical suite is not fully green - test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database is a known unrelated failure and a claims test has shown local flakiness. This does not downgrade any UI verdict; the suite must not be called green.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03",
+      "caveats": [
+        "NON-UI CAVEAT: the overall canonical suite is not fully green (test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database known unrelated failure; a claims test has shown local flakiness). UI verdicts unaffected; the suite is not claimed green."
+      ]
+    },
+    {
+      "fact_id": "UI-F-0033",
+      "standard_id": "STD-UI-COM-003",
+      "target": "semiconductor-intelligence",
+      "source_sha": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "acceptance_doc_plus_overhaul_commits",
+        "references": [
+          "docs/UI_ACCEPTANCE_2026-08.md (browser-first acceptance record, v0.9.2)",
+          "commit 53cb3f1 (dashboard timezone convention)",
+          "commit 8a356a3 (human QC review for Radar candidates, fleet QC contract)"
+        ],
+        "note": "UI acceptance record at current SHA; overhaul commits verified in history. CAVEAT (NON-UI): the overall canonical suite is not fully green - test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database is a known unrelated failure and a claims test has shown local flakiness. This does not downgrade any UI verdict; the suite must not be called green.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03",
+      "caveats": [
+        "NON-UI CAVEAT: the overall canonical suite is not fully green (test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database known unrelated failure; a claims test has shown local flakiness). UI verdicts unaffected; the suite is not claimed green."
+      ]
+    },
+    {
+      "fact_id": "UI-F-0034",
+      "standard_id": "STD-UI-COM-004",
+      "target": "semiconductor-intelligence",
+      "source_sha": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "acceptance_doc_plus_overhaul_commits",
+        "references": [
+          "docs/UI_ACCEPTANCE_2026-08.md (browser-first acceptance record, v0.9.2)",
+          "commit 53cb3f1 (dashboard timezone convention)",
+          "commit 8a356a3 (human QC review for Radar candidates, fleet QC contract)"
+        ],
+        "note": "UI acceptance record at current SHA; overhaul commits verified in history. CAVEAT (NON-UI): the overall canonical suite is not fully green - test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database is a known unrelated failure and a claims test has shown local flakiness. This does not downgrade any UI verdict; the suite must not be called green.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03",
+      "caveats": [
+        "NON-UI CAVEAT: the overall canonical suite is not fully green (test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database known unrelated failure; a claims test has shown local flakiness). UI verdicts unaffected; the suite is not claimed green."
+      ]
+    },
+    {
+      "fact_id": "UI-F-0035",
+      "standard_id": "STD-UI-COM-005",
+      "target": "semiconductor-intelligence",
+      "source_sha": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "acceptance_doc_plus_overhaul_commits",
+        "references": [
+          "docs/UI_ACCEPTANCE_2026-08.md (browser-first acceptance record, v0.9.2)",
+          "commit 53cb3f1 (dashboard timezone convention)",
+          "commit 8a356a3 (human QC review for Radar candidates, fleet QC contract)"
+        ],
+        "note": "UI acceptance record at current SHA; overhaul commits verified in history. CAVEAT (NON-UI): the overall canonical suite is not fully green - test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database is a known unrelated failure and a claims test has shown local flakiness. This does not downgrade any UI verdict; the suite must not be called green.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03",
+      "caveats": [
+        "NON-UI CAVEAT: the overall canonical suite is not fully green (test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database known unrelated failure; a claims test has shown local flakiness). UI verdicts unaffected; the suite is not claimed green."
+      ]
+    },
+    {
+      "fact_id": "UI-F-0036",
+      "standard_id": "STD-UI-COM-006",
+      "target": "semiconductor-intelligence",
+      "source_sha": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "acceptance_doc_plus_overhaul_commits",
+        "references": [
+          "docs/UI_ACCEPTANCE_2026-08.md (browser-first acceptance record, v0.9.2)",
+          "commit 53cb3f1 (dashboard timezone convention)",
+          "commit 8a356a3 (human QC review for Radar candidates, fleet QC contract)"
+        ],
+        "note": "UI acceptance record at current SHA; overhaul commits verified in history. CAVEAT (NON-UI): the overall canonical suite is not fully green - test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database is a known unrelated failure and a claims test has shown local flakiness. This does not downgrade any UI verdict; the suite must not be called green.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03",
+      "caveats": [
+        "NON-UI CAVEAT: the overall canonical suite is not fully green (test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database known unrelated failure; a claims test has shown local flakiness). UI verdicts unaffected; the suite is not claimed green."
+      ]
+    },
+    {
+      "fact_id": "UI-F-0037",
+      "standard_id": "STD-UI-COM-007",
+      "target": "semiconductor-intelligence",
+      "source_sha": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "acceptance_doc_plus_overhaul_commits",
+        "references": [
+          "docs/UI_ACCEPTANCE_2026-08.md (browser-first acceptance record, v0.9.2)",
+          "commit 53cb3f1 (dashboard timezone convention)",
+          "commit 8a356a3 (human QC review for Radar candidates, fleet QC contract)"
+        ],
+        "note": "UI acceptance record at current SHA; overhaul commits verified in history. CAVEAT (NON-UI): the overall canonical suite is not fully green - test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database is a known unrelated failure and a claims test has shown local flakiness. This does not downgrade any UI verdict; the suite must not be called green.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03",
+      "caveats": [
+        "NON-UI CAVEAT: the overall canonical suite is not fully green (test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database known unrelated failure; a claims test has shown local flakiness). UI verdicts unaffected; the suite is not claimed green."
+      ]
+    },
+    {
+      "fact_id": "UI-F-0038",
+      "standard_id": "STD-UI-COM-008",
+      "target": "semiconductor-intelligence",
+      "source_sha": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "acceptance_doc_plus_overhaul_commits",
+        "references": [
+          "docs/UI_ACCEPTANCE_2026-08.md (browser-first acceptance record, v0.9.2)",
+          "commit 53cb3f1 (dashboard timezone convention)",
+          "commit 8a356a3 (human QC review for Radar candidates, fleet QC contract)"
+        ],
+        "note": "UI acceptance record at current SHA; overhaul commits verified in history. CAVEAT (NON-UI): the overall canonical suite is not fully green - test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database is a known unrelated failure and a claims test has shown local flakiness. This does not downgrade any UI verdict; the suite must not be called green.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03",
+      "caveats": [
+        "NON-UI CAVEAT: the overall canonical suite is not fully green (test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database known unrelated failure; a claims test has shown local flakiness). UI verdicts unaffected; the suite is not claimed green."
+      ]
+    },
+    {
+      "fact_id": "UI-F-0039",
+      "standard_id": "STD-UI-COM-009",
+      "target": "semiconductor-intelligence",
+      "source_sha": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "acceptance_doc_plus_overhaul_commits",
+        "references": [
+          "docs/UI_ACCEPTANCE_2026-08.md (browser-first acceptance record, v0.9.2)",
+          "commit 53cb3f1 (dashboard timezone convention)",
+          "commit 8a356a3 (human QC review for Radar candidates, fleet QC contract)"
+        ],
+        "note": "UI acceptance record at current SHA; overhaul commits verified in history. CAVEAT (NON-UI): the overall canonical suite is not fully green - test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database is a known unrelated failure and a claims test has shown local flakiness. This does not downgrade any UI verdict; the suite must not be called green.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03",
+      "caveats": [
+        "NON-UI CAVEAT: the overall canonical suite is not fully green (test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database known unrelated failure; a claims test has shown local flakiness). UI verdicts unaffected; the suite is not claimed green."
+      ]
+    },
+    {
+      "fact_id": "UI-F-0040",
+      "standard_id": "STD-UI-COM-010",
+      "target": "semiconductor-intelligence",
+      "source_sha": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "acceptance_doc_plus_overhaul_commits",
+        "references": [
+          "docs/UI_ACCEPTANCE_2026-08.md (browser-first acceptance record, v0.9.2)",
+          "commit 53cb3f1 (dashboard timezone convention)",
+          "commit 8a356a3 (human QC review for Radar candidates, fleet QC contract)"
+        ],
+        "note": "UI acceptance record at current SHA; overhaul commits verified in history. CAVEAT (NON-UI): the overall canonical suite is not fully green - test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database is a known unrelated failure and a claims test has shown local flakiness. This does not downgrade any UI verdict; the suite must not be called green.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03",
+      "caveats": [
+        "NON-UI CAVEAT: the overall canonical suite is not fully green (test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database known unrelated failure; a claims test has shown local flakiness). UI verdicts unaffected; the suite is not claimed green."
+      ]
+    },
+    {
+      "fact_id": "UI-F-0041",
+      "standard_id": "STD-UI-COM-011",
+      "target": "semiconductor-intelligence",
+      "source_sha": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "acceptance_doc_plus_overhaul_commits",
+        "references": [
+          "docs/UI_ACCEPTANCE_2026-08.md (browser-first acceptance record, v0.9.2)",
+          "commit 53cb3f1 (dashboard timezone convention)",
+          "commit 8a356a3 (human QC review for Radar candidates, fleet QC contract)"
+        ],
+        "note": "UI acceptance record at current SHA; overhaul commits verified in history. CAVEAT (NON-UI): the overall canonical suite is not fully green - test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database is a known unrelated failure and a claims test has shown local flakiness. This does not downgrade any UI verdict; the suite must not be called green.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03",
+      "caveats": [
+        "NON-UI CAVEAT: the overall canonical suite is not fully green (test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database known unrelated failure; a claims test has shown local flakiness). UI verdicts unaffected; the suite is not claimed green."
+      ]
+    },
+    {
+      "fact_id": "UI-F-0042",
+      "standard_id": "STD-UI-COM-012",
+      "target": "semiconductor-intelligence",
+      "source_sha": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "acceptance_doc_plus_overhaul_commits",
+        "references": [
+          "docs/UI_ACCEPTANCE_2026-08.md (browser-first acceptance record, v0.9.2)",
+          "commit 53cb3f1 (dashboard timezone convention)",
+          "commit 8a356a3 (human QC review for Radar candidates, fleet QC contract)"
+        ],
+        "note": "UI acceptance record at current SHA; overhaul commits verified in history. CAVEAT (NON-UI): the overall canonical suite is not fully green - test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database is a known unrelated failure and a claims test has shown local flakiness. This does not downgrade any UI verdict; the suite must not be called green.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03",
+      "caveats": [
+        "NON-UI CAVEAT: the overall canonical suite is not fully green (test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database known unrelated failure; a claims test has shown local flakiness). UI verdicts unaffected; the suite is not claimed green."
+      ]
+    },
+    {
+      "fact_id": "UI-F-0043",
+      "standard_id": "STD-UI-NEWS-001",
+      "target": "semiconductor-intelligence",
+      "source_sha": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "acceptance_doc_plus_overhaul_commits",
+        "references": [
+          "docs/UI_ACCEPTANCE_2026-08.md (browser-first acceptance record, v0.9.2)",
+          "commit 53cb3f1 (dashboard timezone convention)",
+          "commit 8a356a3 (human QC review for Radar candidates, fleet QC contract)"
+        ],
+        "note": "UI acceptance record at current SHA; overhaul commits verified in history. CAVEAT (NON-UI): the overall canonical suite is not fully green - test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database is a known unrelated failure and a claims test has shown local flakiness. This does not downgrade any UI verdict; the suite must not be called green.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03",
+      "caveats": [
+        "NON-UI CAVEAT: the overall canonical suite is not fully green (test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database known unrelated failure; a claims test has shown local flakiness). UI verdicts unaffected; the suite is not claimed green."
+      ]
+    },
+    {
+      "fact_id": "UI-F-0044",
+      "standard_id": "STD-UI-NEWS-002",
+      "target": "semiconductor-intelligence",
+      "source_sha": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "acceptance_doc_plus_overhaul_commits",
+        "references": [
+          "docs/UI_ACCEPTANCE_2026-08.md (browser-first acceptance record, v0.9.2)",
+          "commit 53cb3f1 (dashboard timezone convention)",
+          "commit 8a356a3 (human QC review for Radar candidates, fleet QC contract)"
+        ],
+        "note": "UI acceptance record at current SHA; overhaul commits verified in history. CAVEAT (NON-UI): the overall canonical suite is not fully green - test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database is a known unrelated failure and a claims test has shown local flakiness. This does not downgrade any UI verdict; the suite must not be called green.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03",
+      "caveats": [
+        "NON-UI CAVEAT: the overall canonical suite is not fully green (test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database known unrelated failure; a claims test has shown local flakiness). UI verdicts unaffected; the suite is not claimed green."
+      ]
+    },
+    {
+      "fact_id": "UI-F-0045",
+      "standard_id": "STD-UI-SKU-001",
+      "target": "semiconductor-intelligence",
+      "source_sha": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "docs/UI_ACCEPTANCE_2026-08.md (browser-first acceptance record, v0.9.2)",
+          "commit 53cb3f1 (dashboard timezone convention)",
+          "commit 8a356a3 (human QC review for Radar candidates, fleet QC contract)"
+        ],
+        "note": "news-based Clank: no SKU/product-availability review surface exists; an availability-negative disposition has no referent.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0091",
+      "standard_id": "STD-UI-COM-001",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_at_current_sha",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md",
+          "audits/smartphone-clank-2026-08-30-pass1.md",
+          "tests/test_ui_standards_remediation.py"
+        ],
+        "note": "The 2026-08-30 blind audit records per-standard verdicts REMEDIATED AND VERIFIED PASS at exactly 5684cf2 - which is still the current canonical SHA (no drift). Tests tests/test_ui_standards_remediation.py pin the remediations at this SHA.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0092",
+      "standard_id": "STD-UI-COM-002",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_at_current_sha",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md",
+          "audits/smartphone-clank-2026-08-30-pass1.md",
+          "tests/test_ui_standards_remediation.py"
+        ],
+        "note": "The 2026-08-30 blind audit records per-standard verdicts REMEDIATED AND VERIFIED PASS at exactly 5684cf2 - which is still the current canonical SHA (no drift). Tests tests/test_ui_standards_remediation.py pin the remediations at this SHA.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0093",
+      "standard_id": "STD-UI-COM-003",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md",
+          "audits/smartphone-clank-2026-08-30-pass1.md",
+          "tests/test_ui_standards_remediation.py"
+        ],
+        "note": "No active operator QC/review queue surface exists for a decided item to leave (dashboard exposes no QC queue); verified in audits/smartphone-clank-2026-08-30.md.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0094",
+      "standard_id": "STD-UI-COM-004",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md",
+          "audits/smartphone-clank-2026-08-30-pass1.md",
+          "tests/test_ui_standards_remediation.py"
+        ],
+        "note": "The standard's QC-queue trigger is unmet: smartphone-clank's GUI exposes no operator QC queue, so no recently-QC'd view is required.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0095",
+      "standard_id": "STD-UI-COM-005",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_at_current_sha",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md",
+          "audits/smartphone-clank-2026-08-30-pass1.md",
+          "tests/test_ui_standards_remediation.py"
+        ],
+        "note": "The 2026-08-30 blind audit records per-standard verdicts REMEDIATED AND VERIFIED PASS at exactly 5684cf2 - which is still the current canonical SHA (no drift). Tests tests/test_ui_standards_remediation.py pin the remediations at this SHA.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0096",
+      "standard_id": "STD-UI-COM-006",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md",
+          "audits/smartphone-clank-2026-08-30-pass1.md",
+          "tests/test_ui_standards_remediation.py"
+        ],
+        "note": "The GUI exposes no bulk run-all control at all - the only mutation route hard-returns 403 (audits/smartphone-clank-2026-08-30.md).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0097",
+      "standard_id": "STD-UI-COM-007",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_at_current_sha",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md",
+          "audits/smartphone-clank-2026-08-30-pass1.md",
+          "tests/test_ui_standards_remediation.py"
+        ],
+        "note": "The 2026-08-30 blind audit records per-standard verdicts REMEDIATED AND VERIFIED PASS at exactly 5684cf2 - which is still the current canonical SHA (no drift). Tests tests/test_ui_standards_remediation.py pin the remediations at this SHA.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0098",
+      "standard_id": "STD-UI-COM-008",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_at_current_sha",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md",
+          "audits/smartphone-clank-2026-08-30-pass1.md",
+          "tests/test_ui_standards_remediation.py"
+        ],
+        "note": "The 2026-08-30 blind audit records per-standard verdicts REMEDIATED AND VERIFIED PASS at exactly 5684cf2 - which is still the current canonical SHA (no drift). Tests tests/test_ui_standards_remediation.py pin the remediations at this SHA.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0099",
+      "standard_id": "STD-UI-COM-009",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_at_current_sha",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md",
+          "audits/smartphone-clank-2026-08-30-pass1.md",
+          "tests/test_ui_standards_remediation.py"
+        ],
+        "note": "The 2026-08-30 blind audit records per-standard verdicts REMEDIATED AND VERIFIED PASS at exactly 5684cf2 - which is still the current canonical SHA (no drift). Tests tests/test_ui_standards_remediation.py pin the remediations at this SHA.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0100",
+      "standard_id": "STD-UI-COM-010",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_at_current_sha",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md",
+          "audits/smartphone-clank-2026-08-30-pass1.md",
+          "tests/test_ui_standards_remediation.py"
+        ],
+        "note": "The 2026-08-30 blind audit records per-standard verdicts REMEDIATED AND VERIFIED PASS at exactly 5684cf2 - which is still the current canonical SHA (no drift). Tests tests/test_ui_standards_remediation.py pin the remediations at this SHA.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0101",
+      "standard_id": "STD-UI-COM-011",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_at_current_sha",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md",
+          "audits/smartphone-clank-2026-08-30-pass1.md",
+          "tests/test_ui_standards_remediation.py"
+        ],
+        "note": "The 2026-08-30 blind audit records per-standard verdicts REMEDIATED AND VERIFIED PASS at exactly 5684cf2 - which is still the current canonical SHA (no drift). Tests tests/test_ui_standards_remediation.py pin the remediations at this SHA.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0102",
+      "standard_id": "STD-UI-COM-012",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_at_current_sha",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md",
+          "audits/smartphone-clank-2026-08-30-pass1.md",
+          "tests/test_ui_standards_remediation.py"
+        ],
+        "note": "The 2026-08-30 blind audit records per-standard verdicts REMEDIATED AND VERIFIED PASS at exactly 5684cf2 - which is still the current canonical SHA (no drift). Tests tests/test_ui_standards_remediation.py pin the remediations at this SHA.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0103",
+      "standard_id": "STD-UI-NEWS-001",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md",
+          "audits/smartphone-clank-2026-08-30-pass1.md",
+          "tests/test_ui_standards_remediation.py"
+        ],
+        "note": "sku-based Clank: no news/editorial intake pipeline exists; the fourth news-vocabulary terminal action has no referent.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0104",
+      "standard_id": "STD-UI-NEWS-002",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md",
+          "audits/smartphone-clank-2026-08-30-pass1.md",
+          "tests/test_ui_standards_remediation.py"
+        ],
+        "note": "sku-based Clank: no live editorial intake/review surface exists to be reachable.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0105",
+      "standard_id": "STD-UI-SKU-001",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_at_current_sha",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md",
+          "audits/smartphone-clank-2026-08-30-pass1.md",
+          "tests/test_ui_standards_remediation.py"
+        ],
+        "note": "The 2026-08-30 blind audit records per-standard verdicts REMEDIATED AND VERIFIED PASS at exactly 5684cf2 - which is still the current canonical SHA (no drift). Tests tests/test_ui_standards_remediation.py pin the remediations at this SHA.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0106",
+      "standard_id": "STD-UI-COM-001",
+      "target": "smartwatch-clank",
+      "source_sha": "a4e08e9051440c662f3792fce07167724d5ca3fc",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m18",
+        "references": [
+          "commit a933554 (M18 persistent-state barrier; audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md)",
+          "commit bb56f8c (garmin relay self-healing docs)"
+        ],
+        "note": "This-pass anchors at a4e08e9: qc_archive.py UNIQUE(discovery_id) + AlreadyDecided race guard (atomic QC decide); dashboard.py:46 active-queue filtering excluding decided ids; run-all finalized collectors bounded by production_allowlist; CollectorTier EXPERIMENTAL/production maturity; runtime_bridge structural notification absence (COM-011 N/A); operations.py UTC cutoffs. Runs table distinguishes ok/blocked_zero_result/failed with per-run reasons (COM-009 granularity retained).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0107",
+      "standard_id": "STD-UI-COM-002",
+      "target": "smartwatch-clank",
+      "source_sha": "a4e08e9051440c662f3792fce07167724d5ca3fc",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m18",
+        "references": [
+          "commit a933554 (M18 persistent-state barrier; audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md)",
+          "commit bb56f8c (garmin relay self-healing docs)"
+        ],
+        "note": "This-pass anchors at a4e08e9: qc_archive.py UNIQUE(discovery_id) + AlreadyDecided race guard (atomic QC decide); dashboard.py:46 active-queue filtering excluding decided ids; run-all finalized collectors bounded by production_allowlist; CollectorTier EXPERIMENTAL/production maturity; runtime_bridge structural notification absence (COM-011 N/A); operations.py UTC cutoffs. Runs table distinguishes ok/blocked_zero_result/failed with per-run reasons (COM-009 granularity retained).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0108",
+      "standard_id": "STD-UI-COM-003",
+      "target": "smartwatch-clank",
+      "source_sha": "a4e08e9051440c662f3792fce07167724d5ca3fc",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m18",
+        "references": [
+          "commit a933554 (M18 persistent-state barrier; audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md)",
+          "commit bb56f8c (garmin relay self-healing docs)"
+        ],
+        "note": "This-pass anchors at a4e08e9: qc_archive.py UNIQUE(discovery_id) + AlreadyDecided race guard (atomic QC decide); dashboard.py:46 active-queue filtering excluding decided ids; run-all finalized collectors bounded by production_allowlist; CollectorTier EXPERIMENTAL/production maturity; runtime_bridge structural notification absence (COM-011 N/A); operations.py UTC cutoffs. Runs table distinguishes ok/blocked_zero_result/failed with per-run reasons (COM-009 granularity retained).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0109",
+      "standard_id": "STD-UI-COM-004",
+      "target": "smartwatch-clank",
+      "source_sha": "a4e08e9051440c662f3792fce07167724d5ca3fc",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m18",
+        "references": [
+          "commit a933554 (M18 persistent-state barrier; audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md)",
+          "commit bb56f8c (garmin relay self-healing docs)"
+        ],
+        "note": "This-pass anchors at a4e08e9: qc_archive.py UNIQUE(discovery_id) + AlreadyDecided race guard (atomic QC decide); dashboard.py:46 active-queue filtering excluding decided ids; run-all finalized collectors bounded by production_allowlist; CollectorTier EXPERIMENTAL/production maturity; runtime_bridge structural notification absence (COM-011 N/A); operations.py UTC cutoffs. Runs table distinguishes ok/blocked_zero_result/failed with per-run reasons (COM-009 granularity retained).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0110",
+      "standard_id": "STD-UI-COM-005",
+      "target": "smartwatch-clank",
+      "source_sha": "a4e08e9051440c662f3792fce07167724d5ca3fc",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m18",
+        "references": [
+          "commit a933554 (M18 persistent-state barrier; audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md)",
+          "commit bb56f8c (garmin relay self-healing docs)"
+        ],
+        "note": "This-pass anchors at a4e08e9: qc_archive.py UNIQUE(discovery_id) + AlreadyDecided race guard (atomic QC decide); dashboard.py:46 active-queue filtering excluding decided ids; run-all finalized collectors bounded by production_allowlist; CollectorTier EXPERIMENTAL/production maturity; runtime_bridge structural notification absence (COM-011 N/A); operations.py UTC cutoffs. Runs table distinguishes ok/blocked_zero_result/failed with per-run reasons (COM-009 granularity retained).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0111",
+      "standard_id": "STD-UI-COM-006",
+      "target": "smartwatch-clank",
+      "source_sha": "a4e08e9051440c662f3792fce07167724d5ca3fc",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m18",
+        "references": [
+          "commit a933554 (M18 persistent-state barrier; audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md)",
+          "commit bb56f8c (garmin relay self-healing docs)"
+        ],
+        "note": "This-pass anchors at a4e08e9: qc_archive.py UNIQUE(discovery_id) + AlreadyDecided race guard (atomic QC decide); dashboard.py:46 active-queue filtering excluding decided ids; run-all finalized collectors bounded by production_allowlist; CollectorTier EXPERIMENTAL/production maturity; runtime_bridge structural notification absence (COM-011 N/A); operations.py UTC cutoffs. Runs table distinguishes ok/blocked_zero_result/failed with per-run reasons (COM-009 granularity retained).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0112",
+      "standard_id": "STD-UI-COM-007",
+      "target": "smartwatch-clank",
+      "source_sha": "a4e08e9051440c662f3792fce07167724d5ca3fc",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m18",
+        "references": [
+          "commit a933554 (M18 persistent-state barrier; audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md)",
+          "commit bb56f8c (garmin relay self-healing docs)"
+        ],
+        "note": "This-pass anchors at a4e08e9: qc_archive.py UNIQUE(discovery_id) + AlreadyDecided race guard (atomic QC decide); dashboard.py:46 active-queue filtering excluding decided ids; run-all finalized collectors bounded by production_allowlist; CollectorTier EXPERIMENTAL/production maturity; runtime_bridge structural notification absence (COM-011 N/A); operations.py UTC cutoffs. Runs table distinguishes ok/blocked_zero_result/failed with per-run reasons (COM-009 granularity retained).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0113",
+      "standard_id": "STD-UI-COM-008",
+      "target": "smartwatch-clank",
+      "source_sha": "a4e08e9051440c662f3792fce07167724d5ca3fc",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m18",
+        "references": [
+          "commit a933554 (M18 persistent-state barrier; audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md)",
+          "commit bb56f8c (garmin relay self-healing docs)"
+        ],
+        "note": "This-pass anchors at a4e08e9: qc_archive.py UNIQUE(discovery_id) + AlreadyDecided race guard (atomic QC decide); dashboard.py:46 active-queue filtering excluding decided ids; run-all finalized collectors bounded by production_allowlist; CollectorTier EXPERIMENTAL/production maturity; runtime_bridge structural notification absence (COM-011 N/A); operations.py UTC cutoffs. Runs table distinguishes ok/blocked_zero_result/failed with per-run reasons (COM-009 granularity retained).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0114",
+      "standard_id": "STD-UI-COM-009",
+      "target": "smartwatch-clank",
+      "source_sha": "a4e08e9051440c662f3792fce07167724d5ca3fc",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m18",
+        "references": [
+          "commit a933554 (M18 persistent-state barrier; audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md)",
+          "commit bb56f8c (garmin relay self-healing docs)"
+        ],
+        "note": "This-pass anchors at a4e08e9: qc_archive.py UNIQUE(discovery_id) + AlreadyDecided race guard (atomic QC decide); dashboard.py:46 active-queue filtering excluding decided ids; run-all finalized collectors bounded by production_allowlist; CollectorTier EXPERIMENTAL/production maturity; runtime_bridge structural notification absence (COM-011 N/A); operations.py UTC cutoffs. Runs table distinguishes ok/blocked_zero_result/failed with per-run reasons (COM-009 granularity retained).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0115",
+      "standard_id": "STD-UI-COM-010",
+      "target": "smartwatch-clank",
+      "source_sha": "a4e08e9051440c662f3792fce07167724d5ca3fc",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m18",
+        "references": [
+          "commit a933554 (M18 persistent-state barrier; audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md)",
+          "commit bb56f8c (garmin relay self-healing docs)"
+        ],
+        "note": "This-pass anchors at a4e08e9: qc_archive.py UNIQUE(discovery_id) + AlreadyDecided race guard (atomic QC decide); dashboard.py:46 active-queue filtering excluding decided ids; run-all finalized collectors bounded by production_allowlist; CollectorTier EXPERIMENTAL/production maturity; runtime_bridge structural notification absence (COM-011 N/A); operations.py UTC cutoffs. Runs table distinguishes ok/blocked_zero_result/failed with per-run reasons (COM-009 granularity retained).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0116",
+      "standard_id": "STD-UI-COM-011",
+      "target": "smartwatch-clank",
+      "source_sha": "a4e08e9051440c662f3792fce07167724d5ca3fc",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "commit a933554 (M18 persistent-state barrier; audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md)",
+          "commit bb56f8c (garmin relay self-healing docs)"
+        ],
+        "note": "Structurally disabled/unimplemented by policy: DiscordNotifier.notify raises NotImplementedError, RuntimeIdentity records notifications_enabled=False with notification_authority_state 'unsupported_by_policy' and soak_notification_policy 'suppressed_by_structure' (SMARTWATCH_CLANK_DEFINITION_OF_DONE.md documents the deliberate absence). No delivery exists to inspect.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0117",
+      "standard_id": "STD-UI-COM-012",
+      "target": "smartwatch-clank",
+      "source_sha": "a4e08e9051440c662f3792fce07167724d5ca3fc",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m18",
+        "references": [
+          "commit a933554 (M18 persistent-state barrier; audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md)",
+          "commit bb56f8c (garmin relay self-healing docs)"
+        ],
+        "note": "This-pass anchors at a4e08e9: qc_archive.py UNIQUE(discovery_id) + AlreadyDecided race guard (atomic QC decide); dashboard.py:46 active-queue filtering excluding decided ids; run-all finalized collectors bounded by production_allowlist; CollectorTier EXPERIMENTAL/production maturity; runtime_bridge structural notification absence (COM-011 N/A); operations.py UTC cutoffs. Runs table distinguishes ok/blocked_zero_result/failed with per-run reasons (COM-009 granularity retained).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0118",
+      "standard_id": "STD-UI-NEWS-001",
+      "target": "smartwatch-clank",
+      "source_sha": "a4e08e9051440c662f3792fce07167724d5ca3fc",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "commit a933554 (M18 persistent-state barrier; audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md)",
+          "commit bb56f8c (garmin relay self-healing docs)"
+        ],
+        "note": "sku-based Clank: no news/editorial intake pipeline exists; the fourth news-vocabulary terminal action has no referent.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0119",
+      "standard_id": "STD-UI-NEWS-002",
+      "target": "smartwatch-clank",
+      "source_sha": "a4e08e9051440c662f3792fce07167724d5ca3fc",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "commit a933554 (M18 persistent-state barrier; audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md)",
+          "commit bb56f8c (garmin relay self-healing docs)"
+        ],
+        "note": "sku-based Clank: no live editorial intake/review surface exists to be reachable.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0120",
+      "standard_id": "STD-UI-SKU-001",
+      "target": "smartwatch-clank",
+      "source_sha": "a4e08e9051440c662f3792fce07167724d5ca3fc",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m18",
+        "references": [
+          "commit a933554 (M18 persistent-state barrier; audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md)",
+          "commit bb56f8c (garmin relay self-healing docs)"
+        ],
+        "note": "This-pass anchors at a4e08e9: qc_archive.py UNIQUE(discovery_id) + AlreadyDecided race guard (atomic QC decide); dashboard.py:46 active-queue filtering excluding decided ids; run-all finalized collectors bounded by production_allowlist; CollectorTier EXPERIMENTAL/production maturity; runtime_bridge structural notification absence (COM-011 N/A); operations.py UTC cutoffs. Runs table distinguishes ok/blocked_zero_result/failed with per-run reasons (COM-009 granularity retained).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0121",
+      "standard_id": "STD-UI-COM-001",
+      "target": "tablet-clank",
+      "source_sha": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m13",
+        "references": [
+          "commit b3088eb (M13 persistent-state barrier; audits/tablet-persistent-state-remediation-m13-2026-09-02.md)",
+          "commit a41d1e7 (QC contract, active queue, Run All, Windows local launcher)"
+        ],
+        "note": "This-pass anchors at b3088eb: tablet_clank/storage/qc_archive.py qc_decisions UNIQUE(event_id) + AlreadyDecided; native/macos/dash_data.py active_queue() filtering decided ids; native/macos/webapp.py QC/run-all endpoints; tablet_clank/models.py UTC normalisation. Suite green at b3088eb (M13 record: 124 passed, exit 0).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0122",
+      "standard_id": "STD-UI-COM-002",
+      "target": "tablet-clank",
+      "source_sha": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m13",
+        "references": [
+          "commit b3088eb (M13 persistent-state barrier; audits/tablet-persistent-state-remediation-m13-2026-09-02.md)",
+          "commit a41d1e7 (QC contract, active queue, Run All, Windows local launcher)"
+        ],
+        "note": "This-pass anchors at b3088eb: tablet_clank/storage/qc_archive.py qc_decisions UNIQUE(event_id) + AlreadyDecided; native/macos/dash_data.py active_queue() filtering decided ids; native/macos/webapp.py QC/run-all endpoints; tablet_clank/models.py UTC normalisation. Suite green at b3088eb (M13 record: 124 passed, exit 0).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0123",
+      "standard_id": "STD-UI-COM-003",
+      "target": "tablet-clank",
+      "source_sha": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m13",
+        "references": [
+          "commit b3088eb (M13 persistent-state barrier; audits/tablet-persistent-state-remediation-m13-2026-09-02.md)",
+          "commit a41d1e7 (QC contract, active queue, Run All, Windows local launcher)"
+        ],
+        "note": "This-pass anchors at b3088eb: tablet_clank/storage/qc_archive.py qc_decisions UNIQUE(event_id) + AlreadyDecided; native/macos/dash_data.py active_queue() filtering decided ids; native/macos/webapp.py QC/run-all endpoints; tablet_clank/models.py UTC normalisation. Suite green at b3088eb (M13 record: 124 passed, exit 0).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0124",
+      "standard_id": "STD-UI-COM-004",
+      "target": "tablet-clank",
+      "source_sha": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m13",
+        "references": [
+          "commit b3088eb (M13 persistent-state barrier; audits/tablet-persistent-state-remediation-m13-2026-09-02.md)",
+          "commit a41d1e7 (QC contract, active queue, Run All, Windows local launcher)"
+        ],
+        "note": "This-pass anchors at b3088eb: tablet_clank/storage/qc_archive.py qc_decisions UNIQUE(event_id) + AlreadyDecided; native/macos/dash_data.py active_queue() filtering decided ids; native/macos/webapp.py QC/run-all endpoints; tablet_clank/models.py UTC normalisation. Suite green at b3088eb (M13 record: 124 passed, exit 0).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0125",
+      "standard_id": "STD-UI-COM-005",
+      "target": "tablet-clank",
+      "source_sha": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m13",
+        "references": [
+          "commit b3088eb (M13 persistent-state barrier; audits/tablet-persistent-state-remediation-m13-2026-09-02.md)",
+          "commit a41d1e7 (QC contract, active queue, Run All, Windows local launcher)"
+        ],
+        "note": "This-pass anchors at b3088eb: tablet_clank/storage/qc_archive.py qc_decisions UNIQUE(event_id) + AlreadyDecided; native/macos/dash_data.py active_queue() filtering decided ids; native/macos/webapp.py QC/run-all endpoints; tablet_clank/models.py UTC normalisation. Suite green at b3088eb (M13 record: 124 passed, exit 0).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0126",
+      "standard_id": "STD-UI-COM-006",
+      "target": "tablet-clank",
+      "source_sha": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m13",
+        "references": [
+          "commit b3088eb (M13 persistent-state barrier; audits/tablet-persistent-state-remediation-m13-2026-09-02.md)",
+          "commit a41d1e7 (QC contract, active queue, Run All, Windows local launcher)"
+        ],
+        "note": "This-pass anchors at b3088eb: tablet_clank/storage/qc_archive.py qc_decisions UNIQUE(event_id) + AlreadyDecided; native/macos/dash_data.py active_queue() filtering decided ids; native/macos/webapp.py QC/run-all endpoints; tablet_clank/models.py UTC normalisation. Suite green at b3088eb (M13 record: 124 passed, exit 0).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0127",
+      "standard_id": "STD-UI-COM-007",
+      "target": "tablet-clank",
+      "source_sha": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m13",
+        "references": [
+          "commit b3088eb (M13 persistent-state barrier; audits/tablet-persistent-state-remediation-m13-2026-09-02.md)",
+          "commit a41d1e7 (QC contract, active queue, Run All, Windows local launcher)"
+        ],
+        "note": "This-pass anchors at b3088eb: tablet_clank/storage/qc_archive.py qc_decisions UNIQUE(event_id) + AlreadyDecided; native/macos/dash_data.py active_queue() filtering decided ids; native/macos/webapp.py QC/run-all endpoints; tablet_clank/models.py UTC normalisation. Suite green at b3088eb (M13 record: 124 passed, exit 0).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0128",
+      "standard_id": "STD-UI-COM-008",
+      "target": "tablet-clank",
+      "source_sha": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m13",
+        "references": [
+          "commit b3088eb (M13 persistent-state barrier; audits/tablet-persistent-state-remediation-m13-2026-09-02.md)",
+          "commit a41d1e7 (QC contract, active queue, Run All, Windows local launcher)"
+        ],
+        "note": "This-pass anchors at b3088eb: tablet_clank/storage/qc_archive.py qc_decisions UNIQUE(event_id) + AlreadyDecided; native/macos/dash_data.py active_queue() filtering decided ids; native/macos/webapp.py QC/run-all endpoints; tablet_clank/models.py UTC normalisation. Suite green at b3088eb (M13 record: 124 passed, exit 0).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0129",
+      "standard_id": "STD-UI-COM-009",
+      "target": "tablet-clank",
+      "source_sha": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m13",
+        "references": [
+          "commit b3088eb (M13 persistent-state barrier; audits/tablet-persistent-state-remediation-m13-2026-09-02.md)",
+          "commit a41d1e7 (QC contract, active queue, Run All, Windows local launcher)"
+        ],
+        "note": "This-pass anchors at b3088eb: tablet_clank/storage/qc_archive.py qc_decisions UNIQUE(event_id) + AlreadyDecided; native/macos/dash_data.py active_queue() filtering decided ids; native/macos/webapp.py QC/run-all endpoints; tablet_clank/models.py UTC normalisation. Suite green at b3088eb (M13 record: 124 passed, exit 0).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0130",
+      "standard_id": "STD-UI-COM-010",
+      "target": "tablet-clank",
+      "source_sha": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m13",
+        "references": [
+          "commit b3088eb (M13 persistent-state barrier; audits/tablet-persistent-state-remediation-m13-2026-09-02.md)",
+          "commit a41d1e7 (QC contract, active queue, Run All, Windows local launcher)"
+        ],
+        "note": "This-pass anchors at b3088eb: tablet_clank/storage/qc_archive.py qc_decisions UNIQUE(event_id) + AlreadyDecided; native/macos/dash_data.py active_queue() filtering decided ids; native/macos/webapp.py QC/run-all endpoints; tablet_clank/models.py UTC normalisation. Suite green at b3088eb (M13 record: 124 passed, exit 0).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0131",
+      "standard_id": "STD-UI-COM-011",
+      "target": "tablet-clank",
+      "source_sha": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m13",
+        "references": [
+          "commit b3088eb (M13 persistent-state barrier; audits/tablet-persistent-state-remediation-m13-2026-09-02.md)",
+          "commit a41d1e7 (QC contract, active queue, Run All, Windows local launcher)"
+        ],
+        "note": "This-pass anchors at b3088eb: tablet_clank/storage/qc_archive.py qc_decisions UNIQUE(event_id) + AlreadyDecided; native/macos/dash_data.py active_queue() filtering decided ids; native/macos/webapp.py QC/run-all endpoints; tablet_clank/models.py UTC normalisation. Suite green at b3088eb (M13 record: 124 passed, exit 0).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0132",
+      "standard_id": "STD-UI-COM-012",
+      "target": "tablet-clank",
+      "source_sha": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m13",
+        "references": [
+          "commit b3088eb (M13 persistent-state barrier; audits/tablet-persistent-state-remediation-m13-2026-09-02.md)",
+          "commit a41d1e7 (QC contract, active queue, Run All, Windows local launcher)"
+        ],
+        "note": "This-pass anchors at b3088eb: tablet_clank/storage/qc_archive.py qc_decisions UNIQUE(event_id) + AlreadyDecided; native/macos/dash_data.py active_queue() filtering decided ids; native/macos/webapp.py QC/run-all endpoints; tablet_clank/models.py UTC normalisation. Suite green at b3088eb (M13 record: 124 passed, exit 0).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0133",
+      "standard_id": "STD-UI-NEWS-001",
+      "target": "tablet-clank",
+      "source_sha": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "commit b3088eb (M13 persistent-state barrier; audits/tablet-persistent-state-remediation-m13-2026-09-02.md)",
+          "commit a41d1e7 (QC contract, active queue, Run All, Windows local launcher)"
+        ],
+        "note": "sku-based Clank: no news/editorial intake pipeline exists; the fourth news-vocabulary terminal action has no referent.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0134",
+      "standard_id": "STD-UI-NEWS-002",
+      "target": "tablet-clank",
+      "source_sha": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "applicability": "NOT_APPLICABLE",
+      "verdict": "NOT_APPLICABLE",
+      "provenance": {
+        "kind": "not_applicable_rationale",
+        "references": [
+          "commit b3088eb (M13 persistent-state barrier; audits/tablet-persistent-state-remediation-m13-2026-09-02.md)",
+          "commit a41d1e7 (QC contract, active queue, Run All, Windows local launcher)"
+        ],
+        "note": "sku-based Clank: no live editorial intake/review surface exists to be reachable.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0135",
+      "standard_id": "STD-UI-SKU-001",
+      "target": "tablet-clank",
+      "source_sha": "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification_plus_m13",
+        "references": [
+          "commit b3088eb (M13 persistent-state barrier; audits/tablet-persistent-state-remediation-m13-2026-09-02.md)",
+          "commit a41d1e7 (QC contract, active queue, Run All, Windows local launcher)"
+        ],
+        "note": "This-pass anchors at b3088eb: tablet_clank/storage/qc_archive.py qc_decisions UNIQUE(event_id) + AlreadyDecided; native/macos/dash_data.py active_queue() filtering decided ids; native/macos/webapp.py QC/run-all endpoints; tablet_clank/models.py UTC normalisation. Suite green at b3088eb (M13 record: 124 passed, exit 0).",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0001",
+      "standard_id": "STD-UI-COM-001",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_plus_remediation_commits",
+        "references": [
+          "audits/watch-clank-2026-08-30.md",
+          "audits/watch-clank-cross-domain-2026-09-01-final.md"
+        ],
+        "note": "Per-standard verdicts recorded in the 2026-08-30 blind audit (remediations 13f842a/fbf228f verified PASS 2026-08-31). Drift d03bc4b..386568c inspected: subsequent commits are further UI work (delivery receipts track F, discovery index retention track E, collector maturity display STD-UI-COM-007 in app/templates/operations.html) plus non-UI tracks; none regresses a recorded verdict. Current-source anchors verified this pass at 386568c.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0002",
+      "standard_id": "STD-UI-COM-002",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_plus_remediation_commits",
+        "references": [
+          "audits/watch-clank-2026-08-30.md",
+          "audits/watch-clank-cross-domain-2026-09-01-final.md"
+        ],
+        "note": "Per-standard verdicts recorded in the 2026-08-30 blind audit (remediations 13f842a/fbf228f verified PASS 2026-08-31). Drift d03bc4b..386568c inspected: subsequent commits are further UI work (delivery receipts track F, discovery index retention track E, collector maturity display STD-UI-COM-007 in app/templates/operations.html) plus non-UI tracks; none regresses a recorded verdict. Current-source anchors verified this pass at 386568c.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0003",
+      "standard_id": "STD-UI-COM-003",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_plus_remediation_commits",
+        "references": [
+          "audits/watch-clank-2026-08-30.md",
+          "audits/watch-clank-cross-domain-2026-09-01-final.md"
+        ],
+        "note": "Per-standard verdicts recorded in the 2026-08-30 blind audit (remediations 13f842a/fbf228f verified PASS 2026-08-31). Drift d03bc4b..386568c inspected: subsequent commits are further UI work (delivery receipts track F, discovery index retention track E, collector maturity display STD-UI-COM-007 in app/templates/operations.html) plus non-UI tracks; none regresses a recorded verdict. Current-source anchors verified this pass at 386568c.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0004",
+      "standard_id": "STD-UI-COM-004",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_plus_remediation_commits",
+        "references": [
+          "audits/watch-clank-2026-08-30.md",
+          "audits/watch-clank-cross-domain-2026-09-01-final.md"
+        ],
+        "note": "Per-standard verdicts recorded in the 2026-08-30 blind audit (remediations 13f842a/fbf228f verified PASS 2026-08-31). Drift d03bc4b..386568c inspected: subsequent commits are further UI work (delivery receipts track F, discovery index retention track E, collector maturity display STD-UI-COM-007 in app/templates/operations.html) plus non-UI tracks; none regresses a recorded verdict. Current-source anchors verified this pass at 386568c.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0005",
+      "standard_id": "STD-UI-COM-005",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_plus_remediation_commits",
+        "references": [
+          "audits/watch-clank-2026-08-30.md",
+          "audits/watch-clank-cross-domain-2026-09-01-final.md"
+        ],
+        "note": "Per-standard verdicts recorded in the 2026-08-30 blind audit (remediations 13f842a/fbf228f verified PASS 2026-08-31). Drift d03bc4b..386568c inspected: subsequent commits are further UI work (delivery receipts track F, discovery index retention track E, collector maturity display STD-UI-COM-007 in app/templates/operations.html) plus non-UI tracks; none regresses a recorded verdict. Current-source anchors verified this pass at 386568c.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0006",
+      "standard_id": "STD-UI-COM-006",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_plus_remediation_commits",
+        "references": [
+          "audits/watch-clank-2026-08-30.md",
+          "audits/watch-clank-cross-domain-2026-09-01-final.md"
+        ],
+        "note": "Per-standard verdicts recorded in the 2026-08-30 blind audit (remediations 13f842a/fbf228f verified PASS 2026-08-31). Drift d03bc4b..386568c inspected: subsequent commits are further UI work (delivery receipts track F, discovery index retention track E, collector maturity display STD-UI-COM-007 in app/templates/operations.html) plus non-UI tracks; none regresses a recorded verdict. Current-source anchors verified this pass at 386568c.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0007",
+      "standard_id": "STD-UI-COM-007",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_plus_remediation_commits",
+        "references": [
+          "audits/watch-clank-2026-08-30.md",
+          "audits/watch-clank-cross-domain-2026-09-01-final.md"
+        ],
+        "note": "Per-standard verdicts recorded in the 2026-08-30 blind audit (remediations 13f842a/fbf228f verified PASS 2026-08-31). Drift d03bc4b..386568c inspected: subsequent commits are further UI work (delivery receipts track F, discovery index retention track E, collector maturity display STD-UI-COM-007 in app/templates/operations.html) plus non-UI tracks; none regresses a recorded verdict. Current-source anchors verified this pass at 386568c.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0008",
+      "standard_id": "STD-UI-COM-008",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_plus_remediation_commits",
+        "references": [
+          "audits/watch-clank-2026-08-30.md",
+          "audits/watch-clank-cross-domain-2026-09-01-final.md"
+        ],
+        "note": "Per-standard verdicts recorded in the 2026-08-30 blind audit (remediations 13f842a/fbf228f verified PASS 2026-08-31). Drift d03bc4b..386568c inspected: subsequent commits are further UI work (delivery receipts track F, discovery index retention track E, collector maturity display STD-UI-COM-007 in app/templates/operations.html) plus non-UI tracks; none regresses a recorded verdict. Current-source anchors verified this pass at 386568c.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0009",
+      "standard_id": "STD-UI-COM-009",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_plus_remediation_commits",
+        "references": [
+          "audits/watch-clank-2026-08-30.md",
+          "audits/watch-clank-cross-domain-2026-09-01-final.md"
+        ],
+        "note": "Per-standard verdicts recorded in the 2026-08-30 blind audit (remediations 13f842a/fbf228f verified PASS 2026-08-31). Drift d03bc4b..386568c inspected: subsequent commits are further UI work (delivery receipts track F, discovery index retention track E, collector maturity display STD-UI-COM-007 in app/templates/operations.html) plus non-UI tracks; none regresses a recorded verdict. Current-source anchors verified this pass at 386568c.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0010",
+      "standard_id": "STD-UI-COM-010",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_plus_remediation_commits",
+        "references": [
+          "audits/watch-clank-2026-08-30.md",
+          "audits/watch-clank-cross-domain-2026-09-01-final.md"
+        ],
+        "note": "Per-standard verdicts recorded in the 2026-08-30 blind audit (remediations 13f842a/fbf228f verified PASS 2026-08-31). Drift d03bc4b..386568c inspected: subsequent commits are further UI work (delivery receipts track F, discovery index retention track E, collector maturity display STD-UI-COM-007 in app/templates/operations.html) plus non-UI tracks; none regresses a recorded verdict. Current-source anchors verified this pass at 386568c.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0011",
+      "standard_id": "STD-UI-COM-011",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_plus_remediation_commits",
+        "references": [
+          "audits/watch-clank-2026-08-30.md",
+          "audits/watch-clank-cross-domain-2026-09-01-final.md"
+        ],
+        "note": "Per-standard verdicts recorded in the 2026-08-30 blind audit (remediations 13f842a/fbf228f verified PASS 2026-08-31). Drift d03bc4b..386568c inspected: subsequent commits are further UI work (delivery receipts track F, discovery index retention track E, collector maturity display STD-UI-COM-007 in app/templates/operations.html) plus non-UI tracks; none regresses a recorded verdict. Current-source anchors verified this pass at 386568c.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0012",
+      "standard_id": "STD-UI-COM-012",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_plus_remediation_commits",
+        "references": [
+          "audits/watch-clank-2026-08-30.md",
+          "audits/watch-clank-cross-domain-2026-09-01-final.md"
+        ],
+        "note": "Per-standard verdicts recorded in the 2026-08-30 blind audit (remediations 13f842a/fbf228f verified PASS 2026-08-31). Drift d03bc4b..386568c inspected: subsequent commits are further UI work (delivery receipts track F, discovery index retention track E, collector maturity display STD-UI-COM-007 in app/templates/operations.html) plus non-UI tracks; none regresses a recorded verdict. Current-source anchors verified this pass at 386568c.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0013",
+      "standard_id": "STD-UI-NEWS-001",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_plus_remediation_commits",
+        "references": [
+          "audits/watch-clank-2026-08-30.md",
+          "audits/watch-clank-cross-domain-2026-09-01-final.md"
+        ],
+        "note": "Per-standard verdicts recorded in the 2026-08-30 blind audit (remediations 13f842a/fbf228f verified PASS 2026-08-31). Drift d03bc4b..386568c inspected: subsequent commits are further UI work (delivery receipts track F, discovery index retention track E, collector maturity display STD-UI-COM-007 in app/templates/operations.html) plus non-UI tracks; none regresses a recorded verdict. Current-source anchors verified this pass at 386568c.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0014",
+      "standard_id": "STD-UI-NEWS-002",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_plus_remediation_commits",
+        "references": [
+          "audits/watch-clank-2026-08-30.md",
+          "audits/watch-clank-cross-domain-2026-09-01-final.md"
+        ],
+        "note": "Per-standard verdicts recorded in the 2026-08-30 blind audit (remediations 13f842a/fbf228f verified PASS 2026-08-31). Drift d03bc4b..386568c inspected: subsequent commits are further UI work (delivery receipts track F, discovery index retention track E, collector maturity display STD-UI-COM-007 in app/templates/operations.html) plus non-UI tracks; none regresses a recorded verdict. Current-source anchors verified this pass at 386568c.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0015",
+      "standard_id": "STD-UI-SKU-001",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "audit_plus_remediation_commits",
+        "references": [
+          "audits/watch-clank-2026-08-30.md",
+          "audits/watch-clank-cross-domain-2026-09-01-final.md"
+        ],
+        "note": "Per-standard verdicts recorded in the 2026-08-30 blind audit (remediations 13f842a/fbf228f verified PASS 2026-08-31). Drift d03bc4b..386568c inspected: subsequent commits are further UI work (delivery receipts track F, discovery index retention track E, collector maturity display STD-UI-COM-007 in app/templates/operations.html) plus non-UI tracks; none regresses a recorded verdict. Current-source anchors verified this pass at 386568c.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-03"
+    }
+  ],
+  "historical": [
+    {
+      "fact_id": "UI-F-0136",
+      "domain": "ui",
+      "standard_id": "STD-UI-COM-009",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "APPLIES",
+      "verdict": "NONCONFORMING",
+      "role": "HISTORICAL",
+      "provenance": {
+        "kind": "historical_audit",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md"
+        ],
+        "note": "Original M1-era violation: run status collapsed distinct pipeline stages (historical FAIL). Remediated and verified PASS at 5684cf2 (audits/smartphone-clank-2026-08-30.md).",
+        "current_source_verified_in_this_pass": false
+      },
+      "recorded": "2026-09-03",
+      "recorded_by": "M36",
+      "superseded_by": "UI-F-0099"
+    },
+    {
+      "fact_id": "UI-F-0137",
+      "domain": "ui",
+      "standard_id": "STD-UI-COM-002",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "APPLIES",
+      "verdict": "NONCONFORMING",
+      "role": "HISTORICAL",
+      "provenance": {
+        "kind": "historical_audit",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md"
+        ],
+        "note": "Original violation: the CLI qc-audit path wrote QC outcomes via a raw INSERT with no atomicity, provenance, or race guard. Remediated via analyst-action integrity (5684cf2) and verified PASS.",
+        "current_source_verified_in_this_pass": false
+      },
+      "recorded": "2026-09-03",
+      "recorded_by": "M36",
+      "superseded_by": "UI-F-0092"
+    },
+    {
+      "fact_id": "UI-F-0138",
+      "domain": "ui",
+      "standard_id": "STD-UI-COM-010",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "APPLIES",
+      "verdict": "NONCONFORMING",
+      "role": "HISTORICAL",
+      "provenance": {
+        "kind": "historical_audit",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md"
+        ],
+        "note": "Original violation: naive-UTC timestamps rendered without timezone or semantic-role identification. Remediated at 5684cf2 and verified PASS.",
+        "current_source_verified_in_this_pass": false
+      },
+      "recorded": "2026-09-03",
+      "recorded_by": "M36",
+      "superseded_by": "UI-F-0100"
+    },
+    {
+      "fact_id": "UI-F-0139",
+      "domain": "ui",
+      "standard_id": "STD-UI-COM-008",
+      "target": "smartphone-clank",
+      "source_sha": "5684cf2c4d7bc962260bee85d0df32f68c962d46",
+      "applicability": "APPLIES",
+      "verdict": "NONCONFORMING",
+      "role": "HISTORICAL",
+      "provenance": {
+        "kind": "historical_audit",
+        "references": [
+          "audits/smartphone-clank-2026-08-30.md"
+        ],
+        "note": "Historical stale flag from the early audit wave; the current health presentation names every deduction factor (observability/metrics.py) and the flag no longer reflects current source.",
+        "current_source_verified_in_this_pass": false
+      },
+      "recorded": "2026-09-03",
+      "recorded_by": "M36",
+      "superseded_by": "UI-F-0098"
+    },
+    {
+      "fact_id": "UI-F-0140",
+      "domain": "ui",
+      "standard_id": "STD-UI-COM-011",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "NONCONFORMING",
+      "role": "HISTORICAL",
+      "provenance": {
+        "kind": "historical_audit",
+        "references": [
+          "audits/watch-clank-2026-08-30.md",
+          "audits/watch-clank-cross-domain-2026-09-01-final.md"
+        ],
+        "note": "Historical REGRESSION: Event state collapsed delivery into discovery/review state so an operator could not see delivery independently. Remediated (13f842a + fbf228f) and verified PASS 2026-08-31; superseded again in the overhaul wave by durable delivery receipts (track F, delivery_receipt_id).",
+        "current_source_verified_in_this_pass": false
+      },
+      "recorded": "2026-09-03",
+      "recorded_by": "M36",
+      "superseded_by": "UI-F-0011"
+    },
+    {
+      "fact_id": "UI-F-0141",
+      "domain": "ui",
+      "standard_id": "STD-UI-COM-009",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "NONCONFORMING",
+      "role": "HISTORICAL",
+      "provenance": {
+        "kind": "historical_audit",
+        "references": [
+          "audits/watch-clank-2026-08-30.md"
+        ],
+        "note": "Historical violation: PipelineLedger truncated run phase visibility. Remediated (13f842a) and verified PASS.",
+        "current_source_verified_in_this_pass": false
+      },
+      "recorded": "2026-09-03",
+      "recorded_by": "M36",
+      "superseded_by": "UI-F-0009"
+    },
+    {
+      "fact_id": "UI-F-0142",
+      "domain": "ui",
+      "standard_id": "STD-UI-COM-010",
+      "target": "watch-clank",
+      "source_sha": "386568ce183fc509d6549ff49c5d9ce2404b27d0",
+      "applicability": "APPLIES",
+      "verdict": "NONCONFORMING",
+      "role": "HISTORICAL",
+      "provenance": {
+        "kind": "historical_audit",
+        "references": [
+          "audits/watch-clank-2026-08-30.md"
+        ],
+        "note": "Historical violation: SpecialistLead timestamps rendered without timezone/role identification. Remediated (13f842a) and verified PASS.",
+        "current_source_verified_in_this_pass": false
+      },
+      "recorded": "2026-09-03",
+      "recorded_by": "M36",
+      "superseded_by": "UI-F-0010"
+    },
+    {
+      "fact_id": "UI-F-0143",
+      "domain": "ui",
+      "standard_id": "STD-UI-COM-002",
+      "target": "oem-radar",
+      "source_sha": "b9f76a48c2cd9475fcc9ae2c352424de6af4128b",
+      "applicability": "APPLIES",
+      "verdict": "NONCONFORMING",
+      "role": "HISTORICAL",
+      "provenance": {
+        "kind": "historical_audit",
+        "references": [
+          "audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md"
+        ],
+        "note": "Historical evidence referenced a qc_archive.py path that no longer exists in the repository. The current contract is satisfied by the alert_reviews feedback foundation with DB-level uniqueness (schema.sql UNIQUE constraints), verified at b9f76a4.",
+        "current_source_verified_in_this_pass": false
+      },
+      "recorded": "2026-09-03",
+      "recorded_by": "M36",
+      "superseded_by": "UI-F-0017"
+    },
+    {
+      "fact_id": "UI-F-0144",
+      "domain": "ui",
+      "standard_id": "STD-UI-COM-008",
+      "target": "korean-tech-wire",
+      "source_sha": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "applicability": "APPLIES",
+      "verdict": "NONCONFORMING",
+      "role": "HISTORICAL",
+      "provenance": {
+        "kind": "historical_audit",
+        "references": [
+          "audits/ktw-qualification-remediation-m8-2026-09-01.md"
+        ],
+        "note": "Historical stale flag from the early audit wave; current source expresses scheduling state and discovered/output counts as distinct operator-facing health fields, so the flag no longer reflects current source.",
+        "current_source_verified_in_this_pass": false
+      },
+      "recorded": "2026-09-03",
+      "recorded_by": "M36",
+      "superseded_by": "UI-F-0068"
+    }
+  ],
+  "unknown_scopes": [],
+  "counts": {
+    "current_cells": 135,
+    "conforms": 117,
+    "not_applicable": 18,
+    "historical_facts": 9
+  }
+}

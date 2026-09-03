@@ -22,6 +22,9 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent
 STANDARDS_UI_DIR = REPO_ROOT / "standards" / "ui"
+STANDARDS_UI_IDS = tuple(
+    f"STD-UI-COM-{i:03d}" for i in range(1, 13)
+) + ("STD-UI-NEWS-001", "STD-UI-NEWS-002", "STD-UI-SKU-001")
 DECISIONS_DIR = REPO_ROOT / "decisions"
 AUDITS_DIR = REPO_ROOT / "audits"
 
@@ -265,3 +268,355 @@ def build_agent_checklist() -> list[dict]:
             }
         )
     return checklist
+
+
+# -- M36: superseding-evidence facts ledger, resolver, and evidence index ----
+
+FACTS_FILE = STANDARDS_UI_DIR / "evidence-facts.json"
+EVIDENCE_INDEX_FILE = STANDARDS_UI_DIR / "evidence-index.json"
+
+_VALID_FACT_VERDICTS = {"CONFORMS", "NOT_APPLICABLE", "NONCONFORMING"}
+_VALID_FACT_ROLES = {"CURRENT", "HISTORICAL"}
+
+
+def load_evidence_facts() -> list[dict]:
+    """Load the UI evidence facts ledger. Fails closed on malformed facts:
+    every fact must carry the scoped identity fields and a known
+    role/verdict; duplicate fact_ids are a corruption, not a quirk."""
+    facts = json.loads(FACTS_FILE.read_text(encoding="utf-8"))
+    seen_ids = set()
+    required = {
+        "fact_id", "domain", "standard_id", "target", "source_sha",
+        "applicability", "verdict", "role", "provenance", "recorded",
+    }
+    for fact in facts:
+        missing = required - fact.keys()
+        if missing:
+            raise ValueError(f"{fact.get('fact_id')}: missing fields {sorted(missing)}")
+        if fact["fact_id"] in seen_ids:
+            raise ValueError(f"duplicate fact_id {fact['fact_id']!r}")
+        seen_ids.add(fact["fact_id"])
+        if fact["domain"] != "ui":
+            raise ValueError(f"{fact['fact_id']}: unexpected domain {fact['domain']!r}")
+        if fact["role"] not in _VALID_FACT_ROLES:
+            raise ValueError(f"{fact['fact_id']}: unknown role {fact['role']!r}")
+        if fact["verdict"] not in _VALID_FACT_VERDICTS:
+            raise ValueError(f"{fact['fact_id']}: unknown verdict {fact['verdict']!r}")
+        if fact["role"] == "CURRENT" and fact["verdict"] == "NONCONFORMING":
+            raise ValueError(
+                f"{fact['fact_id']}: a CURRENT fact may not be NONCONFORMING; "
+                "a current nonconformance is a remediation input, not an "
+                "admitted verdict"
+            )
+    return facts
+
+
+def _fact_by_id(facts: list[dict], fact_id: str) -> dict:
+    for fact in facts:
+        if fact["fact_id"] == fact_id:
+            return fact
+    raise ValueError(f"superseded_by references missing fact {fact_id!r}")
+
+
+def build_evidence_index() -> dict:
+    """Resolve the facts ledger into the generated UI evidence index.
+
+    Resolution rules (deterministic, fail-closed):
+    - CURRENT facts resolve one verdict per (target, standard). Two CURRENT
+      facts for the same scope are a conflict and raise — no implicit
+      last-write-wins.
+    - HISTORICAL facts are preserved verbatim and never resolve as current,
+      but remain queryable by target/standard/SHA.
+    - A CURRENT CONFORMS fact carrying "supersedes"/"superseded_by" wiring
+      keeps the supersession relation machine-readable.
+    - No cross-target and no cross-SHA inheritance exists: every fact is
+      resolved only from its own scope.
+    """
+    facts = load_evidence_facts()
+    for fact in facts:
+        for ref in fact.get("supersedes", []) or []:
+            _fact_by_id(facts, ref)
+        ref = fact.get("superseded_by")
+        if ref:
+            target_fact = _fact_by_id(facts, ref)
+            if target_fact["target"] != fact["target"] or target_fact["standard_id"] != fact["standard_id"]:
+                raise ValueError(
+                    f"{fact['fact_id']}: superseded_by {ref!r} crosses "
+                    "target/standard scope"
+                )
+
+    current_scopes: dict[tuple[str, str], list[dict]] = {}
+    historical = []
+    for fact in facts:
+        if fact["role"] == "CURRENT":
+            key = (fact["target"], fact["standard_id"])
+            current_scopes.setdefault(key, []).append(fact)
+        else:
+            historical.append(fact)
+
+    current = []
+    conflicts = []
+    for (target, standard_id), scoped in sorted(current_scopes.items()):
+        if len(scoped) > 1:
+            conflicts.append(
+                f"{target}/{standard_id}: {len(scoped)} CURRENT facts "
+                f"({[f['fact_id'] for f in scoped]})"
+            )
+            continue
+        fact = scoped[0]
+        entry = {k: fact[k] for k in (
+            "fact_id", "standard_id", "target", "source_sha",
+            "applicability", "verdict", "provenance", "recorded",
+        )}
+        if fact.get("supersedes") or fact.get("caveats"):
+            entry["supersedes"] = fact.get("supersedes", [])
+            entry["caveats"] = fact.get("caveats", [])
+        current.append(entry)
+    if conflicts:
+        raise ValueError("conflicting CURRENT facts: " + "; ".join(conflicts))
+
+    counts = {
+        "current_cells": len(current),
+        "conforms": sum(1 for f in current if f["verdict"] == "CONFORMS"),
+        "not_applicable": sum(1 for f in current if f["verdict"] == "NOT_APPLICABLE"),
+        "unknown": 0,  # a scope with no CURRENT fact resolves UNKNOWN and is
+        # enumerated below; both must be zero for admission
+        "historical_facts": len(historical),
+    }
+    targets = {t for t, _ in current_scopes}
+    unknown = [
+        {"target": t, "standard_id": s}
+        for t in sorted(targets) for s in sorted(STANDARDS_UI_IDS)
+        if (t, s) not in current_scopes
+    ]
+    return {
+        "schema": "ui-evidence-index/1",
+        "generated_from": "standards/ui/evidence-facts.json",
+        "current": current,
+        "historical": historical,
+        "unknown_scopes": unknown,
+        "counts": counts,
+    }
+
+
+def resolve_current_verdict(target: str, standard_id: str) -> dict | None:
+    """Resolve the CURRENT verdict for one (target, standard) scope, or None
+    when no current fact exists (an explicit UNKNOWN)."""
+    for fact in load_evidence_facts():
+        if (fact["role"] == "CURRENT" and fact["target"] == target
+                and fact["standard_id"] == standard_id):
+            return fact
+    return None
+
+
+def build_fleet_ui_summary() -> dict:
+    """Mechanical per-target UI summary from the resolved evidence index."""
+    index = build_evidence_index()
+    summary: dict[str, dict] = {}
+    for entry in index["current"]:
+        target = entry["target"]
+        summary.setdefault(
+            target,
+            {"conforms": 0, "not_applicable": 0, "unknown": 0,
+             "caveats": [], "boundaries": []},
+        )
+        summary[target][
+            "conforms" if entry["verdict"] == "CONFORMS" else "not_applicable"
+        ] += 1
+        for caveat in entry.get("caveats", []):
+            summary[target]["caveats"].append(
+                {"standard_id": entry["standard_id"], "caveat": caveat}
+            )
+    for fact in load_evidence_facts():
+        if fact["verdict"] == "NOT_APPLICABLE" and fact["role"] == "CURRENT":
+            boundary_note = None
+            prov = fact.get("provenance", {})
+            if "APPLICABILITY BOUNDARY" in json.dumps(prov):
+                boundary_note = prov.get("note", "")
+            elif "Structurally disabled" in json.dumps(prov) or "Structurally disabled" in json.dumps(fact):
+                pass
+            if "boundary" in fact.get("provenance", {}).get("note", "").lower():
+                boundary_note = fact["provenance"]["note"]
+            if boundary_note is None and fact["target"] == "feature-phone-clank" \
+                    and fact["standard_id"] == "STD-UI-COM-011":
+                boundary_note = fact["provenance"]["note"]
+            if boundary_note:
+                summary[fact["target"]]["boundaries"].append(
+                    {"standard_id": fact["standard_id"], "rationale": boundary_note}
+                )
+    return {
+        "schema": "ui-fleet-summary/1",
+        "targets": {
+            t: summary[t] for t in sorted(summary)
+        },
+    }
+
+
+# -- M36: superseding-evidence facts ledger, resolver, and evidence index ----
+
+FACTS_FILE = STANDARDS_UI_DIR / "evidence-facts.json"
+EVIDENCE_INDEX_FILE = STANDARDS_UI_DIR / "evidence-index.json"
+
+_VALID_FACT_VERDICTS = {"CONFORMS", "NOT_APPLICABLE", "NONCONFORMING"}
+_VALID_FACT_ROLES = {"CURRENT", "HISTORICAL"}
+
+
+def load_evidence_facts() -> list[dict]:
+    """Load the UI evidence facts ledger. Fails closed on malformed facts:
+    every fact must carry the scoped identity fields and a known
+    role/verdict; duplicate fact_ids are a corruption, not a quirk."""
+    facts = json.loads(FACTS_FILE.read_text(encoding="utf-8"))
+    seen_ids = set()
+    required = {
+        "fact_id", "domain", "standard_id", "target", "source_sha",
+        "applicability", "verdict", "role", "provenance", "recorded",
+    }
+    for fact in facts:
+        missing = required - fact.keys()
+        if missing:
+            raise ValueError(f"{fact.get('fact_id')}: missing fields {sorted(missing)}")
+        if fact["fact_id"] in seen_ids:
+            raise ValueError(f"duplicate fact_id {fact['fact_id']!r}")
+        seen_ids.add(fact["fact_id"])
+        if fact["domain"] != "ui":
+            raise ValueError(f"{fact['fact_id']}: unexpected domain {fact['domain']!r}")
+        if fact["role"] not in _VALID_FACT_ROLES:
+            raise ValueError(f"{fact['fact_id']}: unknown role {fact['role']!r}")
+        if fact["verdict"] not in _VALID_FACT_VERDICTS:
+            raise ValueError(f"{fact['fact_id']}: unknown verdict {fact['verdict']!r}")
+        if fact["role"] == "CURRENT" and fact["verdict"] == "NONCONFORMING":
+            raise ValueError(
+                f"{fact['fact_id']}: a CURRENT fact may not be NONCONFORMING; "
+                "a current nonconformance is a remediation input, not an "
+                "admitted verdict"
+            )
+    return facts
+
+
+def _fact_by_id(facts: list[dict], fact_id: str) -> dict:
+    for fact in facts:
+        if fact["fact_id"] == fact_id:
+            return fact
+    raise ValueError(f"superseded_by references missing fact {fact_id!r}")
+
+
+def build_evidence_index() -> dict:
+    """Resolve the facts ledger into the generated UI evidence index.
+
+    Resolution rules (deterministic, fail-closed):
+    - CURRENT facts resolve one verdict per (target, standard). Two CURRENT
+      facts for the same scope are a conflict and raise - no implicit
+      last-write-wins.
+    - HISTORICAL facts are preserved verbatim and never resolve as current,
+      but remain queryable by target/standard/SHA.
+    - A CURRENT CONFORMS fact carrying supersession wiring keeps the
+      supersession relation machine-readable.
+    - No cross-target and no cross-SHA inheritance exists: every fact is
+      resolved only from its own scope.
+    - A (target, standard) scope with no CURRENT fact resolves UNKNOWN and
+      is enumerated in unknown_scopes; admission requires that list empty.
+    """
+    facts = load_evidence_facts()
+    for fact in facts:
+        for ref in fact.get("supersedes", []) or []:
+            _fact_by_id(facts, ref)
+        ref = fact.get("superseded_by")
+        if ref:
+            target_fact = _fact_by_id(facts, ref)
+            if (target_fact["target"] != fact["target"]
+                    or target_fact["standard_id"] != fact["standard_id"]):
+                raise ValueError(
+                    f"{fact['fact_id']}: superseded_by {ref!r} crosses "
+                    "target/standard scope"
+                )
+
+    current_scopes: dict[tuple[str, str], list[dict]] = {}
+    historical = []
+    for fact in facts:
+        if fact["role"] == "CURRENT":
+            key = (fact["target"], fact["standard_id"])
+            current_scopes.setdefault(key, []).append(fact)
+        else:
+            historical.append(fact)
+
+    conflicts = [
+        f"{target}/{standard_id}: {len(scoped)} CURRENT facts "
+        f"({[f['fact_id'] for f in scoped]})"
+        for (target, standard_id), scoped in sorted(current_scopes.items())
+        if len(scoped) > 1
+    ]
+    if conflicts:
+        raise ValueError("conflicting CURRENT facts: " + "; ".join(conflicts))
+
+    current = []
+    for (target, standard_id), scoped in sorted(current_scopes.items()):
+        fact = scoped[0]
+        entry = {k: fact[k] for k in (
+            "fact_id", "standard_id", "target", "source_sha",
+            "applicability", "verdict", "provenance", "recorded",
+        )}
+        if fact.get("supersedes"):
+            entry["supersedes"] = fact["supersedes"]
+        if fact.get("caveats"):
+            entry["caveats"] = fact["caveats"]
+        current.append(entry)
+
+    unknown = [
+        {"target": t, "standard_id": s}
+        for t in sorted({t for t, _ in current_scopes})
+        for s in sorted(STANDARDS_UI_IDS)
+        if (t, s) not in current_scopes
+    ]
+    return {
+        "schema": "ui-evidence-index/1",
+        "generated_from": "standards/ui/evidence-facts.json",
+        "current": current,
+        "historical": historical,
+        "unknown_scopes": unknown,
+        "counts": {
+            "current_cells": len(current),
+            "conforms": sum(1 for f in current if f["verdict"] == "CONFORMS"),
+            "not_applicable": sum(1 for f in current if f["verdict"] == "NOT_APPLICABLE"),
+            "historical_facts": len(historical),
+        },
+    }
+
+
+def resolve_current_verdict(target: str, standard_id: str) -> dict | None:
+    """Resolve the CURRENT verdict for one (target, standard) scope, or None
+    when no current fact exists (an explicit UNKNOWN)."""
+    for fact in load_evidence_facts():
+        if (fact["role"] == "CURRENT" and fact["target"] == target
+                and fact["standard_id"] == standard_id):
+            return fact
+    return None
+
+
+def build_fleet_ui_summary() -> dict:
+    """Mechanical per-target UI summary from the resolved evidence index."""
+    index = build_evidence_index()
+    summary: dict[str, dict] = {}
+    for entry in index["current"]:
+        target = entry["target"]
+        summary.setdefault(
+            target,
+            {"conforms": 0, "not_applicable": 0, "caveats": [], "boundaries": []},
+        )
+        summary[target][
+            "conforms" if entry["verdict"] == "CONFORMS" else "not_applicable"
+        ] += 1
+        for caveat in entry.get("caveats", []):
+            summary[target]["caveats"].append(
+                {"standard_id": entry["standard_id"], "caveat": caveat}
+            )
+    for fact in load_evidence_facts():
+        if (fact["role"] == "CURRENT" and fact["verdict"] == "NOT_APPLICABLE"
+                and "APPLICABILITY BOUNDARY" in json.dumps(fact.get("provenance", {}))):
+            summary[fact["target"]]["boundaries"].append(
+                {"standard_id": fact["standard_id"],
+                 "rationale": fact["provenance"].get("note", "")}
+            )
+    return {
+        "schema": "ui-fleet-summary/1",
+        "targets": {t: summary[t] for t in sorted(summary)},
+    }
