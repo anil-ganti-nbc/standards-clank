@@ -1,0 +1,67 @@
+{
+  "audit_id": "collector-ui-design-evidence-m40-2026-09-04",
+  "mode": "PROPOSED_STANDARDS_PACKAGE_AND_FLEET_GAP_AUDIT",
+  "date": "2026-09-04",
+  "standards_clank_head": "172b4e0410b3aff7b9ca61fef3937c4299fc9284",
+  "proposal": {
+    "standard_id": "STD-CUD-001",
+    "title": "Collector UI design system must be shared, versioned, and semantically accessible",
+    "domain": "collector-ui-design",
+    "directory": "standards/collector-ui-design",
+    "status": "PROPOSED",
+    "version": 1,
+    "ratified": false,
+    "frozen": false,
+    "tag_created": false
+  },
+  "collector_family_evidence": {
+    "shared_module": "collector_ui.py",
+    "byte_identical": true,
+    "sha256": "aaa38c123d3e3e96d3bb3f1f21adf8487ce1723defdcf8f424af6bc7264b258e",
+    "design_system_version": "collector-ui-v1",
+    "lines": 423,
+    "per_clank_accent_only_override": true,
+    "targets": {
+      "smartphone-clank": {"sha": "e514c45dca4cf966441c27799d98761096dc8c40", "module_path": "dashboard/collector_ui.py"},
+      "smartwatch-clank": {"sha": "cc80aafa24ab1f96439503bb1660867a437772ed", "module_path": "src/smartwatch_clank/collector_ui.py"},
+      "feature-phone-clank": {"sha": "bbd28450ce9d5ba84822104e8a33c734af338c2b", "module_path": "src/feature_phone_clank/collector_ui.py"},
+      "tablet-clank": {"sha": "2b1ba6ecbe1ae4e5a0d4380395b2e3fc3a38d5d9", "module_path": "native/macos/collector_ui.py"},
+      "watch-clank": {"sha": "4d0413c16518e8433f1b8273c6ce7de7561d37ef", "module_path": "app/collector_ui.py"},
+      "oem-radar": {"sha": "070914c82516c29be781a49acb77c8d86953f1e2", "module_path": "src/oem_radar/dashboard/collector_ui.py"}
+    },
+    "design_tests_present": "tests/test_collector_ui_design_system.py in all six"
+  },
+  "deployment_com_001_matrix": {
+    "confirmed": ["watch-clank", "smartwatch-clank", "feature-phone-clank", "tablet-clank", "korean-tech-wire"],
+    "unresolved": ["oem-radar", "semiconductor-intelligence", "chinese-tech-wire", "smartphone-clank"]
+  },
+  "deployment_com_002_matrix": {
+    "all_closed": true,
+    "closed_targets": ["semiconductor-intelligence", "korean-tech-wire", "tablet-clank", "feature-phone-clank", "oem-radar", "smartwatch-clank", "chinese-tech-wire"]
+  },
+  "source_drift": {
+    "moved_since_m36": ["watch-clank", "oem-radar", "feature-phone-clank", "smartphone-clank", "smartwatch-clank", "tablet-clank"],
+    "unchanged_since_m36": ["semiconductor-intelligence", "chinese-tech-wire", "korean-tech-wire"],
+    "com002_facts_invalidated": false,
+    "ui_facts_requiring_supersession": ["watch-clank", "oem-radar", "feature-phone-clank", "smartphone-clank", "smartwatch-clank", "tablet-clank"],
+    "superseding_pass_required": true
+  },
+  "remaining_unresolved": {
+    "deploy_com_001": ["oem-radar", "semiconductor-intelligence", "chinese-tech-wire", "smartphone-clank"],
+    "ui_com_011": ["smartphone-clank"],
+    "ui_com_007": ["smartphone-clank"],
+    "ops_com_003": ["chinese-tech-wire (UNKNOWN — resolver trigger fact not established)"],
+    "non_ui_caveats": [
+      "semiconductor-intelligence: test_deploy_com_002_m11.py known failure + claims test local flakiness",
+      "smartwatch-clank: dcrainmaker_specialist test staleness"
+    ]
+  },
+  "guards": {
+    "frozen_standard_files_changed": false,
+    "frozen_tags_changed_or_moved": false,
+    "source_clanks_modified": false,
+    "evidence_admitted_under_unratified_standard": false,
+    "ratification_occurred": false,
+    "freeze_occurred": false
+  }
+}

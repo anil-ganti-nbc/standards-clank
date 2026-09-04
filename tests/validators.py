@@ -21,6 +21,7 @@ STANDARD_DOMAINS = {
     "ui", "collectors", "sources", "classification", "events",
     "evidence", "health", "delivery", "soak", "security", "operator-workflow",
     "data-ontology", "operations", "deployment",
+    "collector-ui-design",
 }
 STANDARD_LEVELS = {"MUST", "SHOULD", "MAY"}
 STANDARD_STATUSES = {"PROPOSED", "REVIEWED", "RATIFIED", "SUPERSEDED", "RETIRED"}

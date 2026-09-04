@@ -103,6 +103,7 @@ def test_no_target_or_architecture_modification():
     allowed = (
         "standards/deployment/", "standards/operations/",
         "standards/ui/evidence-facts.json", "standards/ui/evidence-index.json",
+        "standards/collector-ui-design/",
         "docs/deployment/", "docs/fleet-wiring.md",
         "docs/project-completion-audit.md", "baselines/deployment-standards-v1.0",
         "audits/", "decisions/", "tests/", "tools/", "scripts/", "profiles/",

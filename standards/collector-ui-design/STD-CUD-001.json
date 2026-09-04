@@ -1,0 +1,49 @@
+{
+  "id": "STD-CUD-001",
+  "title": "Collector UI design system must be shared, versioned, and semantically accessible",
+  "domain": "collector-ui-design",
+  "level": "MUST",
+  "status": "PROPOSED",
+  "version": 1,
+  "applies_to": [],
+  "trigger": "Applies to collector-family Clanks that present an operator dashboard or local web UI for monitoring, scheduling, or reviewing automated collection. A Clank with no operator-facing web surface is N/A. Does not automatically apply to non-collector Clanks (CTW, KTW, Semiconductor) unless independently adopted.",
+  "requirement": "A collector-family Clank that presents an operator dashboard MUST carry the shared Collector UI design system module byte-identically, MUST report its DESIGN_SYSTEM_VERSION, MUST render every status with a text label (colour is supplementary), MUST display the full Clank identity (never a generic abbreviation alone), MUST provide meaningful empty states that explain what the absence means, and MUST NOT ship the Phase-0 scaffold, bare 'Empty' placeholders, generic-only 'Clank' branding, or colour-only status conveyance. The per-Clank accent (CSS --accent and --accent-soft custom properties) is the ONLY visual token a Clank may override; all other design tokens (surfaces, text colours, spacing scale, shape radii, typography, layout dimensions, semantic status colours) are shared. Navigation grammar MUST use equivalent names for equivalent concepts across the family. The layout MUST be desktop-first and usable at 1080p and 1440p operator workstations. Panels are for summary content; tables are for record lists; giant dead-space canvases and absurdly narrow content islands are prohibited.",
+  "rationale": "The six collector Clanks form one internal product suite with six domain personalities. Before the visual redesign, each dashboard was an independently built Phase-0 scaffold with generic branding, bare empty states, collapsed run status, inconsistent health/delivery visual vocabulary, and no shared visual recognisability. The shared byte-identical design system module (collector_ui.py, DESIGN_SYSTEM_VERSION collector-ui-v1) eliminates those problems without introducing a runtime dependency on a shared service or network asset. Shipping it as a Python constant (rather than a static CSS file) keeps it working identically under PyInstaller.",
+  "forbidden": [
+    "Shipping a dashboard whose visual language diverges from the shared collector_ui.py design system",
+    "Rendering status using colour alone without a text label",
+    "Displaying a generic 'Clank' brand name without the full Clank product identity",
+    "Shipping bare 'Empty' placeholder text in place of a meaningful empty state explanation",
+    "Overriding any design token other than --accent and --accent-soft",
+    "Shipping the Phase-0 scaffold as a finished operator UI",
+    "Using a content width or layout that leaves giant dead-space on a 1080p or 1440p operator desktop",
+    "Collapsing pipeline stages the backend already distinguishes into a single undifferentiated status"
+  ],
+  "acceptance": [
+    "The shared collector_ui.py module is present and byte-identical to the family-pinned version",
+    "DESIGN_SYSTEM_VERSION is reported and matches the family version",
+    "Every rendered status badge carries its label as visible text",
+    "The full Clank product name is visible in the dashboard header",
+    "Empty states explain what the absence means, not just 'Empty'",
+    "The per-Clank accent override is the only CSS custom property divergence from the shared token set",
+    "No template or rendered output contains the prohibited Phase-0 scaffold labels or bare 'Empty' text",
+    "The layout is usable and information-dense at 1080p and 1440p viewport widths"
+  ],
+  "exceptions_allowed": true,
+  "evidence": [
+    {
+      "class": "CROSS_CLANK_BEST_PRACTICE",
+      "source": "six-repo visual overhaul (collector-ui-v1)",
+      "summary": "Six collector Clanks independently adopted a byte-identical collector_ui.py design system with per-Clank accent-only overrides, proven by SHA-256 hash equality across all six copies and by per-Clank test suites."
+    },
+    {
+      "class": "CROSS_CLANK_BEST_PRACTICE",
+      "source": "docs/UI_ACCEPTANCE_2026-08.md (semiconductor-intelligence)",
+      "summary": "Browser-first acceptance record demonstrating that semantic/static checks alone cannot prove visual quality; operator visual inspection remains a required evidence type."
+    }
+  ],
+  "origin": "CROSS_CLANK_BEST_PRACTICE",
+  "introduced": "2026-09-04",
+  "supersedes": null,
+  "notes": "PROPOSED — not yet ratified. This standard formalises the visual/operator design system that exists in the six collector Clanks after the visual overhaul. It is deliberately separate from the frozen semantic UI standards (STD-UI-COM-001..012, STD-UI-NEWS-001/002, STD-UI-SKU-001), which govern semantic behaviour, not visual presentation. Implementation detail (exact CSS selectors, exact pixel values beyond the token scale, hover/transition effects, specific component helper names) is NOT normative. The shared module carries a DESIGN_SYSTEM_VERSION that MUST match across the family; changing it requires updating every Clank in the same wave. The per-Clank accent is the only intentional visual divergence; any other token override is a violation. The deterministic checks associated with this standard verify structural properties (token presence, text-carrying badges, meaningful empty states, prohibited-label absence, module hash identity) rather than pixel-level rendering."
+}
