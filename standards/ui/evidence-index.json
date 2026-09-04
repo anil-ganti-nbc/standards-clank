@@ -273,6 +273,25 @@
       "recorded": "2026-09-03"
     },
     {
+      "fact_id": "UI-F-0145",
+      "standard_id": "STD-CUD-001",
+      "target": "feature-phone-clank",
+      "source_sha": "bbd28450ce9d5ba84822104e8a33c734af338c2b",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification",
+        "references": [
+          "collector_ui.py byte-identical (sha256 aaa38c12...)",
+          "tests/test_collector_ui_design_system.py (13 passed)",
+          "audits/collector-ui-design-evidence-m40-2026-09-04.md"
+        ],
+        "note": "Design-system conformance verified at bbd28450ce9d: byte-identical collector_ui.py, 13/13 design tests passed, per-Clank accent-only override.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-04"
+    },
+    {
       "fact_id": "UI-F-0076",
       "standard_id": "STD-UI-COM-001",
       "target": "feature-phone-clank",
@@ -796,6 +815,25 @@
         "current_source_verified_in_this_pass": true
       },
       "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0146",
+      "standard_id": "STD-CUD-001",
+      "target": "oem-radar",
+      "source_sha": "070914c82516c29be781a49acb77c8d86953f1e2",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification",
+        "references": [
+          "collector_ui.py byte-identical (sha256 aaa38c12...)",
+          "tests/test_collector_ui_design_system.py (13 passed)",
+          "audits/collector-ui-design-evidence-m40-2026-09-04.md"
+        ],
+        "note": "Design-system conformance verified at 070914c82516: byte-identical collector_ui.py, 13/13 design tests passed, per-Clank accent-only override.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-04"
     },
     {
       "fact_id": "UI-F-0016",
@@ -1425,6 +1463,25 @@
       "recorded": "2026-09-03"
     },
     {
+      "fact_id": "UI-F-0147",
+      "standard_id": "STD-CUD-001",
+      "target": "smartphone-clank",
+      "source_sha": "e514c45dca4cf966441c27799d98761096dc8c40",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification",
+        "references": [
+          "collector_ui.py byte-identical (sha256 aaa38c12...)",
+          "tests/test_collector_ui_design_system.py (13 passed)",
+          "audits/collector-ui-design-evidence-m40-2026-09-04.md"
+        ],
+        "note": "Design-system conformance verified at e514c45dca4c: byte-identical collector_ui.py, 13/13 design tests passed, per-Clank accent-only override.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-04"
+    },
+    {
       "fact_id": "UI-F-0091",
       "standard_id": "STD-UI-COM-001",
       "target": "smartphone-clank",
@@ -1710,6 +1767,25 @@
       "recorded": "2026-09-03"
     },
     {
+      "fact_id": "UI-F-0148",
+      "standard_id": "STD-CUD-001",
+      "target": "smartwatch-clank",
+      "source_sha": "cc80aafa24ab1f96439503bb1660867a437772ed",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification",
+        "references": [
+          "collector_ui.py byte-identical (sha256 aaa38c12...)",
+          "tests/test_collector_ui_design_system.py (13 passed)",
+          "audits/collector-ui-design-evidence-m40-2026-09-04.md"
+        ],
+        "note": "Design-system conformance verified at cc80aafa24ab: byte-identical collector_ui.py, 13/13 design tests passed, per-Clank accent-only override.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-04"
+    },
+    {
       "fact_id": "UI-F-0106",
       "standard_id": "STD-UI-COM-001",
       "target": "smartwatch-clank",
@@ -1980,6 +2056,25 @@
       "recorded": "2026-09-03"
     },
     {
+      "fact_id": "UI-F-0149",
+      "standard_id": "STD-CUD-001",
+      "target": "tablet-clank",
+      "source_sha": "2b1ba6ecbe1ae4e5a0d4380395b2e3fc3a38d5d9",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification",
+        "references": [
+          "collector_ui.py byte-identical (sha256 aaa38c12...)",
+          "tests/test_collector_ui_design_system.py (13 passed)",
+          "audits/collector-ui-design-evidence-m40-2026-09-04.md"
+        ],
+        "note": "Design-system conformance verified at 2b1ba6ecbe1a: byte-identical collector_ui.py, 13/13 design tests passed, per-Clank accent-only override.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-04"
+    },
+    {
       "fact_id": "UI-F-0121",
       "standard_id": "STD-UI-COM-001",
       "target": "tablet-clank",
@@ -2248,6 +2343,25 @@
         "current_source_verified_in_this_pass": true
       },
       "recorded": "2026-09-03"
+    },
+    {
+      "fact_id": "UI-F-0150",
+      "standard_id": "STD-CUD-001",
+      "target": "watch-clank",
+      "source_sha": "4d0413c16518e8433f1b8273c6ce7de7561d37ef",
+      "applicability": "APPLIES",
+      "verdict": "CONFORMS",
+      "provenance": {
+        "kind": "source_verification",
+        "references": [
+          "collector_ui.py byte-identical (sha256 aaa38c12...)",
+          "tests/test_collector_ui_design_system.py (13 passed)",
+          "audits/collector-ui-design-evidence-m40-2026-09-04.md"
+        ],
+        "note": "Design-system conformance verified at 4d0413c16518: byte-identical collector_ui.py, 13/13 design tests passed, per-Clank accent-only override.",
+        "current_source_verified_in_this_pass": true
+      },
+      "recorded": "2026-09-04"
     },
     {
       "fact_id": "UI-F-0001",
@@ -2714,8 +2828,8 @@
   ],
   "unknown_scopes": [],
   "counts": {
-    "current_cells": 135,
-    "conforms": 117,
+    "current_cells": 141,
+    "conforms": 123,
     "not_applicable": 18,
     "historical_facts": 9
   }
