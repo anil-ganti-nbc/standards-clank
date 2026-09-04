@@ -1,0 +1,34 @@
+{
+  "baseline_id": "collector-ui-design-standards-v1.0",
+  "corpus": "collector-ui-design",
+  "status": "FROZEN",
+  "version": "1.0",
+  "freeze_date": "2026-09-04",
+  "standards": [
+    {
+      "id": "STD-CUD-001",
+      "version": 1,
+      "status": "RATIFIED",
+      "title": "Collector UI must conform to a shared design system profile and remain semantically accessible"
+    }
+  ],
+  "proposed": [],
+  "artifacts": {
+    "normative_file": {
+      "path": "standards/collector-ui-design/STD-CUD-001.json",
+      "sha256_lf_normalized": "bcaefc4c9b99691108372d8a39e38905bbe3e6bb0b00d8f927a23eedc6534e9f"
+    },
+    "m40_evidence": {
+      "path": "audits/collector-ui-design-evidence-m40-2026-09-04.md"
+    },
+    "m41_review": {
+      "path": "adversarial review of STD-CUD-001 (editorial corrections in commit 95fa2de)"
+    }
+  },
+  "ratification_chain": [
+    "M40 proposal (31f8bba/e777384)",
+    "M41 adversarial review (95fa2de)",
+    "M42 ratification (this commit)"
+  ],
+  "change_policy": "This manifest and the collector-ui-design-standards-v1.0 tag are immutable historical records and must never be rewritten; future corpus state may legitimately diverge from v1.0. Post-freeze normative changes go through normal governance and result in a new standard, a versioned revision, a supersession, or a retirement."
+}

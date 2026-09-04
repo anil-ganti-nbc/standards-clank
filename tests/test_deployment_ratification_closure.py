@@ -104,6 +104,8 @@ def test_no_target_or_architecture_modification():
         "standards/deployment/", "standards/operations/",
         "standards/ui/evidence-facts.json", "standards/ui/evidence-index.json",
         "standards/collector-ui-design/",
+        "baselines/collector-ui-design-standards-v1.0.json",
+        "decisions/0020-collector-ui-design-ratification.md",
         "docs/deployment/", "docs/fleet-wiring.md",
         "docs/project-completion-audit.md", "baselines/deployment-standards-v1.0",
         "audits/", "decisions/", "tests/", "tools/", "scripts/", "profiles/",

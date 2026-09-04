@@ -38,9 +38,9 @@ def _std() -> dict:
 
 
 class TestNormativeContract:
-    def test_status_is_proposed_not_ratified(self):
+    def test_status_is_ratified(self):
         std = _std()
-        assert std["status"] == "PROPOSED"
+        assert std["status"] == "RATIFIED"
         assert std["version"] == 1
         assert std["domain"] == "collector-ui-design"
         assert std["id"] == "STD-CUD-001"
