@@ -295,7 +295,7 @@ def test_m18_admits_exactly_one_smartwatch_deployment_fact():
     }
     # smartwatch-clank (M22/M18), feature-phone-clank (M25/M14), and
     # tablet-clank (M28/M13) each carry two Deployment facts
-    assert len(entries) == 12
+    assert len(entries) == 13
 
 
 def test_m18_prose_scope_and_no_action_declaration():

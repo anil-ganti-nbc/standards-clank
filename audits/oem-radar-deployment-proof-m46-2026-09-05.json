@@ -1,0 +1,115 @@
+{
+  "audit_id": "oem-radar-deployment-proof-m46-2026-09-05",
+  "mode": "LIVE_PROOF_EVIDENCE_RECORD_AND_ADMISSION",
+  "date": "2026-09-05",
+  "standards_clank_head": "e777384328326b1f45a938b753e1d5fbe764069f",
+  "oem_radar": {
+    "target": "oem-radar",
+    "branch": "main",
+    "head": "070914c82516c29be781a49acb77c8d86953f1e2",
+    "origin_main": "070914c82516c29be781a49acb77c8d86953f1e2",
+    "modified_in_this_pass": false,
+    "standard": "STD-DEPLOY-COM-001",
+    "state": "LIVE_PROOF_CONFIRMED",
+    "lifecycle": "CLOSED",
+    "deployment_target": "hetzner:/home/deploy/staging/oem-radar",
+    "deployment_mechanism": "cron-docker-compose one-shot lane",
+    "scope": "this exact source SHA + target + deployment mechanism + evidence package"
+  },
+  "pre_deploy_divergent_state": {
+    "live_sha": "a7714fc15546e115d01db99b71d8f458535884ff",
+    "branch": "feature/oem-radar-2",
+    "merge_base": "e12afe95480096dd83575aa89c6994f6dd3716a7",
+    "classification": "DIVERGENT_LINEAGE (not simply behind canonical main)",
+    "live_only_commits": 7,
+    "main_only_commits": 9,
+    "live_only_summary": "OEM Radar 2.0 editorial plane, Phase 10 activation, QC archive, PyInstaller packaging, OS-advisory run-lock adoption",
+    "main_only_summary": "M15 persistent-state barrier, 3 UI redesign commits, 2 frozen-launcher fixes, OS-flock run-lock fix, Collector UI Design System adoption"
+  },
+  "lock_equivalence_gate": {
+    "result": "PASSED",
+    "live_branch_lock": "OS-level flock (a7714fc feature line, same NAS PR #4 lineage)",
+    "canonical_main_lock": "OS-level flock (d720e06, same NAS PR #4 lineage)",
+    "source_comparison": "docstrings and mechanisms character-identical",
+    "regression": false
+  },
+  "backup": {
+    "path": "/home/deploy/staging/oem-radar/backups/radar-pre-m45-070914c.db",
+    "size_bytes": 6275072,
+    "sha256": "4c28553de97e7e4b617cca0ddbabf580b144d727ea9502ac6b61c22d8841e591",
+    "size_matched_live_db": true,
+    "method": "SQLite online backup API via Docker volume"
+  },
+  "dependency_gate": {
+    "result": "PASSED",
+    "compared": ["pyproject.toml", "requirements*", "uv.lock", "Dockerfile", "docker-compose.yml"],
+    "diff": "empty"
+  },
+  "persistent_state_gate": {
+    "live_marker": 7,
+    "canonical_expected": 7,
+    "migration_required": false,
+    "quick_check": "ok",
+    "verdict": "COMPATIBLE",
+    "com002_reclosed": false
+  },
+  "deployment_identity": {
+    "three_way_proven": true,
+    "git_checkout_head": "070914c82516c29be781a49acb77c8d86953f1e2",
+    "oci_revision_label": "070914c82516c29be781a49acb77c8d86953f1e2",
+    "runtime_self_report": "070914c82516c29be781a49acb77c8d86953f1e2",
+    "deployed_id_transition": {"from": "a7714fc15546e115d01db99b71d8f458535884ff", "to": "070914c82516c29be781a49acb77c8d86953f1e2"},
+    "deployed_id_is_sole_runtime_identity": false
+  },
+  "natural_proof": {
+    "first_fire_18_20z": {
+      "image": "a7714fc (old)",
+      "classification": "pre-deploy due-check cycle",
+      "is_canonical_proof": false
+    },
+    "authoritative_fire_19_20z": {
+      "image": "070914c (canonical)",
+      "classification": "NATURAL_COLLECTION_CYCLE",
+      "is_authoritative_proof": true,
+      "collectors": [
+        {"source": "gmktec-shopify", "status": "ok", "health": "ok", "discovered": 78, "events": 3},
+        {"source": "minisforum-shopify", "status": "ok", "health": "ok", "discovered": 59, "events": 2}
+      ],
+      "false_novelty_new": 0,
+      "exit_status": "0 / SUCCESS"
+    }
+  },
+  "post_run_state": {
+    "db_marker": 7,
+    "quick_check": "ok",
+    "total_runs_before": 364,
+    "total_runs_after": 366,
+    "new_natural_runs": 2,
+    "integrity_regression": false,
+    "rollback_required": false
+  },
+  "known_evidence_admission": {
+    "performed": true,
+    "layer": "standards/deployment/known-evidence-index.json",
+    "admitted": {
+      "subject": "oem-radar",
+      "revision": "070914c82516c29be781a49acb77c8d86953f1e2",
+      "standard": "STD-DEPLOY-COM-001",
+      "state": "LIVE_PROOF_CONFIRMED",
+      "lifecycle": "CLOSED"
+    },
+    "admission_count": 1,
+    "prior_admissions_preserved": "all",
+    "historical_m1_preserved": true
+  },
+  "guards": {
+    "frozen_standard_files_changed": false,
+    "frozen_tags_changed_or_moved": false,
+    "oem_radar_modified_in_this_pass": false,
+    "host_deployment_live_or_production_db_actions_in_this_pass": false,
+    "generalization_to_other_lanes": false,
+    "generalization_to_future_shas": false,
+    "com002_reclosed": false,
+    "full_target_conformance_claim": false
+  }
+}

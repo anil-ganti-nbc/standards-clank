@@ -198,7 +198,7 @@ def test_known_evidence_index_matches_generator_output():
 
 def test_known_evidence_admits_only_confirmed_deployment_conformance():
     entries = _load_known_evidence()
-    assert len(entries) == 12
+    assert len(entries) == 13
     by_subject = {entry["subject"]: entry for entry in entries}
     assert set(by_subject) == {"watch-clank", "semiconductor-intelligence", "korean-tech-wire", "tablet-clank", "feature-phone-clank", "oem-radar", "smartwatch-clank", "chinese-tech-wire", "smartwatch-clank"}
 

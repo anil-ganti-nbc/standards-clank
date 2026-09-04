@@ -40,6 +40,14 @@
     "source_reference": "audits/ktw-persistent-state-remediation-m12-2026-09-02.md"
   },
   {
+    "standard": "STD-DEPLOY-COM-001",
+    "subject": "oem-radar",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "LIVE_PROOF_CONFIRMED at OEM Radar 070914c82516c29be781a49acb77c8d86953f1e2 on target hetzner:/home/deploy/staging/oem-radar (cron-docker-compose one-shot lane): intended SHA = host checkout = OCI revision label = runtime self-report all 070914c, .deployed-id updated from a7714fc, canonical cron 20 * * * * through deploy/run.sh unchanged, and the 19:20 UTC natural fire executed real collection (gmktec-shopify 78 discovered/3 events + minisforum-shopify 59 discovered/2 events, both status ok and health ok) with zero false novelty (new = 0), DB marker 7 COMPATIBLE quick_check ok and total runs 364→366, lock mtime correlated with the natural run.",
+    "source_reference": "audits/oem-radar-deployment-proof-m46-2026-09-05.md"
+  },
+  {
     "standard": "STD-DEPLOY-COM-002",
     "subject": "oem-radar",
     "kind": "known_conformance",

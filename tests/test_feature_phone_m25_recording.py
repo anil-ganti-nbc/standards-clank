@@ -168,7 +168,7 @@ def test_m25_admits_exactly_one_feature_phone_com001_fact():
     assert admission["deployment_facts_after_admission"] == 10
     entries = json.loads(KNOWN.read_text(encoding="utf-8"))
     assert entries == build_known_evidence_index()
-    assert len(entries) == 12
+    assert len(entries) == 13
     fp = [e for e in entries if e["subject"] == "feature-phone-clank"]
     assert len(fp) == 2
     by_standard = {e["standard"]: e for e in fp}
