@@ -87,4 +87,4 @@ def test_m10_does_not_change_known_evidence_layer():
     # COM-001, M28 Tablet COM-001 live proofs); this LF-normalized hash
     # still makes any other edit to the active evidence layer visible.
     # Recomputed at the M28 (live-proof admission) pass.
-    assert _sha256(KNOWN) == "3770adc1f2f1fe477d7c93f61ae6aa97df94e712613d06446444f6d5a2e83a5b"
+    assert _sha256(KNOWN) == "e70bcf18d7533a15327539aa710a579f7508bd5c3d048b77fc1cc2161db08ef5"

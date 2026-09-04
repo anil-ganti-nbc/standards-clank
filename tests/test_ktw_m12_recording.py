@@ -83,9 +83,10 @@ def test_m12_admits_exactly_one_ktw_deploy_fact_without_inheritance():
     entries = json.loads(KNOWN.read_text(encoding="utf-8"))
     assert entries == build_known_evidence_index()
     ktw = [entry for entry in entries if entry["subject"] == "korean-tech-wire"]
-    assert len(ktw) == 1
-    assert ktw[0]["standard"] == "STD-DEPLOY-COM-002"
-    assert KTW_SHA in ktw[0]["summary"]
+    assert len(ktw) == 2
+    com002 = [e for e in ktw if e["standard"] == "STD-DEPLOY-COM-002"]
+    assert len(com002) == 1
+    assert any(KTW_SHA in e["summary"] for e in ktw)
     assert any(entry["subject"] == "watch-clank" for entry in entries)
     assert any(entry["subject"] == "semiconductor-intelligence" for entry in entries)
     family = record["family_status"]

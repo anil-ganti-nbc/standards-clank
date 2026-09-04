@@ -1,0 +1,143 @@
+{
+  "audit_id": "ktw-deployment-proof-m22-2026-09-04",
+  "mode": "LIVE_PROOF_EVIDENCE_RECORD_AND_ADMISSION",
+  "date": "2026-09-04",
+  "standards_clank_head": "e379ea59abd472cc5d86899a8e7935ec21845d95",
+  "ktw": {
+    "target": "korean-tech-wire",
+    "branch": "main",
+    "head": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+    "origin_main": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+    "parent": "afb4aada1d4fae09ada4658fe9fcf8dfa38eb23d",
+    "modified_in_this_pass": false,
+    "standard": "STD-DEPLOY-COM-001",
+    "state": "LIVE_PROOF_CONFIRMED",
+    "lifecycle": "CLOSED",
+    "deployment_target": "hetzner/ubuntu-4gb-hel1-1:systemd-venv-soak",
+    "scope": "this exact source SHA + target + deployment mechanism + evidence package"
+  },
+  "deployment_mechanism": {
+    "model": "systemd oneshot + timer + venv interpreter",
+    "service": "korean-tech-wire-soak.service",
+    "timer": "korean-tech-wire-soak.timer",
+    "user": "korean-tech-wire",
+    "working_directory": "/opt/korean-tech-wire",
+    "exec_line": "/opt/korean-tech-wire/.venv/bin/python -m korean_tech_wire.cli soak --cycles 1 --interval-seconds 7200 --if-due",
+    "timer_cadence": "OnBootSec=5min, OnUnitActiveSec=30min, Persistent=true",
+    "timer_state": "enabled + active",
+    "resident_service_required": false,
+    "oneshot_service": true
+  },
+  "pre_deploy_state": {
+    "live_sha": "afb4aada1d4fae09ada4658fe9fcf8dfa38eb23d",
+    "classification": "STALE_DEPLOYMENT",
+    "m20_recon_observed_marker": 2,
+    "marker_at_deploy_time": 4,
+    "marker_correction_reason": "the stale live deployment's own timer-driven machinery advanced the DB naturally between recon and the bounded deploy",
+    "earlier_recon_preserved": true,
+    "tables": 8,
+    "articles": 917,
+    "quick_check": "ok"
+  },
+  "backup": {
+    "command": "state backup --destination /opt/korean-tech-wire/backups/kbw-pre-m21-f49bd02.db",
+    "path": "/opt/korean-tech-wire/backups/kbw-pre-m21-f49bd02.db",
+    "size_bytes": 11120640,
+    "sha256": "80dcb1927598d8d22a3cf1039e05f882f467ff9a9e3d3fa95dad123974bc0407",
+    "size_matched_live_db": true,
+    "overwrite_refusal_corroborated": true,
+    "full_byte_identity_claimed": false
+  },
+  "transport": {
+    "method": "credential-free git bundle",
+    "detail": "bundle created from canonical workstation repo at f49bd02, transferred to host, fetched locally by the service user, exact SHA checked out, temporary bundle removed afterward",
+    "weakness_in_runtime_identity": false
+  },
+  "runtime_identity": {
+    "chain": ["systemd unit", "WorkingDirectory /opt/korean-tech-wire", ".venv/bin/python", "import path /opt/korean-tech-wire/src/korean_tech_wire/__init__.py", "checkout SHA f49bd02", "SCHEMA_VERSION 5"],
+    "classification": "IDENTITY_PROVEN",
+    "oci_demanded": false
+  },
+  "persistent_state_transition": {
+    "pre_marker": 4,
+    "post_marker": 5,
+    "machinery": "canonical additive migration (M12 numbered compatibility)",
+    "post_tables": 12,
+    "articles_preserved": 917,
+    "quick_check": "ok",
+    "compatibility": "COMPATIBLE",
+    "qualification_tables_present": true,
+    "qc_archive_at_proof_time": "absent",
+    "qc_archive_bootstrap": "canonical v1 on first QC/dashboard use"
+  },
+  "natural_fires": {
+    "first_post_deploy": {
+      "timestamp_utc": "2026-09-03T22:14:45Z",
+      "result": "exit 0 / systemd SUCCESS",
+      "classification": "NATURAL_DUE_CHECK_ONLY",
+      "run_rows_created": 0,
+      "is_collection_proof": false,
+      "proves": "timer fires + canonical code executes"
+    },
+    "second_post_deploy": {
+      "timer_trigger_utc": "2026-09-03T23:14:27Z",
+      "execution_utc": "2026-09-03T23:15:48Z to 2026-09-03T23:17:21Z",
+      "result": "exit 0 / systemd SUCCESS",
+      "classification": "NATURAL_COLLECTION_CYCLE",
+      "is_authoritative_collection_proof": true
+    }
+  },
+  "natural_collection_evidence": {
+    "production_sources": ["the_elec", "lg_display_newsroom", "etnews_hardware"],
+    "all_success": true,
+    "provenance": "SCHEDULED",
+    "articles_advanced": "917 → 920",
+    "qualification_epochs_created": 6,
+    "qualification_terminals_created": 6,
+    "qualification_provenance": "SCHEDULED",
+    "qualification_terminal_status": "success",
+    "counts_for_qualification": 1,
+    "gate_status": "NOT_QUALIFIED",
+    "gate_status_expected": "qualification epoch 1 just started; repeated scheduled successes required"
+  },
+  "orthogonality": {
+    "deployment_proof": "CONFIRMED",
+    "qualification_maturity": "NOT_YET_QUALIFIED",
+    "ops_com_003_reclosed": false,
+    "ops_com_003_reclassified": false,
+    "promotion_readiness_claimed": false
+  },
+  "family_status": {
+    "conclusion": "FIRST_VALIDATED_MEMBER_OF_SYSTEMD_VENV_SOAK_COMPATIBILITY",
+    "members": {"korean-tech-wire": "f49bd02eb214b650a146e9c0f6f348d526285a91"},
+    "descriptive_only": true,
+    "is_new_standard": false,
+    "not_merged_with": ["ALEMBIC_HEAD", "NUMBERED_SQLITE", "CURRENT_SCHEMA_BOOTSTRAP_SQLITE", "CREATE_ALL_WITH_EXPLICIT_SCHEMA_AUTHORITY", "ADDITIVE_SCHEMA_MARKER_COMPATIBILITY"],
+    "all_other_clanks_inherit": false
+  },
+  "known_evidence_admission": {
+    "performed": true,
+    "layer": "standards/deployment/known-evidence-index.json",
+    "admitted": {
+      "subject": "korean-tech-wire",
+      "revision": "f49bd02eb214b650a146e9c0f6f348d526285a91",
+      "standard": "STD-DEPLOY-COM-001",
+      "state": "LIVE_PROOF_CONFIRMED",
+      "lifecycle": "CLOSED"
+    },
+    "admission_count": 1,
+    "prior_admissions_preserved": 11,
+    "historical_m1_preserved": true
+  },
+  "guards": {
+    "frozen_standard_files_changed": false,
+    "frozen_tags_changed_or_moved": false,
+    "ktw_modified_in_this_pass": false,
+    "host_deployment_live_or_production_db_actions_in_this_pass": false,
+    "production_migration_in_this_pass": false,
+    "full_target_conformance_claim": false,
+    "generalization_to_future_shas": false,
+    "generalization_to_other_targets": false,
+    "qualification_notqualified_reinterpreted_as_deployment_failure": false
+  }
+}

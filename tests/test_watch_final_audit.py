@@ -75,15 +75,15 @@ def test_deployment_known_evidence_is_admitted_deterministically():
     # M25, and M28 add the Smartwatch, Feature Phone, and Tablet COM-001
     # live-proof facts. The Watch admission remains unchanged and is still
     # present once.
-    assert len(entries) == 11
+    assert len(entries) == 12
     watch = [entry for entry in entries if entry["subject"] == "watch-clank"]
     assert len(watch) == audit["entries"] == 1
     assert watch[0]["standard"] == "STD-DEPLOY-COM-001"
     assert watch[0]["kind"] == "known_conformance"
     assert watch[0]["source_reference"] == "audits/watch-clank-cross-domain-2026-09-01-final.md"
-    ktw = [entry for entry in entries if entry["subject"] == "korean-tech-wire"]
+    ktw = [entry for entry in entries
+           if entry["subject"] == "korean-tech-wire" and entry["standard"] == "STD-DEPLOY-COM-002"]
     assert len(ktw) == 1
-    assert ktw[0]["standard"] == "STD-DEPLOY-COM-002"
     assert ktw[0]["source_reference"] == "audits/ktw-persistent-state-remediation-m12-2026-09-02.md"
     tablet = [entry for entry in entries if entry["subject"] == "tablet-clank"
               and entry["standard"] == "STD-DEPLOY-COM-002"]

@@ -4,7 +4,7 @@
     "subject": "chinese-tech-wire",
     "kind": "known_conformance",
     "source": "audit",
-    "summary": "CONFORMS / CLOSED at canonical Chinese Tech Wire main revision c340a45ac8cfbab58d749dcbf78a7d703ca9cdb1: the new durable schema_meta v1 authority, corroborated by a deterministic 21-table required-column structural manifest, sits behind a read-only-first compatibility barrier \u2014 create_all is restricted to genuinely fresh bootstrap, structurally complete but marker-less databases are LEGACY_UNADOPTED and fail closed everywhere, promotion happens only through the explicit operator-only --adopt-current-schema action (structural proof before any write, re-verification after), and newer/partial/contradictory/corrupt state fails closed with evidence across CLI, session, dashboard, scheduled, and health surfaces.",
+    "summary": "CONFORMS / CLOSED at canonical Chinese Tech Wire main revision c340a45ac8cfbab58d749dcbf78a7d703ca9cdb1: the new durable schema_meta v1 authority, corroborated by a deterministic 21-table required-column structural manifest, sits behind a read-only-first compatibility barrier — create_all is restricted to genuinely fresh bootstrap, structurally complete but marker-less databases are LEGACY_UNADOPTED and fail closed everywhere, promotion happens only through the explicit operator-only --adopt-current-schema action (structural proof before any write, re-verification after), and newer/partial/contradictory/corrupt state fails closed with evidence across CLI, session, dashboard, scheduled, and health surfaces.",
     "source_reference": "audits/ctw-persistent-state-remediation-m17-2026-09-02.md"
   },
   {
@@ -20,8 +20,16 @@
     "subject": "feature-phone-clank",
     "kind": "known_conformance",
     "source": "audit",
-    "summary": "CONFORMS / CLOSED at canonical Feature Phone main revision b60e881319b16d36625268d9ba2d66cb8ea8f818: SqliteStore and the QC archive each sit behind a read-only-first compatibility barrier that inspects through a mode=ro handle before any mutable setup, admits only genuinely fresh or known-older state through the canonical bootstrap/migration path with explicit re-verification, and leaves every refused file byte-identical \u2014 newer, unknown, corrupt, partial, and failed-migration state fails closed with compatibility evidence on CLI, dashboard, controller, and health surfaces.",
+    "summary": "CONFORMS / CLOSED at canonical Feature Phone main revision b60e881319b16d36625268d9ba2d66cb8ea8f818: SqliteStore and the QC archive each sit behind a read-only-first compatibility barrier that inspects through a mode=ro handle before any mutable setup, admits only genuinely fresh or known-older state through the canonical bootstrap/migration path with explicit re-verification, and leaves every refused file byte-identical — newer, unknown, corrupt, partial, and failed-migration state fails closed with compatibility evidence on CLI, dashboard, controller, and health surfaces.",
     "source_reference": "audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md"
+  },
+  {
+    "standard": "STD-DEPLOY-COM-001",
+    "subject": "korean-tech-wire",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "LIVE_PROOF_CONFIRMED at Korean Tech Wire f49bd02eb214b650a146e9c0f6f348d526285a91 on target hetzner/ubuntu-4gb-hel1-1:systemd-venv-soak: intended SHA = host checkout = venv import path (systemd unit → WorkingDirectory /opt/korean-tech-wire → .venv/bin/python → src/korean_tech_wire/__init__.py), canonical additive migration DB marker 4→5 through the already-closed M12 numbered compatibility machinery (quick_check ok, 12 tables, 917 historical articles preserved, qualification tables created), first natural post-deploy timer fire at 22:14:45Z was a due-check-only cycle (no sources due, no run rows — correctly classified as NATURAL_DUE_CHECK_ONLY), and the second natural fire (trigger 23:14:27Z, execution 23:15:48–23:17:21Z, exit 0/SUCCESS) ran the canonical production scope (the_elec, lg_display_newsroom, etnews_hardware — all success) with every durable run row recording provenance SCHEDULED, six qualification epochs/terminals created with INITIAL_MATERIAL_IDENTITY and counts_for_qualification=1, gate honestly NOT_QUALIFIED (epoch 1 just started — qualification maturity is orthogonal to deployment proof), articles advancing 917→920 naturally, and the canonical lock path var/korean_tech_wire.db.lock mtime-correlated with the run.",
+    "source_reference": "audits/ktw-deployment-proof-m22-2026-09-04.md"
   },
   {
     "standard": "STD-DEPLOY-COM-002",
@@ -36,7 +44,7 @@
     "subject": "oem-radar",
     "kind": "known_conformance",
     "source": "audit",
-    "summary": "CONFORMS / CLOSED at canonical OEM Radar main revision 79fbee63ee3a43badad085671ba5bf6837b627f7: schema_migrations v7 authority corroborated against the expected 20-table structure sits behind a read-only-first compatibility barrier that inspects through a mode=ro handle before any mutable setup, admits only genuinely fresh or known-older state through the canonical bootstrap/migration path with explicit re-verification, leaves refused files byte-identical, and no longer swallows duplicate-column migration errors \u2014 newer, unknown, corrupt, partial, and marker-behind-structure state fails closed across scheduler, CLI, dashboard, one-shot crawl, and health surfaces.",
+    "summary": "CONFORMS / CLOSED at canonical OEM Radar main revision 79fbee63ee3a43badad085671ba5bf6837b627f7: schema_migrations v7 authority corroborated against the expected 20-table structure sits behind a read-only-first compatibility barrier that inspects through a mode=ro handle before any mutable setup, admits only genuinely fresh or known-older state through the canonical bootstrap/migration path with explicit re-verification, leaves refused files byte-identical, and no longer swallows duplicate-column migration errors — newer, unknown, corrupt, partial, and marker-behind-structure state fails closed across scheduler, CLI, dashboard, one-shot crawl, and health surfaces.",
     "source_reference": "audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md"
   },
   {
@@ -60,7 +68,7 @@
     "subject": "smartwatch-clank",
     "kind": "known_conformance",
     "source": "audit",
-    "summary": "CONFORMS / CLOSED at canonical Smartwatch main revision a93355480bb11e1bd16ae7837256ce9002fc2aa7: the retained durable monotonic schema_version v3 marker (single row, id=1), structurally corroborated against the expected 17-table contract plus the complete runs column set, sits behind a read-only-first compatibility barrier \u2014 read-write construction inspects through a mode=ro handle before any mutating open, compatible state opens with zero schema writes (hash-proven byte-identical), only genuinely fresh or source-proven historical pre-marker (v1/v2 runs-only) state may enter the canonical additive _migrate() and is re-verified read-only afterwards, arbitrary marker-less state is UNKNOWN and fails closed, and newer/partial/contradictory/malformed/corrupt/failed-migration state fails closed with evidence across CLI run, read-only inspection commands, scheduler, dashboard, local collection, and the independent QC archive gate.",
+    "summary": "CONFORMS / CLOSED at canonical Smartwatch main revision a93355480bb11e1bd16ae7837256ce9002fc2aa7: the retained durable monotonic schema_version v3 marker (single row, id=1), structurally corroborated against the expected 17-table contract plus the complete runs column set, sits behind a read-only-first compatibility barrier — read-write construction inspects through a mode=ro handle before any mutating open, compatible state opens with zero schema writes (hash-proven byte-identical), only genuinely fresh or source-proven historical pre-marker (v1/v2 runs-only) state may enter the canonical additive _migrate() and is re-verified read-only afterwards, arbitrary marker-less state is UNKNOWN and fails closed, and newer/partial/contradictory/malformed/corrupt/failed-migration state fails closed with evidence across CLI run, read-only inspection commands, scheduler, dashboard, local collection, and the independent QC archive gate.",
     "source_reference": "audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md"
   },
   {
