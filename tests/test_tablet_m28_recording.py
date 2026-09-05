@@ -230,7 +230,7 @@ def test_m28_admits_exactly_one_tablet_com001_fact():
     assert admission["deployment_facts_after_admission"] == 11
     entries = json.loads(KNOWN.read_text(encoding="utf-8"))
     assert entries == build_known_evidence_index()
-    assert len(entries) == 15
+    assert len(entries) == 16
     tab = [e for e in entries if e["subject"] == "tablet-clank"]
     assert len(tab) == 2
     by_standard = {e["standard"]: e for e in tab}

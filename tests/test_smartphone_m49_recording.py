@@ -310,7 +310,7 @@ def test_m49_known_evidence_index_admits_smartphone_com001():
     committed = json.loads(KNOWN.read_text(encoding="utf-8"))
     regenerated = build_known_evidence_index()
     assert committed == regenerated, "committed index is stale vs audits/*.md"
-    assert len(committed) == 15
+    assert len(committed) == 16
     sm = [
         e for e in committed
         if e["subject"] == "smartphone-clank" and e["standard"] == "STD-DEPLOY-COM-001"
@@ -334,6 +334,7 @@ def test_m49_prior_admissions_preserved_verbatim():
         ("korean-tech-wire", "STD-DEPLOY-COM-002"),
         ("oem-radar", "STD-DEPLOY-COM-001"),
         ("oem-radar", "STD-DEPLOY-COM-002"),
+        ("semiconductor-intelligence", "STD-DEPLOY-COM-001"),
         ("semiconductor-intelligence", "STD-DEPLOY-COM-002"),
         ("smartphone-clank", "STD-DEPLOY-COM-001"),
         ("smartwatch-clank", "STD-DEPLOY-COM-001"),

@@ -157,7 +157,7 @@ def test_m22_admits_exactly_one_smartwatch_com001_fact():
     assert admission["deployment_facts_after_admission"] == 9
     entries = json.loads(KNOWN.read_text(encoding="utf-8"))
     assert entries == build_known_evidence_index()
-    assert len(entries) == 15
+    assert len(entries) == 16
     sw = [e for e in entries if e["subject"] == "smartwatch-clank"]
     assert len(sw) == 2
     by_standard = {e["standard"]: e for e in sw}

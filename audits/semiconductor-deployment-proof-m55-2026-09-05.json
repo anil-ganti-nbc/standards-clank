@@ -1,0 +1,238 @@
+{
+  "audit_id": "semiconductor-deployment-proof-m55-2026-09-05",
+  "mode": "LIVE_PROOF_EVIDENCE_RECORD_AND_ADMISSION",
+  "date": "2026-09-05",
+  "standards_clank_head": "a2aa6f0d4145d7e2ba63435240d0479223ec4b06",
+  "semiconductor": {
+    "target": "semiconductor-intelligence",
+    "head": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+    "origin_main": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+    "modified_in_this_pass": false,
+    "standard": "STD-DEPLOY-COM-001",
+    "state": "LIVE_PROOF_CONFIRMED",
+    "lifecycle": "CLOSED",
+    "deployment_target": "Hetzner:/home/deploy/staging/semiconductor-intelligence",
+    "deployment_mechanism": "cron 40 * * * * -> deploy_run.sh -> Docker Compose one-shot semi-intel -> semintel automation cycle (OperationalScheduler DB job lease)",
+    "scope": "this exact source SHA + target + cron/one-shot/automation-cycle mechanism + delivery OFF"
+  },
+  "pre_deploy_state": {
+    "live_source": "ece4b001c60dd156c2a05cb92cf0ea335e0532c6",
+    "classification": "BEHIND_CANON",
+    "commits_behind": 4,
+    "intervening_commits": [
+      "8a356a3 human QC review support",
+      "688b71a qualification reset-traceability",
+      "8085a1b DEPLOY-COM-002 compatibility gate",
+      "53cb3f1 dashboard timezone/documentation fix"
+    ],
+    "pre_live_image": "semi-intel:ece4b00",
+    "db": {
+      "size_bytes": 10231808,
+      "sha256": "fd4ce3e8edd72c82bd5876d54431055cffb74721378b6fd5240cf743f2e27ebb",
+      "quick_check": "ok",
+      "tables": 50,
+      "alembic_revision": "a0b1c2d3e404",
+      "self_consistent_with_ece4b00": true,
+      "run_frontier": 344,
+      "sources": 1
+    },
+    "canonical_head": "c7d8e9f0a1b2",
+    "migration_required_before_canon": true
+  },
+  "historical_test_debt": {
+    "classification": "CURRENT_FAILURE_REPRODUCED_DEPLOYMENT_IRRELEVANT",
+    "failing_guard": "tests/test_deploy_com_002_m11.py::test_runtime_health_does_not_bootstrap_missing_database",
+    "nature": "diagnostic-string assertion mismatch",
+    "substantive_property_holds": ["application readiness false against missing DB", "no missing DB bootstrap", "fail-closed behaviour holds"],
+    "m53_suite_was_not_green": {"passed": 896, "failed": 12, "skipped": 1, "interpreter": "system Python 3.14"},
+    "source_suite_claimed_green": false,
+    "repaired_in_standards": false,
+    "com001_blocker": false
+  },
+  "quiet_window": {
+    "window_utc": "12:12-12:20, between the 11:40 fire (run 344 SUCCESSFUL, ended 11:42:10Z) and the 12:40 fire",
+    "running_jobs": 0,
+    "active_leases": 0,
+    "cron_unchanged": "40 * * * *"
+  },
+  "exclusivity_authority": {
+    "mechanism": "OperationalScheduler DB-level job lease",
+    "table": "operational_job_leases",
+    "fields": ["owner_identity", "lock_token (UUID)", "expires_at", "stale-abandon model"],
+    "host_flock_claimed": false
+  },
+  "backup": {
+    "path_suffix": "/app/data/backups/semi-intel-backup-20260905T121316.967010Z.sqlite3",
+    "size_bytes": 10231808,
+    "sha256": "e5f2ac6f49e020b87e9e70b34d0847273771f932a29c4adc2d34151a27be2944",
+    "sha_verification": "tool-reported and independently re-hashed, identical",
+    "quick_check": "ok",
+    "alembic_revision": "a0b1c2d3e404",
+    "runs": 344,
+    "manifest": "semi-intel-backup-20260905T121316.967010Z.manifest.json (507 bytes)",
+    "prior_backups_untouched": true
+  },
+  "source_preparation": {
+    "fast_forward": "ece4b00 -> 53cb3f1 confirmed via merge-base",
+    "dependency_diff_lines": 0,
+    "build_context": "detached temp worktree at 53cb3f1 (live clone unmoved until pointer time)",
+    "canonical_image": "semi-intel:53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+    "image_id": "e3d65d657eeb",
+    "built_utc": "2026-09-05T12:14:23Z"
+  },
+  "identity_limitation": {
+    "oci_revision_label": "absent",
+    "identity_source_revision": "unknown",
+    "recorded_honestly": true,
+    "identity_proven_through": [
+      "exact host checkout SHA 53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "exact canonical image tag semi-intel:53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "byte-unchanged tracked deploy_run.sh (385d7c4424fac0f0048181ed2d36544d4a208d438cae4469cac3b60714a082a2)",
+      "byte-unchanged tracked docker-compose.staging.yml (8b6e62d608ad24cce37cf1a6594f7d2def92a3bf9fe86250966b6a6f49e080c9)",
+      "canon-era durable runtime behaviour (qualification_provenance written by run 345)"
+    ],
+    "unknown_converted_to_revision_claim": false
+  },
+  "scratch_migration": {
+    "targeting_proof": {
+      "classification": "SCRATCH_TARGET_PROVEN_BEFORE_MUTATION",
+      "source": "verified backup copy, SHA identical (e5f2ac6f...)",
+      "marker": "m54-scratch-mount-marker read inside canonical container",
+      "live_db_excluded": true,
+      "live_mis_target": false
+    },
+    "command": "db upgrade (canonical)",
+    "chain": ["a0b1c2d3e404", "bf599f950d56", "c7d8e9f0a1b2"],
+    "result": "PASS",
+    "exit": 0,
+    "schema_delta": {
+      "added_tables": ["candidate_reviews", "qualification_epochs", "qualification_events"],
+      "candidate_reviews_detail": "11 columns incl. disposition Enum(USEFUL/NOT_USEFUL/FALSE_POSITIVE/DUPLICATE), FK -> signal_candidates, uq_candidate_review_candidate_id, 3 indexes",
+      "added_nullable_columns_on_operational_job_runs": ["qualification_provenance", "qualification_material_identity", "qualification_epoch_id"],
+      "also": "3 indexes + 1 FK on operational_job_runs; uq job_type+material_identity on qualification_epochs; 8 indexes on the 2 new qualification tables",
+      "existing_row_transformation": false,
+      "destructive_schema_action": false,
+      "pre_existing_data_preserved": true
+    },
+    "backup_records_artifact": {
+      "observed": "1 -> 0",
+      "classification": "COMPARISON_BASE_ARTIFACT",
+      "not_migration_data_loss": true,
+      "cause": "the live DB inserted the backup-record row after the backup file itself had already been written; the scratch (copy of that file) naturally lacked the later row",
+      "verified_against": {"backup_file_rows": 0, "live_rows": 1}
+    },
+    "acceptance": {
+      "alembic_post": "c7d8e9f0a1b2",
+      "quick_check": "ok",
+      "tables": 53,
+      "expected_plus3_tables_present": true,
+      "expected_nullable_columns_present": true,
+      "pre_existing_rows_preserved": true,
+      "health": "healthy",
+      "readiness": true,
+      "implicit_collection": false,
+      "qualification": "QUALIFIED"
+    }
+  },
+  "live_migration": {
+    "gates_met": ["backup verified", "scratch targeting proven", "scratch migration PASS", "scratch health PASS", "no live lease active", "canonical image built"],
+    "result_matched_scratch": true,
+    "chain": ["a0b1c2d3e404", "bf599f950d56", "c7d8e9f0a1b2"],
+    "post": {"quick_check": "ok", "tables": 53, "runs": 344, "sources": 1, "schema_delta_matched_scratch": true}
+  },
+  "pointer_transition": {
+    "from": "ece4b00",
+    "to": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+    "file": ".deployed-id",
+    "tracked_wiring_unchanged": true,
+    "deploy_run_sh_sha256": "385d7c4424fac0f0048181ed2d36544d4a208d438cae4469cac3b60714a082a2",
+    "compose_sha256": "8b6e62d608ad24cce37cf1a6594f7d2def92a3bf9fe86250966b6a6f49e080c9"
+  },
+  "live_health": {
+    "operational_state": "healthy",
+    "application_readiness": true,
+    "fail_closed_refusal": false,
+    "bootstrap": false,
+    "alembic_current": true
+  },
+  "operational_contract": {
+    "cron": "40 * * * *",
+    "command": "deploy_run.sh -> docker compose run --rm semi-intel -> semintel automation cycle",
+    "scope": "1 configured source",
+    "source_name": "PCI ID Repository",
+    "source_kind": "REGISTRY",
+    "delivery": "OFF / absent / unconfigured",
+    "dashboard": "NOT_DEPLOYED / NOT_APPLICABLE",
+    "cadence_or_scope_change": false
+  },
+  "natural_proof": {
+    "authoritative_run": {
+      "run_id": 345,
+      "job_type": "PIPELINE",
+      "trigger_type": "SCHEDULED",
+      "status": "SUCCESSFUL",
+      "started_utc": "2026-09-05T12:40:03.801568Z",
+      "finished_utc": "2026-09-05T12:42:06.589977Z",
+      "cron_fire_utc": "2026-09-05T12:40:01Z",
+      "attempt": 1,
+      "owner_identity": "129eedf7cd50:1",
+      "lock_token": "23a4ac76f6c149f99e2b22da779b1645",
+      "qualification_provenance": "scheduled",
+      "summary": "PCI ID Repository: 0 new, 21475 duplicate(s), 0 error(s)"
+    },
+    "canon_era_durable_provenance": {
+      "field": "qualification_provenance",
+      "value": "scheduled",
+      "interpretation": "field introduced by the current canonical migration/code path; strong runtime corroboration used together with checkout + image identity, not alone as a source-SHA proof"
+    },
+    "registry_result": {"new": 0, "duplicates": 21475, "errors": 0, "classified": "established full-registry sweep behaviour, not failure"},
+    "continuity": {
+      "operational_job_runs": "344 -> 345",
+      "run_history_break": false,
+      "identity_reset": false,
+      "source_count_change": false,
+      "source_count": 1,
+      "duplicate_explosion": false,
+      "false_novelty": false,
+      "lease_regression": false,
+      "failed_transition": false
+    },
+    "barrier": {
+      "classification": "BARRIER_HELD",
+      "alembic_after_natural_run": "c7d8e9f0a1b2",
+      "hidden_bootstrap_or_downgrade": false
+    }
+  },
+  "rollback": {
+    "triggered": false,
+    "paired_rule_preserved": true,
+    "rule": "after DB upgrade to c7d8e9f0a1b2, old ece4b00 code is incompatible with newer state; rollback must pair old source ece4b00 + old image semi-intel:ece4b00 + restore pre-M54 backup at a0b1c2d3e404; never one component alone",
+    "old_image_retained": "semi-intel:ece4b00"
+  },
+  "known_evidence_admission": {
+    "performed": true,
+    "layer": "standards/deployment/known-evidence-index.json",
+    "admitted": {
+      "subject": "semiconductor-intelligence",
+      "revision": "53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1",
+      "standard": "STD-DEPLOY-COM-001",
+      "state": "LIVE_PROOF_CONFIRMED",
+      "lifecycle": "CLOSED"
+    },
+    "admission_count": 1,
+    "prior_admissions_preserved": "all",
+    "com002_closure_preserved": "CONFORMS/CLOSED at 8085a1bb (M11), not re-closed or re-scoped",
+    "fleet_com001_closure": "9 of 9 named deployment targets"
+  },
+  "guards": {
+    "frozen_standard_files_changed": false,
+    "frozen_tags_changed_or_moved": false,
+    "semiconductor_source_modified_in_this_pass": false,
+    "hetzner_accessed_in_this_standards_pass": false,
+    "com002_reclosed": false,
+    "diagnostic_string_test_fixed": false,
+    "generalization_to_future_shas": false,
+    "generalization_to_other_targets": false,
+    "full_target_conformance_claim": false
+  }
+}

@@ -64,6 +64,14 @@
     "source_reference": "audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md"
   },
   {
+    "standard": "STD-DEPLOY-COM-001",
+    "subject": "semiconductor-intelligence",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "LIVE_PROOF_CONFIRMED at Semiconductor Intelligence 53cb3f1f5358ad28a2d92ebd78efeab9534ddfa1 on target Hetzner:/home/deploy/staging/semiconductor-intelligence (cron 40 * * * * \u2192 deploy_run.sh \u2192 Docker Compose one-shot semi-intel \u2192 semintel automation cycle under the OperationalScheduler DB job lease): pre-deploy live ece4b00 (4 commits BEHIND_CANON, DB self-consistent at a0b1c2d3e404) was backed up canonically (verified .sqlite3 + SHA manifest), canonical db upgrade was scratch-proved first (SCRATCH_TARGET_PROVEN_BEFORE_MUTATION; a0b1c2d3e404 \u2192 bf599f950d56 \u2192 c7d8e9f0a1b2; exactly +3 tables candidate_reviews/qualification_epochs/qualification_events + 3 nullable qualification columns on operational_job_runs; all pre-existing rows preserved; backup_records 1\u21920 recorded as COMPARISON_BASE_ARTIFACT, NOT_MIGRATION_DATA_LOSS) then applied live with identical results; pointer flipped ece4b00\u219253cb3f1 with deploy_run.sh and compose byte-unchanged; authoritative natural proof is durable scheduled run id=345 (12:40:03.8Z\u219212:42:06.6Z, SCHEDULED, SUCCESSFUL, fresh container 129eedf7cd50:1, lease token 23a4ac76\u2026, PCI ID Repository 0 new/21,475 duplicates/0 errors \u2014 normal registry sweep) whose durable row carries qualification_provenance='scheduled', a column only canon-era code writes; continuity 344\u2192345 exact, sources 1, Alembic held at canonical head (BARRIER_HELD); delivery OFF, dashboard NOT_DEPLOYED/NOT_APPLICABLE, no rollback, old image retained with the paired-rollback rule recorded; runtime --identity honestly reports source_revision='unknown' (repo exposes no OCI revision label) with identity proven through checkout SHA + image tag + byte-unchanged tracked wiring.",
+    "source_reference": "audits/semiconductor-deployment-proof-m55-2026-09-05.md"
+  },
+  {
     "standard": "STD-DEPLOY-COM-002",
     "subject": "semiconductor-intelligence",
     "kind": "known_conformance",

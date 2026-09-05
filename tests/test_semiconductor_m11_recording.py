@@ -95,17 +95,20 @@ def test_m11_admits_only_semiconductor_deploy_com_002_and_preserves_watch():
     entries = json.loads(KNOWN.read_text(encoding="utf-8"))
     assert entries == build_known_evidence_index()
     semiconductor = [entry for entry in entries if entry["subject"] == "semiconductor-intelligence"]
-    assert len(semiconductor) == 1
-    assert semiconductor[0]["standard"] == "STD-DEPLOY-COM-002"
-    assert SEMICONDUCTOR_SHA in semiconductor[0]["summary"]
+    assert len(semiconductor) == 2  # COM-002 + COM-001 (Semiconductor joins COM-001 at M55,
+    # audits/semiconductor-deployment-proof-m55-2026-09-05.md)
+    com002 = [entry for entry in semiconductor if entry["standard"] == "STD-DEPLOY-COM-002"]
+    assert len(com002) == 1 and SEMICONDUCTOR_SHA in com002[0]["summary"]
     assert any(
         entry["subject"] == "watch-clank" and entry["standard"] == "STD-DEPLOY-COM-001"
         for entry in entries
     )
-    assert all(
-        entry["subject"] != "semiconductor-intelligence" or entry["standard"] == "STD-DEPLOY-COM-002"
-        for entry in entries
-    )
+    # M55 admitted the Semiconductor COM-001 live proof; COM-002 remains
+    # the only other Semiconductor fact, unchanged in scope.
+    assert sorted(e["standard"] for e in entries
+                  if e["subject"] == "semiconductor-intelligence") == [
+        "STD-DEPLOY-COM-001", "STD-DEPLOY-COM-002"
+    ]
     assert admission["other_targets_inherited"] is False
 
 

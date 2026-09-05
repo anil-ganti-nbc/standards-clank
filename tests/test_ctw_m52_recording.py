@@ -354,7 +354,7 @@ def test_m52_preserves_m17_com002_closure():
 def test_m52_known_evidence_index_admits_ctw_com001():
     committed = json.loads(KNOWN.read_text(encoding="utf-8"))
     assert committed == build_known_evidence_index(), "committed index is stale vs audits/*.md"
-    assert len(committed) == 15
+    assert len(committed) == 16
     ctw = [e for e in committed if e["subject"] == "chinese-tech-wire"]
     assert len(ctw) == 2
     com001 = [e for e in ctw if e["standard"] == "STD-DEPLOY-COM-001"]
@@ -376,6 +376,7 @@ def test_m52_prior_admissions_preserved_verbatim():
         ("korean-tech-wire", "STD-DEPLOY-COM-002"),
         ("oem-radar", "STD-DEPLOY-COM-001"),
         ("oem-radar", "STD-DEPLOY-COM-002"),
+        ("semiconductor-intelligence", "STD-DEPLOY-COM-001"),
         ("semiconductor-intelligence", "STD-DEPLOY-COM-002"),
         ("smartphone-clank", "STD-DEPLOY-COM-001"),
         ("smartwatch-clank", "STD-DEPLOY-COM-001"),

@@ -85,7 +85,7 @@ def test_m10_does_not_change_known_evidence_layer():
     # M13 Tablet, M14 Feature Phone, M15 OEM Radar, M17 CTW, M18
     # Smartwatch COM-002, M22 Smartwatch COM-001, M25 Feature Phone
     # COM-001, M28 Tablet COM-001, M49 Smartphone COM-001, M52 CTW
-    # COM-001 live proofs); this LF-normalized hash still makes any other
-    # edit to the active evidence layer visible. Recomputed at the M52
-    # (live-proof admission) pass.
-    assert _sha256(KNOWN) == "eb2c5890053028263f0bf31961d95be6933fc74921c5a64a7e8f8cc8bf0dc6be"
+    # COM-001, M55 Semiconductor COM-001 live proofs); this LF-normalized
+    # hash still makes any other edit to the active evidence layer
+    # visible. Recomputed at the M55 (live-proof admission) pass.
+    assert _sha256(KNOWN) == "f435d5738e2448e66b2c8b20a3a65c2d7b417209ab713653df28ccdbfb0e7351"
