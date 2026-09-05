@@ -276,6 +276,7 @@ def test_m17_admits_exactly_one_ctw_deployment_fact():
         "chinese-tech-wire", "feature-phone-clank", "korean-tech-wire",
         "oem-radar", "semiconductor-intelligence", "tablet-clank", "watch-clank",
         "smartwatch-clank",  # joins at M18 (audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md)
+        "smartphone-clank",  # joins at M49 (audits/smartphone-deployment-proof-m49-2026-09-05.md)
     }
 
 

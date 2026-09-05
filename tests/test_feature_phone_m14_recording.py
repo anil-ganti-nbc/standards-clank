@@ -192,7 +192,7 @@ def test_m14_admits_exactly_one_feature_phone_deployment_fact():
     assert subjects == {
         "feature-phone-clank", "korean-tech-wire", "oem-radar",
         "chinese-tech-wire", "semiconductor-intelligence", "tablet-clank",
-        "watch-clank", "smartwatch-clank",
+        "watch-clank", "smartwatch-clank", "smartphone-clank",
     }
     com001 = [e for e in entries if e["standard"] == "STD-DEPLOY-COM-001"]
     # the Watch COM-001 fact remains; smartwatch-clank joins COM-001 at M22

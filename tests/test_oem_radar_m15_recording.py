@@ -211,7 +211,7 @@ def test_m15_admits_exactly_one_oem_deployment_fact():
     assert subjects == {
         "feature-phone-clank", "korean-tech-wire", "oem-radar",
         "chinese-tech-wire", "semiconductor-intelligence", "tablet-clank",
-        "watch-clank", "smartwatch-clank",
+        "watch-clank", "smartwatch-clank", "smartphone-clank",
     }
     # the Feature Phone family fact remains exactly as M14 admitted it
     # (feature-phone-clank joins COM-001 at M25 as its second fact)

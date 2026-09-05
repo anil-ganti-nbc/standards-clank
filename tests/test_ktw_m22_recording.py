@@ -168,7 +168,7 @@ def test_m22_admits_exactly_one_ktw_deploy_com_001_fact():
     assert {e["subject"] for e in entries} == {
         "chinese-tech-wire", "feature-phone-clank", "korean-tech-wire",
         "oem-radar", "semiconductor-intelligence", "smartwatch-clank",
-        "tablet-clank", "watch-clank",
+        "tablet-clank", "watch-clank", "smartphone-clank",
     }
 
 

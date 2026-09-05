@@ -1,0 +1,146 @@
+{
+  "audit_id": "smartphone-deployment-proof-m49-2026-09-05",
+  "mode": "LIVE_PROOF_EVIDENCE_RECORD_AND_ADMISSION",
+  "date": "2026-09-05",
+  "standards_clank_head": "dee8805defc06b32dd0dc250bd68e3232121405f",
+  "smartphone": {
+    "target": "smartphone-clank",
+    "branch": "main",
+    "head": "e514c45dca4cf966441c27799d98761096dc8c40",
+    "origin_main": "e514c45dca4cf966441c27799d98761096dc8c40",
+    "modified_in_this_pass": false,
+    "standard": "STD-DEPLOY-COM-001",
+    "state": "LIVE_PROOF_CONFIRMED",
+    "lifecycle": "CLOSED",
+    "deployment_target": "hetzner:/opt/smartphone-clank",
+    "deployment_mechanism": "systemd source-specific timers + dashboard service",
+    "scope": "this exact source SHA + target + systemd source-specific timers + dashboard service"
+  },
+  "pre_deploy_state": {
+    "live_sha": "90a1ad4736a871fb48eb4afe5f539d9a9097ed95",
+    "classification": "BEHIND_CANON",
+    "distance": 10,
+    "dependency_diff": "empty",
+    "timers_active": true,
+    "dashboard_service": "active (pre-deploy, running pre-deploy code)"
+  },
+  "backup": {
+    "path": "/opt/smartphone-clank/backups/clank-pre-m48-e514c45.db",
+    "size_bytes": 5902336,
+    "sha256": "a578cfadc0f8478c1f22924c4c0a4210bfc144f8ab323c2be5f3c9a8facdb673",
+    "quick_check": "ok"
+  },
+  "alembic_procedural_deviation": {
+    "intended": "scratch-first Alembic qualification using -x sqlalchemy_url override",
+    "actual": "alembic/env.py read sqlalchemy.url from alembic.ini (CWD-relative), resolving to the LIVE production DB; migration 0008 ran directly against live, bypassing the scratch-copy step entirely",
+    "classification": "LIVE_MIGRATION_SUCCEEDED_WITH_PROCEDURAL_DEVIATION",
+    "live_transition": {"from": "0007_wave1_baseline_state", "to": "0008_analyst_action_integrity"},
+    "migration_effect": "add partial unique index uq_analyst_action_terminal ON analyst_actions(target_type, target_id) WHERE action <> 'note'",
+    "index_sql_captured": true,
+    "analyst_actions_rows_before": 0,
+    "analyst_actions_rows_after": 0,
+    "quick_check_after": "ok",
+    "db_size_change": "5902336 → 5906432",
+    "no_data_loss": true
+  },
+  "runtime_identity": {
+    "chain": ["systemd unit", "WorkingDirectory /opt/smartphone-clank", ".venv/bin/python", "import from checkout", "checkout SHA e514c45"],
+    "classification": "IDENTITY_PROVEN",
+    "native_systemd_venv": true,
+    "oci_demanded": false
+  },
+  "systemd_inventory": {
+    "installed_units": 22,
+    "timers": 10,
+    "timers_enabled_and_active": true,
+    "duplicate_units": false,
+    "unit_contents_unchanged": true,
+    "user": "smartphone-clank",
+    "working_directory": "/opt/smartphone-clank",
+    "venv_interpreter": ".venv/bin/python"
+  },
+  "dashboard": {
+    "pre_restart": {"pid": 1606365, "started": "2026-09-03T06:45:51Z", "http_status": 500, "code_era": "pre-deploy"},
+    "restart": "systemctl restart smartphone-clank-dashboard.service",
+    "post_restart": {"pid": 1738142, "http_status": 200, "code_era": "e514c45 canonical"},
+    "no_collection_on_load": true
+  },
+  "same_state_path": {
+    "dashboard_fd_proof": "/proc/PID/fd/ shows /opt/smartphone-clank/data/clank.db open",
+    "collector_path": "/opt/smartphone-clank/data/clank.db (same WorkingDirectory + relative path)",
+    "alembic_version_both": "0008_analyst_action_integrity",
+    "shared_counts": {"devices": 270, "collector_runs": 350},
+    "path_equality_proven": true
+  },
+  "natural_proof": {
+    "authoritative_run": {
+      "collector": "samsung_us_support_sitemap",
+      "started_at_utc": "2026-09-04T21:46:34Z",
+      "run_id": "2c9b9ede-cefb-429c-a53b-c2ca4bddc460",
+      "run_reason": "production_scheduled",
+      "success": 1,
+      "discoveries": 0,
+      "new_devices": 0
+    },
+    "earlier_no_material_fire": {
+      "collector": "google_store_category_phones",
+      "started_at_utc": "2026-09-04T20:18:43Z",
+      "classification": "NATURAL_EXECUTION_NO_MATERIAL_COLLECTION",
+      "is_collection_proof": false
+    }
+  },
+  "false_novelty_check": {
+    "new_devices": 0,
+    "fresh_db_reset": false,
+    "duplicate_discovery_spike": false,
+    "scope_change": false,
+    "source_health_regression": false
+  },
+  "post_run_integrity": {
+    "alembic_version": "0008_analyst_action_integrity",
+    "quick_check": "ok",
+    "canonical_index_present": true,
+    "collector_runs_delta": "349 → 350",
+    "devices_count": 270,
+    "existing_data_preserved": true,
+    "dashboard_http_200": true,
+    "timers_enabled_active": true,
+    "rollback_required": false
+  },
+  "lock": {
+    "authority": "runtime.locks.FileLock",
+    "path": "data/clank.db.lock",
+    "kernel_tracing_claimed": false
+  },
+  "family_status": {
+    "conclusion": "FIRST_VALIDATED_MEMBER_OF_SYSTEMD_SOURCE_TIMER_COMPATIBILITY",
+    "members": {"smartphone-clank": "e514c45dca4cf966441c27799d98761096dc8c40"},
+    "descriptive_only": true,
+    "is_new_standard": false,
+    "not_merged_with": ["SYSTEMD_VENV_SOAK_COMPATIBILITY", "CRON_DOCKER_COMPOSE_ONE_SHOT_COMPATIBILITY"]
+  },
+  "known_evidence_admission": {
+    "performed": true,
+    "layer": "standards/deployment/known-evidence-index.json",
+    "admitted": {
+      "subject": "smartphone-clank",
+      "revision": "e514c45dca4cf966441c27799d98761096dc8c40",
+      "standard": "STD-DEPLOY-COM-001",
+      "state": "LIVE_PROOF_CONFIRMED",
+      "lifecycle": "CLOSED"
+    },
+    "admission_count": 1,
+    "prior_admissions_preserved": "all",
+    "historical_m1_preserved": true
+  },
+  "guards": {
+    "frozen_standard_files_changed": false,
+    "frozen_tags_changed_or_moved": false,
+    "smartphone_modified_in_this_pass": false,
+    "host_deployment_live_or_production_db_actions_in_this_pass": false,
+    "generalization_to_future_shas": false,
+    "generalization_to_other_targets": false,
+    "com002_reclosed": false,
+    "full_target_conformance_claim": false
+  }
+}

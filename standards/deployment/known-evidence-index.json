@@ -65,6 +65,14 @@
   },
   {
     "standard": "STD-DEPLOY-COM-001",
+    "subject": "smartphone-clank",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "LIVE_PROOF_CONFIRMED at Smartphone e514c45dca4cf966441c27799d98761096dc8c40 on target hetzner:/opt/smartphone-clank (systemd source-specific timers + dashboard service): intended SHA = host checkout = venv import path, .deployed-id transitioned from 90a1ad4, Alembic advanced 0007→0008_analyst_action_integrity through canonical migration machinery (procedural deviation: Alembic env.py resolved to live DB instead of intended scratch, creating uq_analyst_action_terminal partial unique index on analyst_actions — migration succeeded cleanly, 0→0 rows, quick_check ok, DB size 5,902,336→5,906,432), stale dashboard process (PID 1606365 from Sep 3, HTTP 500) restarted (PID 1738142, HTTP 200), /proc/PID/fd/ proved dashboard and scheduled collectors open the same /opt/smartphone-clank/data/clank.db, natural production_scheduled timer fire at 21:46:34Z executed samsung_us_support_sitemap successfully with 0 discoveries and 0 new devices (no false novelty), collector_runs 349→350.",
+    "source_reference": "audits/smartphone-deployment-proof-m49-2026-09-05.md"
+  },
+  {
+    "standard": "STD-DEPLOY-COM-001",
     "subject": "smartwatch-clank",
     "kind": "known_conformance",
     "source": "audit",

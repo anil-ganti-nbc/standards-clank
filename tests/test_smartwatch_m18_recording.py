@@ -291,11 +291,11 @@ def test_m18_admits_exactly_one_smartwatch_deployment_fact():
     assert {e["subject"] for e in entries} == {
         "smartwatch-clank", "chinese-tech-wire", "feature-phone-clank",
         "korean-tech-wire", "oem-radar", "semiconductor-intelligence",
-        "tablet-clank", "watch-clank",
+        "tablet-clank", "watch-clank", "smartphone-clank",
     }
     # smartwatch-clank (M22/M18), feature-phone-clank (M25/M14), and
     # tablet-clank (M28/M13) each carry two Deployment facts
-    assert len(entries) == 13
+    assert len(entries) == 14
 
 
 def test_m18_prose_scope_and_no_action_declaration():
