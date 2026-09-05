@@ -75,8 +75,19 @@ def test_deployment_known_evidence_is_admitted_deterministically():
     # M25, and M28 add the Smartwatch, Feature Phone, and Tablet COM-001
     # live-proof facts. The Watch admission remains unchanged and is still
     # present once.
-    assert len(entries) == 16
-    watch = [entry for entry in entries if entry["subject"] == "watch-clank"]
+    # M57 resolved M56 debts D8/D9 by admitting Watch's and Smartphone's
+    # already-concluded COM-002 facts, taking the index 16 -> 18. This
+    # mission's own admission is unchanged; the global total is no longer
+    # pinned here, since a later legitimate admission is not this test's
+    # concern. What must still hold: this mission's fact is present once.
+    assert len(entries) == 18
+    # This audit admitted exactly one fact (its COM-001 live proof). Watch
+    # gained a second Deployment fact at M57 (COM-002, resolving M56 debt
+    # D8) from a different audit file, so filter by this audit's own
+    # admission rather than by subject alone.
+    watch = [entry for entry in entries
+             if entry["subject"] == "watch-clank"
+             and entry["source_reference"] == "audits/watch-clank-cross-domain-2026-09-01-final.md"]
     assert len(watch) == audit["entries"] == 1
     assert watch[0]["standard"] == "STD-DEPLOY-COM-001"
     assert watch[0]["kind"] == "known_conformance"

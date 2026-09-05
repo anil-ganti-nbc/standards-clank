@@ -295,7 +295,12 @@ def test_m18_admits_exactly_one_smartwatch_deployment_fact():
     }
     # smartwatch-clank (M22/M18), feature-phone-clank (M25/M14), and
     # tablet-clank (M28/M13) each carry two Deployment facts
-    assert len(entries) == 16
+    # M57 resolved M56 debts D8/D9 by admitting Watch's and Smartphone's
+    # already-concluded COM-002 facts, taking the index 16 -> 18. This
+    # mission's own admission is unchanged; the global total is no longer
+    # pinned here, since a later legitimate admission is not this test's
+    # concern. What must still hold: this mission's fact is present once.
+    assert len(entries) == 18
 
 
 def test_m18_prose_scope_and_no_action_declaration():

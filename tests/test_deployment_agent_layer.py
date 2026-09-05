@@ -197,12 +197,19 @@ def test_known_evidence_index_matches_generator_output():
 
 
 def test_known_evidence_admits_only_confirmed_deployment_conformance():
+    """At M52-M55 this asserted 16 facts (9 COM-001 + 7 COM-002) and keyed by
+    subject alone, which relied on last-wins collapsing. M56 recorded the 7-vs-9
+    COM-002 asymmetry as debts D8/D9; M57 traced both to their underlying
+    evidence and admitted them, taking COM-002 to 9. The count is now 18 and
+    entries are keyed by (standard, subject) so no fact can shadow another."""
     entries = _load_known_evidence()
-    assert len(entries) == 16
-    by_subject = {entry["subject"]: entry for entry in entries}
-    assert set(by_subject) == {"watch-clank", "semiconductor-intelligence", "korean-tech-wire", "tablet-clank", "feature-phone-clank", "oem-radar", "smartwatch-clank", "chinese-tech-wire", "smartphone-clank"}
+    assert len(entries) == 18
+    by_key = {(e["standard"], e["subject"]): e for e in entries}
+    assert len(by_key) == len(entries), "no (standard, subject) pair may appear twice"
+    by_subject = {e["subject"] for e in entries}
+    assert by_subject == {"watch-clank", "semiconductor-intelligence", "korean-tech-wire", "tablet-clank", "feature-phone-clank", "oem-radar", "smartwatch-clank", "chinese-tech-wire", "smartphone-clank"}
 
-    watch = by_subject["watch-clank"]
+    watch = by_key[("STD-DEPLOY-COM-001", "watch-clank")]
     assert watch["standard"] == "STD-DEPLOY-COM-001"
     assert watch["kind"] == "known_conformance"
     assert watch["source"] == "audit"
@@ -210,7 +217,7 @@ def test_known_evidence_admits_only_confirmed_deployment_conformance():
     assert "LIVE_PROOF_CONFIRMED" in watch["summary"]
     assert "d03bc4b2f90289686331af0447d5ca4e8cf55822" in watch["summary"]
 
-    semiconductor = by_subject["semiconductor-intelligence"]
+    semiconductor = by_key[("STD-DEPLOY-COM-002", "semiconductor-intelligence")]
     assert semiconductor["standard"] == "STD-DEPLOY-COM-002"
     assert semiconductor["kind"] == "known_conformance"
     assert semiconductor["source"] == "audit"
@@ -218,7 +225,7 @@ def test_known_evidence_admits_only_confirmed_deployment_conformance():
     assert "CONFORMS / CLOSED" in semiconductor["summary"]
     assert "8085a1bbd1a4e133680702e8c1d916b71bb78a14" in semiconductor["summary"]
 
-    ktw = by_subject["korean-tech-wire"]
+    ktw = by_key[("STD-DEPLOY-COM-002", "korean-tech-wire")]
     assert ktw["standard"] == "STD-DEPLOY-COM-002"
     assert ktw["kind"] == "known_conformance"
     assert ktw["source"] == "audit"
@@ -226,43 +233,42 @@ def test_known_evidence_admits_only_confirmed_deployment_conformance():
     assert "CONFORMS / CLOSED" in ktw["summary"]
     assert "354cb7aed0b174923393a0c71e7c4c6230cda28c" in ktw["summary"]
 
-    tablet = by_subject["tablet-clank"]
+    tablet = by_key[("STD-DEPLOY-COM-002", "tablet-clank")]
     assert tablet["standard"] == "STD-DEPLOY-COM-002"
     assert tablet["kind"] == "known_conformance"
     assert tablet["source_reference"] == "audits/tablet-persistent-state-remediation-m13-2026-09-02.md"
     assert "b3088ebc716227b99e1d8aa66942c8a6e87bbfcb" in tablet["summary"]
 
-    feature_phone = by_subject["feature-phone-clank"]
+    feature_phone = by_key[("STD-DEPLOY-COM-002", "feature-phone-clank")]
     assert feature_phone["standard"] == "STD-DEPLOY-COM-002"
     assert feature_phone["kind"] == "known_conformance"
     assert feature_phone["source_reference"] == "audits/feature-phone-persistent-state-remediation-m14-2026-09-02.md"
     assert "CONFORMS / CLOSED" in feature_phone["summary"]
     assert "b60e881319b16d36625268d9ba2d66cb8ea8f818" in feature_phone["summary"]
 
-    oem_radar = by_subject["oem-radar"]
+    oem_radar = by_key[("STD-DEPLOY-COM-002", "oem-radar")]
     assert oem_radar["standard"] == "STD-DEPLOY-COM-002"
     assert oem_radar["kind"] == "known_conformance"
     assert oem_radar["source_reference"] == "audits/oem-radar-persistent-state-remediation-m15-2026-09-02.md"
     assert "CONFORMS / CLOSED" in oem_radar["summary"]
     assert "79fbee63ee3a43badad085671ba5bf6837b627f7" in oem_radar["summary"]
 
-    ctw = by_subject["chinese-tech-wire"]
+    ctw = by_key[("STD-DEPLOY-COM-002", "chinese-tech-wire")]
     assert ctw["standard"] == "STD-DEPLOY-COM-002"
     assert ctw["kind"] == "known_conformance"
     assert ctw["source_reference"] == "audits/ctw-persistent-state-remediation-m17-2026-09-02.md"
     assert "CONFORMS / CLOSED" in ctw["summary"]
     assert "c340a45ac8cfbab58d749dcbf78a7d703ca9cdb1" in ctw["summary"]
 
-    smartwatch = by_subject["smartwatch-clank"]
+    smartwatch = by_key[("STD-DEPLOY-COM-002", "smartwatch-clank")]
     assert smartwatch["standard"] == "STD-DEPLOY-COM-002"
     assert smartwatch["kind"] == "known_conformance"
     assert smartwatch["source_reference"] == "audits/smartwatch-persistent-state-remediation-m18-2026-09-02.md"
     assert "CONFORMS / CLOSED" in smartwatch["summary"]
     assert "a93355480bb11e1bd16ae7837256ce9002fc2aa7" in smartwatch["summary"]
 
-    # Smartwatch joins COM-001 at M22 as its second Deployment fact; the
-    # by_subject dict above keeps the (later-sorted) M18 COM-002 entry, so
-    # the COM-001 fact is checked directly from the list.
+    # Smartwatch carries both Deployment facts; keyed lookup above already
+    # separates them, and the COM-001 fact is re-checked from the list here.
     sw_com001 = [e for e in entries
                  if e["subject"] == "smartwatch-clank" and e["standard"] == "STD-DEPLOY-COM-001"]
     assert len(sw_com001) == 1

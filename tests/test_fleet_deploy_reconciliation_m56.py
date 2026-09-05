@@ -96,13 +96,36 @@ def test_no_duplicate_com_001_target(deploy_index):
     assert len(subjects) == len(set(subjects)), f"duplicate COM-001 subject: {subjects}"
 
 
-def test_all_sixteen_deployment_facts_preserved(deploy_index):
-    assert len(deploy_index) == 16
+def test_all_deployment_facts_preserved(deploy_index):
+    """At M56 this asserted exactly 16 facts (9 COM-001 + 7 COM-002) — correct
+    for that snapshot, and the M56 artifact still records it as such. M57
+    resolved M56's own debts D8/D9 by tracing Watch's and Smartphone's COM-002
+    evidence and admitting it, taking COM-002 from 7 to 9.
+
+    The live invariants that must hold regardless: every M56 fact is still
+    present (nothing was rewritten or dropped), COM-001 remains exactly 9, and
+    the total is the sum of the two standards' facts."""
     com1 = [e for e in deploy_index if e["standard"] == "STD-DEPLOY-COM-001"]
     com2 = [e for e in deploy_index if e["standard"] == "STD-DEPLOY-COM-002"]
-    assert len(com1) == 9
-    assert len(com2) == 7
-    assert len(com1) + len(com2) == 16, "16 facts must be exactly the COM-001 + COM-002 split"
+    assert len(com1) == 9, "COM-001 must remain exactly 9 — M57 must not disturb the closed programme"
+    assert len(com2) >= 7, "no COM-002 fact admitted at or before M56 may be dropped"
+    assert len(com1) + len(com2) == len(deploy_index)
+
+    m56_com002_subjects = {
+        "chinese-tech-wire", "feature-phone-clank", "korean-tech-wire", "oem-radar",
+        "semiconductor-intelligence", "smartwatch-clank", "tablet-clank",
+    }
+    assert m56_com002_subjects <= {e["subject"] for e in com2}, "an M56-era COM-002 fact went missing"
+
+
+def test_m56_artifact_still_records_its_own_snapshot_count(recon):
+    """The M56 record is a historical snapshot and must NOT be retro-edited to
+    match M57's repaired graph. It said 16 = 9 + 7 at M56 time; it must still
+    say that."""
+    acc = recon["deployment_fact_accounting"]
+    assert acc["total_facts"] == 16
+    assert acc["com_001_facts"] == 9
+    assert acc["com_002_facts"] == 7
 
 
 def test_reconciliation_records_the_sixteen_fact_accounting(recon):

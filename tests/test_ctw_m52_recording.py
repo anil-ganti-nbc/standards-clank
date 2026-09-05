@@ -354,7 +354,12 @@ def test_m52_preserves_m17_com002_closure():
 def test_m52_known_evidence_index_admits_ctw_com001():
     committed = json.loads(KNOWN.read_text(encoding="utf-8"))
     assert committed == build_known_evidence_index(), "committed index is stale vs audits/*.md"
-    assert len(committed) == 16
+    # M57 resolved M56 debts D8/D9 by admitting Watch's and Smartphone's
+    # already-concluded COM-002 facts, taking the index 16 -> 18. This
+    # mission's own admission is unchanged; the global total is no longer
+    # pinned here, since a later legitimate admission is not this test's
+    # concern. What must still hold: this mission's fact is present once.
+    assert len(committed) == 18
     ctw = [e for e in committed if e["subject"] == "chinese-tech-wire"]
     assert len(ctw) == 2
     com001 = [e for e in ctw if e["standard"] == "STD-DEPLOY-COM-001"]
@@ -367,7 +372,10 @@ def test_m52_known_evidence_index_admits_ctw_com001():
 def test_m52_prior_admissions_preserved_verbatim():
     committed = json.loads(KNOWN.read_text(encoding="utf-8"))
     pairs = {(e["subject"], e["standard"]) for e in committed}
-    assert pairs == {
+    # Subset, not equality: the intent is that no prior admission was dropped
+    # or rewritten. M57 later added Watch and Smartphone COM-002 (M56 debts
+    # D8/D9); that is a legitimate later admission, not an M52 regression.
+    assert {
         ("chinese-tech-wire", "STD-DEPLOY-COM-001"),
         ("chinese-tech-wire", "STD-DEPLOY-COM-002"),
         ("feature-phone-clank", "STD-DEPLOY-COM-001"),
@@ -384,7 +392,7 @@ def test_m52_prior_admissions_preserved_verbatim():
         ("tablet-clank", "STD-DEPLOY-COM-001"),
         ("tablet-clank", "STD-DEPLOY-COM-002"),
         ("watch-clank", "STD-DEPLOY-COM-001"),
-    }
+    } <= pairs
 
 
 def test_m52_audit_md_carries_parsable_json_block():

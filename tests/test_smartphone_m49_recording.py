@@ -310,7 +310,12 @@ def test_m49_known_evidence_index_admits_smartphone_com001():
     committed = json.loads(KNOWN.read_text(encoding="utf-8"))
     regenerated = build_known_evidence_index()
     assert committed == regenerated, "committed index is stale vs audits/*.md"
-    assert len(committed) == 16
+    # M57 resolved M56 debts D8/D9 by admitting Watch's and Smartphone's
+    # already-concluded COM-002 facts, taking the index 16 -> 18. This
+    # mission's own admission is unchanged; the global total is no longer
+    # pinned here, since a later legitimate admission is not this test's
+    # concern. What must still hold: this mission's fact is present once.
+    assert len(committed) == 18
     sm = [
         e for e in committed
         if e["subject"] == "smartphone-clank" and e["standard"] == "STD-DEPLOY-COM-001"
@@ -343,7 +348,11 @@ def test_m49_prior_admissions_preserved_verbatim():
         ("tablet-clank", "STD-DEPLOY-COM-002"),
         ("watch-clank", "STD-DEPLOY-COM-001"),
     }
-    assert pairs == expected_prior
+    # Subset, not equality: the intent is that no prior admission was
+    # dropped or rewritten. M57 later admitted Watch and Smartphone
+    # COM-002 (resolving M56 debts D8/D9) - a legitimate later
+    # admission, not a regression of this mission.
+    assert expected_prior <= pairs
 
 
 def test_m49_audit_md_carries_parsable_json_block():

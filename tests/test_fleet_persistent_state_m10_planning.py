@@ -87,5 +87,6 @@ def test_m10_does_not_change_known_evidence_layer():
     # COM-001, M28 Tablet COM-001, M49 Smartphone COM-001, M52 CTW
     # COM-001, M55 Semiconductor COM-001 live proofs); this LF-normalized
     # hash still makes any other edit to the active evidence layer
-    # visible. Recomputed at the M55 (live-proof admission) pass.
-    assert _sha256(KNOWN) == "f435d5738e2448e66b2c8b20a3a65c2d7b417209ab713653df28ccdbfb0e7351"
+    # visible. Recomputed at the M57 (COM-002 completeness) pass, which admitted
+    # the Watch and Smartphone COM-002 facts resolving M56 debts D8/D9.
+    assert _sha256(KNOWN) == "d61eb2dc12c312380bd18f4562532776d13ae8c091342e80fc45af96abd170e1"

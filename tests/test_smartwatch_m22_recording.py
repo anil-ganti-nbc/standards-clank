@@ -157,7 +157,12 @@ def test_m22_admits_exactly_one_smartwatch_com001_fact():
     assert admission["deployment_facts_after_admission"] == 9
     entries = json.loads(KNOWN.read_text(encoding="utf-8"))
     assert entries == build_known_evidence_index()
-    assert len(entries) == 16
+    # M57 resolved M56 debts D8/D9 by admitting Watch's and Smartphone's
+    # already-concluded COM-002 facts, taking the index 16 -> 18. This
+    # mission's own admission is unchanged; the global total is no longer
+    # pinned here, since a later legitimate admission is not this test's
+    # concern. What must still hold: this mission's fact is present once.
+    assert len(entries) == 18
     sw = [e for e in entries if e["subject"] == "smartwatch-clank"]
     assert len(sw) == 2
     by_standard = {e["standard"]: e for e in sw}

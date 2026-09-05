@@ -80,6 +80,14 @@
     "source_reference": "audits/semiconductor-persistent-state-remediation-m11-2026-09-01.md"
   },
   {
+    "standard": "STD-DEPLOY-COM-002",
+    "subject": "smartphone-clank",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "CONFORMS / CLOSED at canonical Smartphone main revision e514c45dca4cf966441c27799d98761096dc8c40 (source-level fail-closed compatibility evidence; no current-canon liveness claim beyond the separately-scoped COM-001 fact): database/schema_guard.py::ensure_schema_or_refuse is the production runtime barrier and raises SchemaError without mutating schema when the database has no Alembic revision stamped, or when current != head in either direction (behind, newer, or divergent), naming the reason and the remedy; it is wired into every production entry point \u2014 main.py init (l.99), main.py run (l.131), runtime/daemon.py startup (l.82) and runtime/run_once.py startup (l.216), the last being the scheduled one-shot collector path, where the barrier precedes get_session_factory/IntelligencePipeline construction and target building, and a SchemaError is logged as 'refusing to start: \u2026' and returns exit 1; Base.metadata.create_all is confined to init_fresh_database, which itself refuses when any table already exists, so create_all can never admit compatibility on an existing database. tests/wave1/test_schema_authority.py covers unstamped-DB refusal, old-DB refusal until upgraded, init_fresh_database refusal on a populated DB, new-model import not mutating an existing database, failed migration not stamping success, and ensure_tables_present_or_refuse raising without creating. Corroborating chronology only, NOT the proof basis: the canonical M1 blind sweep recorded Smartphone's schema guard as the positive COM-002 exception at 5684cf2c4d7bc962260bee85d0df32f68c962d46 and M10 therefore excluded Smartphone from the persistent-state remediation cohort; M48's live 0007->0008 transition is separately-scoped deployment history and is expressly not used as COM-002 proof. Resolves M56 debt D9.",
+    "source_reference": "audits/smartphone-deploy-com-002-m57-2026-09-05.md"
+  },
+  {
     "standard": "STD-DEPLOY-COM-001",
     "subject": "smartphone-clank",
     "kind": "known_conformance",
@@ -126,5 +134,13 @@
     "source": "audit",
     "summary": "LIVE_PROOF_CONFIRMED at Watch d03bc4b2f90289686331af0447d5ca4e8cf55822: independent target, full-SHA OCI/runtime provenance, congruent selector/config, 22/22 timer wiring, schema compatibility, complete convergence, and deployment-status COMPLETE (exit 0).",
     "source_reference": "audits/watch-clank-cross-domain-2026-09-01-final.md"
+  },
+  {
+    "standard": "STD-DEPLOY-COM-002",
+    "subject": "watch-clank",
+    "kind": "known_conformance",
+    "source": "audit",
+    "summary": "CONFORMS / CLOSED at canonical Watch main revision d03bc4b2f90289686331af0447d5ca4e8cf55822 (historical exact-source scope; no current-canon claim): app/db/schema_check.py compares the database's Alembic version against the code's single expected head and never applies migrations nor lazily creates tables, and scripts/run_pipeline.py enforces it as a startup barrier before any collection work is admitted \u2014 on any mismatch, including a genuinely fresh/uninitialized database with no alembic_version table, it logs structured schema_mismatch(expected, actual), prints the identifying refusal, raises a health alert and returns the dedicated EXIT_SCHEMA_MISMATCH=3 documented as 'migration / database failure -- schema does not match the code's expected Alembic head'; migration is reachable only through the separate explicit scripts/migrate.py. tests/test_schema_check.py covers fresh-uninitialized non-match, at-head match, older-revision non-match (002_ops_statuses vs head 015_qualification_reset_lineage), run_pipeline refusal with EXIT_SCHEMA_MISMATCH, and the health-alert path. Admission records the existing M4-series adjudication (audits/watch-clank-cross-domain-2026-09-01-reaudit.json: APPLIES/CONFORMS, evidence 'schema compatibility preflight and tests/test_schema_check.py'), carried as STILL_CONFORMS in audits/watch-clank-cross-domain-2026-09-01-final.json, which was never encoded into the machine-readable graph because the generator reads the .md findings block and the verdict lived in the .json companion. Resolves M56 debt D8.",
+    "source_reference": "audits/watch-deploy-com-002-m57-2026-09-05.md"
   }
 ]
