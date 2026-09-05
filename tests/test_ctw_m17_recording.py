@@ -270,8 +270,10 @@ def test_m17_admits_exactly_one_ctw_deployment_fact():
     entries = json.loads(KNOWN.read_text(encoding="utf-8"))
     assert entries == build_known_evidence_index()
     ctw = [e for e in entries if e["subject"] == "chinese-tech-wire"]
-    assert len(ctw) == 1 and ctw[0]["standard"] == "STD-DEPLOY-COM-002"
-    assert CTW_SHA in ctw[0]["summary"]
+    assert len(ctw) == 2  # COM-002 + COM-001 (CTW joins COM-001 at M52,
+    # audits/ctw-deployment-proof-m52-2026-09-05.md)
+    com002 = [e for e in ctw if e["standard"] == "STD-DEPLOY-COM-002"]
+    assert len(com002) == 1 and CTW_SHA in com002[0]["summary"]
     assert {e["subject"] for e in entries} == {
         "chinese-tech-wire", "feature-phone-clank", "korean-tech-wire",
         "oem-radar", "semiconductor-intelligence", "tablet-clank", "watch-clank",

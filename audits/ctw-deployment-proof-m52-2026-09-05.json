@@ -1,0 +1,246 @@
+{
+  "audit_id": "ctw-deployment-proof-m52-2026-09-05",
+  "mode": "LIVE_PROOF_EVIDENCE_RECORD_AND_ADMISSION",
+  "date": "2026-09-05",
+  "standards_clank_head": "7794c2a370b3b2d8a673c724ba687b534af0122f",
+  "ctw": {
+    "target": "chinese-tech-wire",
+    "head": "cfbd3158a5272aab6e67a2a9005be2c3a45544e6",
+    "origin_main": "cfbd3158a5272aab6e67a2a9005be2c3a45544e6",
+    "modified_in_this_pass": false,
+    "standard": "STD-DEPLOY-COM-001",
+    "state": "LIVE_PROOF_CONFIRMED",
+    "lifecycle": "CLOSED",
+    "deployment_target": "NAS:/volume2/clank/chinese-tech-wire",
+    "deployment_mechanism": "DSM Task Scheduler (hourly at :10 IST) -> host flock /tmp/ctw-nas-run.lock -> Docker one-shot chinese-tech-wire-nas-soak -> --full-once --scheduled",
+    "scope": "this exact source SHA + target + scheduler/lock/one-shot mechanism + delivery OFF"
+  },
+  "authority_cutover_history": {
+    "hetzner": {
+      "role": "previous authority, disabled rollback",
+      "staging_checkout": "9eec9f07f98425fdffd96433fd1748444a0a6dcf",
+      "image": "chinese-tech-wire:9eec9f0",
+      "cron_disabled_utc": "2026-08-27T13:46:55Z",
+      "last_run": {"id": 431, "status": "SUCCESS", "ended_utc": "2026-08-27T13:11:42Z"},
+      "rollback_note_preserved": true
+    },
+    "nas": {"role": "current authority since 2026-08-27 cutover"},
+    "dual_host_divergence_aug19_27": "historical, NOT merged; NAS DB sole authority",
+    "diagnostic_clank_incident": {
+      "id_cited": "2a18c8ae-f887-4018-ae56-8b03b39141ee",
+      "record_retrieved": false,
+      "reason": "governed desktop repo unavailable at documented path",
+      "classification": "historical evidence debt only"
+    }
+  },
+  "pre_deploy_state": {
+    "live_source": "552ffff",
+    "live_source_full": "552ffff472689470820aecdec3d6dfa6faf478a8",
+    "identity_evidence": [".deployed-id", ".env IMAGE_TAG", "image tag", "OCI org.opencontainers.image.revision label"],
+    "deployment_root": "/volume2/clank/chinese-tech-wire",
+    "db": {
+      "path": "/volume2/clank/chinese-tech-wire/state/ctw.db",
+      "size_bytes": 28147712,
+      "sha256": "63cd4b78fc35347ba9598dbf76cc9b47830c818feacc1ab77bef1d03e9f184ac",
+      "quick_check": "ok",
+      "tables": 21,
+      "schema_meta": "absent",
+      "classification_under_canon": "LEGACY_UNADOPTED",
+      "not_unknown": true,
+      "row_counts": {"articles": 12078, "source_runs": 7527, "ingestion_runs": 579}
+    }
+  },
+  "privilege_path_correction": {
+    "classification": "EARLIER_INFERENCE_SUPERSEDED_BY_STRONGER_EVIDENCE",
+    "actual_path": "NOPASSWD: /usr/local/bin/docker (pre-existing operator rule)",
+    "failure_mode": "bare 'docker' did not match the path-specific rule",
+    "privilege_changes": "none"
+  },
+  "backup": {
+    "path": "/volume2/clank/chinese-tech-wire/state/backups/ctw-pre-m51-20260905T011627Z.db",
+    "size_bytes": 28147712,
+    "sha256": "63cd4b78fc35347ba9598dbf76cc9b47830c818feacc1ab77bef1d03e9f184ac",
+    "sha_identical_to_live": true,
+    "quick_check": "ok",
+    "prior_backups_untouched": true
+  },
+  "source_artifact": {
+    "commit": "cfbd3158a5272aab6e67a2a9005be2c3a45544e6",
+    "form": "GitHub pinned-commit source tarball (no git binary on NAS)",
+    "tarball_sha256": "e09fc9f081e6258e3f23c6f045e893cc39ae97d2701ed971f1fda738233e27a2",
+    "canonical_tree_comparison": "TREES-IDENTICAL after correcting Windows core.autocrlf CRLF archive artifact",
+    "transfer_integrity": "sha256 verified after transfer to NAS",
+    "git_checkout_on_nas_claimed": false,
+    "stale_build_src_used": false
+  },
+  "build_incident": {
+    "classification": "PROCEDURAL_EVIDENCE_NOT_SOURCE_DEFECT",
+    "first_build": {
+      "context": "/volume2 (Synology NFSv4 ACLs)",
+      "result": "mode-000 application files in image; container PermissionError on entrypoint.sh",
+      "deployed": false
+    },
+    "second_build": {
+      "context": "/tmp clean-modes extraction",
+      "result": "canonical image chinese-tech-wire:cfbd3158a5272aab6e67a2a9005be2c3a45544e6 (id 5e7019a25f20)",
+      "correct_modes_verified": true
+    }
+  },
+  "dependency_gate": {
+    "classification": "DEPENDENCIES_COMPATIBLE",
+    "requirements_txt_diff": "empty",
+    "lock_added": "requirements.lock consumed via pip install --require-hashes",
+    "host_python_mutated": false
+  },
+  "scratch_adoption": {
+    "targeting_proof": {
+      "classification": "SCRATCH_TARGET_PROVEN_BEFORE_MUTATION",
+      "mount_marker": "scratch-mount-marker-m51 read from inside container",
+      "resolved_url": "sqlite:////app/data/ctw.db (bound to build/scratch-m51/)",
+      "uid_ownership_aligned": "10001:10001, matching live container contract",
+      "live_db_excluded": true
+    },
+    "pre_state": "LEGACY_UNADOPTED (21 tables, schema_meta absent, quick_check ok)",
+    "adopt_result": {"adopted": true, "state": "COMPATIBLE", "expected_schema_version": 1, "verified_tables": 22, "exit": 0},
+    "added": {"schema_meta_row": [1, "2026-09-05 01:24:27", "legacy-adoption"]},
+    "preservation": {
+      "original_21_table_row_counts": "all unchanged",
+      "indexes": "41 -> 41",
+      "views_triggers": "0 -> 0",
+      "quick_check": "ok",
+      "unrelated_schema_mutation": false
+    },
+    "scratch_health": {"operational_state": "healthy", "status_reasons": [], "database_writable": true, "total_runs": 579}
+  },
+  "final_old_source_checkpoint": {
+    "run_id": 580,
+    "trigger": "SCHEDULED",
+    "source": "552ffff",
+    "status": "SUCCESS",
+    "ended": "2026-09-05T07:11:12+05:30",
+    "used_as_canonical_proof": false
+  },
+  "live_adoption": {
+    "authorization": "explicit operator authorization in M51 mission, after scratch proof passed",
+    "preconditions": ["backup verified", "scratch PASS", "scratch health PASS", "canonical image built", "docker authority confirmed", "flock free"],
+    "result": {"adopted": true, "state": "COMPATIBLE", "expected_schema_version": 1, "verified_tables": 22, "exit": 0},
+    "matched_scratch": true,
+    "schema_meta_row": [1, "2026-09-05 01:42:24", "legacy-adoption"],
+    "post_adoption": {
+      "sha256": "8c137bc4c2c43e0cd56ce5838a77be685b4707836e5c9ae6508ba272dd679826",
+      "quick_check": "ok",
+      "articles": 12091,
+      "ingestion_runs": 580,
+      "automatic_migration": false
+    }
+  },
+  "pointer_transition": {
+    "from": "552ffff",
+    "to": "cfbd3158a5272aab6e67a2a9005be2c3a45544e6",
+    "files_changed": [".deployed-id", ".env"],
+    "files_unchanged": {
+      "run.sh": "e9cc1960251e9bb5c3c08a580d92d0129c79bb642dc998b8c334168e765ec6c6",
+      "scheduled-run.sh": "3614aa36750255d87be6cf89d66c5b04ec90b2ed0ad8a725313afc21f23da005",
+      "docker-compose.yml": "1bc0ae53ea5d2e7247ba11450b135ff46919d3f4592dfa3960dc5e9ba3ff15b3"
+    },
+    "identity_surfaces": {
+      "pinned_source_artifact": "cfbd3158a5272aab6e67a2a9005be2c3a45544e6",
+      "oci_revision_label": "cfbd3158a5272aab6e67a2a9005be2c3a45544e6",
+      "ctw_source_revision_env": "cfbd3158a5272aab6e67a2a9005be2c3a45544e6",
+      "identity_output": "cfbd3158a5272aab6e67a2a9005be2c3a45544e6",
+      "git_head_on_nas_claimed": false
+    }
+  },
+  "operational_contract": {
+    "scheduler": "DSM Task Scheduler, hourly at :10 IST",
+    "command": "--full-once --scheduled",
+    "host_lock": "flock -n /tmp/ctw-nas-run.lock",
+    "release_channel": "nas-soak",
+    "delivery": "OFF",
+    "state_mount": "/volume2/clank/chinese-tech-wire/state -> /app/data",
+    "active_sources": 13,
+    "duplicate_schedule": false,
+    "hetzner_reenabled": false
+  },
+  "natural_proof": {
+    "authoritative_run": {
+      "run_id": 581,
+      "trigger": "SCHEDULED",
+      "status": "SUCCESS",
+      "started_utc": "2026-09-05T02:40:04.050370Z",
+      "finished_utc": "2026-09-05T02:41:17.986059Z",
+      "duration_seconds": 73.94,
+      "source": "cfbd3158a5272aab6e67a2a9005be2c3a45544e6",
+      "articles_new": 20,
+      "community_threads_new": 2,
+      "leads_created": 100,
+      "alerts_sent": 0,
+      "alerts_evaluated": 100,
+      "alerts_suppressed": 100,
+      "errors": 0,
+      "warnings": 0
+    },
+    "source_scope": {
+      "executed": ["benchlife", "chiphell", "coolaler", "expreview", "hkepc", "ithome", "jd", "jiwei", "mobile01", "mydrivers", "technews", "xfastest", "zol"],
+      "count": 13,
+      "ok": 9,
+      "soft_blocked": 4,
+      "canonically_disabled_absent": ["ptt", "geekbench"],
+      "scope_match": true,
+      "soft_blocks_classified": "documented source health, not deployment failure"
+    },
+    "continuity": {
+      "articles": "12091 -> 12111",
+      "community_threads": "258 -> 260",
+      "source_runs": "7540 -> 7553",
+      "run_chain": "579 -> 580 -> 581 unbroken",
+      "replay": false,
+      "identity_reset": false,
+      "false_novelty_flood": false,
+      "history_discontinuity": false,
+      "scope_expansion": false,
+      "hetzner_divergence_merged": false
+    },
+    "compatibility_barrier": {
+      "classification": "BARRIER_HELD",
+      "schema_meta_after_run_581": [1, "2026-09-05 01:42:24", "legacy-adoption"],
+      "normal_operation_rewrote_authority": false
+    },
+    "post_run": {
+      "quick_check": "ok",
+      "health": {"operational_state": "healthy", "total_runs": 581, "last_run_status": "SUCCESS", "database_writable": true, "status_reasons": []},
+      "db_sha256": "e39b65a34b2b799c497b24ed98bceeeea27d1b9b91010ff8a50ff7fba0d922d5",
+      "delivery_still_off": true,
+      "rollback_triggered": false,
+      "old_image_retained": "chinese-tech-wire:552ffff",
+      "hetzner_still_disabled": true
+    },
+    "dashboard": "NOT_DEPLOYED / NOT_APPLICABLE (no server-side CTW dashboard exists on this target)"
+  },
+  "known_evidence_admission": {
+    "performed": true,
+    "layer": "standards/deployment/known-evidence-index.json",
+    "admitted": {
+      "subject": "chinese-tech-wire",
+      "revision": "cfbd3158a5272aab6e67a2a9005be2c3a45544e6",
+      "standard": "STD-DEPLOY-COM-001",
+      "state": "LIVE_PROOF_CONFIRMED",
+      "lifecycle": "CLOSED"
+    },
+    "admission_count": 1,
+    "prior_admissions_preserved": "all",
+    "com002_closure_preserved": "CONFORMS/CLOSED at c340a45 (M17), not re-closed or re-scoped"
+  },
+  "guards": {
+    "frozen_standard_files_changed": false,
+    "frozen_tags_changed_or_moved": false,
+    "ctw_source_modified_in_this_pass": false,
+    "nas_accessed_in_this_standards_pass": false,
+    "hetzner_reenabled": false,
+    "generalization_to_future_shas": false,
+    "generalization_to_other_targets": false,
+    "com002_reclosed": false,
+    "cutover_history_rewritten": false,
+    "full_target_conformance_claim": false
+  }
+}

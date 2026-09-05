@@ -310,7 +310,7 @@ def test_m49_known_evidence_index_admits_smartphone_com001():
     committed = json.loads(KNOWN.read_text(encoding="utf-8"))
     regenerated = build_known_evidence_index()
     assert committed == regenerated, "committed index is stale vs audits/*.md"
-    assert len(committed) == 14
+    assert len(committed) == 15
     sm = [
         e for e in committed
         if e["subject"] == "smartphone-clank" and e["standard"] == "STD-DEPLOY-COM-001"
@@ -322,10 +322,11 @@ def test_m49_known_evidence_index_admits_smartphone_com001():
 
 
 def test_m49_prior_admissions_preserved_verbatim():
-    """The 13 pre-M49 (subject, standard) pairs must all still be present."""
+    """The pre-M49 pairs plus the M52 CTW COM-001 admission must all be present."""
     committed = json.loads(KNOWN.read_text(encoding="utf-8"))
     pairs = {(e["subject"], e["standard"]) for e in committed}
     expected_prior = {
+        ("chinese-tech-wire", "STD-DEPLOY-COM-001"),
         ("chinese-tech-wire", "STD-DEPLOY-COM-002"),
         ("feature-phone-clank", "STD-DEPLOY-COM-001"),
         ("feature-phone-clank", "STD-DEPLOY-COM-002"),
